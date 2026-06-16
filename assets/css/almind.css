@@ -41,9 +41,11 @@ img, svg { display: block; max-width: 100%; }
 .trae-ramme { width: 100%; }
 .trae-ramme svg { width: 100%; height: auto; overflow: visible; }
 .trae-gren { fill: none; stroke: var(--fagfarve); stroke-width: 2.5; opacity: 0.45; }
-.trae-node circle { fill: var(--surface); stroke: var(--fagfarve); stroke-width: 2.5; transition: fill 0.15s; }
+.trae-node circle, .trae-node rect { fill: var(--surface); stroke: var(--fagfarve); stroke-width: 2; transition: fill 0.15s, stroke-width 0.15s; }
 .trae-node.aktiv circle { fill: var(--fagfarve); }
+.trae-node.aktiv rect { fill: color-mix(in srgb, var(--fagfarve) 12%, var(--surface)); stroke-width: 3; }
 .trae-node:hover circle, .trae-node:focus circle { fill: var(--fagfarve); }
+.trae-node:hover rect, .trae-node:focus rect { fill: color-mix(in srgb, var(--fagfarve) 8%, var(--surface)); }
 .trae-node text { fill: var(--ink); }
 .trae-node .node-version { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
 .trae-node .node-navn { font-family: var(--font-ui); font-size: 12px; fill: var(--muted); }
@@ -105,7 +107,7 @@ img, svg { display: block; max-width: 100%; }
 .dg-prikker { font-size: 0.85rem; letter-spacing: 3px; white-space: nowrap; }
 .dg-status-tekst { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
 .dg-raekke[data-status="tom"] .dg-status-tekst { color: var(--fagtekst, var(--ink)); }
-.p-fuld { color: var(--typ-green); } .p-delvis { color: var(--typ-yellow); } .p-tom { color: var(--border); }
+.p-fuld { color: var(--typ-green); } .p-delvis { color: var(--typ-yellow); } .p-tom { color: #a8a09a; }
 .plads { border: 2px dashed var(--fagfarve); border-radius: var(--r-modal); background: color-mix(in srgb, var(--fagfarve) 6%, transparent); margin: 0.9rem 0; }
 .plads summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.1rem; font-family: var(--font-ui); }
 .plads summary::-webkit-details-marker { display: none; }

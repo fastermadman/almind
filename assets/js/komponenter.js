@@ -17,7 +17,7 @@ export function forloebKort(f, alle) {
     <div class="kort-bund">
       <span class="metadata">${f.forfatter} · ${f.institution}</span>
       <div style="display:flex;align-items:center;gap:0.5rem;">
-        ${pladser > 0 ? `<span class="plads-badge">${pladser} åbn${pladser === 1 ? "" : "e"} plads${pladser === 1 ? "" : "er"}</span>` : ""}
+        ${pladser > 0 ? `<span class="plads-badge">${pladser} åb${pladser === 1 ? "en" : "ne"} plads${pladser === 1 ? "" : "er"}</span>` : ""}
         ${k.length > 1 ? miniGenealogi(k.length) : ""}
       </div>
     </div>`;
@@ -58,7 +58,7 @@ export function pladsFold(f, plads) {
 }
 export function fagBaand(alle) {
   const wrap = document.createElement("div"); wrap.className = "fagbaand";
-  const FAMILIER_DATA = [{ id: "hum", navn: "Humaniora", fag: "dansk, engelsk, tysk, samfundsfag, religion, filosofi" }, { id: "stem", navn: "STEM", fag: "matematik, fysik, kemi" }, { id: "natur", navn: "Natur", fag: "biologi, geografi, naturvidenskab" }, { id: "aes", navn: "Æstetik", fag: "musik, billedkunst, idraet, design" }];
+  const FAMILIER_DATA = [{ id: "hum", navn: "Humaniora", fag: "dansk, engelsk, tysk, samfundsfag, religion, filosofi" }, { id: "stem", navn: "STEM", fag: "matematik, fysik, kemi" }, { id: "natur", navn: "Natur", fag: "biologi, geografi, naturvidenskab" }, { id: "aes", navn: "Æstetik", fag: "musik, billedkunst, indræt, design" }];
   for (const fam of FAMILIER_DATA) {
     const antal = alle.filter((f) => familieFor(f.fag) === fam.id).length;
     const a = document.createElement("a"); a.href = `browse.html?fam=${fam.id}`; a.className = "fagfelt"; a.dataset.fag = fam.id;
