@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konstellation · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <style>
+    /* Kortlæg grafens semantiske variable til platform-tokens */
+    :root {
+      --okker:      var(--fag-hum);
+      --navy:       var(--accent);
+      --salvie:     var(--fag-natur);
+      --violet:     #7c3aed;
+      --bordeaux:   var(--fag-aes);
+      --blaek:      var(--ink);
+      --blaek-svag: rgba(44,36,32,.55);
+      --linje:      var(--border);
+      --kort:       var(--surface);
+    }
+
+    /* Intro */
+    .graf-intro { padding: 1.5rem 0 0.25rem; max-width: 640px; }
+    .graf-eyebrow {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--okker); margin: 0 0 10px;
+    }
+    .graf-h1 {
+      font-family: var(--font-logo); font-weight: 700;
+      font-size: clamp(22px, 3.2vw, 36px); line-height: 1.1;
+      letter-spacing: -.015em; margin: 0 0 10px; color: var(--ink);
+    }
+    .graf-ingress {
+      font-size: 15.5px; color: var(--blaek-svag); margin: 0; max-width: 56ch;
+    }
+    .graf-ingress strong { color: var(--ink); font-weight: 500; }
+
+    /* Stage */
+    #scene { position: relative; margin: 1rem 0 0; }
+    #stage {
+      position: relative; width: 100%;
+      height: min(72vh, 800px); min-height: 520px;
+      overflow: hidden;
+      border-radius: var(--r-kort); border: 1px solid var(--linje);
+      background: var(--surface-alt);
+    }
+    #stage svg { display: block; width: 100%; height: 100%; }
+    svg text { user-select: none; -webkit-user-select: none; }
+
+    .node circle.kerne { cursor: pointer; transition: fill-opacity .25s ease, stroke-width .25s ease; }
+    .node:hover circle.kerne { fill-opacity: .30; }
+    .node text.navn {
+      font-family: var(--font-ui); font-size: 11.5px; font-weight: 500;
+      fill: var(--blaek); opacity: .85; pointer-events: none;
+    }
+    .node text.gen {
+      font-family: var(--font-logo); font-size: 10px; font-weight: 700;
+      pointer-events: none;
+    }
+    .node circle.aaben { pointer-events: none; }
+
+    .link line.synlig { transition: stroke-opacity .25s ease; }
+    .link line.hit { stroke: transparent; stroke-width: 14px; cursor: pointer; }
+
+    .dim   { opacity: .10; transition: opacity .45s ease; }
+    .ghost { opacity: .05; transition: opacity .45s ease; }
+    .node, .link { transition: opacity .45s ease; }
+
+    .link.lit line.synlig {
+      stroke-width: 2.4px !important;
+      stroke-opacity: 1 !important;
+      animation: vandring 1.1s linear infinite;
+    }
+    @keyframes vandring { to { stroke-dashoffset: -14; } }
+
+    .ring { fill: none; stroke: var(--navy); pointer-events: none; }
+    .ringlabel {
+      font-family: var(--font-ui); font-size: 10.5px; font-weight: 600;
+      letter-spacing: .24em; text-transform: uppercase; fill: var(--blaek-svag);
+    }
+
+    /* Info-panel */
+    #panel {
+      position: absolute; top: 18px; right: 24px; width: 320px;
+      max-height: calc(100% - 36px); overflow-y: auto;
+      background: var(--kort); border: 1px solid var(--linje);
+      border-radius: var(--r-modal); padding: 20px 22px 18px;
+      box-shadow: 0 8px 28px rgba(44,36,32,.07);
+    }
+    #panel .pkicker {
+      font-family: var(--font-ui); font-size: 10.5px; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      margin: 0 0 10px; color: var(--blaek-svag);
+    }
+    #panel h2 {
+      font-family: var(--font-logo); font-weight: 600;
+      font-size: 19px; line-height: 1.15; margin: 0 0 4px;
+    }
+    #panel .meta {
+      font-family: var(--font-ui); font-size: 12px;
+      color: var(--blaek-svag); margin: 0 0 12px;
+    }
+    #panel p { font-size: 14px; margin: 0 0 10px; line-height: 1.5; }
+    #panel p:last-child { margin-bottom: 0; }
+    .fagchip {
+      display: inline-block; font-family: var(--font-ui); font-size: 11px;
+      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: var(--r-pill); margin: 0 0 10px; color: #fff;
+    }
+    .aaben-plads {
+      display: block; border: 1.5px dashed var(--okker);
+      border-radius: var(--r-knap); padding: 8px 12px; margin: 6px 0; font-size: 13px;
+    }
+    .aaben-plads b {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase;
+      display: block; color: var(--okker); margin-bottom: 2px;
+    }
+    .panel-aabn {
+      display: inline-block; margin-top: 12px;
+      font-family: var(--font-ui); font-size: 12.5px; font-weight: 600;
+      color: var(--navy); text-decoration: none;
+      border-bottom: 1.5px solid var(--navy); padding-bottom: 1px;
+    }
+    .panel-aabn:hover { opacity: .7; }
+    .panel-citat {
+      margin: 10px 0; padding: 8px 12px;
+      border-left: 3px solid var(--okker);
+      font-style: italic; font-size: 13.5px; color: var(--blaek-svag);
+    }
+    .panel-citat cite {
+      display: block; font-style: normal;
+      font-size: 11.5px; font-family: var(--font-ui); margin-top: 4px;
+    }
+    .hint {
+      font-size: 12.5px; color: var(--blaek-svag);
+      border-top: 1px solid var(--linje); margin-top: 14px; padding-top: 10px;
+    }
+    .hvorforbadge {
+      display: inline-block; font-family: var(--font-ui); font-size: 10.5px;
+      font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: var(--r-pill); margin-bottom: 10px; color: #fff;
+    }
+    .par {
+      font-family: var(--font-logo); font-weight: 600;
+      font-size: 16px; line-height: 1.4; margin: 0 0 10px;
+    }
+    .par em { font-style: normal; color: var(--blaek-svag); font-family: var(--font-ui); font-weight: 400; font-size: 13px; }
+
+    /* Legende */
+    #legende {
+      position: absolute; left: 18px; bottom: 18px;
+      font-family: var(--font-ui); font-size: 11.5px; color: var(--blaek-svag);
+      background: rgba(249,248,245,.92); backdrop-filter: blur(4px);
+      border-radius: var(--r-knap); padding: 10px 14px; line-height: 2;
+      border: 1px solid var(--linje);
+    }
+    #legende .sw {
+      display: inline-block; width: 20px; height: 0; vertical-align: middle;
+      margin-right: 7px; border-top: 2px solid var(--navy);
+    }
+    #legende .sw.tynd            { border-top-width: 1px; opacity: .5; }
+    #legende .sw.stiplet-okker   { border-top: 2px dashed var(--okker); }
+    #legende .sw.stiplet-salvie  { border-top: 2px dashed var(--salvie); }
+    #legende .sw.stiplet-violet  { border-top: 2px dashed var(--violet); }
+    #legende .prik {
+      display: inline-block; width: 10px; height: 10px; border-radius: 99px;
+      border: 1.5px dashed var(--okker); vertical-align: middle;
+      margin-right: 7px; margin-left: 4px;
+    }
+
+    /* Noget andet */
+    #nogetandet {
+      position: absolute; right: 24px; bottom: 18px;
+      font-family: var(--font-ui); font-size: 13.5px; font-weight: 500;
+      letter-spacing: .04em; color: var(--navy);
+      background: var(--kort); border: 1.5px solid var(--navy);
+      border-radius: var(--r-pill); padding: 10px 20px;
+      cursor: pointer; transition: background .2s, color .2s, transform .15s;
+    }
+    #nogetandet:hover  { background: var(--navy); color: var(--bg); }
+    #nogetandet:active { transform: scale(.97); }
+    #nogetandet:focus-visible { outline: 2px solid var(--okker); outline-offset: 3px; }
+
+    /* Tooltip */
+    #tip {
+      position: fixed; pointer-events: none;
+      font-family: var(--font-ui); font-size: 12px;
+      background: var(--ink); color: var(--bg);
+      padding: 6px 11px; border-radius: 8px;
+      opacity: 0; transition: opacity .15s; z-index: 10; max-width: 260px;
+    }
+
+    /* Fodnote */
+    .graf-fodnote { margin: 1rem 0 0.25rem; font-size: 13px; color: var(--blaek-svag); }
+    .graf-fodnote p { margin: 0 0 4px; }
+
+    @media (max-width: 860px) {
+      #stage { height: 58vh; min-height: 440px; }
+      #panel { position: static; width: auto; max-height: none; margin: 12px 0 0; }
+      #legende { position: static; display: inline-block; margin-top: 10px; }
+      #nogetandet { position: static; display: block; margin: 12px 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="site-header">
+    <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html">Forside</a>
+      <a href="browse.html">Alle forløb</a>
+      <a href="graph.html" class="aktiv">Konstellation</a>
+      <a href="preview.html?id=dss-v1">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
+  </header>
+
+  <div class="graf-intro">
+    <p class="graf-eyebrow">Konstellation</p>
+    <h1 class="graf-h1">Et forløb er ikke en fil i en mappe.</h1>
+    <p class="graf-ingress">Det er en node med tyngdekraft. <strong>Klik på et forløb</strong> og se hvad det trækker til sig — slægten inderst, det nære i midten, det uventede yderst. Det er dér, i den yderste ring, det interessante sker.</p>
+  </div>
+
+  <div id="scene">
+    <div id="stage">
+      <svg aria-label="Graf over undervisningsforløb og deres relationer"></svg>
+      <aside id="panel" aria-live="polite"></aside>
+      <div id="legende">
+        <span class="sw"></span>fork — slægtskab med arv<br>
+        <span class="sw tynd"></span>nær relation<br>
+        <span class="sw stiplet-okker"></span>delt åben plads &nbsp;
+        <span class="sw stiplet-salvie"></span>delt greb &nbsp;
+        <span class="sw stiplet-violet"></span>delt empiri<br>
+        <span class="prik"></span>forløbet lader pladser stå åbne
+      </div>
+      <button id="nogetandet" type="button">Noget andet →</button>
+    </div>
+  </div>
+
+  <div class="graf-fodnote">
+    <p>Strukturen er ægte: Den Svære Samtale findes i tre generationer, og de fem temaer er undervist i 8.D, Silkeborg, foråret 2026.</p>
+    <p>Ringene følger Justin Kirkwoods annularitetsprincip (<em>Liber Indigo</em>): struktur som cirkler udad, ikke hierarki nedad.</p>
+  </div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+
+<div id="tip" role="presentation"></div>
+
+<script type="module">
+import { hentForloeb } from "./assets/js/data.js";
+
+const REDUCERET = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Farver (matcher tokens.css) ---------- */
+const FAG_FARVE = {
+  "dansk":        "#dc9848",
+  "matematik":    "#16233a",
+  "fysik":        "#16233a",
+  "teknik":       "#16233a",
+  "natur/teknik": "#4a6b58",
+  "geografi":     "#4a6b58",
+  "biologi":      "#4a6b58",
+  "musik":        "#8a2e3e",
+  "billedkunst":  "#8a2e3e",
+  "drama":        "#8a2e3e",
+  "idræt":        "#8a2e3e",
+};
+const FAG_NAVN = {
+  "dansk": "Dansk", "matematik": "Matematik", "fysik": "Fysik", "teknik": "Teknik",
+  "natur/teknik": "Natur/teknik", "geografi": "Geografi", "biologi": "Biologi",
+  "musik": "Musik", "billedkunst": "Billedkunst", "drama": "Drama", "idræt": "Idræt",
+};
+const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed" };
+const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament" };
+
+/* ---------- Data fra forloeb.json ---------- */
+const alle = await hentForloeb();
+
+/* NODER: auto-bygget */
+const NODER = alle.map(f => {
+  const hasForks = (f.forks || []).length > 0;
+  const isForked = !!f.fork_af;
+  let r = 11;
+  if (hasForks && isForked)      r = 15;
+  else if (hasForks)             r = 13;
+  else if (isForked)             r = 13;
+  if (f.fag === "dansk" && !isForked) r += 1;
+  return {
+    id:         f.id,
+    navn:       f.titel,
+    gen:        f.generation > 0 ? `V${f.generation}` : null,
+    fag:        f.fag,
+    r,
+    forfatter:  f.forfatter,
+    aar:        f.aar,
+    om:         f.beskrivelse,
+    diff:       f.diff  || null,
+    citat:      f.citat || null,
+    tomme:      (f.tomme_pladser || []).map(p => ({ dim: p.dimension, tekst: p.besked })),
+    forloebUrl: `sequence.html?id=${f.id}`,
+  };
+});
+
+/* Fork-KANTER: auto-udledt fra fork_af */
+const FORK_KANTER = alle
+  .filter(f => f.fork_af)
+  .map(f => ({
+    source: f.fork_af,
+    target: f.id,
+    type:   "fork",
+    af:     f.forfatter,
+    dato:   String(f.aar),
+    diff:   f.diff  || null,
+    citat:  f.citat || null,
+  }));
+
+/* Nære relationer: redaktionelt kurateret */
+const NAER_KANTER = [
+  { source: "tema1-mundtlighed",  target: "dss-v1",            type: "naer", note: "Dilemmaspillet er fase 3 i temaet — udskilt som selvstændigt forløb med egen genealogi." },
+  { source: "tema1-mundtlighed",  target: "tema2-laesning",    type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
+  { source: "tema2-laesning",     target: "tema3-skrivning",   type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
+  { source: "tema3-skrivning",    target: "tema4-kortfilm",    type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
+  { source: "tema4-kortfilm",     target: "tema5-journalistik", type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
+];
+
+/* Svage tværfaglige forbindelser: redaktionelt kurateret */
+const SVAGE_KANTER = [
+  { source: "dss-v2",             target: "stroem-i-huset",      type: "plads",  deler: "differentiering",
+    forklaring: "To fag der aldrig mødes i et fagteam — og begge forløb lader præcis samme dør stå åben. Lukas: »den didaktik der flytter mønstret, er stadig en åben plads.« Anders: »fejlfindingsopgaverne findes kun i én sværhedsgrad.« Ingen af dem kender din klasse. Det gør du." },
+  { source: "tema2-laesning",     target: "broekvaerkstedet",    type: "plads",  deler: "evaluering",
+    forklaring: "Et fortolkningsfællesskab i dansk og et brøkværksted i matematik — begge slutter med materiale der kunne bære en evaluering, og begge overlader formen til den næste lærer. Den der bygger formen ét sted, har sandsynligvis bygget den begge steder." },
+  { source: "tema3-skrivning",    target: "aaen-bag-skolen",     type: "plads",  deler: "organisering — stedet",
+    forklaring: "Begge forløb står og falder med et konkret sted: skoven bag fiktionen, åen bag skolen. Og begge nægter at planlægge stedet for dig — fordi det ikke kan planlægges på afstand. Stedet er din plads." },
+  { source: "dss-v1",             target: "stomp-skolegaarden",  type: "metode", deler: "kollektiv form uden facit",
+    forklaring: "Standpunktskift på signal og polyrytmisk lagdeling er samme didaktiske greb: en fælles struktur hvor turtagningen selv er indholdet, og hvor ingen enkelt stemme har facit. Den der har styret det ene rum, kan styre det andet." },
+  { source: "tema4-kortfilm",     target: "plakaten-der-raaber", type: "metode", deler: "analysens vending til produktion",
+    forklaring: "Raskins parametre og virkemiddeljagten vendes begge om: det redskab der afslørede andres valg, bliver elevens eget designværktøj. Den der har analyseret en overraskelse, ved hvad det koster at skabe én." },
+  { source: "tema5-journalistik", target: "vejret-over-danmark", type: "empiri", deler: "to kilder, samme virkelighed",
+    forklaring: "Reuters mod Ritzau. Klassens målinger mod DMI. Samme empiriske fundament: hold to fremstillinger af samme virkelighed op mod hinanden, og lad afvigelsen være det der undervises i." },
+];
+
+const KANTER = [...FORK_KANTER, ...NAER_KANTER, ...SVAGE_KANTER];
+
+/* Start-positioner (bevaret fra original-grafen) */
+const SEED = {
+  "dss-v0":              [.30, .26],
+  "dss-v1":              [.36, .46],
+  "dss-v2":              [.30, .68],
+  "tema1-mundtlighed":   [.50, .38],
+  "tema2-laesning":      [.56, .58],
+  "tema3-skrivning":     [.62, .40],
+  "tema4-kortfilm":      [.66, .62],
+  "tema5-journalistik":  [.72, .44],
+  "broekvaerkstedet":    [.80, .70],
+  "stroem-i-huset":      [.16, .78],
+  "aaen-bag-skolen":     [.84, .30],
+  "vejret-over-danmark": [.88, .56],
+  "stomp-skolegaarden":  [.14, .50],
+  "plakaten-der-raaber": [.78, .18],
+};
+
+/* ---------- SVG-opsætning ---------- */
+const stage   = document.getElementById("stage");
+const svg     = d3.select("#stage svg");
+const tip     = document.getElementById("tip");
+const panelEl = document.getElementById("panel");
+
+let W = stage.clientWidth, H = stage.clientHeight;
+svg.attr("viewBox", `0 0 ${W} ${H}`);
+
+const defs = svg.append("defs");
+defs.append("marker").attr("id", "pil")
+  .attr("viewBox", "0 0 8 8").attr("refX", 7).attr("refY", 4)
+  .attr("markerWidth", 7).attr("markerHeight", 7).attr("orient", "auto")
+  .append("path").attr("d", "M0,0.8 L7,4 L0,7.2").attr("fill", "none")
+  .attr("stroke", "#1f3b2c").attr("stroke-width", 1.4).attr("stroke-linecap", "round");
+
+const bg      = svg.append("rect").attr("x", 0).attr("y", 0)
+  .attr("width", "100%").attr("height", "100%")
+  .attr("fill", "transparent").style("cursor", "default");
+const gRinge  = svg.append("g");
+const gKanter = svg.append("g");
+const gNoder  = svg.append("g");
+
+NODER.forEach(n => {
+  const s = SEED[n.id] || [.5 + (Math.random() - .5) * .5, .5 + (Math.random() - .5) * .5];
+  n.x = s[0] * W; n.y = s[1] * H;
+  n.tx = W / 2;   n.ty = H / 2; n.sx = .045; n.sy = .065;
+});
+
+/* ---------- Kanter ---------- */
+function kantFarve(d) {
+  if (d.type === "fork" || d.type === "naer") return "#1f3b2c";
+  return TYPEFARVE[d.type];
+}
+const kantSel = gKanter.selectAll("g.link").data(KANTER).join("g").attr("class", "link");
+kantSel.append("line").attr("class", "synlig")
+  .attr("stroke",        kantFarve)
+  .attr("stroke-width",  d => d.type === "fork" ? 2 : d.type === "naer" ? 1 : 1.4)
+  .attr("stroke-opacity",d => d.type === "fork" ? .85 : d.type === "naer" ? .28 : .55)
+  .attr("stroke-dasharray", d => (d.type === "fork" || d.type === "naer") ? null : "5 7")
+  .attr("stroke-linecap","round")
+  .attr("marker-end",    d => d.type === "fork" ? "url(#pil)" : null);
+kantSel.append("line").attr("class", "hit");
+
+/* ---------- Noder ---------- */
+const nodeSel = gNoder.selectAll("g.node").data(NODER).join("g")
+  .attr("class", "node").style("cursor", "pointer");
+
+nodeSel.filter(d => d.tomme && d.tomme.length)
+  .append("circle").attr("class", "aaben")
+  .attr("r", d => d.r + 5.5).attr("fill", "none")
+  .attr("stroke", "#dc9848").attr("stroke-width", 1.5)
+  .attr("stroke-dasharray", "1.5 5").attr("stroke-linecap", "round").attr("opacity", .9);
+
+nodeSel.append("circle").attr("class", "kerne")
+  .attr("r",            d => d.r)
+  .attr("fill",         d => FAG_FARVE[d.fag] || "#8a7e74")
+  .attr("fill-opacity", .16)
+  .attr("stroke",       d => FAG_FARVE[d.fag] || "#8a7e74")
+  .attr("stroke-width", 1.6);
+
+nodeSel.filter(d => d.gen).append("text").attr("class", "gen")
+  .attr("text-anchor", "middle").attr("dy", "0.34em")
+  .attr("fill", d => FAG_FARVE[d.fag] || "#8a7e74")
+  .text(d => d.gen);
+
+nodeSel.append("text").attr("class", "navn")
+  .attr("text-anchor", "middle")
+  .attr("dy", d => d.r + 18)
+  .text(d => d.gen ? `${d.navn} ${d.gen}` : d.navn);
+
+if (!REDUCERET) {
+  nodeSel.attr("opacity", 0).transition().delay((d, i) => 120 + i * 55).duration(450).attr("opacity", 1);
+  kantSel.attr("opacity", 0).transition().delay((d, i) => 420 + i * 45).duration(450).attr("opacity", 1);
+}
+
+/* ---------- Simulation ---------- */
+const sim = d3.forceSimulation(NODER)
+  .force("link", d3.forceLink(KANTER).id(d => d.id)
+    .distance(d => d.type === "fork" ? 95 : d.type === "naer" ? 115 : 185)
+    .strength(d => d.type === "fork" ? 0.85 : d.type === "naer" ? 0.30 : 0.04))
+  .force("charge", d3.forceManyBody().strength(-380))
+  .force("collide", d3.forceCollide().radius(d => d.r + 30))
+  .force("fx", d3.forceX(d => d.tx).strength(d => d.sx))
+  .force("fy", d3.forceY(d => d.ty).strength(d => d.sy))
+  .on("tick", tegn);
+
+function tegn() {
+  kantSel.each(function(d) {
+    const g = d3.select(this);
+    let x1 = d.source.x, y1 = d.source.y, x2 = d.target.x, y2 = d.target.y;
+    g.select("line.hit").attr("x1", x1).attr("y1", y1).attr("x2", x2).attr("y2", y2);
+    if (d.type === "fork") {
+      const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+      const o1 = d.source.r + 6, o2 = d.target.r + 12;
+      x1 += dx / L * o1; y1 += dy / L * o1;
+      x2 -= dx / L * o2; y2 -= dy / L * o2;
+    }
+    g.select("line.synlig").attr("x1", x1).attr("y1", y1).attr("x2", x2).attr("y2", y2);
+  });
+  nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
+}
+
+function faldTilRo() { for (let i = 0; i < 300; i++) sim.tick(); tegn(); }
+if (REDUCERET) { sim.stop(); faldTilRo(); }
+
+function genstart() {
+  sim.force("link").strength(sim.force("link").strength());
+  sim.force("fx").x(d => d.tx).strength(d => d.sx);
+  sim.force("fy").y(d => d.ty).strength(d => d.sy);
+  sim.force("collide").radius(sim.force("collide").radius());
+  if (REDUCERET) { sim.alpha(1); sim.stop(); faldTilRo(); }
+  else sim.alpha(0.9).restart();
+}
+
+/* ---------- Fokus-tilstand ---------- */
+let fokus = null;
+let setSvage = new Set();
+
+const naboKanter = id => KANTER.filter(k => k.source.id === id || k.target.id === id);
+
+function slaegt(id) {
+  const fam = new Set([id]);
+  let voksede = true;
+  while (voksede) {
+    voksede = false;
+    KANTER.filter(k => k.type === "fork").forEach(k => {
+      if (fam.has(k.source.id) && !fam.has(k.target.id)) { fam.add(k.target.id); voksede = true; }
+      if (fam.has(k.target.id) && !fam.has(k.source.id)) { fam.add(k.source.id); voksede = true; }
+    });
+  }
+  fam.delete(id);
+  return fam;
+}
+
+function ringeFor(d) {
+  const r1 = slaegt(d.id);
+  const r3 = new Set();
+  naboKanter(d.id).forEach(k => {
+    if (k.type === "plads" || k.type === "metode" || k.type === "empiri") {
+      r3.add(k.source.id === d.id ? k.target.id : k.source.id);
+    }
+  });
+  const r2 = new Set();
+  NODER.forEach(n => {
+    if (n.id === d.id || r1.has(n.id) || r3.has(n.id)) return;
+    const naerKant = naboKanter(d.id).some(k => k.type === "naer" &&
+      (k.source.id === n.id || k.target.id === n.id));
+    if (naerKant || n.fag === d.fag) r2.add(n.id);
+  });
+  return { r1, r2, r3 };
+}
+
+function visFokus(d) {
+  fokus = d;
+  const cx = W * 0.42, cy = H * 0.52;
+  const rMax = Math.min(W * 0.78, H) / 2 - 64;
+  const R = [rMax * 0.40, rMax * 0.70, rMax];
+  const { r1, r2, r3 } = ringeFor(d);
+  const ringe = [[...r1], [...r2], [...r3]];
+
+  d.fx = cx; d.fy = cy;
+  const vist = new Set([d.id, ...r1, ...r2, ...r3]);
+
+  NODER.forEach(n => {
+    if (n.id === d.id) return;
+    n.fx = null; n.fy = null;
+    let ri = -1;
+    if      (r1.has(n.id)) ri = 0;
+    else if (r2.has(n.id)) ri = 1;
+    else if (r3.has(n.id)) ri = 2;
+    if (ri >= 0) {
+      const flok = ringe[ri], i = flok.indexOf(n.id);
+      const vinkel = -Math.PI / 2 + (i / flok.length) * 2 * Math.PI + ri * 0.5;
+      n.tx = cx + R[ri] * Math.cos(vinkel);
+      n.ty = cy + R[ri] * Math.sin(vinkel);
+      n.sx = n.sy = 0.30;
+    } else {
+      const v = Math.atan2(n.y - cy, n.x - cx);
+      n.tx = cx + (rMax + 70) * Math.cos(v);
+      n.ty = cy + (rMax + 70) * Math.sin(v);
+      n.sx = n.sy = 0.12;
+    }
+  });
+
+  sim.force("charge").strength(-60);
+  sim.force("link").strength(0.002);
+  sim.force("collide").radius(n => n.r + 10);
+  genstart();
+
+  const navne = ["slægt", "nært", "fjernt — her sker det"];
+  const data  = R.map((r, i) => ({ r, navn: navne[i], i }));
+  const ring  = gRinge.selectAll("g.ringg").data(data, dd => dd.i);
+  const ny    = ring.enter().append("g").attr("class", "ringg");
+  ny.append("circle").attr("class", "ring");
+  ny.append("path").attr("class", "ringsti").attr("fill", "none").attr("id", dd => "ringsti" + dd.i);
+  ny.append("text").attr("class", "ringlabel")
+    .append("textPath").attr("href", dd => "#ringsti" + dd.i)
+    .attr("startOffset", "50%").attr("text-anchor", "middle");
+  const alle2 = ny.merge(ring);
+  alle2.select("circle.ring")
+    .attr("cx", cx).attr("cy", cy)
+    .attr("stroke-width", dd => dd.i === 0 ? 1.1 : 0.8)
+    .attr("stroke-dasharray", dd => dd.i === 2 ? "2 6" : null)
+    .attr("opacity", 0)
+    .attr("r", dd => REDUCERET ? dd.r : dd.r * 0.92);
+  alle2.select("path.ringsti").attr("d", dd => {
+    const rr = dd.r + 13;
+    return `M ${cx - rr} ${cy} A ${rr} ${rr} 0 0 1 ${cx + rr} ${cy}`;
+  });
+  alle2.select("textPath").text(dd => dd.navn.toUpperCase());
+  alle2.select("text.ringlabel").attr("opacity", 0);
+  if (REDUCERET) {
+    alle2.select("circle.ring").attr("opacity", .22);
+    alle2.select("text.ringlabel").attr("opacity", 1);
+  } else {
+    alle2.select("circle.ring").transition().delay(dd => 180 + dd.i * 160).duration(700)
+      .attr("opacity", .22).attr("r", dd => dd.r);
+    alle2.select("text.ringlabel").transition().delay(dd => 420 + dd.i * 160).duration(500)
+      .attr("opacity", 1);
+  }
+  ring.exit().remove();
+
+  nodeSel.classed("dim", n => !vist.has(n.id) && n.id !== d.id);
+  kantSel.classed("ghost", k => {
+    const roerer  = k.source.id === d.id || k.target.id === d.id;
+    const familie = k.type === "fork" && vist.has(k.source.id) && vist.has(k.target.id);
+    return !(roerer || familie);
+  }).classed("dim", false).classed("lit", false);
+
+  visNodePanel(d);
+}
+
+function slip() {
+  fokus = null;
+  NODER.forEach(n => {
+    n.fx = null; n.fy = null;
+    n.tx = W / 2; n.ty = H / 2; n.sx = .045; n.sy = .065;
+  });
+  sim.force("charge").strength(-380);
+  sim.force("link").strength(k => k.type === "fork" ? 0.85 : k.type === "naer" ? 0.30 : 0.04);
+  sim.force("collide").radius(n => n.r + 30);
+  genstart();
+  gRinge.selectAll("g.ringg").remove();
+  nodeSel.classed("dim", false);
+  kantSel.classed("ghost", false).classed("dim", false).classed("lit", false);
+}
+
+/* ---------- Panel ---------- */
+function visIntro() {
+  panelEl.innerHTML = `
+    <p class="pkicker">Konstellation</p>
+    <h2>Det her er ikke et arkiv</h2>
+    <p>Hvert punkt er et undervisningsforløb. De fulde streger er <strong>slægtskab</strong>: Den Svære Samtale findes i tre generationer, og hver streg husker hvem der forkede, hvornår — og hvad der ændrede sig.</p>
+    <p>De stiplede streger er <strong>svage forbindelser</strong> på tværs af fag. Ingen har kurateret dem ovenfra; de findes fordi forløbene deler noget — en åben plads, et greb, et empirisk fundament.</p>
+    <p class="hint">Prøv: klik på <em>Den Svære Samtale V1</em> — eller på stregen mellem V1 og V2.</p>`;
+}
+
+function visNodePanel(d) {
+  const farve   = FAG_FARVE[d.fag] || "#8a7e74";
+  const fagnavn = FAG_NAVN[d.fag]  || d.fag;
+  const pladser = (d.tomme || []).map(p =>
+    `<span class="aaben-plads"><b>åben · ${p.dim}</b>${p.tekst}</span>`).join("");
+  panelEl.innerHTML = `
+    <p class="pkicker">Axis mundi</p>
+    <span class="fagchip" style="background:${farve}">${fagnavn}</span>
+    <h2>${d.navn}${d.gen ? ` <span style="color:${farve}">${d.gen}</span>` : ""}</h2>
+    <p class="meta">${d.forfatter} · ${d.aar}</p>
+    <p>${d.om}</p>
+    ${pladser}
+    <a class="panel-aabn" href="${d.forloebUrl}">Åbn forløbet →</a>
+    <p class="hint">Ringene viser hvad forløbet trækker til sig: slægten inderst, det nære fag i midten, de svage forbindelser yderst. Klik på baggrunden for at slippe.</p>`;
+}
+
+function visForkPanel(k) {
+  const a = NODER.find(n => n.id === k.source.id);
+  const b = NODER.find(n => n.id === k.target.id);
+  panelEl.innerHTML = `
+    <p class="pkicker">Slægtskab — kanten husker</p>
+    <h2>${a ? a.navn : k.source.id}${a?.gen ? " " + a.gen : ""} → ${b ? b.navn : k.target.id}${b?.gen ? " " + b.gen : ""}</h2>
+    <p class="meta">Forket af ${k.af} · ${k.dato}</p>
+    ${k.diff  ? `<p>${k.diff}</p>` : ""}
+    ${k.citat ? `<blockquote class="panel-citat">"${k.citat.tekst}"<cite>— ${k.citat.hvem}</cite></blockquote>` : ""}
+    <p class="hint">Alt dette bor på selve relationen — ikke i et dokument ved siden af. Det er forskellen på en versionsliste og en genealogi.</p>`;
+}
+
+function visNaerPanel(k) {
+  const a = NODER.find(n => n.id === k.source.id);
+  const b = NODER.find(n => n.id === k.target.id);
+  panelEl.innerHTML = `
+    <p class="pkicker">Nær relation</p>
+    <h2>${a ? a.navn : k.source.id} · ${b ? b.navn : k.target.id}</h2>
+    <p>${k.note}</p>`;
+}
+
+function visHvorforPanel(k) {
+  const a = NODER.find(n => n.id === k.source.id);
+  const b = NODER.find(n => n.id === k.target.id);
+  panelEl.innerHTML = `
+    <p class="pkicker">Den yderste ring</p>
+    <span class="hvorforbadge" style="background:${TYPEFARVE[k.type]}">${TYPENAVN[k.type]}</span>
+    <p class="par">
+      ${a ? a.navn : k.source.id}${a?.gen ? " " + a.gen : ""}
+      <em>· <span style="color:${FAG_FARVE[a?.fag] || "#8a7e74"}">${FAG_NAVN[a?.fag] || a?.fag || ""}</span></em><br>
+      ${b ? b.navn : k.target.id}
+      <em>· <span style="color:${FAG_FARVE[b?.fag] || "#8a7e74"}">${FAG_NAVN[b?.fag] || b?.fag || ""}</span></em>
+    </p>
+    <p><strong>Deler:</strong> ${k.deler}</p>
+    <p>${k.forklaring}</p>
+    <p class="hint">Forbindelsen er ikke anbefalet af en algoritme der kender din historik. Den findes i strukturen — og den ventede bare på at blive set.</p>`;
+}
+
+/* ---------- Noget andet ---------- */
+const svage = KANTER.filter(k => k.type === "plads" || k.type === "metode" || k.type === "empiri");
+
+function spotlight(k) {
+  kantSel.classed("lit",   kk => kk === k)
+         .classed("ghost", kk => kk !== k && !(fokus && (kk.source.id === fokus.id || kk.target.id === fokus.id)));
+  nodeSel.classed("dim", n => {
+    if (n.id === k.source.id || n.id === k.target.id) return false;
+    if (fokus && n.id === fokus.id) return false;
+    return true;
+  });
+  visHvorforPanel(k);
+}
+
+function nogetAndet() {
+  let kand = svage.filter(k => !setSvage.has(k));
+  if (!kand.length) { setSvage.clear(); kand = svage.slice(); }
+  if (fokus) {
+    const lok = kand.filter(k => k.source.id === fokus.id || k.target.id === fokus.id);
+    if (lok.length) kand = lok;
+  }
+  const k = kand[Math.floor(Math.random() * kand.length)];
+  setSvage.add(k);
+  spotlight(k);
+}
+
+document.getElementById("nogetandet").addEventListener("click", nogetAndet);
+
+/* ---------- Interaktion ---------- */
+nodeSel.on("click", (ev, d) => {
+  ev.stopPropagation();
+  if (fokus === d) { slip(); visIntro(); } else visFokus(d);
+});
+kantSel.on("click", (ev, k) => {
+  ev.stopPropagation();
+  if (k.type === "fork")      visForkPanel(k);
+  else if (k.type === "naer") visNaerPanel(k);
+  else                        spotlight(k);
+});
+bg.on("click", () => { slip(); visIntro(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { slip(); visIntro(); } });
+
+/* ---------- Tooltips ---------- */
+kantSel.on("mousemove", (ev, d) => {
+  tip.textContent = d.type === "fork" ? `Forket af ${d.af} · ${d.dato} — klik for historikken`
+    : d.type === "naer" ? d.note
+    : `${TYPENAVN[d.type]}: ${d.deler} — klik for hvorfor`;
+  tip.style.left = (ev.clientX + 14) + "px";
+  tip.style.top  = (ev.clientY + 10) + "px";
+  tip.style.opacity = 1;
+}).on("mouseleave", () => { tip.style.opacity = 0; });
+
+nodeSel.on("mousemove", (ev, d) => {
+  tip.textContent = (d.tomme && d.tomme.length)
+    ? `${d.navn}${d.gen ? " " + d.gen : ""} — lader ${d.tomme.length} plads${d.tomme.length > 1 ? "er" : ""} stå åben`
+    : `${d.navn}${d.gen ? " " + d.gen : ""}`;
+  tip.style.left = (ev.clientX + 14) + "px";
+  tip.style.top  = (ev.clientY + 10) + "px";
+  tip.style.opacity = 1;
+}).on("mouseleave", () => { tip.style.opacity = 0; });
+
+/* ---------- Resize ---------- */
+let rto;
+window.addEventListener("resize", () => {
+  clearTimeout(rto);
+  rto = setTimeout(() => {
+    W = stage.clientWidth; H = stage.clientHeight;
+    svg.attr("viewBox", `0 0 ${W} ${H}`);
+    slip(); visIntro();
+  }, 180);
+});
+
+visIntro();
+</script>
+</body>
+</html>
