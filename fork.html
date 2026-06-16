@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fork et forløb · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container" id="side">
+  <header class="site-header">
+    <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
+    <nav class="site-nav"><a href="index.html">Forside</a><a href="browse.html">Alle forløb</a><a href="preview.html?id=dss-v1">Preview</a><a class="knap" href="upload.html">Del et forløb</a></nav>
+  </header>
+  <div class="wizard">
+    <h1>Fork: byg videre</h1>
+    <div class="arvelinje" id="arvelinje"></div>
+    <div id="original-dg" style="margin-bottom:2rem;"></div>
+    <p class="intro">Alt herunder er forudfyldt fra originalen og markeret som arvet. Du redidaktiserer: ret det der skal passe din klasse, og lad resten stå. Originalen krediteres automatisk i forløbets genealogi.</p>
+    <div id="wizard-rod"></div>
+  </div>
+  <footer class="site-footer"><span>Almind · non-profit, fællesejet infrastruktur for læremidler</span><span>Alt indhold: CC BY-SA 4.0</span></footer>
+</div>
+<script type="module">
+  import { hentForloeb, findForloeb, familieFor, DIM_NAVNE } from "./assets/js/data.js";
+  import { dgProfil } from "./assets/js/komponenter.js";
+  import { startWizard } from "./assets/js/wizard.js";
+  const alle = await hentForloeb();
+  const params = new URLSearchParams(location.search);
+  const original = findForloeb(alle, params.get("id")) || findForloeb(alle, "dss-v1");
+  const startDimension = params.get("dimension");
+  document.getElementById("side").dataset.fag = familieFor(original.fag);
+  document.title = `Fork: ${original.titel} · Almind`;
+  document.getElementById("arvelinje").innerHTML = `<span class="tag">${original.fag}</span><span>Du bygger videre på <strong>${original.titel}${original.undertitel ? ": " + original.undertitel : ""}</strong></span><span class="metadata">${original.forfatter} · ${original.institution} · ${original.aar} · ${original.licens}</span>`;
+  const dgWrap = document.getElementById("original-dg");
+  const panel = document.createElement("div"); panel.className = "panel";
+  panel.innerHTML = `<h2>Originalens dækningsgrad${startDimension ? ` · du kom fra den åbne plads: ${DIM_NAVNE[startDimension]}` : ""}</h2>`;
+  panel.appendChild(dgProfil(original)); panel.classList.add("in-view"); dgWrap.appendChild(panel);
+  startWizard({ rod: document.getElementById("wizard-rod"), original, startDimension });
+</script>
+</body>
+</html>

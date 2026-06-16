@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alle forløb · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
+    <nav class="site-nav">
+      <a href="index.html">Forside</a>
+      <a href="browse.html" class="aktiv">Alle forløb</a>
+      <a href="preview.html?id=dss-v1">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
+  </header>
+  <h1 style="font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin-top:1rem;">Alle forløb</h1>
+  <input class="soegefelt" id="soeg" type="search" placeholder="Søg forløb, fag, tema, trin ..." style="margin-top:1rem;">
+  <div class="filterraekke" id="fam-filtre" role="group" aria-label="Filtrér på fagfamilie"></div>
+  <div class="filterraekke" style="margin-top:-0.9rem;">
+    <button class="filter-pill" id="filter-pladser" aria-pressed="false">Har åbne pladser</button>
+    <button class="filter-pill" id="filter-forks" aria-pressed="false">Har versionshistorik</button>
+  </div>
+  <div class="kortgrid" id="grid"></div>
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+<script type="module">
+  import { hentForloeb, familieFor, antalAabnePladser, kaede } from "./assets/js/data.js";
+  import { forloebKort } from "./assets/js/komponenter.js";
+  import { stagger } from "./assets/js/motion.js";
+  const alle = await hentForloeb();
+  const grid = document.getElementById("grid");
+  const NAVNE = { hum: "Humaniora", stem: "STEM", natur: "Natur", aes: "Æstetik" };
+  const taellinger = { hum: 0, stem: 0, natur: 0, aes: 0 };
+  alle.forEach((f) => taellinger[familieFor(f.fag)]++);
+  const params = new URLSearchParams(location.search);
+  const state = { fam: params.get("fam") || null, pladser: params.get("pladser") === "1", forks: params.get("forks") === "1", q: params.get("q") || "" };
+  const famWrap = document.getElementById("fam-filtre");
+  for (const fam of ["hum", "stem", "natur", "aes"]) {
+    const b = document.createElement("button"); b.className = "filter-pill"; b.dataset.fam = fam;
+    b.innerHTML = `${NAVNE[fam]}<span class="antal">${taellinger[fam]}</span>`;
+    b.setAttribute("aria-pressed", String(state.fam === fam));
+    b.addEventListener("click", () => { state.fam = state.fam === fam ? null : fam; opdater(); });
+    famWrap.appendChild(b);
+  }
+  document.getElementById("filter-pladser").addEventListener("click", () => { state.pladser = !state.pladser; opdater(); });
+  document.getElementById("filter-forks").addEventListener("click", () => { state.forks = !state.forks; opdater(); });
+  const soeg = document.getElementById("soeg"); soeg.value = state.q;
+  let tid; soeg.addEventListener("input", () => { clearTimeout(tid); tid = setTimeout(() => { state.q = soeg.value.trim(); opdater(); }, 150); });
+  function opdater() {
+    const p = new URLSearchParams();
+    if (state.fam) p.set("fam", state.fam); if (state.pladser) p.set("pladser", "1"); if (state.forks) p.set("forks", "1"); if (state.q) p.set("q", state.q);
+    history.replaceState(null, "", p.toString() ? "?" + p.toString() : "browse.html");
+    famWrap.querySelectorAll(".filter-pill").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.fam === state.fam)));
+    document.getElementById("filter-pladser").setAttribute("aria-pressed", String(state.pladser));
+    document.getElementById("filter-forks").setAttribute("aria-pressed", String(state.forks));
+    let liste = alle;
+    if (state.fam) liste = liste.filter((f) => familieFor(f.fag) === state.fam);
+    if (state.pladser) liste = liste.filter((f) => antalAabnePladser(f) > 0);
+    if (state.forks) liste = liste.filter((f) => kaede(alle, f.id).length > 1);
+    if (state.q) { const q = state.q.toLowerCase(); liste = liste.filter((f) => [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter, ...(f.tema || []), ...Object.values(f.tags || {}).flat()].join(" ").toLowerCase().includes(q)); }
+    grid.innerHTML = "";
+    if (!liste.length) { const fam = state.fam ? NAVNE[state.fam] : null; grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">${fam ? `Ingen ${fam}-forløb matcher endnu.` : "Ingen forløb matcher endnu."} Det er ikke en mangel. Det er en åben plads.<br><br><a class="knap" href="upload.html">Bliv den første: del et forløb</a></div>`; return; }
+    liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));
+    stagger([...grid.children], 35);
+  }
+  opdater();
+</script>
+</body>
+</html>
