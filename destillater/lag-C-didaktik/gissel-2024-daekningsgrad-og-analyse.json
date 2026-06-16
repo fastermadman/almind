@@ -1,0 +1,11 @@
+{
+  "kilde": "Gissel (2024): Dækningsgrad og didaktisk analyse",
+  "dimensioner": {
+    "maal": "Dækningsgraden på mål avgør om forløbet kan bruges selvstændigt eller kræver lokal målsætning.",
+    "indhold": "Indholdsdækning handler om, hvorvidt det faglige stof er tilstrækkeligt specificeret til at en anden lærer kan gå direkte i gang.",
+    "produkt": "Produktbeskrivelse er en forudsætning for at lærer og elev har fælles retning.",
+    "aktiviteter": "Aktiviteterne er selve læringsøjeblikket. Lav dækningsgrad her pålægger læreren et markant forberedelsesarbejde.",
+    "tid": "Tidsangivelse er det element der oftest mangler i delte læremidler.",
+    "evaluering": "Evalueringsdækning er den dimension med lavest dækningsgrad på tværs af de undersgte forløb."
+  }
+}

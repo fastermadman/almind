@@ -1,0 +1,22 @@
+[
+  {
+    "fil": "destillater/lag-A-laeremiddelteori/gissel-2026-materialetyper.json",
+    "wizard_trin": ["basis", "dg", "pladser"]
+  },
+  {
+    "fil": "destillater/lag-A-laeremiddelteori/hansen-graf-2012-redidaktisering.json",
+    "wizard_trin": ["basis", "faser"]
+  },
+  {
+    "fil": "destillater/lag-B-evaluering/bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler.json",
+    "wizard_trin": ["dg", "pladser"]
+  },
+  {
+    "fil": "destillater/lag-C-didaktik/brodersen-2021-didaktisk-dramaturgi.json",
+    "wizard_trin": ["faser"]
+  },
+  {
+    "fil": "destillater/lag-C-didaktik/gissel-2024-daekningsgrad-og-analyse.json",
+    "wizard_trin": ["dg", "pladser"]
+  }
+]

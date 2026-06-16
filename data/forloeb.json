@@ -1,0 +1,340 @@
+[
+  {
+    "id": "dss-v0",
+    "titel": "Digital Story Studio",
+    "undertitel": "Original EMU-version",
+    "version": "v0",
+    "fag": "Dansk",
+    "klassetrin": "7.-9. klasse",
+    "forfatter": "Karen Lund",
+    "institution": "EMU Danmark",
+    "aar": 2019,
+    "opdateret": "2019-08-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Forløb om digital historiefortælling med fokus på multimodalitet og den digitale fortalt tekst.",
+    "tema": ["Multimodalitet", "Historiefortælling", "Digital dannelse"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 1, "tid": 0, "evaluering": 0 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Ingen tidsplan angivet", "hvorfor": "Forløbet er skabt til selvstændig tilrettelæggelse" },
+      { "dimension": "evaluering", "hvad": "Vurderingsform ikke valgt", "hvorfor": "Åben for lokal fortolkning" }
+    ],
+    "faser": [
+      { "titel": "Indledning og motivation", "beskrivelse": "Eleverne introduceres til digital historiefortælling via eksempler fra nettet.", "aktiviteter": ["Fælles gennemgang af 3 digitale historier", "Diskussion: hvad gør en digital historie effektiv?"] },
+      { "titel": "Produktion", "beskrivelse": "Eleverne skaber deres egne digitale historier i grupper.", "aktiviteter": ["Storyboard", "Optagelse", "Klipning"] },
+      { "titel": "Fremvisning", "beskrivelse": "Grupper præsenterer for klassen.", "aktiviteter": ["Premierekoncept", "Peerfeedback"] }
+    ],
+    "tags": { "strategi": "Projektbaseret læring", "evalueringsform": "Ingen (åben plads)" }
+  },
+  {
+    "id": "dss-v1",
+    "titel": "Digital Story Studio",
+    "undertitel": "Redidaktiseret til 8B",
+    "version": "v1",
+    "fork_af": "dss-v0",
+    "fag": "Dansk",
+    "klassetrin": "8. klasse",
+    "forfatter": "Martin Holm",
+    "institution": "Viborg Gymnasium",
+    "aar": 2022,
+    "opdateret": "2022-11-14",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Tilpasset til 8B med konkret tidsplan, portfolioevaluering og kortere produktionsforløb.",
+    "tema": ["Multimodalitet", "Historiefortælling", "Portfolio"],
+    "citat": { "tekst": "Forløbet gav eleverne ejerskab over det de producerede. Det mentes tydeligt.", "hvem": "Martin Holm, lærer" },
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 2, "evaluering": 2 },
+    "tomme_pladser": [],
+    "faser": [
+      { "titel": "Uge 1: Indledning", "beskrivelse": "Analyse af 3 udvalgte digitale historier. Klassesamtale om multimodalitet.", "aktiviteter": ["Fag: digital tekst vs. analog", "Mini-analyse i par"] },
+      { "titel": "Uge 2-3: Produktion", "beskrivelse": "Gruppeproduktion af digital historie (maks. 4 min).", "aktiviteter": ["Storyboard (lærerfeedback halvvejs)", "Optagelse og redigering", "Lydlægning"] },
+      { "titel": "Uge 4: Præsentation og evaluering", "beskrivelse": "Premiere med publikum + portfolioopsamling.", "aktiviteter": ["Premierearrangement", "Peerfeedback-skema", "Individuel portfolioreføleksion"] }
+    ],
+    "materialer": [
+      { "type": "Film", "titel": "Den digitale fortalt tekst", "url": "https://www.mitcfu.dk", "note": "CFU-materiale, kræver lokal adgang" }
+    ],
+    "tags": { "strategi": "Projektbaseret læring", "evalueringsform": "Portfolio", "anslag_type": "Analyse" }
+  },
+  {
+    "id": "dss-v2",
+    "titel": "Digital Story Studio",
+    "undertitel": "Åbnet for alle klassetrin",
+    "version": "v2",
+    "fork_af": "dss-v1",
+    "fag": "Dansk",
+    "klassetrin": "6.-10. klasse",
+    "forfatter": "Almind-fællesskabet",
+    "institution": "Almind",
+    "aar": 2024,
+    "opdateret": "2024-03-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Generaliseret version med differentierede opgaver og flexibelt tidsskema.",
+    "tema": ["Multimodalitet", "Historiefortælling", "Differentiering"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 1, "evaluering": 2 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Flexibelt tidsrum", "hvorfor": "Tilpasses den lokale kontekst" }
+    ],
+    "faser": [
+      { "titel": "Indledning", "beskrivelse": "Differentierede analyseeksempler.", "aktiviteter": [] },
+      { "titel": "Produktion", "beskrivelse": "Eget valg af form og værktøj.", "aktiviteter": [] },
+      { "titel": "Deling", "beskrivelse": "Klassen vælger præsentationsform.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Projektbaseret læring", "evalueringsform": "Portfolio" }
+  },
+  {
+    "id": "tema1-mundtlighed",
+    "titel": "Mundtlighed som færdighed",
+    "fag": "Dansk",
+    "klassetrin": "8.-9. klasse",
+    "forfatter": "Lise Pedersen",
+    "institution": "Hadsten Skole",
+    "aar": 2023,
+    "opdateret": "2023-05-12",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Forløb der træner mundtlig fremstilling via debatter, præsentationer og podcast-produktion.",
+    "tema": ["Mundtlighed", "Podcast", "Argumentation"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 1, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Tidsplan mangler", "hvorfor": "Afhænger af klassens tempo" },
+      { "dimension": "evaluering", "hvad": "Vurderingskriterier ikke specificeret", "hvorfor": "Åben for lokal tilpasning" }
+    ],
+    "faser": [
+      { "titel": "Debat", "beskrivelse": "Eleverne forbereder og udfører en struktureret klassedebat.", "aktiviteter": ["Forberedelse af argumenter", "Struktureret debat", "Felles evaluering"] },
+      { "titel": "Podcast", "beskrivelse": "Produktion af en podcast-episode om et selvvalgt emne.", "aktiviteter": ["Manuskript", "Optagelse", "Klipning og publicering"] }
+    ],
+    "tags": { "strategi": "Produktorienteret", "evalueringsform": "Præsentationsevaluering" }
+  },
+  {
+    "id": "tema2-laesning",
+    "titel": "Læsning på tværs",
+    "fag": "Dansk",
+    "klassetrin": "7. klasse",
+    "forfatter": "Anna Christoffersen",
+    "institution": "Herning Gymnasium",
+    "aar": 2022,
+    "opdateret": "2022-09-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Læsning af skønlitteratur, fagtekster og digitale tekster med fokus på læsestrategi-transfer.",
+    "tema": ["Læsning", "Læsestrategier", "Genrekæde"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 1, "aktiviteter": 2, "tid": 2, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "produkt", "hvad": "Intet afsluttende produkt defineret", "hvorfor": "Lærerønsket frihed til at vælge" },
+      { "dimension": "evaluering", "hvad": "Evalueringsform ikke specificeret", "hvorfor": "Åben for lokal tilpasning" }
+    ],
+    "faser": [
+      { "titel": "Skønlitteratur", "beskrivelse": "Fælles læsning med læsestrategier.", "aktiviteter": [] },
+      { "titel": "Fagtekst", "beskrivelse": "Transfer af strategier til faglig tekst.", "aktiviteter": [] },
+      { "titel": "Digital tekst", "beskrivelse": "Analyse af hjemmeside eller nyhedsartikel.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Genredidaktik" }
+  },
+  {
+    "id": "tema3-skrivning",
+    "titel": "Skriv, del, revider",
+    "fag": "Dansk",
+    "klassetrin": "9. klasse",
+    "forfatter": "Søren Bang",
+    "institution": "Aarhus Gymnasium",
+    "aar": 2023,
+    "opdateret": "2023-10-20",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Skriveforløb med fokus på processkrivning, kammeratevaluering og revisionsfærdighed.",
+    "tema": ["Skrivning", "Processkrivning", "Peerfeedback"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 2, "evaluering": 2 },
+    "tomme_pladser": [],
+    "faser": [
+      { "titel": "Førsteudkast", "beskrivelse": "Fri skrivning uden stop i 20 min.", "aktiviteter": [] },
+      { "titel": "Kammeratevaluering", "beskrivelse": "Struktureret feedback med to stjerner og et ønske.", "aktiviteter": [] },
+      { "titel": "Revision og indlevering", "beskrivelse": "Omskrivning på baggrund af feedback.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Processkrivning", "evalueringsform": "Peerfeedback + lærervurdering" }
+  },
+  {
+    "id": "tema4-kortfilm",
+    "titel": "Kortfilm som tænkeværktøj",
+    "fag": "Dansk/Film",
+    "klassetrin": "8. klasse",
+    "forfatter": "Pia Strøm",
+    "institution": "Odense Gymnasium",
+    "aar": 2021,
+    "opdateret": "2021-05-03",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Analyse og produktion af kortfilm som led i arbejdet med fiktionens virkemidler.",
+    "tema": ["Film", "Fiktion", "Virkemidler"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 1, "tid": 0, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "aktiviteter", "hvad": "Aktiviteterne er skitseret men ikke beskrevet", "hvorfor": "Afhænger af lærerens adgang til udstyr" },
+      { "dimension": "tid", "hvad": "Ingen tidsplan", "hvorfor": "Afhænger af lokal kontekst" },
+      { "dimension": "evaluering", "hvad": "Vurderingsform ikke specificeret", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Analysefilm", "beskrivelse": "Fælles analyse af to kortfilm.", "aktiviteter": [] },
+      { "titel": "Manuskript", "beskrivelse": "Grupper skriver manuskript og storyboard.", "aktiviteter": [] },
+      { "titel": "Optagelse og klipning", "beskrivelse": "Produktion af kortfilm.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Produktorienteret" }
+  },
+  {
+    "id": "tema5-journalistik",
+    "titel": "Skole-nyhedsredaktion",
+    "fag": "Dansk",
+    "klassetrin": "9.-10. klasse",
+    "forfatter": "Lars Mikkelsen",
+    "institution": "Silkeborg Gymnasium",
+    "aar": 2024,
+    "opdateret": "2024-01-15",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Eleverne driver en skoleredaktion: researching, skrivning, redigering og publicering af nyheder.",
+    "tema": ["Journalistik", "Medie", "Kildekritik"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 1, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Tidsramme fleksibel", "hvorfor": "Afhænger af publikationsrytme" },
+      { "dimension": "evaluering", "hvad": "Vurdering ikke specificeret", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Research", "beskrivelse": "Kildekritik og kildesøgning.", "aktiviteter": [] },
+      { "titel": "Skrivning", "beskrivelse": "Nyhedsartikler efter omvendt pyramide.", "aktiviteter": [] },
+      { "titel": "Redigering og publicering", "beskrivelse": "Redaktion og publicering på skolens medie.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Autentiske produkter" }
+  },
+  {
+    "id": "broekvaerkstedet",
+    "titel": "Brøkværkstedet",
+    "fag": "Matematik",
+    "klassetrin": "6.-7. klasse",
+    "forfatter": "Thomas Dalgaard",
+    "institution": "Randers Realskole",
+    "aar": 2023,
+    "opdateret": "2023-03-22",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Konkret-manipulativt forløb der bygger brøkforståelse via fysiske og digitale modeller.",
+    "tema": ["Brøk", "Konkret manipulation", "Matematik"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 1, "aktiviteter": 2, "tid": 2, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "produkt", "hvad": "Intet eksplicit produkt", "hvorfor": "Proceslæring i fokus" },
+      { "dimension": "evaluering", "hvad": "Evaluering skitseret men ikke systematisk", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Konkret model", "beskrivelse": "Brøk med papirbrikkerne.", "aktiviteter": [] },
+      { "titel": "Digital model", "beskrivelse": "GeoGebra-aktiviteter.", "aktiviteter": [] },
+      { "titel": "Anvendelse", "beskrivelse": "Løsning af hverdagsproblemer med brøk.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "CPA-didaktik" }
+  },
+  {
+    "id": "stroem-i-huset",
+    "titel": "Strøm i huset",
+    "fag": "Fysik",
+    "klassetrin": "8. klasse",
+    "forfatter": "Mette Johansen",
+    "institution": "Esbjerg Gymnasium",
+    "aar": 2022,
+    "opdateret": "2022-10-10",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Elever undersøger el-installation og strømkredse i et modelhus bygget af klassen.",
+    "tema": ["Strøm", "El-installation", "Modelbygning"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 2, "evaluering": 0 },
+    "tomme_pladser": [
+      { "dimension": "evaluering", "hvad": "Vurderingsform mangler", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Teori", "beskrivelse": "Ohms lov og serie/parallelkredse.", "aktiviteter": [] },
+      { "titel": "Modelhus", "beskrivelse": "Byg og tilslut strømkredse i et modelhus.", "aktiviteter": [] },
+      { "titel": "Måling", "beskrivelse": "Elever måler og fejlretter kredsene.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Undersøgelsesbaseret læring" }
+  },
+  {
+    "id": "aaen-bag-skolen",
+    "titel": "Åen bag skolen",
+    "fag": "Biologi/Geografi",
+    "klassetrin": "7. klasse",
+    "forfatter": "Cecilie Lund",
+    "institution": "Vejle Friskole",
+    "aar": 2023,
+    "opdateret": "2023-09-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Tematisk naturfagsforløb: eleverne undersøger åens økosystem med feltmætoder og GPS.",
+    "tema": ["Økosystem", "Feltundersøgelse", "Miljø"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 1, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Afhænger af vejret", "hvorfor": "Feltundersøgelse kræver fleksibel tidsplan" },
+      { "dimension": "evaluering", "hvad": "Vurderingsform ikke specificeret", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Forberedelse", "beskrivelse": "Introduktion til økosystem og feltmetoder.", "aktiviteter": [] },
+      { "titel": "Feltundersøgelse", "beskrivelse": "Prøvetagning og GPS-registrering ved åen.", "aktiviteter": [] },
+      { "titel": "Databehandling", "beskrivelse": "Analyse og præsentation af resultater.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Undersøgelsesbaseret læring" }
+  },
+  {
+    "id": "vejret-over-danmark",
+    "titel": "Vejret over Danmark",
+    "fag": "Geografi",
+    "klassetrin": "7.-8. klasse",
+    "forfatter": "Klaus Nielsen",
+    "institution": "Silkeborg Friskole",
+    "aar": 2021,
+    "opdateret": "2021-11-30",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Elever analyserer vejrdata over tid og diskuterer sammenhæng med klimaforandringer.",
+    "tema": ["Vejr", "Klima", "Dataanalyse"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 1, "aktiviteter": 2, "tid": 2, "evaluering": 0 },
+    "tomme_pladser": [
+      { "dimension": "produkt", "hvad": "Intet afsluttende produkt defineret", "hvorfor": "Forløbet er processtærkt" },
+      { "dimension": "evaluering", "hvad": "Ingen evalueringsform", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Dataindhentning", "beskrivelse": "Elever henter DMI-data og bygger egne tabeller.", "aktiviteter": [] },
+      { "titel": "Analyse", "beskrivelse": "Grafisk analyse og diskussion.", "aktiviteter": [] },
+      { "titel": "Formidling", "beskrivelse": "Elever præsenterer konklusioner.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Datadrevet læring" }
+  },
+  {
+    "id": "stomp-skolegaarden",
+    "titel": "STOMP på skolegården",
+    "fag": "Musik",
+    "klassetrin": "5.-6. klasse",
+    "forfatter": "Nina Holm",
+    "institution": "Kolding Byskole",
+    "aar": 2022,
+    "opdateret": "2022-05-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Eleverne skaber rytmekoreografi med hverdagsgenstande inspireret af STOMP-gruppen.",
+    "tema": ["Rytme", "Koreografi", "Hverdagsgenstande"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 2, "evaluering": 1 },
+    "tomme_pladser": [
+      { "dimension": "evaluering", "hvad": "Vurderingsform skitseret men ikke systematisk", "hvorfor": "Åben" }
+    ],
+    "faser": [
+      { "titel": "Inspiration", "beskrivelse": "Visning af STOMP-klip og analyse.", "aktiviteter": [] },
+      { "titel": "Eksperiment", "beskrivelse": "Grupper eksperimenterer med lyd og rytme.", "aktiviteter": [] },
+      { "titel": "Performance", "beskrivelse": "Fremvisning i skolegården.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Performance", "evalueringsform": "Fremvisningsevaluering" }
+  },
+  {
+    "id": "plakaten-der-raaber",
+    "titel": "Plakaten der råber",
+    "fag": "Billedkunst",
+    "klassetrin": "7.-9. klasse",
+    "forfatter": "Stine Bertelsen",
+    "institution": "Hjørring Gymnasium",
+    "aar": 2023,
+    "opdateret": "2023-11-01",
+    "licens": "CC BY-SA 4.0",
+    "beskrivelse": "Eleverne laver aktivistiske plakater med digitale og analoge metoder. Fokus på typografi og farvers retorik.",
+    "tema": ["Plakat", "Typografi", "Aktivisme"],
+    "dg": { "maal": 2, "indhold": 2, "produkt": 2, "aktiviteter": 2, "tid": 1, "evaluering": 2 },
+    "tomme_pladser": [
+      { "dimension": "tid", "hvad": "Tidsplan fleksibel", "hvorfor": "Afhænger af adgang til printmuligheder" }
+    ],
+    "faser": [
+      { "titel": "Analyse", "beskrivelse": "Fælles analyse af klassiske politiske plakater.", "aktiviteter": [] },
+      { "titel": "Skitse og feedback", "beskrivelse": "Individuelle skitser + kammeratevaluering.", "aktiviteter": [] },
+      { "titel": "Produktion og udstilling", "beskrivelse": "Digitalt renøjeksemplar + udstilling på skolen.", "aktiviteter": [] }
+    ],
+    "tags": { "strategi": "Produktorienteret", "evalueringsform": "Udstillingsevaluering" }
+  }
+]

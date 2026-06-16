@@ -1,0 +1,15 @@
+{
+  "kilde": "Brodersen (2021): Didaktisk dramaturgi",
+  "dimensioner": {
+    "aktiviteter": "Aktiviteter bør have dramaturgisk opmærksomhed: anslag, præsentation, uddybning, point of no return, klimaks og udtoning.",
+    "indhold": "Indholdets dræmaturgiske placering afgør elevens engagement: stof der introduceres som spènding før svaret kendes, aktiverer mere end stof der gives først."
+  },
+  "faser": {
+    "anslag": "Fanger elevens opmærksomhed og rejser et spørgsmål.",
+    "praesentation": "Introducerer kontekst og figurer.",
+    "uddybning": "Udforsker og komplikerer.",
+    "point_of_no_return": "Avgjørende valg eller konflikt.",
+    "klimaks": "Højpunkt: produktionen, fremvisningen, eksperimentet.",
+    "udtoning": "Afslutning og refleksion."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kilde": "Gissel (2026): Materialetyper og didaktisk funktion",
+  "dimensioner": {
+    "maal": "Mål angiver, hvad eleven skal kunne efter forløbet. Et læremiddel med eksplicitte mål gør det muligt for lærer og elev at vurdere progression.",
+    "indhold": "Indhold er det faglige stof forløbet arbejder med. Klart defineret indhold er en forudsætning for, at andre lærere kan overtage forløbet.",
+    "produkt": "Produkt er den synlige output: hvad laver eleven? Et defineret produkt gør evaluering mulig og giver eleven retning.",
+    "aktiviteter": "Aktiviteter er de konkrete handlinger, eleven udfører. Vel beskrevne aktiviteter reducerer lærerens forberedelsestid.",
+    "tid": "Tid angiver forløbets varighed og fase-rytme. Manglende tidsangivelse er en åben plads andre lærere må udfylde.",
+    "evaluering": "Evaluering er metoden til at vurdere, om mål er nået. Åben evalueringsform er den hyppigste tomme plads i delte læremidler."
+  }
+}
