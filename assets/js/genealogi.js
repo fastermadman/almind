@@ -1,57 +1,100 @@
-// Almind genealogi SVG
-import { familieFor } from "./data.js";
-const NODE_W = 130, NODE_H = 68, H_GAP = 52, V_GAP = 95;
-export function horisontaltTrae(kaede, aktivtId) {
-  const N = kaede.length, W = N * NODE_W + (N - 1) * H_GAP + 80, H = 160;
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Forløbets genealogi" });
-  svg.classList.add("kan-tegnes");
-  const xs = kaede.map((_, i) => 40 + i * (NODE_W + H_GAP));
-  for (let i = 0; i < N - 1; i++) {
-    const x1 = xs[i] + NODE_W, x2 = xs[i + 1], y = H / 2;
-    const mid = (x1 + x2) / 2;
-    const p = el("path", { d: `M ${x1} ${y} C ${mid} ${y}, ${mid} ${y}, ${x2} ${y}`, class: "trae-gren" });
-    const L = Math.sqrt((x2 - x1) ** 2);
-    p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
-    svg.appendChild(p);
-  }
-  kaede.forEach((f, i) => {
-    const x = xs[i], y = H / 2 - NODE_H / 2;
-    const g = el("g", { class: "trae-node" + (f.id === aktivtId ? " aktiv" : ""), role: "link", tabindex: "0", "aria-label": `${f.version || f.id}: ${f.titel}` });
-    g.addEventListener("click", () => { if (f.id !== aktivtId) location.href = `sequence.html?id=${f.id}`; });
-    g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (f.id !== aktivtId) location.href = `sequence.html?id=${f.id}`; } });
-    g.appendChild(el("rect", { x, y, width: NODE_W, height: NODE_H, rx: "12", fill: "var(--surface)", stroke: "var(--fagfarve)", "stroke-width": "2" }));
-    const versTekst = f.version || (i === 0 ? "Original" : `v${i + 1}`);
-    g.appendChild(svgTekst(versTekst, x + NODE_W / 2, y + 20, "node-version"));
-    g.appendChild(svgTekst(f.undertitel || f.forfatter || "", x + NODE_W / 2, y + 38, "node-navn"));
-    g.appendChild(svgTekst(f.aar ? String(f.aar) : "", x + NODE_W / 2, y + 53, "node-meta"));
-    if (f.id === aktivtId) { const b = el("rect", { x: x + NODE_W - 34, y: y - 12, width: 32, height: 18, rx: "9", class: "trae-badge-ramme" }); g.appendChild(b); g.appendChild(svgTekst("▶ nu", x + NODE_W - 18, y - 1, "trae-badge")); }
-    svg.appendChild(g);
+// Genealogi-træ som inline SVG. Horisontal (forside-hero) og vertikal liste (sequence).
+// Kæderne i seed-data er lineære; layoutet er bevidst simpelt (Karpathy: intet spekulativt).
+
+import { antalAabnePladser } from "./data.js";
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function el(navn, attrs = {}) {
+  const e = document.createElementNS(SVG_NS, navn);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  return e;
+}
+
+// Horisontalt træ: V0 ━━ V1 ━━ V2 med forfatter, år og pladser-badge.
+export function horisontaltTrae(kaede, aktivId) {
+  const n = kaede.length;
+  const bredde = 560;
+  const hoejde = 170;
+  const margin = 60;
+  const y = 62;
+  const afstand = n > 1 ? (bredde - margin * 2) / (n - 1) : 0;
+
+  const svg = el("svg", {
+    viewBox: `0 0 ${bredde} ${hoejde}`,
+    role: "img",
+    "aria-label":
+      "Versionshistorik: " +
+      kaede.map((f, i) => `V${i} af ${f.forfatter} (${f.aar})`).join(", "),
   });
+
+  // Grene først (bag noderne)
+  for (let i = 0; i < n - 1; i++) {
+    const x1 = margin + i * afstand;
+    const x2 = margin + (i + 1) * afstand;
+    const sti = el("path", {
+      d: `M ${x1 + 13} ${y} C ${x1 + afstand * 0.4} ${y - 26}, ${x2 - afstand * 0.4} ${y - 26}, ${x2 - 13} ${y}`,
+      class: "trae-gren",
+    });
+    svg.appendChild(sti);
+  }
+
+  kaede.forEach((f, i) => {
+    const x = margin + i * afstand;
+    const led = el("a", { href: `sequence.html?id=${f.id}` });
+    led.setAttribute("class", "trae-node" + (f.id === aktivId ? " aktiv" : ""));
+    led.setAttribute("aria-label", `Version ${i}: ${f.forfatter}, ${f.aar}. ${antalAabnePladser(f)} åbne pladser.`);
+
+    led.appendChild(el("circle", { cx: x, cy: y, r: 12 }));
+
+    const version = el("text", { x, y: y - 24, "text-anchor": "middle", class: "node-version" });
+    version.textContent = `V${i}`;
+    led.appendChild(version);
+
+    const navn = el("text", { x, y: y + 34, "text-anchor": "middle", class: "node-navn" });
+    navn.textContent = f.forfatter.split(" ")[0] === "Demokrati" ? "EMU" : f.forfatter.split(" ")[0];
+    led.appendChild(navn);
+
+    const meta = el("text", { x, y: y + 50, "text-anchor": "middle", class: "node-meta" });
+    meta.textContent = `${f.institution} · ${f.aar}`;
+    led.appendChild(meta);
+
+    const pladser = antalAabnePladser(f);
+    if (pladser > 0) {
+      const btekst = `${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}`;
+      const bBredde = btekst.length * 6.2 + 16;
+      led.appendChild(
+        el("rect", {
+          x: x - bBredde / 2, y: y + 60, width: bBredde, height: 20,
+          rx: 10, class: "trae-badge-ramme",
+        })
+      );
+      const badge = el("text", { x, y: y + 74, "text-anchor": "middle", class: "trae-badge" });
+      badge.textContent = btekst;
+      led.appendChild(badge);
+    }
+
+    svg.appendChild(led);
+  });
+
   return svg;
 }
-export function vertikaltTrae(kaede, aktivtId) {
-  const N = kaede.length, W = 240, H = N * NODE_H + (N - 1) * V_GAP + 20;
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}` });
-  const ys = kaede.map((_, i) => 10 + i * (NODE_H + V_GAP));
-  for (let i = 0; i < N - 1; i++) {
-    const x = 20, y1 = ys[i] + NODE_H, y2 = ys[i + 1];
-    svg.appendChild(el("line", { x1: x, y1, x2: x, y2, class: "trae-gren" }));
-  }
+
+// Vertikalt træ som semantisk liste (sequence.html).
+export function vertikaltTrae(kaede, aktivId) {
+  const ol = document.createElement("ol");
+  ol.className = "vtrae";
   kaede.forEach((f, i) => {
-    const y = ys[i]; const aktiv = f.id === aktivtId;
-    const g = el("g", { class: "trae-node" + (aktiv ? " aktiv" : "") });
-    g.appendChild(el("circle", { cx: "20", cy: String(y + NODE_H / 2), r: "10", fill: "var(--surface)", stroke: "var(--fagfarve)", "stroke-width": "2.5" }));
-    const versTekst = f.version || (i === 0 ? "v0" : `v${i}`);
-    g.appendChild(svgTekst(versTekst, 45, y + NODE_H / 2 - 9, "v-label"));
-    const link = el("a", { href: `sequence.html?id=${f.id}`, "aria-current": aktiv ? "page" : undefined });
-    const tTitel = el("text", { x: "45", y: String(y + NODE_H / 2 + 8), class: "v-titel", fill: "var(--ink)", "font-family": "var(--font-ui)", "font-weight": "600", "font-size": "14" });
-    tTitel.textContent = f.undertitel || f.titel.slice(0, 22);
-    link.appendChild(tTitel);
-    g.appendChild(link);
-    g.appendChild(svgTekst(`${f.forfatter} · ${f.aar || ""}`, 45, y + NODE_H / 2 + 24, "v-meta"));
-    svg.appendChild(g);
+    const li = document.createElement("li");
+    if (f.id === aktivId) li.className = "aktiv";
+    const pladser = antalAabnePladser(f);
+    li.innerHTML = `
+      <span class="v-label">V${i}</span>
+      <div class="v-titel"><a href="sequence.html?id=${f.id}">${f.titel}${f.undertitel ? ": " + f.undertitel : ""}</a></div>
+      <div class="v-meta">${f.forfatter} · ${f.institution} · ${f.aar}${pladser ? ` · ${pladser} åbne pladser` : ""}</div>
+      ${f.diff ? `<div class="v-diff">${f.diff}</div>` : ""}
+    `;
+    ol.appendChild(li);
   });
-  return svg;
+  return ol;
 }
-function el(tag, attrs = {}) { const e = document.createElementNS("http://www.w3.org/2000/svg", tag); for (const [k, v] of Object.entries(attrs)) if (v !== undefined) e.setAttribute(k, v); return e; }
-function svgTekst(tekst, x, y, cls) { const t = el("text", { x: String(x), y: String(y), class: cls, "text-anchor": "middle", fill: cls.includes("badge") ? "var(--fagtekst)" : cls.includes("navn") || cls.includes("meta") ? "var(--muted)" : "var(--ink)" }); t.textContent = tekst; return t; }

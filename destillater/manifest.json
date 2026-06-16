@@ -1,22 +1,45 @@
-[
-  {
-    "fil": "destillater/lag-A-laeremiddelteori/gissel-2026-materialetyper.json",
-    "wizard_trin": ["basis", "dg", "pladser"]
-  },
-  {
-    "fil": "destillater/lag-A-laeremiddelteori/hansen-graf-2012-redidaktisering.json",
-    "wizard_trin": ["basis", "faser"]
-  },
-  {
-    "fil": "destillater/lag-B-evaluering/bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler.json",
-    "wizard_trin": ["dg", "pladser"]
-  },
-  {
-    "fil": "destillater/lag-C-didaktik/brodersen-2021-didaktisk-dramaturgi.json",
-    "wizard_trin": ["faser"]
-  },
-  {
-    "fil": "destillater/lag-C-didaktik/gissel-2024-daekningsgrad-og-analyse.json",
-    "wizard_trin": ["dg", "pladser"]
-  }
-]
+{
+  "kommentar": "Subset af de 22 destillater fra Almind-Wizard. Skema 'standard' har lag1_teori/lag2_kategorier/lag3_spørgsmål og driver wizard-spørgsmål. Skema 'reference' er opslagsdata (definitioner, parametre).",
+  "destillater": [
+    {
+      "id": "gissel-2026-materialetyper",
+      "fil": "lag-A-laeremiddelteori/gissel-2026-materialetyper.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [1],
+      "titel": "Typologi for læremidler og læringsressourcer"
+    },
+    {
+      "id": "hansen-graf-2012-redidaktisering",
+      "fil": "lag-A-laeremiddelteori/hansen-graf-2012-redidaktisering.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [1],
+      "titel": "Didaktisering, redidaktisering og planlægningsstrategier"
+    },
+    {
+      "id": "brodersen-2021-didaktisk-dramaturgi",
+      "fil": "lag-C-didaktik/brodersen-2021-didaktisk-dramaturgi.json",
+      "lag": "C",
+      "skema": "standard",
+      "wizard_trin": [2, 3],
+      "titel": "Didaktisk dramaturgi"
+    },
+    {
+      "id": "gissel-2024-daekningsgrad-og-analyse",
+      "fil": "lag-C-didaktik/gissel-2024-daekningsgrad-og-analyse.json",
+      "lag": "C",
+      "skema": "reference",
+      "wizard_trin": [5],
+      "titel": "Didaktisk dækningsgrad og analyse"
+    },
+    {
+      "id": "bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler",
+      "fil": "lag-B-evaluering/bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler.json",
+      "lag": "B",
+      "skema": "reference",
+      "wizard_trin": [4],
+      "titel": "Kvaliteter ved digitale læremidler"
+    }
+  ]
+}

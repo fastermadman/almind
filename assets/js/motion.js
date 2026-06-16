@@ -1,27 +1,65 @@
-// Almind motion & animation
-export function observe(el, cls = "in-view") {
-  if (!el) return;
-  const io = new IntersectionObserver((entries, obs) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add(cls); obs.unobserve(e.target); } }); }, { threshold: 0.12 });
-  el.classList.add("reveal");
-  io.observe(el);
-}
-export function stagger(els, delayMs = 45) {
-  const io = new IntersectionObserver((entries, obs) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in-view"); obs.unobserve(e.target); } }); }, { threshold: 0.05 });
-  els.forEach((el, i) => { el.classList.add("reveal"); el.style.transitionDelay = `${i * delayMs}ms`; io.observe(el); });
-}
-export function tegnTrae(svg) {
-  if (!svg) return;
-  const grene = [...svg.querySelectorAll(".trae-gren")];
-  if (!grene.length) return;
-  const observer = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
-    observer.disconnect();
-    grene.forEach((g, i) => {
-      const len = g.getTotalLength ? g.getTotalLength() : parseFloat(g.getAttribute("x2") || 100) - parseFloat(g.getAttribute("x1") || 0);
-      g.style.strokeDasharray = String(len);
-      g.style.strokeDashoffset = String(len);
-      setTimeout(() => { g.style.transition = "stroke-dashoffset 0.6s ease-out"; g.style.strokeDashoffset = "0"; }, i * 180);
+// Motion: én IntersectionObserver, reduced-motion respekteres overalt.
+
+export const reduceretMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const observer = new IntersectionObserver(
+  (poster) => {
+    poster.forEach((p) => {
+      if (p.isIntersecting) {
+        p.target.classList.add("in-view");
+        observer.unobserve(p.target);
+      }
     });
-  }, { threshold: 0.2 });
-  observer.observe(svg);
+  },
+  { threshold: 0.25 }
+);
+
+export function observe(el) {
+  if (reduceretMotion) {
+    el.classList.add("in-view");
+    return;
+  }
+  observer.observe(el);
+}
+
+// Stagger: sæt voksende transition-delay på en liste af elementer.
+export function stagger(elementer, trinMs = 50) {
+  elementer.forEach((el, i) => {
+    el.classList.add("reveal");
+    if (!reduceretMotion) el.style.transitionDelay = `${i * trinMs}ms`;
+    observe(el);
+  });
+}
+
+// Tegn SVG-grene når træet kommer i view (stroke-dashoffset).
+// Grenene tegnes sekventielt: V0 til V1, derefter V1 til V2 (transition-delay pr. gren).
+export function tegnTrae(svg) {
+  const grene = svg.querySelectorAll(".trae-gren");
+  if (reduceretMotion) return;
+  grene.forEach((g, i) => {
+    const laengde = g.getTotalLength();
+    g.style.strokeDasharray = laengde;
+    g.style.strokeDashoffset = laengde;
+    g.style.transitionDelay = `${i * 0.5}s`;
+  });
+  svg.classList.add("kan-tegnes");
+  // Tving reflow så starttilstanden er anvendt, inden transitionen udløses.
+  svg.getBoundingClientRect();
+  const io = new IntersectionObserver(
+    (poster) => {
+      poster.forEach((p) => {
+        if (p.isIntersecting) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              grene.forEach((g) => (g.style.strokeDashoffset = "0"));
+            });
+          });
+          io.disconnect();
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  io.observe(svg);
 }

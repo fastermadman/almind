@@ -1,8 +1,74 @@
 {
-  "kilde": "Bundsgaard & Hansen (2013): Kvaliteter ved digitale læremidler",
-  "dimensioner": {
-    "maal": "Digitale læremidler med eksplicitte kompetencemaal er lettere at integrere i lokal årsplan.",
-    "evaluering": "Evalueringsstøtte er en markant mangel i mange digitale læremidler: kun 1 ud af 3 inkluderer konkrete evalueringsredskaber.",
-    "indhold": "Fagligt indhold bør være mærkbart: elever skal kunne skelne faglig viden fra hverdagsviden via læremidlet."
+  "meta": {
+    "kilde": "Hansen, T. I. & Bundsgaard, J. (2013). Kvaliteter ved digitale læremidler og ved pædagogiske praksisser med digitale læremidler.",
+    "lag": "lag-B-evaluering",
+    "wizard_trin": [1, 2, 5, 6],
+    "noeglebegreber": [
+      "fire læremiddeltyper",
+      "otte evalueringsparametre",
+      "designprincipper",
+      "forandringsteori",
+      "kontekstmodifikatorer"
+    ]
+  },
+
+  "otte_evalueringsparametre": {
+    "beskrivelse": "Hierarkisk model — de tre første er portvagter. Evalueringsspørgsmål varierer med type og niveau.",
+    "parametre": [
+      {
+        "nr": 1,
+        "navn": "Legitimitet",
+        "type": "Portvagtparameter",
+        "kernespørgsmål": "Er indholdet forankret i gældende læreplaner? Hverken over- eller underopfyldt?"
+      },
+      {
+        "nr": 2,
+        "navn": "Indholdskvalitet & faglighed",
+        "type": "Portvagtparameter",
+        "kernespørgsmål": "Er fagforståelsen opdateret? Eksemplarisk? Fri for teknologisk aktivisme, pseudovirkelighed og behaviorisme?"
+      },
+      {
+        "nr": 3,
+        "navn": "Aktiviteter, interaktivitet og rum",
+        "type": "Portvagtparameter",
+        "kernespørgsmål": "Understøtter aktiviteter variation på mikro/meso/makroniveau? Understøtter læremidlet det sociale, handlingens og det stemte rum?"
+      },
+      {
+        "nr": 4,
+        "navn": "Tilgængelighed",
+        "type": "Vejkategori",
+        "kernespørgsmål": "Er udtryk, indhold og aktiviteter tilgængelige kognitivt, emotionelt og teknologisk (læse/skriveteknologi)?"
+      },
+      {
+        "nr": 5,
+        "navn": "Progression og læringsudbytte",
+        "type": "Vejkategori",
+        "kernespørgsmål": "Understøtter læremidlet progression mod kompetencemål? Er der transferfaktorer (varierede eksempler, metakognition, praksiskobling)?"
+      },
+      {
+        "nr": 6,
+        "navn": "Differentiering",
+        "type": "Vejkategori",
+        "kernespørgsmål": "Understøtter det differentiering i mål, indhold, repræsentationsformer, samarbejdsformer og processtyring?"
+      },
+      {
+        "nr": 7,
+        "navn": "Brugervenlighed",
+        "type": "Usability",
+        "kernespørgsmål": "Appel, navigation, genkendelse frem for genkaldelse, brugerkontrol og fejlhåndtering?"
+      },
+      {
+        "nr": 8,
+        "navn": "Sammenhæng",
+        "type": "Usability",
+        "kernespørgsmål": "Åbne standarder? Kan bruges og genbruges på tværs af systemer? Creative Commons-licenser?"
+      }
+    ]
+  },
+
+  "forandringsteori_modifikatorer": {
+    "beskrivelse": "Digitale læremidler har ikke effekter i sig selv — de er én faktor i et komplekst system.",
+    "skolekontekst": ["Skoletype", "Skolekultur (konservativ → innovativ)", "Infrastruktur", "Organisation/LMS"],
+    "undervisningsmiljø": ["Lærertype og it-didaktiske kompetencer", "Undervisningsformer", "Fagforståelse", "Elevtype og engagement"]
   }
 }

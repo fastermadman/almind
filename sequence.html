@@ -11,14 +11,17 @@
 </head>
 <body>
 <div class="container" id="side">
+
   <header class="site-header">
     <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
-    <nav class="site-nav">
-      <a href="index.html">Forside</a><a href="browse.html">Alle forløb</a>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html">Forside</a>
+      <a href="browse.html">Alle forløb</a>
       <a href="preview.html?id=dss-v1">Preview</a>
       <a class="knap" href="upload.html">Del et forløb</a>
     </nav>
   </header>
+
   <div class="detalje-hoved">
     <div class="kort-tags" id="tags"></div>
     <h1 id="titel"></h1>
@@ -29,45 +32,112 @@
       <a class="knap sekundaer" id="preview-knap" href="#">Se som dokument</a>
     </div>
   </div>
+
   <div class="to-kolonner">
     <div>
-      <section class="panel" id="dg-panel" style="margin-bottom:1.5rem;"><h2>Didaktisk dækningsgrad</h2><div id="dg"></div><div id="pladser" style="margin-top:1.25rem;"></div></section>
+      <section class="panel" id="dg-panel" style="margin-bottom:1.5rem;">
+        <h2>Didaktisk dækningsgrad</h2>
+        <div id="dg"></div>
+        <div id="pladser" style="margin-top:1.25rem;"></div>
+      </section>
+
       <section id="faser" aria-label="Forløbets faser"></section>
     </div>
+
     <aside>
-      <section class="panel" id="genealogi-panel"><h2>Forløbets liv</h2><div id="vtrae"></div><p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p></section>
-      <section class="panel" id="materialer-panel" hidden style="margin-top:1.5rem;"><h2>Materialer via mitCFU</h2><ul class="materiale-liste" id="materialer"></ul><p class="materiale-note">Ophavsretsbeskyttede materialer bor hos CFU. Almind deler det didaktiske lag; materialet låner du som altid.</p></section>
+      <section class="panel" id="genealogi-panel">
+        <h2>Forløbets liv</h2>
+        <div id="vtrae"></div>
+        <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
+      </section>
+      <section class="panel" id="materialer-panel" hidden style="margin-top:1.5rem;">
+        <h2>Materialer via mitCFU</h2>
+        <ul class="materiale-liste" id="materialer"></ul>
+        <p class="materiale-note">Ophavsretsbeskyttede materialer bor hos CFU. Almind deler det didaktiske lag; materialet låner du som altid.</p>
+      </section>
     </aside>
   </div>
-  <footer class="site-footer"><span>Almind · non-profit, fællesejet infrastruktur for læremidler</span><span>Alt indhold: CC BY-SA 4.0</span></footer>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
 </div>
+
 <script type="module">
   import { hentForloeb, findForloeb, kaede, familieFor, datoTekst } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
   import { dgProfil, pladsFold } from "./assets/js/komponenter.js";
   import { observe } from "./assets/js/motion.js";
+
   const alle = await hentForloeb();
   const id = new URLSearchParams(location.search).get("id") || "dss-v1";
   const f = findForloeb(alle, id) || alle[0];
   const fam = familieFor(f.fag);
   document.getElementById("side").dataset.fag = fam;
   document.title = `${f.titel} · Almind`;
-  const maskintags = f.tags ? [f.tags.strategi, f.tags.anslag_type ? "Anslag: " + f.tags.anslag_type : null, f.tags.evalueringsform].filter((t) => t && t !== "Ingen (åben plads)") : [];
-  document.getElementById("tags").innerHTML = `<span class="tag">${f.fag}</span><span class="tag neutral">${f.klassetrin}</span>` + (f.tema || []).slice(0, 3).map((t) => `<span class="tag neutral">${t}</span>`).join("") + maskintags.map((t) => `<span class="tag neutral">${t}</span>`).join("");
+
+  const maskintags = f.tags
+    ? [f.tags.strategi, f.tags.anslag_type ? "Anslag: " + f.tags.anslag_type : null, f.tags.evalueringsform]
+        .filter((t) => t && t !== "Ingen (åben plads)")
+    : [];
+  document.getElementById("tags").innerHTML =
+    `<span class="tag">${f.fag}</span><span class="tag neutral">${f.klassetrin}</span>` +
+    (f.tema || []).slice(0, 3).map((t) => `<span class="tag neutral">${t}</span>`).join("") +
+    maskintags.map((t) => `<span class="tag neutral" title="Fra wizard-profilen">${t}</span>`).join("");
   document.getElementById("titel").textContent = f.titel;
   document.getElementById("undertitel").textContent = f.undertitel || "";
-  document.getElementById("meta").textContent = `${f.forfatter} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
+  document.getElementById("meta").textContent =
+    `${f.forfatter} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
   document.getElementById("fork-knap").href = `fork.html?id=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
-  document.getElementById("dg").appendChild(dgProfil(f));
+
+  // Dækningsgrad + tomme pladser som folder
+  const dgEl = dgProfil(f);
+  document.getElementById("dg").appendChild(dgEl);
   observe(document.getElementById("dg-panel"));
-  (f.tomme_pladser || []).forEach((p) => document.getElementById("pladser").appendChild(pladsFold(f, p)));
+  const pladserEl = document.getElementById("pladser");
+  (f.tomme_pladser || []).forEach((p) => pladserEl.appendChild(pladsFold(f, p)));
+
+  // Genealogi
   const k = kaede(alle, f.id);
-  if (k.length > 1) { document.getElementById("vtrae").appendChild(vertikaltTrae(k, f.id)); document.getElementById("genealogi-note").textContent = `${k.length} versioner · ${new Set(k.map((v) => v.forfatter)).size} forfattere · intet forsvinder, alt akkumulerer`; }
-  else { document.getElementById("vtrae").innerHTML = `<p style="font-size:0.92rem;color:var(--muted);">Første version. Endnu ingen forgreninger.</p><p style="font-size:0.92rem;margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="fork.html?id=${f.id}">Måske dig?</a></p>`; }
-  if (f.materialer?.length) { document.getElementById("materialer-panel").hidden = false; const ul = document.getElementById("materialer"); f.materialer.forEach((m) => { const li = document.createElement("li"); li.innerHTML = `<span class="mat-type">${m.type}</span><a href="${m.url}" target="_blank" rel="noopener">${m.titel}</a>${m.note ? `<span class="metadata" style="flex-basis:100%;">${m.note}</span>` : ""}`; ul.appendChild(li); }); }
+  if (k.length > 1) {
+    document.getElementById("vtrae").appendChild(vertikaltTrae(k, f.id));
+    document.getElementById("genealogi-note").textContent =
+      `${k.length} versioner · ${new Set(k.map((v) => v.forfatter)).size} forfattere · intet forsvinder, alt akkumulerer`;
+  } else {
+    document.getElementById("vtrae").innerHTML =
+      `<p style="font-size:0.92rem; color:var(--muted);">Første version. Endnu ingen forgreninger.</p>
+       <p style="font-size:0.92rem; margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="fork.html?id=${f.id}">Måske dig?</a></p>`;
+  }
+
+  // Materialer via mitCFU
+  if (f.materialer?.length) {
+    document.getElementById("materialer-panel").hidden = false;
+    const ul = document.getElementById("materialer");
+    f.materialer.forEach((m) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="mat-type">${m.type}</span>
+        <a href="${m.url}" target="_blank" rel="noopener">${m.titel}</a>
+        ${m.note ? `<span class="metadata" style="flex-basis:100%;">${m.note}</span>` : ""}`;
+      ul.appendChild(li);
+    });
+  }
+
+  // Faser
   const faserEl = document.getElementById("faser");
-  (f.faser || []).forEach((fase, i) => { const sek = document.createElement("section"); sek.className = "fase panel"; sek.style.marginBottom = "1.25rem"; sek.innerHTML = `<span class="fase-nr">Fase ${i + 1} af ${f.faser.length}</span><h3>${fase.titel}</h3><p>${fase.beskrivelse}</p>${fase.aktiviteter?.length ? `<ul>${fase.aktiviteter.map((a) => `<li>${a}</li>`).join("")}</ul>` : ""}`; faserEl.appendChild(sek); });
+  (f.faser || []).forEach((fase, i) => {
+    const sek = document.createElement("section");
+    sek.className = "fase panel";
+    sek.style.marginBottom = "1.25rem";
+    sek.innerHTML = `
+      <span class="fase-nr">Fase ${i + 1} af ${f.faser.length}</span>
+      <h3>${fase.titel}</h3>
+      <p>${fase.beskrivelse}</p>
+      ${fase.aktiviteter?.length ? `<ul>${fase.aktiviteter.map((a) => `<li>${a}</li>`).join("")}</ul>` : ""}
+    `;
+    faserEl.appendChild(sek);
+  });
 </script>
 </body>
 </html>

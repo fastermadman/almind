@@ -1,15 +1,44 @@
 {
-  "kilde": "Brodersen (2021): Didaktisk dramaturgi",
-  "dimensioner": {
-    "aktiviteter": "Aktiviteter bør have dramaturgisk opmærksomhed: anslag, præsentation, uddybning, point of no return, klimaks og udtoning.",
-    "indhold": "Indholdets dræmaturgiske placering afgør elevens engagement: stof der introduceres som spènding før svaret kendes, aktiverer mere end stof der gives først."
-  },
-  "faser": {
-    "anslag": "Fanger elevens opmærksomhed og rejser et spørgsmål.",
-    "praesentation": "Introducerer kontekst og figurer.",
-    "uddybning": "Udforsker og komplikerer.",
-    "point_of_no_return": "Avgjørende valg eller konflikt.",
-    "klimaks": "Højpunkt: produktionen, fremvisningen, eksperimentet.",
-    "udtoning": "Afslutning og refleksion."
-  }
+  "kilde": "Brodersen, P., Reng, M., Messell, M. & Christensen, K.E. (2021). Artikelserien om didaktisk dramaturgi (art. 1–4). Byskolen-samarbejde. + Brodersen, P. (2020). Didaktisk dramaturgi. I: Didaktisk Opslagsbog. Hans Reitzels Forlag.",
+  "titel": "Didaktisk dramaturgi — faser, virksomhedsformer og erfaringsdannelse",
+  "lag": "C",
+  "lag1_teori": "Didaktisk dramaturgi er en tilgang til undervisningsdesign der henter begreber fra teater og narrativ teori og oversætter dem til didaktiske handlingsformer. Kernen er vekselvirkning mellem virksomhedsformer som motor for erfaringsdannelse og fordybelse. Et undervisningsforløb har fem dramaturgiske faser: anslag (begivenhed der skaber øjeblikkelig opmærksomhed og aktiverer forforståelse), mål, design, krop (timens længste fase — erfaringernes rum) og afslutning. Virksomhedsformerne er organiseret i en 2×2-matrix: æstetisk/analytisk/håndværksmæssig/kommunikativ × receptiv/produktiv. Rytmen i et velfungerende forløb har tre elementer: gentagelse (begrebslige rød tråde), variation (skift mellem virksomhedsformer) og balance (hvilestedet hvor variationer samles til ordnet forståelse). Deweys fem erfaringskvaliteter beskriver hvad der driver fordybelse: kontinuitet, ophobning, spænding, anticipation og fastholdelse. Fordybelse opstår i tre dimensioner: kognitiv udvidelse (ny forståelse), affektiv udvidelse (engagement og berøring) og æstetisk udvidelse (erfaringen former sig og kan erindres).",
+  "lag2_kategorier": [
+    "Fem faser: anslag · mål · design · krop · afslutning",
+    "Anslaget: dobbelt kvalitet — dramaturgisk (begivenhed/varsel/orientering/projekt) + didaktisk (opmærksomhed/forforståelse/bro til indhold)",
+    "Fire virksomhedsformer: æstetisk · analytisk · håndværksmæssig · kommunikativ",
+    "Receptiv/produktiv akse: opleve og modtage ↔ skabe og udtrykke",
+    "Æstetisk rytme: gentagelse + variation + balance (modsat mekanisk rytme: kun gentagelse)",
+    "Dewey — fem erfaringskvaliteter: kontinuitet · ophobning · spænding · anticipation · fastholdelse",
+    "Fordybelse: kognitiv udvidelse · affektiv udvidelse · æstetisk udvidelse",
+    "Orkestrering: sekvensere og arrangere virksomhedsformer som dirigent",
+    "Fastholdelsens sårbarhed: begreber der kun bruges én gang tabes — kræver aktiv fremkaldelse",
+    "Dialog: autentiske spørgsmål · optag · flerstemmighed · høj værdsætning (Dysthe)",
+    "Korrekthedsfeedback bryder den dialogiske kontrakt",
+    "Focal vs. subsidiær opmærksomhed: centrum ↔ periferi i klasseledelse"
+  ],
+  "lag3_spørgsmål": [
+    "Hvad er anslaget — hvilken begivenhed skaber øjeblikkelig opmærksomhed og aktiverer forforståelse?",
+    "Hvilke virksomhedsformer er aktive i hver fase — og er der vekselvirkning?",
+    "Er der æstetisk rytme (gentagelse + variation + balance) eller mekanisk rytme (kun gentagelse)?",
+    "Hvilke af Deweys fem erfaringskvaliteter er aktive — og i hvilken fase?",
+    "Hvornår opstår fastholdelse — og er der en plan for at fremkalde begreberne igen?",
+    "Er der fordybelse i alle tre dimensioner (kognitiv · affektiv · æstetisk) — eller kun kognitivt?",
+    "Er dialogspørgsmålene autentiske — ejer læreren ikke svaret?",
+    "Er der optag — bygger læreren videre på elevens bidrag frem for at evaluere det?",
+    "Hvad er forløbets balance-punkt — det sted hvor variationerne samles til ordnet forståelse?"
+  ],
+  "wizard_trin": "2+3",
+  "tool_type": "design",
+  "tool_navn": "brodersen-didaktisk-dramaturgi",
+  "trigger": "Alle forløb — bruges til at beskrive og begrunde fasernes rækkefølge, virksomhedsformernes veksling og forløbets dramaturgiske logik i lærervejledningen",
+  "lærervejledning_sektion": "3+4",
+  "almind_implikation": "Forløbets dramaturgiske arkitektur er primær begrundelse for fasernes rækkefølge i lærervejledningens Sektion 3. Anslaget beskrives eksplicit. Virksomhedsformer per fase noteres i meta-blokken. Æstetisk rytme og Dewey-erfaringskvaliteter er wizard-output til [!dramaturgi]-boksen.",
+  "krydsreferencer": [
+    "Dewey (2005b) Art as experience — erfaringskvaliteterne",
+    "Dysthe (2012) Dialog, samspel og læring — autentiske spørgsmål og optag",
+    "Bang (2022) — IRE vs. OSMT uddyber dialogdimensionen empirisk",
+    "Hansen, Graf & Hansen (2012) kap. 9 — aktivitetsanalyse supplerer virksomhedsformsanalysen",
+    "Gissel & Pettersson (2024) — dækningsgrad operationaliserer fasernes didaktiske dækning"
+  ]
 }

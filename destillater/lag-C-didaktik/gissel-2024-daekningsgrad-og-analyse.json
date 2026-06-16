@@ -1,11 +1,112 @@
 {
-  "kilde": "Gissel (2024): Dækningsgrad og didaktisk analyse",
-  "dimensioner": {
-    "maal": "Dækningsgraden på mål avgør om forløbet kan bruges selvstændigt eller kræver lokal målsætning.",
-    "indhold": "Indholdsdækning handler om, hvorvidt det faglige stof er tilstrækkeligt specificeret til at en anden lærer kan gå direkte i gang.",
-    "produkt": "Produktbeskrivelse er en forudsætning for at lærer og elev har fælles retning.",
-    "aktiviteter": "Aktiviteterne er selve læringsøjeblikket. Lav dækningsgrad her pålægger læreren et markant forberedelsesarbejde.",
-    "tid": "Tidsangivelse er det element der oftest mangler i delte læremidler.",
-    "evaluering": "Evalueringsdækning er den dimension med lavest dækningsgrad på tværs af de undersgte forløb."
-  }
+  "meta": {
+    "id": "gissel-2024-daekningsgrad-og-analyse",
+    "kilde": "Gissel (2024)",
+    "sider": "s. 103, 106–107, 114–116",
+    "lag": "lag-C-didaktik",
+    "dækker": [
+      "Gissel-Didaktisk-laermiddel-definition.md",
+      "Gissel-Didaktisk-daekningsgrad.md",
+      "Gissel-Aktiviteter-progression-differentiering.md"
+    ],
+    "brug": "Læremiddelanalyse og -vurdering i dansk 4–10. Bruges når wizard skal hjælpe lærer med at analysere, vurdere eller redidaktisere et didaktisk læremiddel."
+  },
+
+  "begreber": {
+    "didaktisk_laermiddel": {
+      "definition": "Et læremiddel produceret specifikt til brug i undervisning og læring. Det foreslår og faciliterer, hvordan der kan undervises i et fagligt område, og repræsenterer læremiddelforfatterens anbefaling til tilrettelæggelsen.",
+      "sidehenvisning": "s. 103",
+      "noeglepointe": "Læremidlet har en didaktisk intention – læreren skal aflæse den, ikke bare følge den blindt.",
+      "analysespørgsmål": [
+        "Hvad vil dette læremiddel med eleven?",
+        "Hvad vil det med læreren?",
+        "Er intentionen fra lærervejledningen slået igennem i elevmaterialet?"
+      ]
+    },
+
+    "didaktisk_daekningsgrad": {
+      "definition": "Hvilke dele af undervisningen læremidlet faciliterer, og hvilke det ikke gør – samt hvordan de enkelte dele varetages.",
+      "sidehenvisning": "s. 106–107",
+      "dimensioner_høj_dækningsgrad": [
+        "Variation af undervisningen",
+        "Kobling til virkeligheden uden for skolen",
+        "Dialogisk undervisning",
+        "Differentiering",
+        "Evaluering"
+      ],
+      "kritisk_pointe": "Lav dækningsgrad på ét område er ikke lig med dårligt læremiddel – det ændrer lærerens opgave. Læreren skal altid differentiere, evaluere osv., uanset om læremidlet understøtter det.",
+      "brug_i_analyse": "Stærkeste argument for at vurdere (ikke blot beskrive) et læremiddel. Gør manglen faglig frem for blot kritisk.",
+      "eksempelsætning": "Læremidlets didaktiske dækningsgrad (Gissel, 2024, s. 106) er høj hvad angår [X], men lav hvad angår [Y] – fx er der ingen stilladsering af [element]. Det betyder at læreren selv må [konkret opgave]."
+    },
+
+    "redidaktisering": {
+      "definition": "Når den lærerfaglige analyse fører til, at læreren træffer valg der afviger fra eller supplerer forslagene i det didaktiske læremiddel. Læreren lægger sit eget lag af didaktisering ovenpå det allerede didaktiserede læremiddel.",
+      "ophav": "Hansen (2006) via Gissel (2024)",
+      "brug": "Præcist fagbegreb for hvad læreren gør når dækningsgraden er lav på et område, eller når konteksten kræver tilpasning.",
+      "eksempelsætning": "Mit [artefakt] er et eksempel på redidaktisering i Gissels forstand (2024): jeg har taget et eksisterende læremiddel og lagt mit eget lag af didaktisering ovenpå, fordi [det originale materials didaktiske dækningsgrad var lav på X]."
+    },
+
+    "differentiering": {
+      "definition": "At få alle elever i klassen, uanset forudsætninger, interesser og behov, til at knytte an til indhold og aktiviteter på en måde, så klassen bevares som et fællesskab, samtidig med at den enkelte elev kan udvikle sig.",
+      "sidehenvisning": "s. 115",
+      "primær_metode": "Stilladsering – vejledning, modeltekster, trin-for-trin-støtte",
+      "variation_i": ["mål", "opgaver", "tekster", "undervisningsformer", "tempo", "produkter"],
+      "noeglepointe": "Differentiering er altid lærerens ansvar – selv hvis læremidlet ikke understøtter det.",
+      "eksempelsætning": "Differentiering varetages primært via stilladsering (Gissel, 2024, s. 115): [konkret element]. Der er dog ikke taget højde for [element], hvilket betyder at [konsekvens for elever med særlige behov]."
+    },
+
+    "variation": {
+      "sidehenvisning": "s. 116",
+      "tre_planer": [
+        { "plan": "Organiseringsformer", "eksempel": "Fælles, individuelt, par, gruppe" },
+        { "plan": "Indhold", "eksempel": "Forskellige teksttyper og udtryksformer" },
+        { "plan": "Aktivitetsformer", "eksempel": "Opleve → analysere → producere" }
+      ],
+      "eksempelsætning": "Læremidlet varierer organiseringsformerne (Gissel, 2024, s. 116) ved at veksle mellem [fælles/individuelt/gruppe], men variationen i aktivitetsformer er begrænset til [observation]."
+    },
+
+    "progression": {
+      "definition": "Undervisning handler om, at eleverne skal udvikle sig. Progression beskriver bevægelsen fra enklere til mere komplekse opgaver og begreber.",
+      "sidehenvisning": "s. 116",
+      "tre_niveauer": [
+        "Inden for det enkelte kapitel",
+        "På tværs af kapitler i samme læremiddel",
+        "På tværs af læremidler til forskellige klassetrin"
+      ],
+      "eksempel_billedanalyse": "Åbne spørgsmål → videredigtning → faglige analytiske begreber → analyse af sammenhæng billede/tekst → egen produktion",
+      "eksempelsætning": "Progressionen i læremidlet er [tydelig/uklar], idet opgaverne bevæger sig fra [enkelt] til [komplekst] – fx [konkret observation]."
+    },
+
+    "stilladsering_af_aktiviteter": {
+      "sidehenvisning": "s. 114–115",
+      "eksempler_før_fagtekstlæsning": [
+        "Læreren gennemgår genretræk",
+        "Etablerer læseformål",
+        "Forklarer fagtermer",
+        "Læser teksten højt"
+      ],
+      "før_aktivering": "Kigge på overskrifter og billeder → komme med bud på indholdet"
+    }
+  },
+
+  "analyselogik": {
+    "rækkefølge": [
+      "1. Identificér: Er det et didaktisk læremiddel? (definition, s. 103)",
+      "2. Aflæs: Hvad er den didaktiske intention?",
+      "3. Vurdér: Hvad er dækningsgraden på de fem dimensioner?",
+      "4. Konkludér: Hvad er lærerens opgave i de lavt-dækkede områder?",
+      "5. Evt.: Har læreren redidaktiseret? Hvad og hvorfor?"
+    ],
+    "koblingsskema": {
+      "lav_daekningsgrad_differentiering": "→ Læreren stilladserer selv (jf. differentieringsbegrebet)",
+      "lav_daekningsgrad_progression": "→ Læreren designer progressionsforløb selv",
+      "lav_daekningsgrad_variation": "→ Læreren tilføjer organiseringsformer og aktivitetstyper",
+      "redidaktisering_begrundet_i": "Lav dækningsgrad er den faglige begrundelse for redidaktisering"
+    }
+  },
+
+  "koblingertil_andre_destillater": [
+    "carlsen-hansen-2009-laeremiddelanalyse — analyseguiden operationaliserer dækningsgradsvurderingen",
+    "lag-A: Hansen, Graf & Hansen — undervisningsdimensionen overlapper med dækningsgradsdimensioner"
+  ]
 }

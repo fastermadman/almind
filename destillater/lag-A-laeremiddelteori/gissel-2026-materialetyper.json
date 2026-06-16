@@ -1,11 +1,32 @@
 {
-  "kilde": "Gissel (2026): Materialetyper og didaktisk funktion",
-  "dimensioner": {
-    "maal": "Mål angiver, hvad eleven skal kunne efter forløbet. Et læremiddel med eksplicitte mål gør det muligt for lærer og elev at vurdere progression.",
-    "indhold": "Indhold er det faglige stof forløbet arbejder med. Klart defineret indhold er en forudsætning for, at andre lærere kan overtage forløbet.",
-    "produkt": "Produkt er den synlige output: hvad laver eleven? Et defineret produkt gør evaluering mulig og giver eleven retning.",
-    "aktiviteter": "Aktiviteter er de konkrete handlinger, eleven udfører. Vel beskrevne aktiviteter reducerer lærerens forberedelsestid.",
-    "tid": "Tid angiver forløbets varighed og fase-rytme. Manglende tidsangivelse er en åben plads andre lærere må udfylde.",
-    "evaluering": "Evaluering er metoden til at vurdere, om mål er nået. Åben evalueringsform er den hyppigste tomme plads i delte læremidler."
-  }
+  "kilde": "Gissel, S.T. (2026). Typologi for læremidler og ressourcer, der kan bruges til læring eller undervisning. MONA, 2026(1), 54–70.",
+  "titel": "Typologi for læremidler og læringsressourcer",
+  "lag": "A",
+  "lag1_teori": "Læremidler og læringsressourcer udgør to fundamentalt forskellige kategorier. Didaktiske læremidler er produceret til undervisning og har indlejret didaktik — de indeholder beslutninger om mål, indhold, metode og organisering. Semantiske læringsressourcer (tekster, film, artefakter) er ikke produceret til undervisning; læreren skal selv didaktisere dem. Redskabslæremidler støtter læringsprocessen uden at være indholdsbærende. Didaktisk dækningsgrad (Gissel & Pettersson 2024) gælder kun for didaktiske læremidler — ikke for læringsressourcer.",
+  "lag2_kategorier": [
+    "Didaktisk læremiddel: produceret til undervisning, indlejret didaktik (mål/indhold/metode/organisering)",
+    "Semantisk læringsressource: ikke produceret til undervisning — roman, avisartikel, video, museum",
+    "Redskabslæremiddel: støtter læringsprocessen, ikke indholdsbærende — ordbog, begrebskort, skrivemodel",
+    "6-felt: tekst / redskab / fysisk entitet × skabt til undervisning / inddraget i undervisning",
+    "Didaktisering: lærerens transformation af semantisk ressource til didaktisk design",
+    "Dækningsgrad gælder KUN didaktiske læremidler — ikke læringsressourcer"
+  ],
+  "lag3_spørgsmål": [
+    "Hvad er materialetyperne i dette forløb — hvad er didaktisk læremiddel, hvad er læringsressource, hvad er redskab?",
+    "Hvad overlader forløbet til læreren at didaktisere selv (læringsressourcerne)?",
+    "Matcher dækningsgradsvurderingen kun det didaktiske læremiddel — ikke ressourcerne?",
+    "Er der ressourcer der fremstår som læremidler men reelt er semantiske (fx en roman med opgaver)?",
+    "Hvilke tomme pladser skabes af at læringsressourcerne ikke er didaktiserede?"
+  ],
+  "wizard_trin": "1",
+  "tool_type": "fundament",
+  "tool_navn": "gissel-typologi",
+  "trigger": "Alle forløb — materialetyper kortlægges altid i Trin 1",
+  "lærervejledning_sektion": "2+3",
+  "almind_implikation": "Almind-forløb indeholder altid en blanding af materialetyper. Typologi-feltet gør det synligt hvad læreren overtager og hvad hun selv skal didaktisere. Fork-invitationen er stærkest på læringsressourcerne — dem kan enhver lærer erstatte med lokale alternativer.",
+  "krydsreferencer": [
+    "Gissel & Pettersson (2024) — didaktisk dækningsgrad (gælder kun didaktiske læremidler)",
+    "Hansen, Graf & Hansen (2012) kap. 2.3 — didaktisering vs. redidaktisering",
+    "Hansen (2024) grundlagsdokument — Fagfornyelsens fire principper"
+  ]
 }

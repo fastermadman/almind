@@ -11,40 +11,91 @@
 </head>
 <body>
 <div class="container" id="side">
+
   <header class="site-header">
     <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
-    <nav class="site-nav"><a href="index.html">Forside</a><a href="browse.html">Alle forløb</a><a href="preview.html?id=dss-v1" class="aktiv">Preview</a><a class="knap" href="upload.html">Del et forløb</a></nav>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html">Forside</a>
+      <a href="browse.html">Alle forløb</a>
+      <a href="preview.html?id=dss-v1" class="aktiv">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
   </header>
-  <p class="intro" id="kladde-note" hidden style="font-family:var(--font-ui);background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--fagfarve,var(--ink));border-radius:12px;padding:0.8rem 1.1rem;margin-top:1rem;">Dit forløb. Sådan ser det ud når det deles. Intet er sendt nogen steder hen: dette er en lokal demo.</p>
+
+  <p class="intro" id="kladde-note" hidden style="font-family:var(--font-ui); background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--fagfarve, var(--ink)); border-radius:12px; padding:0.8rem 1.1rem; margin-top:1rem;">
+    Dit forløb. Sådan ser det ud når det deles. Intet er sendt nogen steder hen: dette er en lokal demo.
+  </p>
+
   <div class="preview-vaerktoejer">
-    <div class="faner" role="tablist"><button class="fane" role="tab" id="fane-laerer" aria-selected="true">Lærervejledning</button><button class="fane" role="tab" id="fane-elev" aria-selected="false">Elevmateriale</button></div>
+    <div class="faner" role="tablist" aria-label="Dokumenttype">
+      <button class="fane" role="tab" id="fane-laerer" aria-selected="true">Lærervejledning</button>
+      <button class="fane" role="tab" id="fane-elev" aria-selected="false">Elevmateriale</button>
+    </div>
     <span class="mellemrum"></span>
     <label class="metadata" for="fag-skifter">Designsystemet på tværs af fag:</label>
-    <select id="fag-skifter" class="filter-pill"><option value="">Forløbets eget fag</option><option value="hum">Humaniora</option><option value="stem">STEM</option><option value="natur">Natur</option><option value="aes">Æstetik</option></select>
+    <select id="fag-skifter" class="filter-pill" aria-label="Skift fagfarve">
+      <option value="">Forløbets eget fag</option>
+      <option value="hum">Humaniora</option>
+      <option value="stem">STEM</option>
+      <option value="natur">Natur</option>
+      <option value="aes">Æstetik</option>
+    </select>
     <button class="knap sekundaer" id="print-knap">Print</button>
   </div>
+
   <div id="dokument-rod"></div>
-  <footer class="site-footer"><span>Almind · non-profit, fællesejet infrastruktur for læremidler</span><span>Alt indhold: CC BY-SA 4.0</span></footer>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
 </div>
+
 <script type="module">
   import { hentForloeb, findForloeb, hentKladde, familieFor } from "./assets/js/data.js";
   import { renderDokument } from "./assets/js/dokument.js";
+
   const params = new URLSearchParams(location.search);
   let forloeb;
-  if (params.get("kladde") === "1") { forloeb = hentKladde(); if (forloeb) document.getElementById("kladde-note").hidden = false; }
-  if (!forloeb) { const alle = await hentForloeb(); forloeb = findForloeb(alle, params.get("id")) || findForloeb(alle, "dss-v1"); }
+  if (params.get("kladde") === "1") {
+    forloeb = hentKladde();
+    if (forloeb) document.getElementById("kladde-note").hidden = false;
+  }
+  if (!forloeb) {
+    const alle = await hentForloeb();
+    forloeb = findForloeb(alle, params.get("id")) || findForloeb(alle, "dss-v1");
+  }
+
   document.title = `Preview: ${forloeb.titel} · Almind`;
   const side = document.getElementById("side");
   const egetFag = familieFor(forloeb.fag);
   side.dataset.fag = egetFag;
+
   let tilstand = "laerer";
   const rod = document.getElementById("dokument-rod");
-  function tegn() { rod.innerHTML = ""; const ark = renderDokument(forloeb, tilstand); const valgt = document.getElementById("fag-skifter").value; ark.dataset.fag = valgt || egetFag; rod.appendChild(ark); }
-  const fLaerer = document.getElementById("fane-laerer"); const fElev = document.getElementById("fane-elev");
-  function vaelgFane(ny) { tilstand = ny; fLaerer.setAttribute("aria-selected", String(ny === "laerer")); fElev.setAttribute("aria-selected", String(ny === "elev")); tegn(); }
-  fLaerer.addEventListener("click", () => vaelgFane("laerer")); fElev.addEventListener("click", () => vaelgFane("elev"));
+
+  function tegn() {
+    rod.innerHTML = "";
+    const ark = renderDokument(forloeb, tilstand);
+    // Fag-skifter demonstrerer at designsystemet baerer alle fire familier
+    const valgt = document.getElementById("fag-skifter").value;
+    ark.dataset.fag = valgt || egetFag;
+    rod.appendChild(ark);
+  }
+
+  const fLaerer = document.getElementById("fane-laerer");
+  const fElev = document.getElementById("fane-elev");
+  function vaelgFane(ny) {
+    tilstand = ny;
+    fLaerer.setAttribute("aria-selected", String(ny === "laerer"));
+    fElev.setAttribute("aria-selected", String(ny === "elev"));
+    tegn();
+  }
+  fLaerer.addEventListener("click", () => vaelgFane("laerer"));
+  fElev.addEventListener("click", () => vaelgFane("elev"));
   document.getElementById("fag-skifter").addEventListener("change", tegn);
   document.getElementById("print-knap").addEventListener("click", () => window.print());
+
   tegn();
 </script>
 </body>

@@ -1,94 +1,152 @@
-// Almind preview dokument renderer
+// Preview-renderer: forløbsobjekt ind, printklart dokument-DOM ud.
+// Fortolker Typst-designsystemet fra WIZARD-PROMPT.md som HTML/CSS.
+// Callout-farverne er bevidst Typst-systemets egne: previewet viser hvad pipelinen producerer.
+
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst } from "./data.js";
+
+const CALLOUT_TITLER = {
+  valg: "Didaktisk valg",
+  obs: "Opmærksomhed",
+  almind: "Almind: fork-invitation",
+  dramaturgi: "Dramaturgisk arkitektur",
+  gissel: "Materialetyper (Gissel 2026)",
+};
+
+function tekstEl(tag, klasse, tekst) {
+  const e = document.createElement(tag);
+  if (klasse) e.className = klasse;
+  e.textContent = tekst; // altid textContent: kladde-data er brugerinput
+  return e;
+}
+
+function dgPrikker(status) {
+  if (status === "fuld") return `<span class="p-fuld">&#9679;&#9679;&#9679;</span>`;
+  if (status === "delvis") return `<span class="p-delvis">&#9679;&#9679;</span><span class="p-tom">&#9675;</span>`;
+  return `<span class="p-delvis">&#9679;</span><span class="p-tom">&#9675;&#9675;</span>`;
+}
+
 export function renderDokument(f, tilstand = "laerer") {
-  const ark = document.createElement("article"); ark.className = `ark ${tilstand}`; ark.dataset.fag = familieFor(f.fag);
-  ark.appendChild(kolofon(f, tilstand));
-  if (tilstand === "laerer") {
-    if (f.dg) ark.appendChild(dgSektion(f));
-    if (f.faser?.length) ark.appendChild(faserSektion(f));
-    if (f.tomme_pladser?.length) ark.appendChild(pladserSektion(f));
-    if (f.materialer?.length) ark.appendChild(materialerSektion(f));
-    if (f.citat) ark.appendChild(citatSektion(f));
-  } else {
-    ark.appendChild(elevForside(f));
-    if (f.faser?.length) ark.appendChild(elevFaser(f));
+  const ark = document.createElement("article");
+  ark.className = "ark" + (tilstand === "elev" ? " elev" : "");
+  ark.dataset.fag = familieFor(f.fag);
+
+  // Kolofon
+  const kolofon = document.createElement("header");
+  kolofon.className = "ark-kolofon";
+  const venstre = document.createElement("div");
+  venstre.appendChild(tekstEl("span", "ark-type", tilstand === "elev" ? "Elevmateriale" : "Lærervejledning"));
+  venstre.appendChild(tekstEl("h1", "ark-titel", f.titel));
+  venstre.appendChild(tekstEl("div", "ark-meta",
+    [f.fag, f.klassetrin, f.forfatter, f.institution, f.aar].filter(Boolean).join(" · ")));
+  kolofon.appendChild(venstre);
+
+  const dg = document.createElement("div");
+  dg.className = "ark-dg";
+  dg.innerHTML = DIMENSIONER.map((dim) =>
+    `<div class="dg-linje">${DIM_NAVNE[dim]} <span class="prikker">${dgPrikker(f.daekningsgrad?.[dim] || "tom")}</span></div>`
+  ).join("");
+  dg.setAttribute("aria-label", "Didaktisk dækningsgradsprofil");
+  kolofon.appendChild(dg);
+  ark.appendChild(kolofon);
+
+  if (f.beskrivelse) ark.appendChild(tekstEl("p", null, f.beskrivelse));
+
+  // Maskinlæsbar profil fra wizard-tags (binder forløb sammen og gør dem søgbare)
+  if (tilstand === "laerer" && f.tags && Object.keys(f.tags).length) {
+    const dele = [];
+    if (f.tags.strategi) dele.push("Planlægningsstrategi: " + f.tags.strategi);
+    if (f.tags.anslag_type) dele.push("Anslag: " + f.tags.anslag_type);
+    if (f.tags.virksomhedsformer?.length) dele.push("Virksomhedsformer: " + f.tags.virksomhedsformer.join(" · "));
+    if (f.tags.dewey?.length) dele.push("Erfaringskvaliteter: " + f.tags.dewey.join(" · "));
+    if (f.tags.evalueringsform && f.tags.evalueringsform !== "Ingen (åben plads)") dele.push("Evaluering: " + f.tags.evalueringsform);
+    if (dele.length) {
+      const profil = document.createElement("aside");
+      profil.className = "callout callout-gissel";
+      profil.appendChild(tekstEl("span", "callout-titel", "Forløbsprofil"));
+      profil.appendChild(document.createTextNode(dele.join("  |  ")));
+      ark.appendChild(profil);
+    }
   }
-  ark.appendChild(fod(f));
+
+  // Materialer via mitCFU (printes med: links følger dokumentet)
+  if (tilstand === "laerer" && f.materialer?.length) {
+    ark.appendChild(tekstEl("h3", null, "Materialer"));
+    const ul = document.createElement("ul");
+    f.materialer.forEach((m) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = m.url; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = m.titel;
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(` (${m.type}, mitCFU faust ${m.faust})`));
+      ul.appendChild(li);
+    });
+    ark.appendChild(ul);
+  }
+
+  // Faser
+  (f.faser || []).forEach((fase, i) => {
+    ark.appendChild(tekstEl("h2", null, `Fase ${i + 1}: ${fase.titel}`));
+
+    if (tilstand === "elev") {
+      const maal = document.createElement("div");
+      maal.className = "maal-boks";
+      maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
+      maal.appendChild(document.createTextNode(fase.beskrivelse));
+      ark.appendChild(maal);
+      if (fase.aktiviteter?.length) {
+        ark.appendChild(tekstEl("h3", null, "Det skal du"));
+        const ol = document.createElement("ol");
+        fase.aktiviteter.forEach((a) => ol.appendChild(tekstEl("li", null, a)));
+        ark.appendChild(ol);
+      }
+    } else {
+      ark.appendChild(tekstEl("p", null, fase.beskrivelse));
+      if (fase.aktiviteter?.length) {
+        ark.appendChild(tekstEl("h3", null, "Bevægelser"));
+        const ol = document.createElement("ol");
+        fase.aktiviteter.forEach((a) => ol.appendChild(tekstEl("li", null, a)));
+        ark.appendChild(ol);
+      }
+      (fase.callouts || []).forEach((c) => {
+        const boks = document.createElement("aside");
+        boks.className = `callout callout-${c.type}`;
+        boks.appendChild(tekstEl("span", "callout-titel", c.titel || CALLOUT_TITLER[c.type] || c.type));
+        boks.appendChild(document.createTextNode(c.tekst));
+        ark.appendChild(boks);
+      });
+    }
+  });
+
+  // Wizard-refleksioner (kladder): lærerens egne svar som valg-callouts
+  if (tilstand === "laerer" && f.refleksioner?.length) {
+    ark.appendChild(tekstEl("h2", null, "Didaktiske refleksioner"));
+    f.refleksioner.forEach((r) => {
+      const boks = document.createElement("aside");
+      boks.className = "callout callout-valg";
+      boks.appendChild(tekstEl("span", "callout-titel", r.kilde));
+      boks.appendChild(document.createTextNode(r.tekst));
+      ark.appendChild(boks);
+    });
+  }
+
+  // Åbne pladser: printes med. Invitationen følger materialet ud af platformen.
+  if (tilstand === "laerer" && f.tomme_pladser?.length) {
+    f.tomme_pladser.forEach((p) => {
+      const boks = document.createElement("aside");
+      boks.className = "aaben-plads-boks";
+      boks.appendChild(tekstEl("span", "boks-titel",
+        `Til dig der overtager forløbet: ${DIM_NAVNE[p.dimension] || p.dimension} er en åben plads`));
+      boks.appendChild(document.createTextNode(p.besked));
+      ark.appendChild(boks);
+    });
+  }
+
+  // Fod
+  const fod = document.createElement("footer");
+  fod.className = "ark-fod";
+  fod.innerHTML = `<span>Almind · ${datoTekst(f.opdateret || new Date().toISOString())}</span><span>${f.licens || "CC BY-SA 4.0"}</span>`;
+  ark.appendChild(fod);
+
   return ark;
-}
-function kolofon(f, tilstand) {
-  const div = document.createElement("div"); div.className = "ark-kolofon";
-  div.innerHTML = `<div><div class="ark-type">${tilstand === "laerer" ? "Lærervejledning" : "Elevmateriale"}</div><div class="ark-titel">${f.titel}${f.undertitel ? ` · ${f.undertitel}` : ""}</div><div class="ark-meta">${f.forfatter} · ${f.institution} · ${f.fag} · ${f.klassetrin} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}</div></div>${tilstand === "laerer" ? dgKolofon(f) : ""}`;
-  return div;
-}
-function dgKolofon(f) {
-  if (!f.dg) return "";
-  const linjer = DIMENSIONER.map((d) => { const v = f.dg[d]; const p = v === 2 ? "●●" : v === 1 ? "●○" : "○○"; return `<div class="dg-linje"><span class="prikker">${p}</span> ${DIM_NAVNE[d]}</div>`; }).join("");
-  return `<div class="ark-dg">${linjer}</div>`;
-}
-function dgSektion(f) {
-  const sek = document.createElement("section"); sek.innerHTML = `<h2>Didaktisk dækningsgrad</h2>`;
-  const callout = document.createElement("div"); callout.className = "callout callout-gissel";
-  callout.innerHTML = `<span class="callout-titel">Gissel 2024: Dækningsgrad som analyseredskab</span>Et forløbs didaktiske kvalitet kan aflæses af, hvilke dimensioner det dækker, og hvilke det overlader til lærerens valg. Åbne pladser er ikke fejl: de er invitationer til redidaktisering.`;
-  sek.appendChild(callout);
-  DIMENSIONER.forEach((dim) => {
-    const v = f.dg[dim]; const status = v === 2 ? "fuld" : v === 1 ? "delvis" : "tom";
-    const prikker = v === 2 ? "●●" : v === 1 ? "●○" : "○○";
-    const p = document.createElement("p"); p.style.marginBottom = "0.35rem";
-    p.innerHTML = `<strong>${DIM_NAVNE[dim]}</strong> <span style="letter-spacing:2px;">${prikker}</span> ${status === "fuld" ? "Fuldt dækket" : status === "delvis" ? "Delvist dækket" : "<em>Åben plads</em>"}`;
-    sek.appendChild(p);
-  });
-  return sek;
-}
-function faserSektion(f) {
-  const sek = document.createElement("section"); sek.innerHTML = `<h2>Forløbets faser</h2>`;
-  f.faser.forEach((fase, i) => {
-    const h = document.createElement("h3"); h.textContent = `Fase ${i + 1}: ${fase.titel}`; sek.appendChild(h);
-    const p = document.createElement("p"); p.textContent = fase.beskrivelse; sek.appendChild(p);
-    if (fase.aktiviteter?.length) { const ul = document.createElement("ul"); fase.aktiviteter.forEach((a) => { const li = document.createElement("li"); li.textContent = a; ul.appendChild(li); }); sek.appendChild(ul); }
-    if (fase.dramaturgi) { const c = document.createElement("div"); c.className = "callout callout-dramaturgi"; c.innerHTML = `<span class="callout-titel">Brodersen: ${fase.dramaturgi.type}</span>${fase.dramaturgi.beskriv || ""}`; sek.appendChild(c); }
-  });
-  return sek;
-}
-function pladserSektion(f) {
-  const sek = document.createElement("section"); sek.innerHTML = `<h2>Åbne pladser</h2>`;
-  f.tomme_pladser.forEach((p) => {
-    const boks = document.createElement("div"); boks.className = "aaben-plads-boks";
-    boks.innerHTML = `<span class="boks-titel">Åben plads: ${DIM_NAVNE[p.dimension]}</span>${p.hvad || "Ikke specificeret"}<br><em>${p.hvorfor || ""}</em>`;
-    sek.appendChild(boks);
-  });
-  return sek;
-}
-function materialerSektion(f) {
-  const sek = document.createElement("section"); sek.innerHTML = `<h2>Materialer</h2>`;
-  const ul = document.createElement("ul");
-  f.materialer.forEach((m) => { const li = document.createElement("li"); li.innerHTML = `<strong>${m.type}:</strong> <a href="${m.url}">${m.titel}</a>${m.note ? ` — ${m.note}` : ""}`; ul.appendChild(li); });
-  sek.appendChild(ul);
-  return sek;
-}
-function citatSektion(f) {
-  const sek = document.createElement("section");
-  const bq = document.createElement("blockquote"); bq.style.cssText = "border-left:3px solid var(--fagfarve);padding-left:1rem;font-style:italic;margin:1.5rem 0;";
-  bq.innerHTML = `"${f.citat.tekst}"<br><cite style="font-style:normal;font-size:0.85rem;">— ${f.citat.hvem}</cite>`;
-  sek.appendChild(bq);
-  return sek;
-}
-function elevForside(f) {
-  const sek = document.createElement("section");
-  sek.innerHTML = `<div class="maal-boks"><strong>Mål for dette forløb:</strong> ${f.dg?.maal === 2 ? "Klare mål er beskrevet i forløbet." : "Spørg din lærer om målene for dette forløb."}</div><p>${f.beskrivelse || ""}</p>`;
-  return sek;
-}
-function elevFaser(f) {
-  const sek = document.createElement("section"); sek.innerHTML = `<h2>Dine opgaver</h2>`;
-  f.faser.forEach((fase, i) => {
-    const h = document.createElement("h3"); h.textContent = `Trin ${i + 1}: ${fase.titel}`; sek.appendChild(h);
-    const p = document.createElement("p"); p.textContent = fase.beskrivelse; sek.appendChild(p);
-    if (fase.elevopgave) { const boks = document.createElement("div"); boks.className = "callout callout-valg"; boks.innerHTML = `<span class="callout-titel">Din opgave</span>${fase.elevopgave}`; sek.appendChild(boks); }
-  });
-  return sek;
-}
-function fod(f) {
-  const div = document.createElement("div"); div.className = "ark-fod";
-  div.innerHTML = `<span>almind.org · ${f.licens}</span><span>Hentet ${new Date().toLocaleDateString("da-DK")}</span>`;
-  return div;
 }

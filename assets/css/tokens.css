@@ -1,30 +1,58 @@
-/* Almind designtokens */
+/* ============================================================
+   Almind designtokens
+   Kilde: ALMIND-DESIGN-SKILL.md (NIVEAU 1, låst) + beslutninger 2026-06-12
+   ============================================================ */
+
 :root {
-  --accent: #1f3b2c;
-  --bg: #f4f3ee;
-  --ink: #2c2420;
-  --muted: #8a7e74;
-  --border: #e0d8cf;
-  --surface: #ffffff;
+  /* Platform-accent: mørk evergreen (Valdemars beslutning 2026-06-12).
+     Bruges til logo, knapper og platform-UI. Fagfarverne ejer fortsat indholdet. */
+  --accent:      #1f3b2c;
+
+  /* Neutral base */
+  --bg:          #f4f3ee;
+  --ink:         #2c2420;
+  --muted:       #8a7e74;
+  --border:      #e0d8cf;
+  --surface:     #ffffff;
   --surface-alt: #f9f8f5;
-  --fag-hum: #dc9848; --fag-hum-text: #7a4f1a;
-  --fag-stem: #16233a; --fag-stem-text: #0d1a2e;
-  --fag-natur: #4a6b58; --fag-natur-text: #324d3d;
-  --fag-aes: #8a2e3e; --fag-aes-text: #5a1e2a;
+
+  /* Fagfarver: fire familier */
+  --fag-hum:        #dc9848;
+  --fag-hum-text:   #7a4f1a;
+  --fag-stem:       #16233a;
+  --fag-stem-text:  #0d1a2e;
+  --fag-natur:      #4a6b58;
+  --fag-natur-text: #324d3d;
+  --fag-aes:        #8a2e3e;
+  --fag-aes-text:   #5a1e2a;
+
+  /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
   --font-ui: "Jost", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Georgia, serif;
   --font-display: "Noto Serif", Georgia, serif;
   --font-mono: "Drafting Mono", ui-monospace, "JetBrains Mono", "SF Mono", monospace;
-  --r-kort: 24px; --r-knap: 6px; --r-pill: 9999px; --r-modal: 16px;
-  --dg-fuld: var(--fagfarve, var(--muted)); --dg-delvis: var(--fagfarve, var(--muted));
-  --typ-blue: #2563eb; --typ-blue-bg: #eff6ff; --typ-blue-text: #1e3a8a;
-  --typ-yellow: #d97706; --typ-yellow-bg: #fffbeb; --typ-yellow-text: #78350f;
-  --typ-green: #16a34a; --typ-green-bg: #f0fdf4; --typ-green-text: #14532d;
-  --typ-purple: #7c3aed; --typ-purple-bg: #faf5ff; --typ-purple-text: #4c1d95;
-  --typ-gray: #6b7280; --typ-gray-bg: #f9fafb;
+
+  /* Radius */
+  --r-kort: 24px;
+  --r-knap: 6px;
+  --r-pill: 9999px;
+  --r-modal: 16px;
+
+  /* Dækningsgrad-status */
+  --dg-fuld: var(--fagfarve, var(--muted));
+  --dg-delvis: var(--fagfarve, var(--muted));
+
+  /* Typst-dokumentets egne callout-farver (preview er tro mod print-outputtet) */
+  --typ-blue: #2563eb;    --typ-blue-bg: #eff6ff;    --typ-blue-text: #1e3a8a;
+  --typ-yellow: #d97706;  --typ-yellow-bg: #fffbeb;  --typ-yellow-text: #78350f;
+  --typ-green: #16a34a;   --typ-green-bg: #f0fdf4;   --typ-green-text: #14532d;
+  --typ-purple: #7c3aed;  --typ-purple-bg: #faf5ff;  --typ-purple-text: #4c1d95;
+  --typ-gray: #6b7280;    --typ-gray-bg: #f9fafb;
 }
-[data-fag="hum"] { --fagfarve: var(--fag-hum); --fagtekst: var(--fag-hum-text); }
-[data-fag="stem"] { --fagfarve: var(--fag-stem); --fagtekst: var(--fag-stem-text); }
+
+/* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */
+[data-fag="hum"]   { --fagfarve: var(--fag-hum);   --fagtekst: var(--fag-hum-text); }
+[data-fag="stem"]  { --fagfarve: var(--fag-stem);  --fagtekst: var(--fag-stem-text); }
 [data-fag="natur"] { --fagfarve: var(--fag-natur); --fagtekst: var(--fag-natur-text); }
-[data-fag="aes"] { --fagfarve: var(--fag-aes); --fagtekst: var(--fag-aes-text); }
+[data-fag="aes"]   { --fagfarve: var(--fag-aes);   --fagtekst: var(--fag-aes-text); }

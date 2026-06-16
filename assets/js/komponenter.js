@@ -1,68 +1,119 @@
-// Almind DOM komponenter
-import { familieFor, DIMENSIONER, DIM_NAVNE, antalAabnePladser, kaede, hentAlleDestillater, gisselDefinition } from "./data.js";
-let _destillater = null;
-async function destillater() { if (!_destillater) _destillater = await hentAlleDestillater(); return _destillater; }
+// Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
+
+import { familieFor, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
+
 export function forloebKort(f, alle) {
   const fam = familieFor(f.fag);
-  const a = document.createElement("a"); a.href = `sequence.html?id=${f.id}`; a.className = "kort"; a.dataset.fag = fam;
-  const k = kaede(alle, f.id); const pladser = antalAabnePladser(f);
+  const a = document.createElement("a");
+  a.className = "kort";
+  a.href = `sequence.html?id=${f.id}`;
+  a.dataset.fag = fam;
+
+  const k = alle ? kaede(alle, f.id) : [f];
+  const miniGenealogi =
+    k.length > 1
+      ? `<span class="mini-genealogi" title="${k.length} versioner">` +
+        k.map((v, i) =>
+            `<span class="prik${v.id === f.id ? " fyldt" : ""}"></span>` +
+            (i < k.length - 1 ? `<span class="streg"></span>` : "")
+          ).join("") +
+        `</span>`
+      : "";
+
+  const pladser = antalAabnePladser(f);
+
   a.innerHTML = `
     <div class="kort-tags">
       <span class="tag">${f.fag}</span>
       <span class="tag neutral">${f.klassetrin}</span>
-      ${(f.tema || []).slice(0, 2).map((t) => `<span class="tag neutral">${t}</span>`).join("")}
     </div>
-    <h3>${f.titel}${f.undertitel ? `<br><span style="font-size:0.88em;font-weight:400;color:var(--muted);">${f.undertitel}</span>` : ""}</h3>
-    <p class="kort-beskrivelse">${f.beskrivelse || ""}</p>
+    <h3>${f.titel}</h3>
+    <p class="kort-beskrivelse">${f.beskrivelse}</p>
+    <div class="metadata">${f.forfatter} · ${datoTekst(f.opdateret)}</div>
     <div class="kort-bund">
-      <span class="metadata">${f.forfatter} · ${f.institution}</span>
-      <div style="display:flex;align-items:center;gap:0.5rem;">
-        ${pladser > 0 ? `<span class="plads-badge">${pladser} åb${pladser === 1 ? "en" : "ne"} plads${pladser === 1 ? "" : "er"}</span>` : ""}
-        ${k.length > 1 ? miniGenealogi(k.length) : ""}
-      </div>
-    </div>`;
+      ${miniGenealogi || `<span class="metadata">1 version</span>`}
+      ${pladser ? `<span class="plads-badge">${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}</span>` : ""}
+    </div>
+  `;
   return a;
 }
-function miniGenealogi(n) {
-  const prikker = Array.from({ length: Math.min(n, 5) }, (_, i) => `<span class="prik${i === 0 ? " fyldt" : ""}"></span>`).join(`<span class="streg"></span>`);
-  return `<div class="mini-genealogi" title="${n} versioner">${prikker}</div>`;
+
+// Prikker: nøjagtig samme visuelle kode som print-dokumentets dg-prik (Typst-systemet).
+export function dgPrikker(status) {
+  if (status === "fuld") return `<span class="p-fuld">&#9679;&#9679;&#9679;</span>`;
+  if (status === "delvis") return `<span class="p-delvis">&#9679;&#9679;</span><span class="p-tom">&#9675;</span>`;
+  return `<span class="p-delvis">&#9679;</span><span class="p-tom">&#9675;&#9675;</span>`;
 }
+
+const STATUS_TEKST = { fuld: "fuldt dækket", delvis: "delvist", tom: "åben plads" };
+
 export function dgProfil(f) {
-  const wrap = document.createElement("div"); wrap.className = "dg-profil";
+  const wrap = document.createElement("div");
+  wrap.className = "dg-profil";
   DIMENSIONER.forEach((dim) => {
-    const v = f.dg?.[dim];
-    const status = v === 2 ? "fuld" : v === 1 ? "delvis" : "tom";
-    const prikker = v === 2 ? "●●" : v === 1 ? "●○" : "○○";
-    const cls = v === 2 ? "p-fuld" : v === 1 ? "p-delvis" : "p-tom";
-    const tekst = v === 2 ? "Fuldt dækket" : v === 1 ? "Delvist dækket" : "Åben plads";
-    wrap.innerHTML += `<div class="dg-raekke" data-status="${status}"><span class="dg-navn">${DIM_NAVNE[dim]}</span><span class="dg-prikker ${cls}">${prikker}</span><span class="dg-status-tekst">${tekst}</span></div>`;
+    const status = f.daekningsgrad?.[dim] || "tom";
+    const raekke = document.createElement("div");
+    raekke.className = "dg-raekke";
+    raekke.dataset.status = status;
+    raekke.innerHTML = `
+      <span class="dg-navn">${DIM_NAVNE[dim]}</span>
+      <span class="dg-prikker" role="img" aria-label="${DIM_NAVNE[dim]}: ${STATUS_TEKST[status]}">${dgPrikker(status)}</span>
+      <span class="dg-status-tekst">${STATUS_TEKST[status]}</span>
+    `;
+    wrap.appendChild(raekke);
   });
   return wrap;
 }
+
+// Tom plads: stiplet kant der folder sig ud (native details).
 export function pladsFold(f, plads) {
-  const det = document.createElement("details"); det.className = "plads";
-  const sum = document.createElement("summary");
-  sum.innerHTML = `<span class="fold-pil">▶</span><span class="plads-label">Åben plads: ${DIM_NAVNE[plads.dimension]}</span><span class="plads-preview">${plads.hvad || "Ikke specificeret"}</span>`;
-  det.appendChild(sum);
-  const krop = document.createElement("div"); krop.className = "plads-krop";
-  krop.innerHTML = `<blockquote>${plads.hvad || "Ikke specificeret"}</blockquote><p style="font-size:0.88rem;margin-bottom:0.9rem;">${plads.hvorfor || ""}</p><a class="knap" href="fork.html?id=${f.id}&dimension=${plads.dimension}">Udfyld denne plads</a>`;
-  det.appendChild(krop);
-  det.addEventListener("toggle", async () => {
-    if (det.open && !krop.querySelector(".gissel-def")) {
-      const ds = await destillater();
-      const def = gisselDefinition(plads.dimension, ds);
-      if (def) { const d = document.createElement("p"); d.className = "gissel-def"; d.innerHTML = `<strong>${DIM_NAVNE[plads.dimension]}:</strong> ${def.def} <span class="destillat-kilde">(${def.kilde})</span>`; krop.insertBefore(d, krop.querySelector("a")); }
+  const d = document.createElement("details");
+  d.className = "plads";
+  d.innerHTML = `
+    <summary>
+      <span class="fold-pil">&#9654;</span>
+      <span class="plads-label">Åben plads: ${DIM_NAVNE[plads.dimension] || plads.dimension}</span>
+      <span class="plads-preview">${plads.besked}</span>
+    </summary>
+    <div class="plads-krop">
+      <blockquote>${plads.besked}<br><span class="metadata">${f.forfatter}</span></blockquote>
+      <p class="gissel-def" data-dim="${plads.dimension}"></p>
+      <a class="knap fag" href="fork.html?id=${f.id}&dimension=${plads.dimension}">Fork herfra</a>
+    </div>
+  `;
+  // Gissel-definition hentes lazy ved første åbning.
+  d.addEventListener("toggle", async () => {
+    const felt = d.querySelector(".gissel-def");
+    if (d.open && !felt.textContent) {
+      const def = await gisselDefinition(plads.dimension);
+      if (def) felt.innerHTML = `<strong>Gissel (2024):</strong> ${def}`;
     }
-  });
-  return det;
+  }, { once: false });
+  return d;
 }
+
 export function fagBaand(alle) {
-  const wrap = document.createElement("div"); wrap.className = "fagbaand";
-  const FAMILIER_DATA = [{ id: "hum", navn: "Humaniora", fag: "dansk, engelsk, tysk, samfundsfag, religion, filosofi" }, { id: "stem", navn: "STEM", fag: "matematik, fysik, kemi" }, { id: "natur", navn: "Natur", fag: "biologi, geografi, naturvidenskab" }, { id: "aes", navn: "Æstetik", fag: "musik, billedkunst, indræt, design" }];
-  for (const fam of FAMILIER_DATA) {
-    const antal = alle.filter((f) => familieFor(f.fag) === fam.id).length;
-    const a = document.createElement("a"); a.href = `browse.html?fam=${fam.id}`; a.className = "fagfelt"; a.dataset.fag = fam.id;
-    a.innerHTML = `<div class="fagnavn">${fam.navn}</div><div class="fagfag">${fam.fag}</div><div class="fagantal">${antal} forløb</div>`;
+  const wrap = document.createElement("div");
+  wrap.className = "fagbaand";
+  const taellinger = { hum: 0, stem: 0, natur: 0, aes: 0 };
+  alle.forEach((f) => taellinger[familieFor(f.fag)]++);
+  const navne = { hum: "Humaniora", stem: "STEM", natur: "Natur", aes: "Æstetik" };
+  const fagliste = {
+    hum: "Dansk · Historie · Religion",
+    stem: "Matematik · Fysik · Teknik",
+    natur: "Natur/teknik · Geografi · Biologi",
+    aes: "Musik · Billedkunst · Drama",
+  };
+  for (const fam of ["hum", "stem", "natur", "aes"]) {
+    const a = document.createElement("a");
+    a.className = "fagfelt";
+    a.dataset.fag = fam;
+    a.href = `browse.html?fam=${fam}`;
+    a.innerHTML = `
+      <div class="fagnavn">${navne[fam]}</div>
+      <div class="fagfag">${fagliste[fam]}</div>
+      <div class="fagantal">${taellinger[fam]} ${taellinger[fam] === 1 ? "forløb" : "forløb"} &rarr;</div>
+    `;
     wrap.appendChild(a);
   }
   return wrap;

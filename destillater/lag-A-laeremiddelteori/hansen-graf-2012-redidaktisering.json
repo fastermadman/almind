@@ -1,8 +1,38 @@
 {
-  "kilde": "Hansen & Graf (2012): Redidaktisering som praksis",
-  "dimensioner": {
-    "maal": "Læremål bør være til forhandling: når en lærer redidaktiserer, tilpasser hun målene til klassens aktuelle niveau og kontekst.",
-    "indhold": "Indholdets valg er altid didaktisk: valg af tekst, emne eller case bærer en didaktisk intention som bør synliggøres.",
-    "aktiviteter": "Aktiviteter kan redidaktiseres ved at ændre social form (individuelt, par, gruppe) eller medium (analogt, digitalt)."
-  }
+  "kilde": "Hansen, J.J., Graf, S.T. & Hansen, T.I. (2012). Læremidler i didaktikken — didaktikken i læremidler. Klim.",
+  "afsnit": "2.3 + 2.4",
+  "titel": "Didaktisering, redidaktisering og planlægningsstrategier",
+  "lag": "A",
+  "lag1_teori": "Læreren transformerer altid læremidlet — enten et semantisk læremiddel (didaktisering) eller et didaktisk læremiddel (redidaktisering) — til et didaktisk design tilpasset egne mål, indhold, metoder, elevforudsætninger og rammer. Processen styres af lærerens praksisteori: et sammensat system af viden, erfaringer og værdier, ofte som tavs viden. Lærere anlægger tre grundlæggende planlægningsstrategier: uafhængig (plukker frit), læremiddelstyret (følger designet) og læremiddelstøttet (lader sig inspirere). Strategivalget afhænger af læremidlets åbenhedsgrad og lærerens faglige erfaring.",
+  "lag2_kategorier": [
+    "Didaktisering: transformation af semantisk læremiddel → didaktisk design",
+    "Redidaktisering: transformation af didaktisk læremiddel → didaktisk design",
+    "Praksisteori: lærerens tavse viden, erfaringer og værdier — styrende for læremiddelvalg og -bearbejdning",
+    "Planlægningsstrategi uafhængig: plukker elementer suverænt ud til egne formål",
+    "Planlægningsstrategi læremiddelstyret: overtager designets formgivning af mål, indhold, metoder",
+    "Planlægningsstrategi læremiddelstøttet: bruger lærervejledningen som idékatalog, ikke instruktion",
+    "Deduktivt udgangspunkt: årsplan først → søger egnede læremidler",
+    "Induktivt udgangspunkt: læremidlet først → formulerer årsplan ud fra det",
+    "Åbent vs. styrende design: læremidlets åbenhedsgrad afgør hvilken strategi der inviteres til"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilken planlægningsstrategi inviterer dette forløb læreren til — styrende, støttende eller åbent?",
+    "Hvilke dele af forløbet er didaktiske læremidler (med indlejret didaktik) og hvilke er semantiske læringsressourcer der kræver lærerens didaktisering?",
+    "Hvad er de tomme pladser — hvad overlades til læreren at beslutte selv (mål, organisering, differentiering, evaluering)?",
+    "Taler lærervejledningen through læreren (instruktion) eller to læreren (idékatalog, refleksion)?",
+    "Hvad er forløbets åbenhedsgrad — i hvilken grad inviterer det til redidaktisering frem for slavisk følgelse?"
+  ],
+  "wizard_trin": "1",
+  "tool_type": "fundament",
+  "tool_navn": "redidaktisering",
+  "trigger": "Alle forløb — dette er Alminds kernebegreb og altid aktivt i Trin 1",
+  "lærervejledning_sektion": "2+3",
+  "almind_implikation": "Almind er infrastruktur for redidaktisering. Forløbsprofil-spørgsmålene i Trin 1 kortlægger præcis hvad læreren overtager og hvad hun selv skal didaktisere. Dækningsgradsprofilen synliggør tomme pladser som fork-invitationer.",
+  "sidehenvisninger": "s. 36-40 (afsnit 2.3 og 2.4)",
+  "krydsreferencer": [
+    "Carlsen & Hansen (2009) — tre planlægningsstrategier",
+    "Lauvås & Handal (2006) — praksisteori",
+    "Gissel & Pettersson (2024) — didaktisk dækningsgrad operationaliserer 'tomme pladser'",
+    "Nielsen et al. (2025) — empirisk bekræfter læremiddelstøttet som den ønskede strategi"
+  ]
 }
