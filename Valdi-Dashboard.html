@@ -1,190 +1,1133 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Projekter</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0d0d0d; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
-    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #0d0d0d; z-index: 9999; }
-    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
-    #__bundler_placeholder { color: #999; font-size: 14px; }
-  </style>
-  <noscript>
-    <style>#__bundler_loading { display: none; }</style>
-    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
-      This page requires JavaScript to display.
-    </div>
-  </noscript>
-</head>
-<body>
-  <div id="__bundler_thumbnail">
-    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="800" fill="#0d0d0d"></rect>
-      <g fill="#b4b4b4" opacity="0.8">
-        <rect x="60" y="80" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-        <text x="80" y="110" font-size="16" font-family="monospace" fill="#ededed">almind</text>
-        <rect x="420" y="80" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-        <text x="440" y="110" font-size="16" font-family="monospace" fill="#ededed">lynsyn</text>
-        <rect x="780" y="80" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-        <text x="800" y="110" font-size="16" font-family="monospace" fill="#ededed">vejvis</text>
-        <rect x="60" y="290" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-        <rect x="420" y="290" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-        <rect x="780" y="290" width="320" height="180" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1"></rect>
-      </g>
-      <text x="600" y="650" font-size="14" font-family="monospace" text-anchor="middle" fill="#4a4a4a">Projects</text>
-    </svg>
-  </div>
-  <div id="__bundler_loading">Unpacking...</div>
+<html lang="da"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekter</title>
+<style>
 
-  <script>
-    
-document.addEventListener('DOMContentLoaded', async function() {
-  const loading = document.getElementById('__bundler_loading');
-  function setStatus(msg) { if (loading) loading.textContent = msg; }
 
-  // Error sink persists across replaceWith since it's on window, not the DOM.
-  window.addEventListener('error', function(e) {
-    var p = document.body || document.documentElement;
-    var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
-    d.id = '__bundler_err';
-    d.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;font:12px/1.4 ui-monospace,monospace;background:#2a1215;color:#ff8a80;padding:10px 14px;border-radius:8px;border:1px solid #5c2b2e;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
-    d.textContent = (d.textContent ? d.textContent + String.fromCharCode(10) : '') +
-      '[bundle] ' + (e.message || e.type) +
-      (e.filename ? ' (' + e.filename.slice(0, 60) + ':' + e.lineno + ')' : '');
-  }, true);
-
-  try {
-    const manifestEl = document.querySelector('script[type="__bundler/manifest"]');
-    const templateEl = document.querySelector('script[type="__bundler/template"]');
-    if (!manifestEl || !templateEl) {
-      setStatus('Error: missing bundle data');
-      console.error('[bundler] Missing script tags — manifestEl:', !!manifestEl, 'templateEl:', !!templateEl);
-      return;
-    }
-
-    const manifest = JSON.parse(manifestEl.textContent);
-    let template = JSON.parse(templateEl.textContent);
-
-    const uuids = Object.keys(manifest);
-    setStatus('Unpacking ' + uuids.length + ' assets...');
-
-    const blobUrls = {};
-    await Promise.all(uuids.map(async (uuid) => {
-      const entry = manifest[uuid];
-      try {
-        const binaryStr = atob(entry.data);
-        const bytes = new Uint8Array(binaryStr.length);
-        for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
-
-        let finalBytes = bytes;
-        if (entry.compressed) {
-          if (typeof DecompressionStream !== 'undefined') {
-            const ds = new DecompressionStream('gzip');
-            const writer = ds.writable.getWriter();
-            const reader = ds.readable.getReader();
-            writer.write(bytes);
-            writer.close();
-            const chunks = [];
-            let totalLen = 0;
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              chunks.push(value);
-              totalLen += value.length;
-            }
-            finalBytes = new Uint8Array(totalLen);
-            let offset = 0;
-            for (const chunk of chunks) { finalBytes.set(chunk, offset); offset += chunk.length; }
-          } else {
-            console.warn('DecompressionStream not available, asset ' + uuid + ' may not render');
-          }
-        }
-
-        blobUrls[uuid] = URL.createObjectURL(new Blob([finalBytes], { type: entry.mime }));
-      } catch (err) {
-        console.error('Failed to decode asset ' + uuid + ':', err);
-        blobUrls[uuid] = URL.createObjectURL(new Blob([], { type: entry.mime }));
-      }
-    }));
-
-    const extResEl = document.querySelector('script[type="__bundler/ext_resources"]');
-    const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
-    const resourceMap = {};
-    for (const entry of extResources) {
-      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
-    }
-
-    setStatus('Rendering...');
-    for (const uuid of uuids) template = template.split(uuid).join(blobUrls[uuid]);
-
-    // Strip integrity + crossorigin — blob URLs from a file:// document inherit
-    // a null origin, so crossorigin forces a CORS fetch that SRI then rejects.
-    // The manifest bytes are ours; SRI protects against CDN compromise, not this.
-    template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
-
-    const resourceScript = '<script>window.__resources = ' +
-      JSON.stringify(resourceMap).split('</' + 'script>').join('<\\/' + 'script>') +
-      ';</' + 'script>';
-    // Inject after <head> so the DOCTYPE stays first; prepending the script
-    // would push the parser into quirks mode. DOMParser always emits a <head>
-    // (synthesizing one if the source HTML omitted it) but may carry
-    // attributes through, so match the full opening tag. slice() rather than
-    // replace() keeps us clear of $-pattern substitution in resourceScript.
-    const headOpen = template.match(/<head[^>]*>/i);
-    if (headOpen) {
-      const i = headOpen.index + headOpen[0].length;
-      template = template.slice(0, i) + resourceScript + template.slice(i);
-    }
-
-    // Parse the template and swap the root element. Scripts inserted via
-    // DOMParser/replaceWith are inert per spec — re-create each with
-    // createElement so they execute, awaiting onload for src scripts to
-    // preserve ordering (React before ReactDOM before Babel before text/babel).
-    const doc = new DOMParser().parseFromString(template, 'text/html');
-    document.documentElement.replaceWith(doc.documentElement);
-    const dead = Array.from(document.scripts);
-    for (const old of dead) {
-      const s = document.createElement('script');
-      for (const a of old.attributes) s.setAttribute(a.name, a.value);
-      s.textContent = old.textContent;
-      // text/babel scripts with a src: fetch and inline. transformScriptTags
-      // does XHR against the src, but blob:null/ from a file:// origin is
-      // silently dropped. Inlining makes it a plain inline babel script,
-      // which transformScriptTags handles unconditionally.
-      if ((s.type === 'text/babel' || s.type === 'text/jsx') && s.src) {
-        const r = await fetch(s.src);
-        s.textContent = await r.text();
-        s.removeAttribute('src');
-      }
-      const p = s.src ? new Promise(function(r) { s.onload = s.onerror = r; }) : null;
-      old.replaceWith(s);
-      if (p) await p;
-    }
-    // Babel standalone auto-transforms type=text/babel on DOMContentLoaded,
-    // which fired before we swapped the document. Trigger manually if present.
-    if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
-      window.Babel.transformScriptTags();
-    }
-  } catch (err) {
-    setStatus('Error unpacking: ' + err.message);
-    console.error('Bundle unpack error:', err);
+  :root {
+    --bg:          #0d0d0d;
+    --card:        #111111;
+    --card-hover:  #141414;
+    --line:        #1a1a1a;
+    --line-soft:   #161616;
+    --line-hover:  #272727;
+    --name:        #ededed;
+    --val:         #b4b4b4;
+    --label:       #5a5a5a;
+    --meta:        #4a4a4a;
+    --faint:       #2c2c2c;
+    --danger:      #8a3232;
+    --ease:        150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-});
 
-  </script>
+  * { box-sizing: border-box; }
 
-  <script type="__bundler/manifest">
-{}
-  </script>
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--val);
+    font-family: 'Drafting Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" 1;
+  }
 
-  <script type="__bundler/ext_resources">
-[]
-  </script>
+  h1, h2, h3, h4, h5, h6 {
+    font-variant: small-caps;
+  }
 
-  <script type="__bundler/template">
-"<!DOCTYPE html>\n<html lang=\"da\"><head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Projekter<\u002Ftitle>\n<style>\n\n\n  :root {\n    --bg:          #0d0d0d;\n    --card:        #111111;\n    --card-hover:  #141414;\n    --line:        #1a1a1a;\n    --line-soft:   #161616;\n    --line-hover:  #272727;\n    --name:        #ededed;\n    --val:         #b4b4b4;\n    --label:       #5a5a5a;\n    --meta:        #4a4a4a;\n    --faint:       #2c2c2c;\n    --danger:      #8a3232;\n    --ease:        150ms cubic-bezier(0.4, 0, 0.2, 1);\n  }\n\n  * { box-sizing: border-box; }\n\n  html, body {\n    margin: 0;\n    background: var(--bg);\n    color: var(--val);\n    font-family: 'Drafting Mono', ui-monospace, 'SF Mono', Menlo, monospace;\n    -webkit-font-smoothing: antialiased;\n    font-feature-settings: \"tnum\" 1;\n  }\n\n  h1, h2, h3, h4, h5, h6 {\n    font-variant: small-caps;\n  }\n\n  body {\n    min-height: 100vh;\n    padding: 26px 30px 40px;\n  }\n\n  ::selection { background: #2a2a2a; color: #e8e8e8; }\n\n  a { color: inherit; text-decoration: none; }\n\n  button {\n    font-family: inherit;\n    cursor: pointer;\n  }\n\n  /* ---- Global meta header ---- */\n  .meta-bar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 24px;\n    padding: 14px 18px;\n    margin-bottom: 22px;\n    background: #0f0f0f;\n    border: 1px solid var(--line);\n    border-radius: 4px;\n  }\n  .meta-left { display: flex; flex-direction: column; gap: 7px; min-width: 0; }\n  .meta-row { display: flex; align-items: baseline; gap: 13px; min-width: 0; }\n  .meta-key {\n    font-size: 8.5px;\n    font-weight: 300;\n    letter-spacing: 0.12em;\n    text-transform: uppercase;\n    color: var(--label);\n    flex-shrink: 0;\n    width: 42px;\n  }\n  .meta-txt {\n    font-size: 11.5px;\n    font-weight: 400;\n    color: var(--val);\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n  }\n  .meta-right {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    flex-shrink: 0;\n  }\n  .status-dot {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    font-size: 9px;\n    font-weight: 300;\n    letter-spacing: 0.08em;\n    text-transform: uppercase;\n  }\n  .status-dot .dot {\n    width: 5px; height: 5px; border-radius: 50%;\n    background: #2e5a36;\n  }\n  .status-dot.off .dot { background: var(--danger); animation: pulse 2.4s ease-in-out infinite; }\n  .status-dot.off { color: var(--danger); }\n  .status-dot.on  { color: #3a3a3a; }\n  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }\n\n  .icon-btn {\n    background: none;\n    border: 1px solid var(--line);\n    color: var(--meta);\n    font-size: 11px;\n    line-height: 1;\n    padding: 6px 9px;\n    border-radius: 3px;\n    transition: color var(--ease), border-color var(--ease);\n  }\n  .icon-btn:hover { color: #888; border-color: var(--line-hover); }\n\n  /* ---- Token setup ---- */\n  .setup {\n    max-width: 480px;\n    margin: 0 auto 40px;\n    padding: 26px 28px;\n    background: #101010;\n    border: 1px solid var(--line);\n    border-radius: 5px;\n  }\n  .setup h2 {\n    margin: 0 0 4px;\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: 0.02em;\n    color: var(--name);\n  }\n  .setup p {\n    margin: 0 0 22px;\n    font-size: 10.5px;\n    font-weight: 300;\n    line-height: 1.7;\n    color: var(--meta);\n  }\n  .field { margin-bottom: 16px; }\n  .field label {\n    display: block;\n    font-size: 8.5px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--label);\n    margin-bottom: 7px;\n  }\n  .field input {\n    width: 100%;\n    background: var(--bg);\n    border: 1px solid var(--line);\n    color: #d0d0d0;\n    font-family: inherit;\n    font-size: 12px;\n    font-weight: 400;\n    padding: 10px 12px;\n    border-radius: 3px;\n    outline: none;\n    transition: border-color var(--ease);\n  }\n  .field input::placeholder { color: #333; }\n  .field input:focus { border-color: var(--line-hover); }\n  .field .hint {\n    margin-top: 7px;\n    font-size: 9px;\n    font-weight: 300;\n    color: #383838;\n    line-height: 1.6;\n  }\n  .setup-actions { display: flex; gap: 9px; margin-top: 6px; }\n  .btn {\n    background: #181818;\n    border: 1px solid var(--line);\n    color: #9a9a9a;\n    font-size: 9.5px;\n    letter-spacing: 0.08em;\n    text-transform: uppercase;\n    padding: 10px 20px;\n    border-radius: 3px;\n    transition: background var(--ease), color var(--ease), border-color var(--ease);\n  }\n  .btn:hover { background: #1e1e1e; color: #ccc; border-color: var(--line-hover); }\n  .btn.ghost { background: none; color: var(--meta); }\n  .btn.ghost:hover { background: #141414; color: #888; }\n\n  /* ---- Cards grid ---- */\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));\n    gap: 9px;\n  }\n  .card {\n    position: relative;\n    display: block;\n    width: 100%;\n    text-align: left;\n    background: var(--card);\n    border: 1px solid var(--line);\n    border-radius: 4px;\n    padding: 18px 20px 16px;\n    cursor: pointer;\n    transition: background var(--ease), border-color var(--ease), transform var(--ease);\n    animation: rise 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;\n  }\n  .card:hover { background: var(--card-hover); border-color: var(--line-hover); }\n  .card:active { transform: translateY(0.5px); }\n  @keyframes rise {\n    from { opacity: 0; transform: translateY(5px); }\n    to   { opacity: 1; transform: translateY(0); }\n  }\n\n  .card-head {\n    display: flex;\n    align-items: baseline;\n    justify-content: space-between;\n    gap: 12px;\n    margin-bottom: 15px;\n  }\n  .card-name {\n    font-size: 13px;\n    font-weight: 600;\n    font-variant: small-caps;\n    letter-spacing: 0.01em;\n    color: var(--name);\n    transition: color var(--ease);\n  }\n  .card-name:hover { color: #fff; }\n  .card-name .ext { color: #4a4a4a; transition: color var(--ease); }\n  .card-name:hover .ext { color: #888; }\n  .card-date {\n    font-size: 9px;\n    font-weight: 300;\n    color: var(--meta);\n    flex-shrink: 0;\n    white-space: nowrap;\n  }\n\n  .rows { display: flex; flex-direction: column; gap: 7px; }\n  .row { display: flex; gap: 13px; align-items: baseline; }\n  .row .k {\n    font-size: 8px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--label);\n    width: 50px;\n    flex-shrink: 0;\n  }\n  .row .v {\n    font-size: 11.5px;\n    font-weight: 400;\n    color: var(--val);\n    line-height: 1.45;\n    word-break: break-word;\n  }\n  .row.dim .v { color: var(--meta); font-weight: 300; }\n  .row.muted .v { color: var(--faint); }\n\n  .card-foot {\n    display: flex;\n    align-items: baseline;\n    gap: 13px;\n    margin-top: 13px;\n    padding-top: 12px;\n    border-top: 1px solid var(--line-soft);\n  }\n\n  .badge {\n    font-size: 8px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--label);\n  }\n  .badge .n { color: var(--val); font-weight: 400; }\n  .badge.zero .n { color: var(--faint); }\n\n  .repo-tag {\n    margin-left: auto;\n    font-size: 8.5px;\n    font-weight: 300;\n    color: var(--faint);\n    white-space: nowrap;\n  }\n  .repo-tag.pub { color: #3a4a3a; }\n\n  /* shimmer placeholder */\n  .skel { color: var(--faint) !important; }\n  .loading .skel { animation: blink 1.4s ease-in-out infinite; }\n  @keyframes blink { 0%,100% { opacity: 0.5; } 50% { opacity: 0.18; } }\n\n  /* ---- Detail view ---- */\n  .detail-head {\n    display: flex;\n    align-items: center;\n    gap: 18px;\n    margin-bottom: 30px;\n    padding-bottom: 14px;\n    border-bottom: 1px solid var(--line);\n  }\n  .detail-name {\n    font-size: 16px;\n    font-weight: 600;\n    font-variant: small-caps;\n    letter-spacing: 0.01em;\n    color: var(--name);\n    transition: color var(--ease);\n  }\n  .detail-name:hover { color: #fff; }\n  .detail-name .ext { color: #4a4a4a; }\n  .detail-name:hover .ext { color: #888; }\n  .detail-status {\n    margin-left: auto;\n    font-size: 9px;\n    font-weight: 300;\n    letter-spacing: 0.08em;\n    text-transform: uppercase;\n    color: var(--meta);\n  }\n\n  .columns {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 48px;\n    max-width: 940px;\n  }\n  @media (max-width: 720px) {\n    .columns { grid-template-columns: 1fr; gap: 36px; }\n  }\n\n  .section-title {\n    font-size: 9px;\n    font-weight: 300;\n    letter-spacing: 0.12em;\n    text-transform: uppercase;\n    color: var(--meta);\n    padding-bottom: 10px;\n    margin-bottom: 18px;\n    border-bottom: 1px solid var(--line-soft);\n    display: flex;\n    align-items: baseline;\n    justify-content: space-between;\n  }\n  .section-title .sub { color: var(--faint); letter-spacing: 0.04em; }\n\n  .dfield { margin-bottom: 18px; }\n  .dfield .dk {\n    font-size: 8px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--label);\n    margin-bottom: 6px;\n  }\n  .dfield .dv {\n    font-size: 12.5px;\n    font-weight: 400;\n    color: var(--val);\n    line-height: 1.6;\n    word-break: break-word;\n  }\n  .dfield .dv.dim { color: var(--meta); font-weight: 300; }\n\n  .sub-block {\n    margin-top: 26px;\n    padding: 16px 18px;\n    background: #0d0d0d;\n    border: 1px solid var(--line-soft);\n    border-radius: 4px;\n  }\n  .sub-block .sub-name {\n    font-size: 10px;\n    font-weight: 600;\n    letter-spacing: 0.04em;\n    color: #999;\n    margin-bottom: 14px;\n    display: flex;\n    align-items: baseline;\n    gap: 8px;\n  }\n  .sub-block .sub-name .tag {\n    font-size: 7.5px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--faint);\n  }\n\n  .issue {\n    display: block;\n    padding: 12px 14px;\n    margin-bottom: 8px;\n    background: #0a0a0a;\n    border: 1px solid var(--line-soft);\n    border-radius: 3px;\n    transition: background var(--ease), border-color var(--ease);\n  }\n  .issue:hover { background: var(--card-hover); border-color: var(--line-hover); }\n  .issue .it {\n    font-size: 11.5px;\n    font-weight: 400;\n    color: #c0c0c0;\n    line-height: 1.5;\n    margin-bottom: 5px;\n  }\n  .issue .im {\n    display: flex;\n    gap: 10px;\n    align-items: center;\n    font-size: 8.5px;\n    font-weight: 300;\n    color: var(--meta);\n  }\n  .issue .im .num { color: #585858; }\n\n  .commit {\n    margin-top: 18px;\n    padding-top: 16px;\n    border-top: 1px solid var(--line-soft);\n  }\n  .commit .ck {\n    font-size: 8px;\n    font-weight: 300;\n    letter-spacing: 0.1em;\n    text-transform: uppercase;\n    color: var(--label);\n    margin-bottom: 7px;\n  }\n  .commit .cmsg {\n    font-size: 11.5px;\n    font-weight: 400;\n    color: var(--val);\n    line-height: 1.5;\n    margin-bottom: 5px;\n    word-break: break-word;\n  }\n  .commit .cmeta { font-size: 8.5px; font-weight: 300; color: var(--meta); }\n\n  .empty {\n    font-size: 11px;\n    font-weight: 300;\n    color: var(--faint);\n    padding: 4px 0;\n  }\n\n  /* ---- Footer ---- */\n  .foot {\n    max-width: 940px;\n    margin: 38px auto 0;\n    padding-top: 14px;\n    border-top: 1px solid var(--line-soft);\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n  }\n  .foot span { font-size: 9px; font-weight: 300; color: #262626; letter-spacing: 0.05em; }\n  .foot button {\n    background: none; border: none;\n    font-size: 9px; font-weight: 300;\n    color: #2c2c2c; letter-spacing: 0.05em;\n    transition: color var(--ease);\n  }\n  .foot button:hover { color: #5a5a5a; }\n\n  .back-btn {\n    background: none;\n    border: 1px solid var(--line);\n    color: var(--meta);\n    font-size: 9px;\n    letter-spacing: 0.06em;\n    text-transform: uppercase;\n    padding: 7px 13px;\n    border-radius: 3px;\n    transition: color var(--ease), border-color var(--ease);\n  }\n  .back-btn:hover { color: #888; border-color: var(--line-hover); }\n\n  .hidden { display: none !important; }\n<\u002Fstyle>\n<\u002Fhead>\n<body style=\"font-size: 20px\">\n\n  \n\n  <!-- ============ OVERVIEW ============ -->\n  <div id=\"overview\">\n\n    <div class=\"meta-bar\">\n      <div class=\"meta-left\">\n        <div class=\"meta-row\">\n          <span class=\"meta-key\">State<\u002Fspan>\n          <span class=\"meta-txt\" id=\"global-state\">—<\u002Fspan>\n        <\u002Fdiv>\n        <div class=\"meta-row\">\n          <span class=\"meta-key\">Next<\u002Fspan>\n          <span class=\"meta-txt\" id=\"global-next\">—<\u002Fspan>\n        <\u002Fdiv>\n      <\u002Fdiv>\n      <div class=\"meta-right\">\n        <span class=\"status-dot on\" id=\"status\"><span class=\"dot\"><\u002Fspan><span id=\"status-txt\">online<\u002Fspan><\u002Fspan>\n        <button class=\"icon-btn\" id=\"refresh-btn\" title=\"Genindlæs\">↻<\u002Fbutton>\n        <button class=\"icon-btn\" id=\"settings-btn\" title=\"Nøgler\">⚙<\u002Fbutton>\n      <\u002Fdiv>\n    <\u002Fdiv>\n\n    <div class=\"setup hidden\" id=\"setup\">\n      <h2>Adgang<\u002Fh2>\n      <p>Nøgler gemmes lokalt i din browser (localStorage) — sendes kun til localhost og GitHub.<\u002Fp>\n      <div class=\"field\">\n        <label>Obsidian Local REST API<\u002Flabel>\n        <input type=\"text\" id=\"in-obsidian\" placeholder=\"bearer-nøgle···\" autocomplete=\"off\" spellcheck=\"false\">\n        <div class=\"hint\">Indstillinger → Local REST API → kopiér API-nøgle<\u002Fdiv>\n      <\u002Fdiv>\n      <div class=\"field\">\n        <label>GitHub PAT <span style=\"color:#333;\">(read-only, repo scope)<\u002Fspan><\u002Flabel>\n        <input type=\"text\" id=\"in-github\" placeholder=\"ghp_···  (valgfri)\" autocomplete=\"off\" spellcheck=\"false\">\n        <div class=\"hint\">Uden token vises projekter stadig — bare uden issues/commits.<\u002Fdiv>\n      <\u002Fdiv>\n      <div class=\"setup-actions\">\n        <button class=\"btn\" id=\"save-keys\">Gem<\u002Fbutton>\n        <button class=\"btn ghost\" id=\"cancel-keys\">Annullér<\u002Fbutton>\n      <\u002Fdiv>\n    <\u002Fdiv>\n\n    <div class=\"grid loading\" id=\"grid\"><\u002Fdiv>\n\n    <div class=\"foot\">\n      <span>localhost:27123 · ValdiVault<\u002Fspan>\n      <button id=\"clear-keys\">ryd nøgler<\u002Fbutton>\n    <\u002Fdiv>\n  <\u002Fdiv>\n\n  <!-- ============ DETAIL ============ -->\n  <div id=\"detail\" class=\"hidden\">\n    <div class=\"detail-head\">\n      <button class=\"back-btn\" id=\"back-btn\">← oversigt<\u002Fbutton>\n      <a class=\"detail-name\" id=\"detail-name\" target=\"_blank\" rel=\"noopener\"><\u002Fa>\n      <span class=\"detail-status\" id=\"detail-status\"><\u002Fspan>\n    <\u002Fdiv>\n    <div class=\"columns\" id=\"detail-body\"><\u002Fdiv>\n    <div class=\"foot\">\n      <span id=\"detail-repo\"><\u002Fspan>\n      <button id=\"detail-obsidian\">åbn i obsidian ↗<\u002Fbutton>\n    <\u002Fdiv>\n  <\u002Fdiv>\n\n<script>\n(function () {\n  'use strict';\n\n  // ---------- config ----------\n  const OBS_BASE   = 'http://localhost:27123';\n  const GH_API     = 'https://api.github.com';\n  const VAULT_NAME = 'ValdiVault';\n  const LS_OBS     = 'almind_obsidian_key';\n  const LS_GH      = 'almind_github_token';\n\n  const GLOBAL_STATE = '99_System/STATE.md';\n  const GLOBAL_NEXT  = '99_System/NEXT.md';\n\n  const PROJECTS = [\n    {\n      id: 'almind-dev', name: 'almind', ext: '-dev',\n      state: '50_Almind/wrap/state.md',\n      log:   '50_Almind/wrap/LOG.md',\n      repo:  'fastermadman/almind-dev', repoPublic: false,\n      subproject: {\n        name: 'fable5',\n        state: '50_Almind/Almind-Fable5/wrap/state.md',\n        log:   '50_Almind/Almind-Fable5/wrap/LOG.md'\n      }\n    },\n    {\n      id: 'almind.org', name: 'almind', ext: '.org',\n      state: null, log: null,\n      repo: 'fastermadman/almind', repoPublic: true\n    },\n    {\n      id: 'lynsyn', name: 'lynsyn', ext: '',\n      state: '60_LYNSYN/wrap/state.md',\n      log:   '60_LYNSYN/wrap/LOG.md',\n      repo:  'fastermadman/LYNSYN', repoPublic: false\n    },\n    {\n      id: 'vibestep', name: 'vibestep', ext: '',\n      state: '80_VibeStep/wrap/state.md',\n      log:   '80_VibeStep/wrap/LOG.md',\n      repo:  'fastermadman/VibeStepLPminiMK3', repoPublic: false\n    },\n    {\n      id: 'beetsgui', name: 'beetsgui', ext: '',\n      state: '30_Resources/DR.WARTEMAL/wrap/state.md',\n      log:   '30_Resources/DR.WARTEMAL/wrap/LOG.md',\n      repo:  'fastermadman/beetsGUI', repoPublic: true\n    },\n    {\n      id: 'vejvis', name: 'vejvis', ext: '',\n      state: '50_Almind/vejvis/wrap/state.md',\n      log:   '50_Almind/vejvis/wrap/LOG.md',\n      repo:  'fastermadman/vejvis', repoPublic: true\n    },\n    {\n      id: 'setup', name: 'setup', ext: '',\n      state: '98_Meta/wrap/state.md',\n      log:   '98_Meta/wrap/LOG.md',\n      repo:  null, repoPublic: false\n    }\n  ];\n\n  // ---------- state ----------\n  let obsKey = localStorage.getItem(LS_OBS) || '';\n  let ghToken = localStorage.getItem(LS_GH) || '';\n  let data = {};        // id -> project data\n  let reachedObs = false;\n\n  // ---------- helpers ----------\n  const $  = (s, r) => (r || document).querySelector(s);\n  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));\n  const el = (tag, cls, txt) => {\n    const e = document.createElement(tag);\n    if (cls) e.className = cls;\n    if (txt != null) e.textContent = txt;\n    return e;\n  };\n  const esc = (s) => String(s == null ? '' : s);\n\n  function encPath(p) {\n    return p.split('/').map(encodeURIComponent).join('/');\n  }\n\n  function obsidianURI(path) {\n    return 'obsidian://open?vault=' + encodeURIComponent(VAULT_NAME) +\n           '&file=' + encodeURIComponent(path);\n  }\n\n  function fmtDate(raw) {\n    if (!raw) return '—';\n    const d = new Date(raw);\n    if (isNaN(d)) return String(raw).slice(0, 10);\n    return d.toLocaleDateString('da-DK', { day: 'numeric', month: 'short' }) +\n           ' · ' + d.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });\n  }\n\n  function relTime(raw) {\n    if (!raw) return '';\n    const d = new Date(raw);\n    if (isNaN(d)) return '';\n    const diff = (Date.now() - d.getTime()) / 1000;\n    if (diff < 3600)  return Math.max(1, Math.round(diff / 60)) + 'm siden';\n    if (diff < 86400) return Math.round(diff / 3600) + 't siden';\n    if (diff < 604800) return Math.round(diff / 86400) + 'd siden';\n    return d.toLocaleDateString('da-DK', { day: 'numeric', month: 'short' });\n  }\n\n  // ---------- parsing ----------\n  function parseFrontmatter(text) {\n    const m = text.match(/^---\\r?\\n([\\s\\S]*?)\\r?\\n---/);\n    if (!m) return {};\n    const out = {};\n    for (const line of m[1].split(/\\r?\\n/)) {\n      const i = line.indexOf(':');\n      if (i < 1) continue;\n      const k = line.slice(0, i).trim();\n      let v = line.slice(i + 1).trim();\n      if ((v.startsWith('\"') && v.endsWith('\"')) || (v.startsWith(\"'\") && v.endsWith(\"'\"))) {\n        v = v.slice(1, -1);\n      }\n      out[k] = v;\n    }\n    return out;\n  }\n\n  function firstWikilink(text) {\n    const m = text.match(/\\[\\[([^\\]|#]+)/);\n    return m ? m[1].trim() : null;\n  }\n\n  function firstHeading(text) {\n    const m = text.match(/^#{1,6}\\s+(.+)$/m);\n    return m ? m[1].trim() : null;\n  }\n\n  // strip frontmatter + heading markers, return first meaningful line\n  function firstLine(text) {\n    let t = text.replace(/^---\\r?\\n[\\s\\S]*?\\r?\\n---\\r?\\n?/, '');\n    for (const raw of t.split(/\\r?\\n/)) {\n      const line = raw.replace(/^#{1,6}\\s+/, '').replace(/^[-*>]\\s+/, '').trim();\n      if (line) return line.replace(/\\[\\[([^\\]|#]+)(\\|[^\\]]+)?\\]\\]/g, '$1');\n    }\n    return '';\n  }\n\n  // ---------- network: obsidian ----------\n  async function getVaultFile(path) {\n    const r = await fetch(OBS_BASE + '/vault/' + encPath(path), {\n      headers: { Authorization: 'Bearer ' + obsKey, Accept: 'text/markdown' },\n      signal: AbortSignal.timeout(8000)\n    });\n    reachedObs = true;\n    if (!r.ok) throw new Error('HTTP ' + r.status);\n    return r.text();\n  }\n\n  async function resolveSession(def) {\n    if (!def.log) return '—';\n    let logText;\n    try { logText = await getVaultFile(def.log); }\n    catch { return '—'; }\n    const link = firstWikilink(logText);\n    if (!link) return '—';\n\n    const base = def.log.slice(0, def.log.lastIndexOf('/'));\n    const candidates = [];\n    if (link.includes('/')) {\n      candidates.push(link.endsWith('.md') ? link : link + '.md');\n    } else {\n      candidates.push(base + '/' + link + '.md');\n      candidates.push(base.replace(/\\/wrap$/, '') + '/' + link + '.md');\n    }\n    for (const c of candidates) {\n      try {\n        const txt = await getVaultFile(c);\n        return firstHeading(txt) || link.split('/').pop();\n      } catch { /* try next */ }\n    }\n    return link.split('/').pop();\n  }\n\n  // ---------- network: github ----------\n  async function ghFetch(path) {\n    const headers = { Accept: 'application/vnd.github+json' };\n    if (ghToken) headers.Authorization = 'token ' + ghToken;\n    const r = await fetch(GH_API + path, { headers, signal: AbortSignal.timeout(6000) });\n    if (!r.ok) throw new Error('GH ' + r.status);\n    return r.json();\n  }\n\n  async function getIssues(repo) {\n    try {\n      const arr = await ghFetch('/repos/' + repo + '/issues?state=open&per_page=3&sort=updated&direction=desc');\n      // filter out PRs (issues endpoint includes them)\n      return arr.filter(i => !i.pull_request).map(i => ({\n        number: i.number, title: i.title, url: i.html_url, updated: i.updated_at\n      }));\n    } catch { return null; }\n  }\n\n  async function getOpenCount(repo) {\n    try {\n      const r = await ghFetch('/search/issues?q=' +\n        encodeURIComponent('repo:' + repo + ' is:issue is:open') + '&per_page=1');\n      return typeof r.total_count === 'number' ? r.total_count : null;\n    } catch { return null; }\n  }\n\n  async function getLatestCommit(repo) {\n    try {\n      const arr = await ghFetch('/repos/' + repo + '/commits?per_page=1');\n      if (!arr.length) return null;\n      const c = arr[0];\n      return {\n        message: (c.commit.message || '').split('\\n')[0],\n        date: c.commit.author ? c.commit.author.date : null,\n        url: c.html_url,\n        author: c.commit.author ? c.commit.author.name : ''\n      };\n    } catch { return null; }\n  }\n\n  // ---------- load a project ----------\n  async function loadProject(def) {\n    const out = {\n      id: def.id, name: def.name, ext: def.ext,\n      repo: def.repo, repoPublic: def.repoPublic,\n      statePath: def.state,\n      focus: '—', next: '—', blockers: '—', date: '—', session: '—',\n      issues: null, issueCount: null, commit: null, sub: null\n    };\n\n    if (def.state) {\n      try {\n        const txt = await getVaultFile(def.state);\n        const fm = parseFrontmatter(txt);\n        out.focus    = fm['proj-fokus']   || '—';\n        out.next     = fm['proj-næste']   || fm['proj-naeste'] || '—';\n        out.blockers = fm['proj-blokker'] || '—';\n        out.date     = fmtDate(fm['proj-dato']);\n        out.dateRaw  = fm['proj-dato'] || '';\n      } catch { /* leave dashes */ }\n      out.session = await resolveSession(def);\n    }\n\n    if (def.subproject) {\n      const s = { name: def.subproject.name, focus: '—', next: '—', blockers: '—', session: '—', statePath: def.subproject.state };\n      try {\n        const txt = await getVaultFile(def.subproject.state);\n        const fm = parseFrontmatter(txt);\n        s.focus    = fm['proj-fokus']   || '—';\n        s.next     = fm['proj-næste']   || fm['proj-naeste'] || '—';\n        s.blockers = fm['proj-blokker'] || '—';\n      } catch {}\n      s.session = await resolveSession(def.subproject);\n      out.sub = s;\n    }\n\n    if (def.repo) {\n      out.issues = await getIssues(def.repo);\n      out.issueCount = await getOpenCount(def.repo);\n      if (out.issueCount == null && out.issues) out.issueCount = out.issues.length;\n      out.commit = await getLatestCommit(def.repo);\n    }\n\n    return out;\n  }\n\n  async function loadGlobalHeader() {\n    try {\n      const s = await getVaultFile(GLOBAL_STATE);\n      $('#global-state').textContent = firstLine(s) || '—';\n    } catch { $('#global-state').textContent = '—'; }\n    try {\n      const n = await getVaultFile(GLOBAL_NEXT);\n      $('#global-next').textContent = firstLine(n) || '—';\n    } catch { $('#global-next').textContent = '—'; }\n  }\n\n  function setStatus(online) {\n    const s = $('#status');\n    s.className = 'status-dot ' + (online ? 'on' : 'off');\n    $('#status-txt').textContent = online ? 'online' : 'offline';\n  }\n\n  // ---------- load all ----------\n  async function loadAll() {\n    if (!obsKey) { showSetup(true); return; }\n    reachedObs = false;\n    $('#grid').classList.add('loading');\n    renderSkeletons();\n\n    await loadGlobalHeader();\n\n    for (const def of PROJECTS) {\n      try {\n        data[def.id] = await loadProject(def);\n      } catch {\n        data[def.id] = { id: def.id, name: def.name, ext: def.ext, repo: def.repo,\n          focus: '—', next: '—', blockers: '—', date: '—', session: '—',\n          issues: null, issueCount: null, commit: null };\n      }\n      // progressive render\n      if (location.hash.slice(1) === '' ) renderGrid();\n    }\n\n    setStatus(reachedObs);\n    $('#grid').classList.remove('loading');\n    route();\n  }\n\n  // ---------- render: overview ----------\n  function renderSkeletons() {\n    const grid = $('#grid');\n    grid.innerHTML = '';\n    PROJECTS.forEach((def, idx) => {\n      const c = el('div', 'card');\n      c.style.animationDelay = (idx * 28) + 'ms';\n      c.innerHTML =\n        '<div class=\"card-head\"><span class=\"card-name\">' + esc(def.name) +\n          '<span class=\"ext\">' + esc(def.ext) + '<\u002Fspan><\u002Fspan>' +\n          '<span class=\"card-date skel\">···<\u002Fspan><\u002Fdiv>' +\n        '<div class=\"rows\">' +\n          '<div class=\"row\"><span class=\"k\">Fokus<\u002Fspan><span class=\"v skel\">···<\u002Fspan><\u002Fdiv>' +\n          '<div class=\"row\"><span class=\"k\">Næste<\u002Fspan><span class=\"v skel\">···<\u002Fspan><\u002Fdiv>' +\n          '<div class=\"row\"><span class=\"k\">Blokker<\u002Fspan><span class=\"v skel\">···<\u002Fspan><\u002Fdiv>' +\n        '<\u002Fdiv>';\n      grid.appendChild(c);\n    });\n  }\n\n  function renderGrid() {\n    const grid = $('#grid');\n    grid.innerHTML = '';\n    PROJECTS.forEach((def, idx) => {\n      const d = data[def.id];\n      const card = el('button', 'card');\n      card.type = 'button';\n      card.style.animationDelay = (idx * 26) + 'ms';\n      card.addEventListener('click', () => { location.hash = def.id; });\n\n      // head\n      const head = el('div', 'card-head');\n      const nameLink = el('a', 'card-name');\n      nameLink.innerHTML = esc(def.name) + '<span class=\"ext\">' + esc(def.ext) + '<\u002Fspan>';\n      if (def.state) {\n        nameLink.href = obsidianURI(def.state);\n        nameLink.title = 'Åbn i Obsidian';\n        nameLink.addEventListener('click', (e) => { e.stopPropagation(); });\n      } else {\n        nameLink.style.cursor = 'pointer';\n      }\n      head.appendChild(nameLink);\n      if (d && d.date && d.date !== '—') head.appendChild(el('span', 'card-date', d.date));\n      card.appendChild(head);\n\n      // rows\n      const rows = el('div', 'rows');\n      const noState = !def.state;\n      rows.appendChild(makeRow('Fokus', d ? d.focus : '—', noState));\n      rows.appendChild(makeRow('Næste', d ? d.next : '—', noState));\n      rows.appendChild(makeRow('Blokker', d ? d.blockers : '—', noState));\n      if (def.state) {\n        const sr = makeRow('Session', d ? d.session : '—', false);\n        sr.classList.add('dim');\n        rows.appendChild(sr);\n      }\n      card.appendChild(rows);\n\n      // foot\n      const foot = el('div', 'card-foot');\n      if (def.repo) {\n        const n = d && d.issueCount != null ? d.issueCount : '—';\n        const badge = el('span', 'badge' + (n === 0 ? ' zero' : ''));\n        badge.innerHTML = 'Issues <span class=\"n\">' + esc(n) + '<\u002Fspan>';\n        foot.appendChild(badge);\n        const tag = el('span', 'repo-tag' + (def.repoPublic ? ' pub' : ''),\n          def.repoPublic ? 'public' : 'private');\n        foot.appendChild(tag);\n      } else {\n        foot.appendChild(el('span', 'badge zero', 'kun vault'));\n      }\n      card.appendChild(foot);\n\n      grid.appendChild(card);\n    });\n  }\n\n  function makeRow(k, v, muted) {\n    const row = el('div', 'row' + (muted ? ' muted' : ''));\n    row.appendChild(el('span', 'k', k));\n    row.appendChild(el('span', 'v', v == null ? '—' : v));\n    return row;\n  }\n\n  // ---------- render: detail ----------\n  function renderDetail(id) {\n    const def = PROJECTS.find(p => p.id === id);\n    const d = data[id];\n    if (!def) { location.hash = ''; return; }\n\n    const nameEl = $('#detail-name');\n    nameEl.innerHTML = esc(def.name) + '<span class=\"ext\">' + esc(def.ext) + '<\u002Fspan>';\n    if (def.state) { nameEl.href = obsidianURI(def.state); }\n    else { nameEl.removeAttribute('href'); }\n\n    $('#detail-status').textContent = def.repo\n      ? (def.repoPublic ? 'public repo' : 'private repo')\n      : 'kun vault';\n\n    $('#detail-repo').textContent = def.repo ? def.repo : '98_Meta · ingen repo';\n    const obsBtn = $('#detail-obsidian');\n    if (def.state) {\n      obsBtn.style.display = '';\n      obsBtn.onclick = () => { window.location.href = obsidianURI(def.state); };\n    } else {\n      obsBtn.style.display = 'none';\n    }\n\n    const body = $('#detail-body');\n    body.innerHTML = '';\n\n    // ----- left: vault -----\n    const left = el('div');\n    if (def.state) {\n      const t = el('div', 'section-title');\n      t.appendChild(el('span', null, 'Vault'));\n      t.appendChild(el('span', 'sub', def.state.replace(/\\/state\\.md$/, '')));\n      left.appendChild(t);\n      left.appendChild(dfield('Fokus', d ? d.focus : '—'));\n      left.appendChild(dfield('Næste', d ? d.next : '—'));\n      left.appendChild(dfield('Blokker', d ? d.blockers : '—'));\n      left.appendChild(dfield('Seneste session', d ? d.session : '—', true));\n\n      // fable5 subproject\n      if (d && d.sub) {\n        const sb = el('div', 'sub-block');\n        const sn = el('div', 'sub-name');\n        sn.appendChild(el('span', null, d.sub.name));\n        sn.appendChild(el('span', 'tag', 'underprojekt'));\n        sb.appendChild(sn);\n        sb.appendChild(dfield('Fokus', d.sub.focus));\n        sb.appendChild(dfield('Næste', d.sub.next));\n        if (d.sub.blockers && d.sub.blockers !== '—') sb.appendChild(dfield('Blokker', d.sub.blockers));\n        sb.appendChild(dfield('Session', d.sub.session, true));\n        // remove bottom margin of last dfield inside block\n        const last = sb.querySelector('.dfield:last-child');\n        if (last) last.style.marginBottom = '0';\n        left.appendChild(sb);\n      }\n    } else {\n      const t = el('div', 'section-title');\n      t.appendChild(el('span', null, 'Vault'));\n      left.appendChild(t);\n      left.appendChild(emptyNote('Ingen state.md — kun GitHub-data'));\n    }\n    body.appendChild(left);\n\n    // ----- right: github -----\n    const right = el('div');\n    const gt = el('div', 'section-title');\n    gt.appendChild(el('span', null, 'GitHub'));\n    if (def.repo && d && d.issueCount != null) gt.appendChild(el('span', 'sub', d.issueCount + ' åbne'));\n    right.appendChild(gt);\n\n    if (!def.repo) {\n      right.appendChild(emptyNote('Intet repo'));\n    } else if (!ghToken) {\n      right.appendChild(emptyNote('Tilføj GitHub PAT for issues & commits'));\n    } else {\n      const issues = d ? d.issues : null;\n      if (issues && issues.length) {\n        issues.forEach(iss => {\n          const a = el('a', 'issue');\n          a.href = iss.url; a.target = '_blank'; a.rel = 'noopener';\n          a.appendChild(el('div', 'it', iss.title));\n          const m = el('div', 'im');\n          m.appendChild(el('span', 'num', '#' + iss.number));\n          if (iss.updated) m.appendChild(el('span', null, relTime(iss.updated)));\n          a.appendChild(m);\n          right.appendChild(a);\n        });\n      } else if (issues && issues.length === 0) {\n        right.appendChild(emptyNote('Ingen åbne issues'));\n      } else {\n        right.appendChild(emptyNote('Kunne ikke hente issues'));\n      }\n\n      // latest commit\n      if (d && d.commit) {\n        const cm = el('div', 'commit');\n        cm.appendChild(el('div', 'ck', 'Seneste commit'));\n        const a = el('a', null);\n        a.href = d.commit.url; a.target = '_blank'; a.rel = 'noopener';\n        a.style.display = 'block';\n        a.appendChild(el('div', 'cmsg', d.commit.message));\n        const meta = el('div', 'cmeta',\n          (d.commit.author ? d.commit.author + ' · ' : '') + relTime(d.commit.date));\n        a.appendChild(meta);\n        cm.appendChild(a);\n        right.appendChild(cm);\n      }\n    }\n    body.appendChild(right);\n  }\n\n  function dfield(k, v, dim) {\n    const f = el('div', 'dfield');\n    f.appendChild(el('div', 'dk', k));\n    f.appendChild(el('div', 'dv' + (dim ? ' dim' : ''), v == null ? '—' : v));\n    return f;\n  }\n  function emptyNote(txt) { return el('div', 'empty', txt); }\n\n  // ---------- routing ----------\n  function route() {\n    const id = location.hash.slice(1);\n    if (id && PROJECTS.some(p => p.id === id)) {\n      $('#overview').classList.add('hidden');\n      $('#detail').classList.remove('hidden');\n      renderDetail(id);\n      window.scrollTo(0, 0);\n    } else {\n      $('#detail').classList.add('hidden');\n      $('#overview').classList.remove('hidden');\n      renderGrid();\n    }\n  }\n\n  // ---------- setup ----------\n  function showSetup(force) {\n    const s = $('#setup');\n    s.classList.remove('hidden');\n    $('#in-obsidian').value = obsKey;\n    $('#in-github').value = ghToken;\n    $('#in-obsidian').focus();\n    if (!force) s.scrollIntoView ? null : null;\n  }\n  function hideSetup() { $('#setup').classList.add('hidden'); }\n\n  // ---------- events ----------\n  $('#settings-btn').addEventListener('click', () => {\n    const s = $('#setup');\n    if (s.classList.contains('hidden')) showSetup(true); else hideSetup();\n  });\n  $('#refresh-btn').addEventListener('click', () => { data = {}; loadAll(); });\n  $('#save-keys').addEventListener('click', () => {\n    obsKey = $('#in-obsidian').value.trim();\n    ghToken = $('#in-github').value.trim();\n    if (obsKey) localStorage.setItem(LS_OBS, obsKey); else localStorage.removeItem(LS_OBS);\n    if (ghToken) localStorage.setItem(LS_GH, ghToken); else localStorage.removeItem(LS_GH);\n    hideSetup();\n    data = {};\n    loadAll();\n  });\n  $('#cancel-keys').addEventListener('click', hideSetup);\n  $('#clear-keys').addEventListener('click', () => {\n    localStorage.removeItem(LS_OBS);\n    localStorage.removeItem(LS_GH);\n    obsKey = ''; ghToken = ''; data = {};\n    $('#global-state').textContent = '—';\n    $('#global-next').textContent = '—';\n    showSetup(true);\n    renderSkeletons();\n  });\n  $('#back-btn').addEventListener('click', () => { location.hash = ''; });\n  document.querySelectorAll('#in-obsidian, #in-github').forEach(inp => {\n    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#save-keys').click(); });\n  });\n  window.addEventListener('hashchange', route);\n\n  // ---------- boot ----------\n  renderSkeletons();\n  if (obsKey) loadAll(); else { showSetup(true); setStatus(true); }\n\n})();\n<\u002Fscript>\n\n\n<\u002Fbody><\u002Fhtml>"
-  </script>
-</body>
-</html>
+  body {
+    min-height: 100vh;
+    padding: 26px 30px 40px;
+  }
+
+  ::selection { background: #2a2a2a; color: #e8e8e8; }
+
+  a { color: inherit; text-decoration: none; }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* ---- Global meta header ---- */
+  .meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    background: #0f0f0f;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .meta-left { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .meta-row { display: flex; align-items: baseline; gap: 13px; min-width: 0; }
+  .meta-key {
+    font-size: 8.5px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--label);
+    flex-shrink: 0;
+    width: 42px;
+  }
+  .meta-txt {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--val);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .meta-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .status-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .status-dot .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #2e5a36;
+  }
+  .status-dot.off .dot { background: var(--danger); animation: pulse 2.4s ease-in-out infinite; }
+  .status-dot.off { color: var(--danger); }
+  .status-dot.on  { color: #3a3a3a; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .icon-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--meta);
+    font-size: 11px;
+    line-height: 1;
+    padding: 6px 9px;
+    border-radius: 3px;
+    transition: color var(--ease), border-color var(--ease);
+  }
+  .icon-btn:hover { color: #888; border-color: var(--line-hover); }
+
+  /* ---- Token setup ---- */
+  .setup {
+    max-width: 480px;
+    margin: 0 auto 40px;
+    padding: 26px 28px;
+    background: #101010;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+  }
+  .setup h2 {
+    margin: 0 0 4px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--name);
+  }
+  .setup p {
+    margin: 0 0 22px;
+    font-size: 10.5px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--meta);
+  }
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 8.5px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 7px;
+  }
+  .field input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: #d0d0d0;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 12px;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color var(--ease);
+  }
+  .field input::placeholder { color: #333; }
+  .field input:focus { border-color: var(--line-hover); }
+  .field .hint {
+    margin-top: 7px;
+    font-size: 9px;
+    font-weight: 300;
+    color: #383838;
+    line-height: 1.6;
+  }
+  .setup-actions { display: flex; gap: 9px; margin-top: 6px; }
+  .btn {
+    background: #181818;
+    border: 1px solid var(--line);
+    color: #9a9a9a;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 3px;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
+  }
+  .btn:hover { background: #1e1e1e; color: #ccc; border-color: var(--line-hover); }
+  .btn.ghost { background: none; color: var(--meta); }
+  .btn.ghost:hover { background: #141414; color: #888; }
+
+  /* ---- Cards grid ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));
+    gap: 9px;
+  }
+  .card {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 20px 16px;
+    cursor: pointer;
+    transition: background var(--ease), border-color var(--ease), transform var(--ease);
+    animation: rise 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .card:hover { background: var(--card-hover); border-color: var(--line-hover); }
+  .card:active { transform: translateY(0.5px); }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  .card-name {
+    font-size: 13px;
+    font-weight: 600;
+    font-variant: small-caps;
+    letter-spacing: 0.01em;
+    color: var(--name);
+    transition: color var(--ease);
+  }
+  .card-name:hover { color: #fff; }
+  .card-name .ext { color: #4a4a4a; transition: color var(--ease); }
+  .card-name:hover .ext { color: #888; }
+  .card-date {
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--meta);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .rows { display: flex; flex-direction: column; gap: 7px; }
+  .row { display: flex; gap: 13px; align-items: baseline; }
+  .row .k {
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    width: 50px;
+    flex-shrink: 0;
+  }
+  .row .v {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--val);
+    line-height: 1.45;
+    word-break: break-word;
+  }
+  .row.dim .v { color: var(--meta); font-weight: 300; }
+  .row.muted .v { color: var(--faint); }
+
+  .card-foot {
+    display: flex;
+    align-items: baseline;
+    gap: 13px;
+    margin-top: 13px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .badge {
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+  }
+  .badge .n { color: var(--val); font-weight: 400; }
+  .badge.zero .n { color: var(--faint); }
+
+  .repo-tag {
+    margin-left: auto;
+    font-size: 8.5px;
+    font-weight: 300;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .repo-tag.pub { color: #3a4a3a; }
+
+  /* shimmer placeholder */
+  .skel { color: var(--faint) !important; }
+  .loading .skel { animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 0.5; } 50% { opacity: 0.18; } }
+
+  /* ---- Detail view ---- */
+  .detail-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 30px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-name {
+    font-size: 16px;
+    font-weight: 600;
+    font-variant: small-caps;
+    letter-spacing: 0.01em;
+    color: var(--name);
+    transition: color var(--ease);
+  }
+  .detail-name:hover { color: #fff; }
+  .detail-name .ext { color: #4a4a4a; }
+  .detail-name:hover .ext { color: #888; }
+  .detail-status {
+    margin-left: auto;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--meta);
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    max-width: 940px;
+  }
+  @media (max-width: 720px) {
+    .columns { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  .section-title {
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--meta);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .section-title .sub { color: var(--faint); letter-spacing: 0.04em; }
+
+  .dfield { margin-bottom: 18px; }
+  .dfield .dk {
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 6px;
+  }
+  .dfield .dv {
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--val);
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .dfield .dv.dim { color: var(--meta); font-weight: 300; }
+
+  .sub-block {
+    margin-top: 26px;
+    padding: 16px 18px;
+    background: #0d0d0d;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+  }
+  .sub-block .sub-name {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #999;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .sub-block .sub-name .tag {
+    font-size: 7.5px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .issue {
+    display: block;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    background: #0a0a0a;
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    transition: background var(--ease), border-color var(--ease);
+  }
+  .issue:hover { background: var(--card-hover); border-color: var(--line-hover); }
+  .issue .it {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: #c0c0c0;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+  .issue .im {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 8.5px;
+    font-weight: 300;
+    color: var(--meta);
+  }
+  .issue .im .num { color: #585858; }
+
+  .commit {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .commit .ck {
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 7px;
+  }
+  .commit .cmsg {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--val);
+    line-height: 1.5;
+    margin-bottom: 5px;
+    word-break: break-word;
+  }
+  .commit .cmeta { font-size: 8.5px; font-weight: 300; color: var(--meta); }
+
+  .empty {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--faint);
+    padding: 4px 0;
+  }
+
+  /* ---- Footer ---- */
+  .foot {
+    max-width: 940px;
+    margin: 38px auto 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .foot span { font-size: 9px; font-weight: 300; color: #262626; letter-spacing: 0.05em; }
+  .foot button {
+    background: none; border: none;
+    font-size: 9px; font-weight: 300;
+    color: #2c2c2c; letter-spacing: 0.05em;
+    transition: color var(--ease);
+  }
+  .foot button:hover { color: #5a5a5a; }
+
+  .back-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--meta);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 13px;
+    border-radius: 3px;
+    transition: color var(--ease), border-color var(--ease);
+  }
+  .back-btn:hover { color: #888; border-color: var(--line-hover); }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body style="font-size: 20px">
+
+  
+
+  <!-- ============ OVERVIEW ============ -->
+  <div id="overview">
+
+    <div class="meta-bar">
+      <div class="meta-left">
+        <div class="meta-row">
+          <span class="meta-key">State</span>
+          <span class="meta-txt" id="global-state">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Next</span>
+          <span class="meta-txt" id="global-next">—</span>
+        </div>
+      </div>
+      <div class="meta-right">
+        <span class="status-dot on" id="status"><span class="dot"></span><span id="status-txt">online</span></span>
+        <button class="icon-btn" id="refresh-btn" title="Genindlæs">↻</button>
+        <button class="icon-btn" id="settings-btn" title="Nøgler">⚙</button>
+      </div>
+    </div>
+
+    <div class="setup hidden" id="setup">
+      <h2>Adgang</h2>
+      <p>Nøgler gemmes lokalt i din browser (localStorage) — sendes kun til localhost og GitHub.</p>
+      <div class="field">
+        <label>Obsidian Local REST API</label>
+        <input type="text" id="in-obsidian" placeholder="bearer-nøgle···" autocomplete="off" spellcheck="false">
+        <div class="hint">Indstillinger → Local REST API → kopiér API-nøgle</div>
+      </div>
+      <div class="field">
+        <label>GitHub PAT <span style="color:#333;">(read-only, repo scope)</span></label>
+        <input type="text" id="in-github" placeholder="ghp_···  (valgfri)" autocomplete="off" spellcheck="false">
+        <div class="hint">Uden token vises projekter stadig — bare uden issues/commits.</div>
+      </div>
+      <div class="setup-actions">
+        <button class="btn" id="save-keys">Gem</button>
+        <button class="btn ghost" id="cancel-keys">Annullér</button>
+      </div>
+    </div>
+
+    <div class="grid loading" id="grid"></div>
+
+    <div class="foot">
+      <span>localhost:27123 · ValdiVault</span>
+      <button id="clear-keys">ryd nøgler</button>
+    </div>
+  </div>
+
+  <!-- ============ DETAIL ============ -->
+  <div id="detail" class="hidden">
+    <div class="detail-head">
+      <button class="back-btn" id="back-btn">← oversigt</button>
+      <a class="detail-name" id="detail-name" target="_blank" rel="noopener"></a>
+      <span class="detail-status" id="detail-status"></span>
+    </div>
+    <div class="columns" id="detail-body"></div>
+    <div class="foot">
+      <span id="detail-repo"></span>
+      <button id="detail-obsidian">åbn i obsidian ↗</button>
+    </div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- config ----------
+  const OBS_BASE   = 'http://localhost:27123';
+  const GH_API     = 'https://api.github.com';
+  const VAULT_NAME = 'ValdiVault';
+  const LS_OBS     = 'almind_obsidian_key';
+  const LS_GH      = 'almind_github_token';
+
+  const GLOBAL_STATE = '99_System/STATE.md';
+  const GLOBAL_NEXT  = '99_System/NEXT.md';
+
+  const PROJECTS = [
+    {
+      id: 'almind-dev', name: 'almind', ext: '-dev',
+      state: '50_Almind/wrap/state.md',
+      log:   '50_Almind/wrap/LOG.md',
+      repo:  'fastermadman/almind-dev', repoPublic: false,
+      subproject: {
+        name: 'fable5',
+        state: '50_Almind/Almind-Fable5/wrap/state.md',
+        log:   '50_Almind/Almind-Fable5/wrap/LOG.md'
+      }
+    },
+    {
+      id: 'almind.org', name: 'almind', ext: '.org',
+      state: null, log: null,
+      repo: 'fastermadman/almind', repoPublic: true
+    },
+    {
+      id: 'lynsyn', name: 'lynsyn', ext: '',
+      state: '60_LYNSYN/wrap/state.md',
+      log:   '60_LYNSYN/wrap/LOG.md',
+      repo:  'fastermadman/LYNSYN', repoPublic: false
+    },
+    {
+      id: 'vibestep', name: 'vibestep', ext: '',
+      state: '80_VibeStep/wrap/state.md',
+      log:   '80_VibeStep/wrap/LOG.md',
+      repo:  'fastermadman/VibeStepLPminiMK3', repoPublic: false
+    },
+    {
+      id: 'beetsgui', name: 'beetsgui', ext: '',
+      state: '30_Resources/DR.WARTEMAL/wrap/state.md',
+      log:   '30_Resources/DR.WARTEMAL/wrap/LOG.md',
+      repo:  'fastermadman/beetsGUI', repoPublic: true
+    },
+    {
+      id: 'vejvis', name: 'vejvis', ext: '',
+      state: '50_Almind/vejvis/wrap/state.md',
+      log:   '50_Almind/vejvis/wrap/LOG.md',
+      repo:  'fastermadman/vejvis', repoPublic: true
+    },
+    {
+      id: 'setup', name: 'setup', ext: '',
+      state: '98_Meta/wrap/state.md',
+      log:   '98_Meta/wrap/LOG.md',
+      repo:  null, repoPublic: false
+    }
+  ];
+
+  // ---------- state ----------
+  let obsKey = localStorage.getItem(LS_OBS) || '';
+  let ghToken = localStorage.getItem(LS_GH) || '';
+  let data = {};        // id -> project data
+  let reachedObs = false;
+
+  // ---------- helpers ----------
+  const $  = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const el = (tag, cls, txt) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  };
+  const esc = (s) => String(s == null ? '' : s);
+
+  function encPath(p) {
+    return p.split('/').map(encodeURIComponent).join('/');
+  }
+
+  function obsidianURI(path) {
+    return 'obsidian://open?vault=' + encodeURIComponent(VAULT_NAME) +
+           '&file=' + encodeURIComponent(path);
+  }
+
+  function fmtDate(raw) {
+    if (!raw) return '—';
+    const d = new Date(raw);
+    if (isNaN(d)) return String(raw).slice(0, 10);
+    return d.toLocaleDateString('da-DK', { day: 'numeric', month: 'short' }) +
+           ' · ' + d.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function relTime(raw) {
+    if (!raw) return '';
+    const d = new Date(raw);
+    if (isNaN(d)) return '';
+    const diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 3600)  return Math.max(1, Math.round(diff / 60)) + 'm siden';
+    if (diff < 86400) return Math.round(diff / 3600) + 't siden';
+    if (diff < 604800) return Math.round(diff / 86400) + 'd siden';
+    return d.toLocaleDateString('da-DK', { day: 'numeric', month: 'short' });
+  }
+
+  // ---------- parsing ----------
+  function parseFrontmatter(text) {
+    const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!m) return {};
+    const out = {};
+    for (const line of m[1].split(/\r?\n/)) {
+      const i = line.indexOf(':');
+      if (i < 1) continue;
+      const k = line.slice(0, i).trim();
+      let v = line.slice(i + 1).trim();
+      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+        v = v.slice(1, -1);
+      }
+      out[k] = v;
+    }
+    return out;
+  }
+
+  function firstWikilink(text) {
+    const m = text.match(/\[\[([^\]|#]+)/);
+    return m ? m[1].trim() : null;
+  }
+
+  function firstHeading(text) {
+    const m = text.match(/^#{1,6}\s+(.+)$/m);
+    return m ? m[1].trim() : null;
+  }
+
+  // strip frontmatter + heading markers, return first meaningful line
+  function firstLine(text) {
+    let t = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
+    for (const raw of t.split(/\r?\n/)) {
+      const line = raw.replace(/^#{1,6}\s+/, '').replace(/^[-*>]\s+/, '').trim();
+      if (line) return line.replace(/\[\[([^\]|#]+)(\|[^\]]+)?\]\]/g, '$1');
+    }
+    return '';
+  }
+
+  // ---------- network: obsidian ----------
+  async function getVaultFile(path) {
+    const r = await fetch(OBS_BASE + '/vault/' + encPath(path), {
+      headers: { Authorization: 'Bearer ' + obsKey, Accept: 'text/markdown' },
+      signal: AbortSignal.timeout(8000)
+    });
+    reachedObs = true;
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  }
+
+  async function resolveSession(def) {
+    if (!def.log) return '—';
+    let logText;
+    try { logText = await getVaultFile(def.log); }
+    catch { return '—'; }
+    const link = firstWikilink(logText);
+    if (!link) return '—';
+
+    const base = def.log.slice(0, def.log.lastIndexOf('/'));
+    const candidates = [];
+    if (link.includes('/')) {
+      candidates.push(link.endsWith('.md') ? link : link + '.md');
+    } else {
+      candidates.push(base + '/' + link + '.md');
+      candidates.push(base.replace(/\/wrap$/, '') + '/' + link + '.md');
+    }
+    for (const c of candidates) {
+      try {
+        const txt = await getVaultFile(c);
+        return firstHeading(txt) || link.split('/').pop();
+      } catch { /* try next */ }
+    }
+    return link.split('/').pop();
+  }
+
+  // ---------- network: github ----------
+  async function ghFetch(path) {
+    const headers = { Accept: 'application/vnd.github+json' };
+    if (ghToken) headers.Authorization = 'token ' + ghToken;
+    const r = await fetch(GH_API + path, { headers, signal: AbortSignal.timeout(6000) });
+    if (!r.ok) throw new Error('GH ' + r.status);
+    return r.json();
+  }
+
+  async function getIssues(repo) {
+    try {
+      const arr = await ghFetch('/repos/' + repo + '/issues?state=open&per_page=3&sort=updated&direction=desc');
+      // filter out PRs (issues endpoint includes them)
+      return arr.filter(i => !i.pull_request).map(i => ({
+        number: i.number, title: i.title, url: i.html_url, updated: i.updated_at
+      }));
+    } catch { return null; }
+  }
+
+  async function getOpenCount(repo) {
+    try {
+      const r = await ghFetch('/search/issues?q=' +
+        encodeURIComponent('repo:' + repo + ' is:issue is:open') + '&per_page=1');
+      return typeof r.total_count === 'number' ? r.total_count : null;
+    } catch { return null; }
+  }
+
+  async function getLatestCommit(repo) {
+    try {
+      const arr = await ghFetch('/repos/' + repo + '/commits?per_page=1');
+      if (!arr.length) return null;
+      const c = arr[0];
+      return {
+        message: (c.commit.message || '').split('\n')[0],
+        date: c.commit.author ? c.commit.author.date : null,
+        url: c.html_url,
+        author: c.commit.author ? c.commit.author.name : ''
+      };
+    } catch { return null; }
+  }
+
+  // ---------- load a project ----------
+  async function loadProject(def) {
+    const out = {
+      id: def.id, name: def.name, ext: def.ext,
+      repo: def.repo, repoPublic: def.repoPublic,
+      statePath: def.state,
+      focus: '—', next: '—', blockers: '—', date: '—', session: '—',
+      issues: null, issueCount: null, commit: null, sub: null
+    };
+
+    if (def.state) {
+      try {
+        const txt = await getVaultFile(def.state);
+        const fm = parseFrontmatter(txt);
+        out.focus    = fm['proj-fokus']   || '—';
+        out.next     = fm['proj-næste']   || fm['proj-naeste'] || '—';
+        out.blockers = fm['proj-blokker'] || '—';
+        out.date     = fmtDate(fm['proj-dato']);
+        out.dateRaw  = fm['proj-dato'] || '';
+      } catch { /* leave dashes */ }
+      out.session = await resolveSession(def);
+    }
+
+    if (def.subproject) {
+      const s = { name: def.subproject.name, focus: '—', next: '—', blockers: '—', session: '—', statePath: def.subproject.state };
+      try {
+        const txt = await getVaultFile(def.subproject.state);
+        const fm = parseFrontmatter(txt);
+        s.focus    = fm['proj-fokus']   || '—';
+        s.next     = fm['proj-næste']   || fm['proj-naeste'] || '—';
+        s.blockers = fm['proj-blokker'] || '—';
+      } catch {}
+      s.session = await resolveSession(def.subproject);
+      out.sub = s;
+    }
+
+    if (def.repo) {
+      out.issues = await getIssues(def.repo);
+      out.issueCount = await getOpenCount(def.repo);
+      if (out.issueCount == null && out.issues) out.issueCount = out.issues.length;
+      out.commit = await getLatestCommit(def.repo);
+    }
+
+    return out;
+  }
+
+  async function loadGlobalHeader() {
+    try {
+      const s = await getVaultFile(GLOBAL_STATE);
+      $('#global-state').textContent = firstLine(s) || '—';
+    } catch { $('#global-state').textContent = '—'; }
+    try {
+      const n = await getVaultFile(GLOBAL_NEXT);
+      $('#global-next').textContent = firstLine(n) || '—';
+    } catch { $('#global-next').textContent = '—'; }
+  }
+
+  function setStatus(online) {
+    const s = $('#status');
+    s.className = 'status-dot ' + (online ? 'on' : 'off');
+    $('#status-txt').textContent = online ? 'online' : 'offline';
+  }
+
+  // ---------- load all ----------
+  async function loadAll() {
+    if (!obsKey) { showSetup(true); return; }
+    reachedObs = false;
+    $('#grid').classList.add('loading');
+    renderSkeletons();
+
+    await loadGlobalHeader();
+
+    for (const def of PROJECTS) {
+      try {
+        data[def.id] = await loadProject(def);
+      } catch {
+        data[def.id] = { id: def.id, name: def.name, ext: def.ext, repo: def.repo,
+          focus: '—', next: '—', blockers: '—', date: '—', session: '—',
+          issues: null, issueCount: null, commit: null };
+      }
+      // progressive render
+      if (location.hash.slice(1) === '' ) renderGrid();
+    }
+
+    setStatus(reachedObs);
+    $('#grid').classList.remove('loading');
+    route();
+  }
+
+  // ---------- render: overview ----------
+  function renderSkeletons() {
+    const grid = $('#grid');
+    grid.innerHTML = '';
+    PROJECTS.forEach((def, idx) => {
+      const c = el('div', 'card');
+      c.style.animationDelay = (idx * 28) + 'ms';
+      c.innerHTML =
+        '<div class="card-head"><span class="card-name">' + esc(def.name) +
+          '<span class="ext">' + esc(def.ext) + '</span></span>' +
+          '<span class="card-date skel">···</span></div>' +
+        '<div class="rows">' +
+          '<div class="row"><span class="k">Fokus</span><span class="v skel">···</span></div>' +
+          '<div class="row"><span class="k">Næste</span><span class="v skel">···</span></div>' +
+          '<div class="row"><span class="k">Blokker</span><span class="v skel">···</span></div>' +
+        '</div>';
+      grid.appendChild(c);
+    });
+  }
+
+  function renderGrid() {
+    const grid = $('#grid');
+    grid.innerHTML = '';
+    PROJECTS.forEach((def, idx) => {
+      const d = data[def.id];
+      const card = el('button', 'card');
+      card.type = 'button';
+      card.style.animationDelay = (idx * 26) + 'ms';
+      card.addEventListener('click', () => { location.hash = def.id; });
+
+      // head
+      const head = el('div', 'card-head');
+      const nameLink = el('a', 'card-name');
+      nameLink.innerHTML = esc(def.name) + '<span class="ext">' + esc(def.ext) + '</span>';
+      if (def.state) {
+        nameLink.href = obsidianURI(def.state);
+        nameLink.title = 'Åbn i Obsidian';
+        nameLink.addEventListener('click', (e) => { e.stopPropagation(); });
+      } else {
+        nameLink.style.cursor = 'pointer';
+      }
+      head.appendChild(nameLink);
+      if (d && d.date && d.date !== '—') head.appendChild(el('span', 'card-date', d.date));
+      card.appendChild(head);
+
+      // rows
+      const rows = el('div', 'rows');
+      const noState = !def.state;
+      rows.appendChild(makeRow('Fokus', d ? d.focus : '—', noState));
+      rows.appendChild(makeRow('Næste', d ? d.next : '—', noState));
+      rows.appendChild(makeRow('Blokker', d ? d.blockers : '—', noState));
+      if (def.state) {
+        const sr = makeRow('Session', d ? d.session : '—', false);
+        sr.classList.add('dim');
+        rows.appendChild(sr);
+      }
+      card.appendChild(rows);
+
+      // foot
+      const foot = el('div', 'card-foot');
+      if (def.repo) {
+        const n = d && d.issueCount != null ? d.issueCount : '—';
+        const badge = el('span', 'badge' + (n === 0 ? ' zero' : ''));
+        badge.innerHTML = 'Issues <span class="n">' + esc(n) + '</span>';
+        foot.appendChild(badge);
+        const tag = el('span', 'repo-tag' + (def.repoPublic ? ' pub' : ''),
+          def.repoPublic ? 'public' : 'private');
+        foot.appendChild(tag);
+      } else {
+        foot.appendChild(el('span', 'badge zero', 'kun vault'));
+      }
+      card.appendChild(foot);
+
+      grid.appendChild(card);
+    });
+  }
+
+  function makeRow(k, v, muted) {
+    const row = el('div', 'row' + (muted ? ' muted' : ''));
+    row.appendChild(el('span', 'k', k));
+    row.appendChild(el('span', 'v', v == null ? '—' : v));
+    return row;
+  }
+
+  // ---------- render: detail ----------
+  function renderDetail(id) {
+    const def = PROJECTS.find(p => p.id === id);
+    const d = data[id];
+    if (!def) { location.hash = ''; return; }
+
+    const nameEl = $('#detail-name');
+    nameEl.innerHTML = esc(def.name) + '<span class="ext">' + esc(def.ext) + '</span>';
+    if (def.state) { nameEl.href = obsidianURI(def.state); }
+    else { nameEl.removeAttribute('href'); }
+
+    $('#detail-status').textContent = def.repo
+      ? (def.repoPublic ? 'public repo' : 'private repo')
+      : 'kun vault';
+
+    $('#detail-repo').textContent = def.repo ? def.repo : '98_Meta · ingen repo';
+    const obsBtn = $('#detail-obsidian');
+    if (def.state) {
+      obsBtn.style.display = '';
+      obsBtn.onclick = () => { window.location.href = obsidianURI(def.state); };
+    } else {
+      obsBtn.style.display = 'none';
+    }
+
+    const body = $('#detail-body');
+    body.innerHTML = '';
+
+    // ----- left: vault -----
+    const left = el('div');
+    if (def.state) {
+      const t = el('div', 'section-title');
+      t.appendChild(el('span', null, 'Vault'));
+      t.appendChild(el('span', 'sub', def.state.replace(/\/state\.md$/, '')));
+      left.appendChild(t);
+      left.appendChild(dfield('Fokus', d ? d.focus : '—'));
+      left.appendChild(dfield('Næste', d ? d.next : '—'));
+      left.appendChild(dfield('Blokker', d ? d.blockers : '—'));
+      left.appendChild(dfield('Seneste session', d ? d.session : '—', true));
+
+      // fable5 subproject
+      if (d && d.sub) {
+        const sb = el('div', 'sub-block');
+        const sn = el('div', 'sub-name');
+        sn.appendChild(el('span', null, d.sub.name));
+        sn.appendChild(el('span', 'tag', 'underprojekt'));
+        sb.appendChild(sn);
+        sb.appendChild(dfield('Fokus', d.sub.focus));
+        sb.appendChild(dfield('Næste', d.sub.next));
+        if (d.sub.blockers && d.sub.blockers !== '—') sb.appendChild(dfield('Blokker', d.sub.blockers));
+        sb.appendChild(dfield('Session', d.sub.session, true));
+        // remove bottom margin of last dfield inside block
+        const last = sb.querySelector('.dfield:last-child');
+        if (last) last.style.marginBottom = '0';
+        left.appendChild(sb);
+      }
+    } else {
+      const t = el('div', 'section-title');
+      t.appendChild(el('span', null, 'Vault'));
+      left.appendChild(t);
+      left.appendChild(emptyNote('Ingen state.md — kun GitHub-data'));
+    }
+    body.appendChild(left);
+
+    // ----- right: github -----
+    const right = el('div');
+    const gt = el('div', 'section-title');
+    gt.appendChild(el('span', null, 'GitHub'));
+    if (def.repo && d && d.issueCount != null) gt.appendChild(el('span', 'sub', d.issueCount + ' åbne'));
+    right.appendChild(gt);
+
+    if (!def.repo) {
+      right.appendChild(emptyNote('Intet repo'));
+    } else if (!ghToken) {
+      right.appendChild(emptyNote('Tilføj GitHub PAT for issues & commits'));
+    } else {
+      const issues = d ? d.issues : null;
+      if (issues && issues.length) {
+        issues.forEach(iss => {
+          const a = el('a', 'issue');
+          a.href = iss.url; a.target = '_blank'; a.rel = 'noopener';
+          a.appendChild(el('div', 'it', iss.title));
+          const m = el('div', 'im');
+          m.appendChild(el('span', 'num', '#' + iss.number));
+          if (iss.updated) m.appendChild(el('span', null, relTime(iss.updated)));
+          a.appendChild(m);
+          right.appendChild(a);
+        });
+      } else if (issues && issues.length === 0) {
+        right.appendChild(emptyNote('Ingen åbne issues'));
+      } else {
+        right.appendChild(emptyNote('Kunne ikke hente issues'));
+      }
+
+      // latest commit
+      if (d && d.commit) {
+        const cm = el('div', 'commit');
+        cm.appendChild(el('div', 'ck', 'Seneste commit'));
+        const a = el('a', null);
+        a.href = d.commit.url; a.target = '_blank'; a.rel = 'noopener';
+        a.style.display = 'block';
+        a.appendChild(el('div', 'cmsg', d.commit.message));
+        const meta = el('div', 'cmeta',
+          (d.commit.author ? d.commit.author + ' · ' : '') + relTime(d.commit.date));
+        a.appendChild(meta);
+        cm.appendChild(a);
+        right.appendChild(cm);
+      }
+    }
+    body.appendChild(right);
+  }
+
+  function dfield(k, v, dim) {
+    const f = el('div', 'dfield');
+    f.appendChild(el('div', 'dk', k));
+    f.appendChild(el('div', 'dv' + (dim ? ' dim' : ''), v == null ? '—' : v));
+    return f;
+  }
+  function emptyNote(txt) { return el('div', 'empty', txt); }
+
+  // ---------- routing ----------
+  function route() {
+    const id = location.hash.slice(1);
+    if (id && PROJECTS.some(p => p.id === id)) {
+      $('#overview').classList.add('hidden');
+      $('#detail').classList.remove('hidden');
+      renderDetail(id);
+      window.scrollTo(0, 0);
+    } else {
+      $('#detail').classList.add('hidden');
+      $('#overview').classList.remove('hidden');
+      renderGrid();
+    }
+  }
+
+  // ---------- setup ----------
+  function showSetup(force) {
+    const s = $('#setup');
+    s.classList.remove('hidden');
+    $('#in-obsidian').value = obsKey;
+    $('#in-github').value = ghToken;
+    $('#in-obsidian').focus();
+    if (!force) s.scrollIntoView ? null : null;
+  }
+  function hideSetup() { $('#setup').classList.add('hidden'); }
+
+  // ---------- events ----------
+  $('#settings-btn').addEventListener('click', () => {
+    const s = $('#setup');
+    if (s.classList.contains('hidden')) showSetup(true); else hideSetup();
+  });
+  $('#refresh-btn').addEventListener('click', () => { data = {}; loadAll(); });
+  $('#save-keys').addEventListener('click', () => {
+    obsKey = $('#in-obsidian').value.trim();
+    ghToken = $('#in-github').value.trim();
+    if (obsKey) localStorage.setItem(LS_OBS, obsKey); else localStorage.removeItem(LS_OBS);
+    if (ghToken) localStorage.setItem(LS_GH, ghToken); else localStorage.removeItem(LS_GH);
+    hideSetup();
+    data = {};
+    loadAll();
+  });
+  $('#cancel-keys').addEventListener('click', hideSetup);
+  $('#clear-keys').addEventListener('click', () => {
+    localStorage.removeItem(LS_OBS);
+    localStorage.removeItem(LS_GH);
+    obsKey = ''; ghToken = ''; data = {};
+    $('#global-state').textContent = '—';
+    $('#global-next').textContent = '—';
+    showSetup(true);
+    renderSkeletons();
+  });
+  $('#back-btn').addEventListener('click', () => { location.hash = ''; });
+  document.querySelectorAll('#in-obsidian, #in-github').forEach(inp => {
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#save-keys').click(); });
+  });
+  window.addEventListener('hashchange', route);
+
+  // ---------- boot ----------
+  renderSkeletons();
+  if (obsKey) loadAll(); else { showSetup(true); setStatus(true); }
+
+})();
+</script>
+
+
+</body></html>
