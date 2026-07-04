@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Almind · Forløb der lever videre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container">
+
+  <header class="site-header">
+    <a class="logo" href="../index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html" class="aktiv">Forside</a>
+      <a href="browse.html">Alle forløb</a>
+      <a href="graph.html">Konstellation</a>
+      <a href="preview.html?id=dss-v1">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero" data-fag="hum" aria-label="Fremhævet forløb">
+    <div class="hero-tekst">
+      <div class="hero-eyebrow" id="hero-eyebrow"></div>
+      <h1 id="hero-titel"></h1>
+      <div class="undertitel" id="hero-undertitel"></div>
+      <p class="beskrivelse" id="hero-beskrivelse">
+        Et forløb der har levet tre liv: skabt på EMU, redidaktiseret til en konkret 8. klasse,
+        gjort tilgængeligt for alle læsere. Klik på en version og se hvad der ændrede sig.
+      </p>
+      <div class="hero-handlinger">
+        <a class="knap fag" id="hero-aabn" href="#">Åbn forløbet</a>
+        <a class="knap sekundaer" id="hero-fork" href="#">Fork</a>
+      </div>
+      <blockquote class="hero-citat" id="hero-citat" hidden>
+        <span id="hero-citat-tekst"></span>
+        <cite id="hero-citat-hvem"></cite>
+      </blockquote>
+    </div>
+    <div class="trae-ramme" id="hero-trae"></div>
+  </section>
+
+  <h2 class="sektionstitel">Fagene</h2>
+  <div id="fagbaand"></div>
+
+  <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+    <h2 class="sektionstitel" style="flex:1; margin-bottom:0;">Forløb fra fællesskabet</h2>
+    <input class="soegefelt" id="soeg" type="search" placeholder="Søg forløb, fag, tema, trin ..." aria-label="Søg i forløb" style="max-width:320px;">
+  </div>
+  <div class="kortgrid" id="grid" style="margin-top:1.25rem;"></div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+
+<script type="module">
+  import { hentForloeb, findForloeb, kaede, familieFor } from "./assets/js/data.js";
+  import { horisontaltTrae } from "./assets/js/genealogi.js";
+  import { forloebKort, fagBaand } from "./assets/js/komponenter.js";
+  import { stagger, tegnTrae } from "./assets/js/motion.js";
+
+  const alle = await hentForloeb();
+
+  // Hero: forløbet med dybest genealogi (Den Svære Samtale V1 som aktivt punkt).
+  const heroForloeb = findForloeb(alle, "dss-v1");
+  const heroKaede = kaede(alle, heroForloeb.id);
+  const hero = document.getElementById("hero");
+  hero.dataset.fag = familieFor(heroForloeb.fag);
+  document.getElementById("hero-eyebrow").textContent =
+    `${heroForloeb.fag} · ${heroForloeb.klassetrin} · ${heroKaede.length} versioner, ${new Set(heroKaede.map(f => f.forfatter)).size} forfattere`;
+  document.getElementById("hero-titel").textContent = heroForloeb.titel;
+  document.getElementById("hero-undertitel").textContent = heroForloeb.undertitel || "";
+  document.getElementById("hero-aabn").href = `sequence.html?id=${heroForloeb.id}`;
+  document.getElementById("hero-fork").href = `fork.html?id=${heroForloeb.id}`;
+  if (heroForloeb.citat) {
+    document.getElementById("hero-citat").hidden = false;
+    document.getElementById("hero-citat-tekst").textContent = `"${heroForloeb.citat.tekst}"`;
+    document.getElementById("hero-citat-hvem").textContent = heroForloeb.citat.hvem;
+  }
+  const svg = horisontaltTrae(heroKaede, heroForloeb.id);
+  document.getElementById("hero-trae").appendChild(svg);
+  tegnTrae(svg);
+
+  // Fagbånd
+  document.getElementById("fagbaand").appendChild(fagBaand(alle));
+
+  // Kortgrid: alt undtagen hero-kædens midterpunkt vises; kæden repræsenteres af V1-kortet.
+  const grid = document.getElementById("grid");
+  const iGrid = alle.filter((f) => !["dss-v0", "dss-v2"].includes(f.id));
+  function tegnGrid(liste) {
+    grid.innerHTML = "";
+    if (!liste.length) {
+      grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">Ingen forløb matcher endnu. Måske er det din åbne plads at udfylde? <a href="upload.html">Del et forløb</a>.</div>`;
+      return;
+    }
+    liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));
+    stagger([...grid.children], 45);
+  }
+  tegnGrid(iGrid);
+
+  // Søgning
+  document.getElementById("soeg").addEventListener("input", (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    tegnGrid(
+      !q ? iGrid : iGrid.filter((f) =>
+        [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
+         ...(f.tema || []), ...Object.values(f.tags || {}).flat()]
+          .join(" ").toLowerCase().includes(q)
+      )
+    );
+  });
+</script>
+</body>
+</html>

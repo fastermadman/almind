@@ -1,120 +1,1113 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Almind · Forløb der lever videre</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/tokens.css">
-  <link rel="stylesheet" href="assets/css/almind.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f4f3ee">
+<title>almind · frit, fælles og forgrenet</title>
+<meta name="description" content="Almind er et fælles sted for undervisningsforløb: de deles, forgrenes og vokser på tværs af klasser, skoler og år. En invitation til samtale om en pilot på VIA Silkeborg.">
+<!-- Selvstændigt artefakt. Al forløbsdata er indlejret ordret fra data/forloeb.json (Den Svære Samtale V0, V1, V2 m.fl.). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css" type="text/css" charset="utf-8">
+<script>
+/* Koreografi slås kun til hvis brugeren tåler bevægelse; uden JS findes klassen aldrig,
+   og hele siden står færdigtegnet i sin slut-tilstand. */
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('choreo');
+} else {
+  document.documentElement.classList.add('reduced');
+}
+</script>
+<style>
+/* ============ selvhostede variable fonte (Indestructible Type, SIL OFL) ============ */
+/* Direkte raw.githubusercontent.com: github.com/raw-redirectet mister CORS-headeren undervejs
+   (302-svaret sender en tom access-control-allow-origin), så browseren afviser fontfetchet. */
+@font-face {
+  font-family: 'Marauder';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder%5Bwght%5D.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Marauder';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder-Italic%5Bwght%5D.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Drafting';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Drafting/Drafting%5Bwght%5D.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Drafting';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Drafting/Drafting-Italic%5Bwght%5D.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============ tokens (fra Almind-designsystemet, NIVEAU 1) ============ */
+:root {
+  --accent: #1f3b2c;
+  --bg: #f4f3ee;
+  --ink: #2c2420;
+  --muted: #8a7e74;
+  --muted-ink: #6c6157; /* kontrastsikret variant til småtekst på lys bund */
+  --border: #e0d8cf;
+  --surface: #ffffff;
+  --surface-alt: #f9f8f5;
+
+  --fag-hum: #dc9848;
+  --fag-hum-text: #7a4f1a;
+  --fag-stem: #16233a;
+  --fag-natur: #4a6b58;
+  --fag-aes: #8a2e3e;
+
+  --typ-green: #16a34a;  --typ-green-bg: #f0fdf4;  --typ-green-text: #14532d;
+  --typ-yellow: #d97706; --typ-yellow-bg: #fffbeb; --typ-yellow-text: #78350f;
+
+  /* Marauder: Alminds identitet. Logo, og (kun i italic) lærerens egen stemme når hun citeres direkte. */
+  --font-marauder: "Marauder", Georgia, serif;
+  /* Bricolage Grotesque: fortællerstemmen. Bærer overskrifter og brødtekst med opsz-aksen aktiv. */
+  --font-voice: "Bricolage Grotesque", sans-serif;
+  --font-ui: "Jost", system-ui, sans-serif;
+  --font-mono: "Drafting", ui-monospace, "JetBrains Mono", "SF Mono", monospace;
+
+  --r-kort: 24px;
+  --r-knap: 6px;
+  --r-pill: 9999px;
+  --r-modal: 16px;
+
+  --kol: min(680px, calc(100vw - 2.6rem));
+  --bred: min(1240px, calc(100vw - 2.6rem));
+}
+
+/* ============ base ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html.reduced { scroll-behavior: auto; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-voice);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Citat-stemmen: hver gang en lærer citeres direkte, skifter typografien til hende. */
+.citat {
+  font-family: var(--font-marauder); font-style: italic; font-weight: 520;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+::selection { background: color-mix(in srgb, var(--fag-hum) 30%, transparent); }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--font-ui); font-weight: 600;
+  background: var(--accent); color: var(--bg);
+  padding: .6rem 1.1rem; border-radius: 0 0 var(--r-knap) 0;
+}
+.skip:focus { left: 0; }
+
+.kol { width: var(--kol); margin-inline: auto; }
+
+.eyebrow {
+  font-family: var(--font-mono); font-size: .78rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted-ink); margin-bottom: 1.1rem;
+}
+
+.knap {
+  display: inline-block;
+  font-family: var(--font-ui); font-weight: 500; font-size: .95rem;
+  padding: .6rem 1.3rem;
+  border-radius: var(--r-knap);
+  border: 1.5px solid var(--accent);
+  background: var(--accent); color: var(--bg);
+  text-decoration: none; cursor: pointer;
+  transition: background .15s, color .15s, font-weight .15s, letter-spacing .15s;
+}
+.knap:hover, .knap:focus-visible { background: transparent; color: var(--accent); font-weight: 650; letter-spacing: .01em; }
+.knap:active { font-weight: 700; }
+.knap.sekundaer { background: transparent; color: var(--accent); }
+.knap.sekundaer:hover { background: var(--accent); color: var(--bg); }
+.knap.lille { font-size: .88rem; padding: .5rem 1rem; }
+
+/* fast wordmark-pille efter åbningen */
+#pille {
+  position: fixed; top: 14px; left: 16px; z-index: 60;
+  font-family: var(--font-marauder); font-weight: 750; font-size: 1.02rem;
+  text-transform: lowercase; text-decoration: none; color: var(--accent);
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: .28rem .9rem;
+  opacity: 0; pointer-events: none; transition: opacity .35s ease;
+}
+#pille.vis { opacity: 1; pointer-events: auto; }
+
+/* fast "åbn portalen"-pille, modstykke til wordmark-pillen */
+#pille-app {
+  position: fixed; top: 14px; right: 16px; z-index: 60;
+  font-family: var(--font-ui); font-weight: 500; font-size: .86rem;
+  text-decoration: none; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: .32rem 1rem;
+  opacity: 0; pointer-events: none; transition: opacity .35s ease, font-weight .15s;
+}
+#pille-app.vis { opacity: 1; pointer-events: auto; }
+#pille-app:hover, #pille-app:focus-visible { font-weight: 650; border-color: var(--accent); }
+
+/* reveal-elementer: kun skjult når koreografien er slået til */
+.choreo .r { opacity: 0; translate: 0 16px; transition: opacity .65s ease, translate .65s ease; }
+.choreo .r.in { opacity: 1; translate: 0 0; }
+
+/* ============ bevægelse 0: arket ============ */
+#aabning { padding: 7vh 0 0; }
+.ark {
+  width: min(780px, calc(100vw - 2rem));
+  margin-inline: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 5px solid var(--fag-hum);
+  border-radius: 6px;
+  box-shadow: 0 18px 50px rgba(44, 36, 32, .10);
+  padding: clamp(1.6rem, 4vw, 3rem) clamp(1.3rem, 4.5vw, 3.2rem);
+  font-size: .97rem;
+}
+.ark-kolofon {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;
+  border-bottom: 3px solid var(--fag-hum);
+  padding-bottom: 1.3rem; margin-bottom: 1.8rem;
+}
+.ark-type {
+  font-family: var(--font-ui); font-weight: 600; font-size: .72rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--fag-hum-text);
+}
+.ark h1 {
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 700;
+  font-size: clamp(1.7rem, 4.4vw, 2.4rem); line-height: 1.12;
+  margin: .35rem 0 .3rem; letter-spacing: -.01em;
+}
+.ark .undertitel { font-family: var(--font-voice); font-weight: 450; font-size: 1.06rem; color: var(--muted-ink); margin-bottom: .7rem; }
+.ark-meta { font-family: var(--font-mono); font-weight: 340; font-size: .74rem; color: var(--muted-ink); }
+.ark-dg { flex-shrink: 0; text-align: right; }
+.dg-linje { font-family: var(--font-ui); font-size: .78rem; color: var(--muted-ink); white-space: nowrap; line-height: 1.75; }
+.dg-linje b { font-weight: 400; margin-left: .35rem; }
+.p-fuld { color: var(--typ-green); }
+.p-delvis { color: var(--typ-yellow); }
+.p-aaben { color: var(--muted-ink); }
+.dg-linje .dg-ord { font-family: var(--font-mono); font-weight: 600; font-size: .68rem; color: var(--fag-hum-text); margin-left: .3rem; }
+
+.ark .indledning { margin-bottom: 1.6rem; max-width: 62ch; }
+.fase-nr { font-family: var(--font-mono); font-weight: 560; font-size: .74rem; color: var(--fag-hum-text); display: block; margin-bottom: .25rem; }
+.ark h2 { font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 650; font-size: 1.35rem; margin-bottom: .55rem; }
+.ark .fase-tekst { max-width: 62ch; margin-bottom: .8rem; }
+.ark ul { margin: .5rem 0 1.4rem 1.25rem; }
+.ark li { margin-bottom: .3rem; font-size: .93rem; }
+
+.callout {
+  border-left: 3px solid var(--typ-yellow); border-radius: 0 6px 6px 0;
+  background: var(--typ-yellow-bg); color: var(--typ-yellow-text);
+  padding: .8rem 1rem; margin: 1.2rem 0; font-size: .9rem; max-width: 62ch;
+}
+.callout .callout-titel { display: block; font-family: var(--font-ui); font-weight: 700; font-size: .86rem; color: var(--typ-yellow); margin-bottom: .3rem; }
+
+.plads {
+  border: 2px dashed var(--fag-hum);
+  border-radius: var(--r-modal);
+  background: color-mix(in srgb, var(--fag-hum) 6%, transparent);
+  padding: .95rem 1.15rem; margin: 1.4rem 0 .4rem; max-width: 62ch;
+}
+.plads-label {
+  font-family: var(--font-ui); font-weight: 600; font-size: .74rem;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--fag-hum-text);
+  display: block; margin-bottom: .35rem;
+}
+.plads-besked { font-size: 1.05rem; }
+
+.ark-fod {
+  margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  font-family: var(--font-mono); font-weight: 320; font-size: .72rem; color: var(--muted-ink);
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+
+.ark-portal-link { text-align: center; margin-top: 1.6rem; }
+.ark-portal-link a {
+  font-family: var(--font-mono); font-weight: 420; font-size: .82rem;
+  color: var(--fag-hum-text); text-decoration: none;
+  border-bottom: 1px solid transparent; padding-bottom: 1px;
+  transition: border-color .15s;
+}
+.ark-portal-link a:hover, .ark-portal-link a:focus-visible { border-color: var(--fag-hum-text); }
+
+.efterark { padding: 16vh 0 15vh; text-align: center; }
+.efter {
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 600;
+  font-size: clamp(1.45rem, 3.4vw, 2.15rem); line-height: 1.3;
+  max-width: 24ch; margin: 0 auto 11vh;
+  text-wrap: balance;
+}
+.wm-navn {
+  font-family: var(--font-marauder); font-weight: 780; font-size: clamp(3.4rem, 9vw, 5.8rem);
+  line-height: 1; letter-spacing: .01em; text-transform: lowercase; color: var(--accent);
+}
+.wm-linje {
+  font-family: var(--font-ui); font-weight: 500; font-size: 1.02rem;
+  letter-spacing: .34em; text-transform: lowercase; color: var(--ink);
+  margin-top: .9rem;
+}
+.wm-sub { font-family: var(--font-marauder); font-style: italic; font-weight: 450; color: var(--muted-ink); margin-top: 1.3rem; }
+
+/* ============ bevægelse 1 + 1.5: genealogi-lærredet ============ */
+#gscene { position: relative; }
+.choreo #gscene { height: 500vh; }
+.gsticky { padding: 4vh 0 6vh; }
+.choreo .gsticky {
+  position: sticky; top: 0; height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0;
+}
+#gsvg {
+  width: var(--bred); margin-inline: auto;
+  height: auto;
+}
+.choreo #gsvg { height: min(58svh, 620px); width: var(--bred); }
+
+/* svg-typografi */
+#gsvg text { font-family: var(--font-ui); fill: var(--ink); }
+#gsvg .v { font-family: var(--font-mono); font-size: 15px; font-weight: 650; fill: var(--fag-hum-text); }
+#gsvg .n { font-size: 14px; font-weight: 500; }
+#gsvg .m { font-family: var(--font-mono); font-weight: 300; font-size: 12.5px; fill: var(--muted-ink); }
+#gsvg .t { font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 600; font-size: 17px; fill: var(--ink); }
+
+.gren { fill: none; stroke: var(--fag-hum); stroke-width: 2.5; opacity: .55; }
+#gscene[data-beat="6"] .gren.g12 { stroke-width: 4.5; opacity: 1; }
+.gren, .rute, .ufoedt, .ufoedt-solid { stroke-linecap: round; }
+.node circle { fill: var(--surface); stroke: var(--fag-hum); stroke-width: 3; }
+.node.rod circle { fill: var(--fag-hum); }
+.dokglyf rect { fill: var(--surface); stroke: var(--fag-hum); stroke-width: 2; }
+.dokglyf line { stroke: var(--border); stroke-width: 2; }
+
+.felt circle { fill: var(--surface); stroke-width: 2.5; }
+.felt.f-natur circle { stroke: var(--fag-natur); }
+.felt.f-stem circle { stroke: var(--fag-stem); }
+.felt.f-aes circle { stroke: var(--fag-aes); }
+.felt.f-hum circle { stroke: var(--fag-hum); }
+.felt text { font-size: 12.5px; fill: var(--muted-ink); text-anchor: middle; }
+#gscene[data-beat="6"] .felt { opacity: .35; }
+
+.amalie .ring { fill: none; stroke: var(--fag-hum); stroke-width: 3; }
+.amalie text { text-anchor: middle; }
+.amalie .n { font-weight: 600; }
+
+.rute { fill: none; stroke: var(--accent); stroke-width: 2; opacity: .8; }
+.hop-label rect { fill: var(--surface); stroke: var(--border); rx: 7; }
+.hop-label text { font-size: 14.5px; text-anchor: middle; fill: var(--ink); }
+.ufoedt { fill: none; stroke: var(--fag-hum); stroke-width: 2.5; stroke-dasharray: 8 8; opacity: .85; }
+.ufoedt-solid { fill: none; stroke: var(--fag-hum); stroke-width: 3; opacity: 0; }
+
+/* koreograferede tilstande */
+.choreo .draw { stroke-dasharray: var(--L, 1200); stroke-dashoffset: var(--L, 1200); transition: stroke-dashoffset 1.2s cubic-bezier(.45, 0, .25, 1); }
+.choreo .draw.on { stroke-dashoffset: 0; }
+.choreo .ufoedt { stroke-dashoffset: 0 !important; stroke-dasharray: 8 8 !important; opacity: 0; transition: opacity .9s ease .9s; }
+.choreo .ufoedt.on { opacity: .85; }
+.choreo .node circle { transform: scale(0); transform-box: fill-box; transform-origin: center; transition: transform .6s cubic-bezier(.34, 1.42, .64, 1) .15s; }
+.choreo .node.on circle { transform: scale(1); }
+.choreo .nlab, .choreo .felt, .choreo .hop-label, .choreo .amalie, .choreo .dokglyf, .choreo .titel { opacity: 0; transition: opacity .8s ease .35s; }
+.choreo .nlab.on, .choreo .felt.on, .choreo .hop-label.on, .choreo .amalie.on, .choreo .dokglyf.on, .choreo .titel.on { opacity: 1; }
+.choreo .felt:nth-of-type(2) { transition-delay: .5s; }
+.choreo .felt:nth-of-type(3) { transition-delay: .65s; }
+.choreo .felt:nth-of-type(4) { transition-delay: .8s; }
+.choreo .amalie { transition-delay: 1.05s; }
+.choreo .amalie.on .ring { animation: puls 2.4s ease-out 1.2s 1; }
+@keyframes puls {
+  0% { stroke-width: 3; }
+  35% { stroke-width: 9; stroke-opacity: .45; }
+  70% { stroke-width: 3; stroke-opacity: 1; }
+}
+
+/* fødsel af kanten (klik) */
+.born .ufoedt { opacity: 0 !important; transition: opacity .6s ease; }
+.choreo .born .ufoedt-solid { stroke-dasharray: var(--L, 600); stroke-dashoffset: 0; opacity: 1; transition: stroke-dashoffset 1.3s cubic-bezier(.45, 0, .25, 1), opacity .3s; }
+.choreo .ufoedt-solid { stroke-dasharray: var(--L, 600); stroke-dashoffset: var(--L, 600); }
+.reduced .born .ufoedt-solid, html:not(.choreo):not(.reduced) .born .ufoedt-solid { opacity: 1; }
+
+/* billedtekster */
+.capzone { position: relative; width: var(--bred); margin-inline: auto; }
+.choreo .capzone { min-height: 9.5rem; margin-top: 1.4rem; }
+.cap { max-width: 56ch; padding-top: 1rem; }
+.choreo .cap { position: absolute; inset: 0 auto auto 0; opacity: 0; translate: 0 10px; transition: opacity .55s ease, translate .55s ease; padding-top: 0; }
+.choreo .cap.on { opacity: 1; translate: 0 0; transition-delay: .25s; }
+.cap .cl { display: block; font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 650; font-size: 1.28rem; line-height: 1.3; margin-bottom: .35rem; }
+.cap.stor .cl { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
+.cap cite { font-style: normal; font-family: var(--font-mono); font-weight: 340; font-size: .74rem; color: var(--muted-ink); }
+
+/* fund-panelet */
+.gpanel {
+  width: min(380px, calc(100vw - 2.6rem));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--fag-hum);
+  border-radius: var(--r-modal);
+  padding: 1.4rem 1.5rem 1.25rem;
+  box-shadow: 0 16px 44px rgba(44, 36, 32, .12);
+  margin: 1.5rem auto 0;
+}
+.choreo .gpanel {
+  position: absolute; right: max(1.2vw, calc((100vw - 1240px) / 2)); top: 47%;
+  translate: 0 -50%;
+  margin: 0;
+  visibility: hidden; opacity: 0;
+  transition: opacity .6s ease, visibility 0s linear .6s;
+}
+.choreo .gpanel.on { visibility: visible; opacity: 1; transition: opacity .6s ease .5s, visibility 0s; }
+.p-eyebrow { font-family: var(--font-mono); font-weight: 500; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fag-hum-text); margin-bottom: .7rem; }
+.p-tekst { font-size: 1.06rem; line-height: 1.5; margin-bottom: .8rem; }
+.p-meta { font-family: var(--font-mono); font-weight: 320; font-size: .74rem; color: var(--muted-ink); line-height: 1.7; }
+.p-status { font-family: var(--font-mono); font-weight: 640; font-size: .74rem; color: var(--fag-hum-text); line-height: 1.7; }
+.p-skille { border-top: 1px solid var(--border); margin: 1rem 0; }
+.p-spm { font-family: var(--font-ui); font-weight: 600; font-size: .98rem; margin-bottom: .7rem; }
+.p-knapper { display: flex; gap: .55rem; flex-wrap: wrap; }
+.p-knapper .knap[aria-pressed="true"] { background: var(--fag-hum-text); border-color: var(--fag-hum-text); color: var(--bg); font-weight: 650; }
+.p-res { margin-top: .9rem; font-family: var(--font-marauder); font-style: italic; font-weight: 500; font-size: .96rem; }
+.p-fod { margin-top: .9rem; font-family: var(--font-mono); font-weight: 300; font-size: .72rem; color: var(--muted-ink); }
+
+/* ============ bevægelse 2: wizardmomentet ============ */
+#afprov { padding: 20vh 0 14vh; }
+#afprov h2, .mv h2 {
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 700;
+  font-size: clamp(1.8rem, 4.2vw, 2.7rem); line-height: 1.15;
+  letter-spacing: -.01em; margin-bottom: 1rem; max-width: 24ch;
+  text-wrap: balance;
+}
+#afprov .intro { max-width: 58ch; margin-bottom: 2.4rem; }
+.dgliste { max-width: 640px; }
+.dim + .dim { margin-top: .65rem; }
+.dimknap {
+  width: 100%;
+  display: grid; grid-template-columns: 1fr auto auto; align-items: baseline; gap: 1rem;
+  padding: .95rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  transition: border-color .18s, background .18s;
+}
+.dimknap:hover, .dimknap:focus-visible { border-color: var(--accent); }
+.dim-navn {
+  font-family: var(--font-ui); font-weight: 480; font-size: 1.02rem;
+  transition: font-weight .2s ease, letter-spacing .2s ease;
+}
+.dimknap:hover .dim-navn, .dimknap:focus-visible .dim-navn { font-weight: 640; letter-spacing: .006em; }
+.dim-prik { font-size: .95rem; }
+.dim-status { font-family: var(--font-mono); font-weight: 360; font-size: .72rem; color: var(--muted-ink); letter-spacing: .02em; }
+.dim.open .dim-status { font-weight: 640; color: var(--fag-hum-text); }
+.dim.open .dimknap {
+  border: 2px dashed var(--fag-hum);
+  padding: calc(.95rem - 1px) calc(1.2rem - 1px);
+  background: color-mix(in srgb, var(--fag-hum) 6%, var(--surface));
+}
+.plads-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
+.reduced .plads-wrap { transition: none; }
+.dim.open .plads-wrap { grid-template-rows: 1fr; }
+.plads-krop { overflow: hidden; min-height: 0; }
+.plads-krop > div { padding: .85rem 1.2rem .35rem; }
+.plads-tag {
+  font-family: var(--font-ui); font-weight: 600; font-size: .72rem;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--fag-hum-text);
+  margin-bottom: .3rem;
+}
+.plads-ord { max-width: 52ch; font-size: 1.04rem; }
+.lektion {
+  margin-top: 2.2rem; max-width: 34ch;
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 650; font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.35;
+  border-left: 3px solid var(--fag-hum); padding-left: 1.1rem;
+}
+
+/* ============ bevægelse 3: det manglende lag ============ */
+#lag { padding: 14vh 0 16vh; }
+#lag .prosa { max-width: 56ch; margin-bottom: 3.2rem; }
+#lag .prosa strong { font-weight: 700; }
+.lagfigur { max-width: 640px; }
+.lag-almind {
+  background: var(--accent); color: var(--bg);
+  border-radius: 14px; padding: 1.15rem 1.5rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.lag-almind .navn { font-family: var(--font-marauder); font-weight: 750; font-size: 1.5rem; text-transform: lowercase; }
+.lag-almind .rolle { font-family: var(--font-ui); font-size: .82rem; color: color-mix(in srgb, var(--bg) 72%, transparent); }
+.risere { height: 34px; display: flex; align-items: flex-end; justify-content: center; }
+.rodlinje { width: 100%; height: 2px; background: var(--accent); opacity: .5; transform: scaleX(0); transform-origin: center; }
+.choreo .rodlinje { transition: transform .8s ease; }
+.choreo .risere.in .rodlinje { transform: scaleX(1); }
+.lag-grund { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: .7rem; }
+.lag-felt {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: .95rem 1.1rem;
+}
+.lag-felt .navn { font-family: var(--font-ui); font-weight: 600; font-size: .95rem; }
+.lag-felt .navn a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color .15s, color .15s; }
+.lag-felt .navn a:hover, .lag-felt .navn a:focus-visible { color: var(--accent); border-color: var(--accent); }
+.lag-felt .hvad { font-family: var(--font-mono); font-weight: 340; font-size: .7rem; color: var(--muted-ink); margin-top: .3rem; letter-spacing: .02em; }
+
+/* ============ bevægelse 3.5: tavlen ============ */
+#hvorfor-nu { background: var(--accent); padding: 21vh 0; }
+#hvorfor-nu .eyebrow { font-weight: 500; color: color-mix(in srgb, var(--bg) 68%, transparent); margin-bottom: 2rem; }
+.tavle-linje {
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 650;
+  font-size: clamp(1.65rem, 4.7vw, 3.7rem); line-height: 1.22;
+  letter-spacing: -.01em; color: var(--bg);
+  max-width: 26ch; text-wrap: balance;
+}
+.tavle-linje + .tavle-linje { margin-top: .55em; }
+.tavle-linje .adr {
+  font-family: var(--font-marauder); font-style: italic; font-weight: 800;
+  color: var(--fag-hum);
+}
+
+/* ============ bevægelse 4: filosofien ============ */
+#filosofi { padding: 18vh 0 10vh; }
+.ord { margin-bottom: 8vh; max-width: 62ch; }
+.ord-navn {
+  font-family: var(--font-marauder);
+  font-size: clamp(2.1rem, 5.4vw, 3.1rem); line-height: 1.05;
+  text-transform: lowercase; letter-spacing: .01em; color: var(--accent);
+  margin-bottom: 1.1rem;
+}
+/* Hvert ord bærer sin egen vægt: mødet er let, retten er tung, den frie tid er luftig. */
+.ord--alminding .ord-navn { font-weight: 340; font-style: italic; }
+.ord--haevd .ord-navn { font-weight: 900; font-style: normal; }
+.ord--schole .ord-navn { font-weight: 160; font-style: italic; }
+.ord p + p { margin-top: 1em; }
+.haevd-grid { display: grid; grid-template-columns: 1fr 132px; gap: 2rem; align-items: end; }
+#haevdstreg { width: 132px; height: 30px; overflow: visible; }
+#haevdstreg path { fill: none; stroke: var(--ink); }
+.choreo #haevdstreg path { stroke-dasharray: 130; stroke-dashoffset: 130; transition: stroke-dashoffset 1s ease; }
+.choreo .haevd-grid.in #haevdstreg path:nth-child(1) { stroke-dashoffset: 0; transition-delay: .2s; }
+.choreo .haevd-grid.in #haevdstreg path:nth-child(2) { stroke-dashoffset: 0; transition-delay: .9s; }
+.choreo .haevd-grid.in #haevdstreg path:nth-child(3) { stroke-dashoffset: 0; transition-delay: 1.6s; }
+.kilder { font-family: var(--font-mono); font-weight: 320; font-size: .74rem; color: var(--muted-ink); max-width: 60ch; margin-top: 2rem; line-height: 1.8; }
+
+/* ============ bevægelse 5: invitationen ============ */
+#invitation { padding: 16vh 0 0; text-align: center; }
+#minitrae { width: min(560px, 92vw); margin: 0 auto 1rem; overflow: visible; }
+#minitrae line { stroke: var(--fag-hum); stroke-width: 2.5; opacity: .55; }
+#minitrae line.aaben { stroke-dasharray: 7 7; opacity: .8; }
+#minitrae circle { fill: var(--surface); stroke: var(--fag-hum); stroke-width: 3; }
+#minitrae circle.rod { fill: var(--fag-hum); }
+#minitrae circle.naeste { stroke-dasharray: 6 6; }
+#minitrae text { font-family: var(--font-mono); font-weight: 340; font-size: 13px; fill: var(--muted-ink); text-anchor: middle; }
+#minitrae .v { font-weight: 650; fill: var(--fag-hum-text); }
+.naeste-linje { font-family: var(--font-mono); font-weight: 380; font-size: .78rem; color: var(--muted-ink); margin-bottom: 9vh; }
+#invitation h2 {
+  font-family: var(--font-voice); font-optical-sizing: auto; font-weight: 700;
+  margin-inline: auto;
+}
+#invitation .indbydelse { max-width: 44ch; margin: 0 auto 2.2rem; }
+.inv-knapper { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 15vh; }
+.slut-wm { padding-bottom: 4rem; }
+
+.site-footer { border-top: 1px solid var(--border); padding: 2rem 0 2.6rem; text-align: left; }
+.site-footer .kol { display: flex; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap; }
+.site-footer p { font-family: var(--font-mono); font-weight: 340; font-size: .84rem; color: var(--muted-ink); max-width: 44ch; line-height: 1.7; }
+
+/* ============ responsivt ============ */
+@media (max-width: 900px) {
+  .choreo .gpanel { right: 50%; translate: 50% -50%; top: 52%; }
+  .lag-grund { grid-template-columns: 1fr; }
+  .haevd-grid { grid-template-columns: 1fr; }
+  #haevdstreg { margin-top: .6rem; }
+}
+@media (max-width: 640px) {
+  body { font-size: 1rem; }
+  .ark-kolofon { flex-direction: column; gap: 1rem; }
+  .ark-dg { text-align: left; }
+  #gsvg .n, #gsvg .m, #gsvg .t { display: none; }
+  #gsvg .felt text { display: none; }
+  .choreo #gsvg { height: min(44svh, 420px); }
+  .choreo .capzone { min-height: 12rem; }
+  .cap { max-width: 100%; }
+  .choreo .gpanel { width: calc(100vw - 2rem); }
+}
+</style>
 </head>
 <body>
-<div class="container">
 
-  <header class="site-header">
-    <a class="logo" href="index.html">almind<small>åbent · forgrenet · fællesejet</small></a>
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html" class="aktiv">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="graph.html">Konstellation</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+<a class="skip" href="#invitation">Spring til invitationen</a>
+<a id="pille" href="#top" aria-label="almind, til toppen af siden">almind</a>
+<a id="pille-app" href="app/index.html">Åbn Almind</a>
 
-  <section class="hero" id="hero" data-fag="hum" aria-label="Fremhævet forløb">
-    <div class="hero-tekst">
-      <div class="hero-eyebrow" id="hero-eyebrow"></div>
-      <h1 id="hero-titel"></h1>
-      <div class="undertitel" id="hero-undertitel"></div>
-      <p class="beskrivelse" id="hero-beskrivelse">
-        Et forløb der har levet tre liv: skabt på EMU, redidaktiseret til en konkret 8. klasse,
-        gjort tilgængeligt for alle læsere. Klik på en version og se hvad der ændrede sig.
-      </p>
-      <div class="hero-handlinger">
-        <a class="knap fag" id="hero-aabn" href="#">Åbn forløbet</a>
-        <a class="knap sekundaer" id="hero-fork" href="#">Fork</a>
+<main id="top">
+
+<!-- ============ 0 · Åbningen: et rigtigt forløb ============ -->
+<section id="aabning" aria-label="Et forløb fra Almind">
+  <article class="ark" lang="da">
+    <div class="ark-kolofon">
+      <div>
+        <p class="ark-type">Undervisningsforløb · Dansk · 8. klasse</p>
+        <h1>Den Svære Samtale</h1>
+        <p class="undertitel">Redidaktiseret til 8.D</p>
+        <p class="ark-meta">Valdemar Silverstein Markussen · 8.D, Silkeborg · 2026 · CC BY-SA 4.0</p>
       </div>
-      <blockquote class="hero-citat" id="hero-citat" hidden>
-        <span id="hero-citat-tekst"></span>
-        <cite id="hero-citat-hvem"></cite>
-      </blockquote>
+      <div class="ark-dg" role="img" aria-label="Profil: mål, indhold, metode og organisering er udfyldt. Evaluering er delvis. Differentiering står bevidst åben.">
+        <p class="dg-linje">mål <b class="p-fuld" aria-hidden="true">●</b></p>
+        <p class="dg-linje">indhold <b class="p-fuld" aria-hidden="true">●</b></p>
+        <p class="dg-linje">metode <b class="p-fuld" aria-hidden="true">●</b></p>
+        <p class="dg-linje">organisering <b class="p-fuld" aria-hidden="true">●</b></p>
+        <p class="dg-linje">evaluering <b class="p-delvis" aria-hidden="true">●</b></p>
+        <p class="dg-linje">differentiering <b class="p-aaben" aria-hidden="true">○</b><span class="dg-ord">åben plads</span></p>
+      </div>
     </div>
-    <div class="trae-ramme" id="hero-trae"></div>
-  </section>
 
-  <h2 class="sektionstitel">Fagene</h2>
-  <div id="fagbaand"></div>
+    <p class="indledning">EMU-originalen redidaktiseret til en konkret 8. klasse som fase 3 i Tema 1 Mundtlighed: dilemmaerne trækker på romanviden, eleverne ytrer sig i eget navn, og spillet er et rum hvor elevens etiske intuitioner har faglig gyldighed.</p>
 
-  <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
-    <h2 class="sektionstitel" style="flex:1; margin-bottom:0;">Forløb fra fællesskabet</h2>
-    <input class="soegefelt" id="soeg" type="search" placeholder="Søg forløb, fag, tema, trin ..." aria-label="Søg i forløb" style="max-width:320px;">
+    <span class="fase-nr">Fase 2 af 3</span>
+    <h2>Spillet: ytring i eget navn</h2>
+    <p class="fase-tekst">Eleverne forsvarer standpunkter over for hinanden i situationer der angår dem. Der er ikke et rigtigt svar; der er et rum hvor elevens etiske intuitioner har faglig gyldighed.</p>
+    <ul>
+      <li>Spilrunder i grupper med faste positioner</li>
+      <li>Standpunktskift på signal</li>
+      <li>Lytterens noter deles</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-titel">Når dilemmaet rammer for tæt</span>
+      Elevnære dilemmaer kan ramme virkelige konflikter i klassen. Hav en neutral reserve-case klar, og skift uden kommentar hvis stemningen kræver det.
+    </div>
+
+    <div class="plads">
+      <span class="plads-label">Åben plads · differentiering</span>
+      <p class="plads-besked citat">"Bevidst åben. Jeg kender ikke din klasse. Det gør du."</p>
+    </div>
+
+    <div class="ark-fod">
+      <span>almind · forløb dss-v1 · fork af: Den Svære Samtale (EMU, 2024)</span>
+      <span>deles videre på samme vilkår</span>
+    </div>
+  </article>
+
+  <p class="ark-portal-link kol"><a href="app/sequence.html?id=dss-v1">&rarr; Åbn forløbet i Almind</a></p>
+
+  <div class="efterark kol">
+    <p class="efter r">Det her er ikke en skabelon. Nogen har lavet det, til 28 bestemte elever.</p>
+    <div class="r">
+      <p class="wm-navn">almind</p>
+      <p class="wm-linje">frit, fælles og forgrenet</p>
+      <p class="wm-sub">Et fælles sted for undervisningsforløb. Ikke et lager: en fælled.</p>
+    </div>
   </div>
-  <div class="kortgrid" id="grid" style="margin-top:1.25rem;"></div>
+</section>
 
-  <footer class="site-footer">
-    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
-  </footer>
-</div>
+<!-- ============ 1 + 1.5 · Forgreningen og den ufødte kant ============ -->
+<section id="gscene" aria-label="Forløbets slægt, og forbindelsen der venter">
+  <div class="gsticky">
+    <svg id="gsvg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="gtitel gdesk">
+      <title id="gtitel">Genealogi for Den Svære Samtale</title>
+      <desc id="gdesk">EMU-originalen fra 2024 er ophav til Valdemars version til 8.D, som Lukas har bygget videre på. Langt derfra underviser Amalie i Randers i det samme forløb. Grafen forbinder dem gennem det fælles ophav, og en stiplet kant venter på at blive til.</desc>
 
-<script type="module">
-  import { hentForloeb, findForloeb, kaede, familieFor } from "./assets/js/data.js";
-  import { horisontaltTrae } from "./assets/js/genealogi.js";
-  import { forloebKort, fagBaand } from "./assets/js/komponenter.js";
-  import { stagger, tegnTrae } from "./assets/js/motion.js";
+      <!-- feltet: andre forløb (bevægelse 1.5) -->
+      <g class="felt f-natur" data-b="5">
+        <circle cx="170" cy="118" r="7"/>
+        <circle cx="208" cy="147" r="5.5"/>
+        <text x="192" y="180">Åen bag skolen · natur/teknik</text>
+      </g>
+      <g class="felt f-stem" data-b="5">
+        <circle cx="205" cy="583" r="7"/>
+        <circle cx="243" cy="611" r="5.5"/>
+        <text x="228" y="644">Brøkværkstedet · matematik</text>
+      </g>
+      <g class="felt f-aes" data-b="5">
+        <circle cx="912" cy="600" r="7"/>
+        <circle cx="950" cy="627" r="5.5"/>
+        <text x="928" y="662">Stomp og polyrytmik · musik</text>
+      </g>
+      <g class="felt f-hum" data-b="5">
+        <circle cx="150" cy="452" r="7"/>
+        <circle cx="117" cy="480" r="5.5"/>
+        <text x="150" y="512">Djævelens Lærling · dansk</text>
+      </g>
 
-  const alle = await hentForloeb();
+      <!-- ruten grafen kender (bevægelse 1.5, sidste tag) -->
+      <path class="rute draw" data-b="6" d="M1010,150 C 820,58 520,108 340,320"/>
+      <g class="hop-label" data-b="6">
+        <rect x="490" y="86" width="332" height="34"/>
+        <text x="656" y="108">deler ophav: Den Svære Samtale (EMU)</text>
+      </g>
+      <g class="hop-label" data-b="6">
+        <rect x="588" y="432" width="188" height="34"/>
+        <text x="682" y="454">to hop: her bor et fund</text>
+      </g>
 
-  // Hero: forløbet med dybest genealogi (Den Svære Samtale V1 som aktivt punkt).
-  const heroForloeb = findForloeb(alle, "dss-v1");
-  const heroKaede = kaede(alle, heroForloeb.id);
-  const hero = document.getElementById("hero");
-  hero.dataset.fag = familieFor(heroForloeb.fag);
-  document.getElementById("hero-eyebrow").textContent =
-    `${heroForloeb.fag} · ${heroForloeb.klassetrin} · ${heroKaede.length} versioner, ${new Set(heroKaede.map(f => f.forfatter)).size} forfattere`;
-  document.getElementById("hero-titel").textContent = heroForloeb.titel;
-  document.getElementById("hero-undertitel").textContent = heroForloeb.undertitel || "";
-  document.getElementById("hero-aabn").href = `sequence.html?id=${heroForloeb.id}`;
-  document.getElementById("hero-fork").href = `fork.html?id=${heroForloeb.id}`;
-  if (heroForloeb.citat) {
-    document.getElementById("hero-citat").hidden = false;
-    document.getElementById("hero-citat-tekst").textContent = `"${heroForloeb.citat.tekst}"`;
-    document.getElementById("hero-citat-hvem").textContent = heroForloeb.citat.hvem;
-  }
-  const svg = horisontaltTrae(heroKaede, heroForloeb.id);
-  document.getElementById("hero-trae").appendChild(svg);
-  tegnTrae(svg);
+      <!-- den ufødte kant -->
+      <path class="ufoedt" data-b="6" d="M1010,150 C 958,272 812,342 692,386"/>
+      <path class="ufoedt-solid" d="M1010,150 C 958,272 812,342 692,386"/>
 
-  // Fagbånd
-  document.getElementById("fagbaand").appendChild(fagBaand(alle));
+      <!-- slægten -->
+      <path class="gren draw" data-b="1" d="M560,420 C 480,412 408,332 340,320"/>
+      <path class="gren draw g12" data-b="3" d="M560,420 C 642,430 722,362 790,340"/>
 
-  // Kortgrid: alt undtagen hero-kædens midterpunkt vises; kæden repræsenteres af V1-kortet.
-  const grid = document.getElementById("grid");
-  const iGrid = alle.filter((f) => !["dss-v0", "dss-v2"].includes(f.id));
-  function tegnGrid(liste) {
-    grid.innerHTML = "";
-    if (!liste.length) {
-      grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">Ingen forløb matcher endnu. Måske er det din åbne plads at udfylde? <a href="upload.html">Del et forløb</a>.</div>`;
-      return;
+      <g class="node rod" data-b="1">
+        <circle cx="340" cy="320" r="13"/>
+        <g class="nlab" data-b="1">
+          <text class="v" x="340" y="291" text-anchor="middle">V0</text>
+          <text class="n" x="340" y="354" text-anchor="middle">EMU · Demokrati Under Udvikling</text>
+          <text class="m" x="340" y="373" text-anchor="middle">2024</text>
+        </g>
+      </g>
+
+      <g class="dokglyf" data-b="0" data-until="1">
+        <rect x="544" y="366" width="32" height="40" rx="3"/>
+        <line x1="551" y1="378" x2="569" y2="378"/>
+        <line x1="551" y1="386" x2="569" y2="386"/>
+        <line x1="551" y1="394" x2="563" y2="394"/>
+      </g>
+
+      <g class="node" data-b="0">
+        <circle cx="560" cy="420" r="13"/>
+        <g class="nlab" data-b="0">
+          <text class="v" x="560" y="391" text-anchor="middle">V1</text>
+          <text class="n" x="560" y="454" text-anchor="middle">Valdemar · 8.D, Silkeborg</text>
+          <text class="m" x="560" y="473" text-anchor="middle">2026</text>
+          <text class="t" x="560" y="504" text-anchor="middle">Den Svære Samtale</text>
+        </g>
+      </g>
+
+      <g class="node" data-b="3">
+        <circle cx="790" cy="340" r="13"/>
+        <g class="nlab" data-b="3">
+          <text class="v" x="790" y="311" text-anchor="middle">V2</text>
+          <text class="n" x="790" y="374" text-anchor="middle">Lukas · lærerstuderende, VIA</text>
+          <text class="m" x="790" y="393" text-anchor="middle">2026</text>
+        </g>
+      </g>
+
+      <!-- Amalie -->
+      <g class="amalie" data-b="5">
+        <circle class="ring" cx="1010" cy="150" r="11"/>
+        <text class="n" x="1010" y="196">Amalie · Randers</text>
+        <text class="m" x="1010" y="215">Den Svære Samtale · direkte fra EMU</text>
+      </g>
+    </svg>
+
+    <div class="capzone">
+      <p class="cap" data-cap="0"><strong class="cl">Det samme forløb, set fra oven.</strong></p>
+      <p class="cap" data-cap="1"><strong class="cl">Det kom ikke ud af ingenting.</strong> 2024: EMU udgiver dilemmaspillet. Stærkt på indhold og metode, åbent på resten.</p>
+      <p class="cap" data-cap="2"><strong class="cl">2026: Valdemar tager det op.</strong> Dilemmaerne skrives ind i klassens eget romanunivers og spilles som tredje fase af et større forløb. Originalen forsvinder ikke: den er ophav nu.</p>
+      <p class="cap" data-cap="3"><strong class="cl">Samme år: Lukas bygger videre.</strong> Sproget skrives om til elevernes hverdag, og forløbet spilles igen. Flere kommer i spil. Men mønstret i hvem der argumenterer strategisk, holder. Den plads lader han stå åben til den næste.</p>
+      <p class="cap stor" data-cap="4"><strong class="cl">Intet forsvinder. Alt akkumulerer.</strong> Tre mennesker har efter tur taget ansvar for det samme stof. Det er ikke kopiering: det er at tage det fælles op igen, på nye præmisser. <cite>Korsgaard 2019</cite></p>
+      <p class="cap" data-cap="5"><strong class="cl">Amalie underviser i Den Svære Samtale i Randers.</strong> Hun kender hverken Valdemar eller Lukas. Grafen kender vejen alligevel: fælles ophav, to hop.</p>
+    </div>
+
+    <aside id="gpanel" class="gpanel" aria-label="Fund fra kanten mellem version 1 og version 2">
+      <p class="p-eyebrow">Fund · på kanten V1 → V2</p>
+      <p class="p-tekst citat">"Da sproget blev skrevet om, kom flere i spil. Men mønstret i hvem der argumenterer strategisk, holdt."</p>
+      <p class="p-meta">8.D, Silkeborg · dansk · 8. klasse · 2026</p>
+      <p class="p-status" id="fund-status">status: enkelt iteration · efterprøvet: aldrig</p>
+      <div class="p-skille" role="presentation"></div>
+      <p class="p-spm">Underviser du i det samme?</p>
+      <div class="p-knapper">
+        <button id="knap-samme" class="knap lille" aria-pressed="false" type="button">Så du det samme?</button>
+        <button id="knap-andet" class="knap lille sekundaer" aria-pressed="false" type="button">Så du noget andet?</button>
+      </div>
+      <p class="p-res" id="fund-res" hidden></p>
+      <p class="p-fod">Svaret er tre sætninger. Ikke en rapport.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ 2 · Wizardmomentet ============ -->
+<section id="afprov" class="mv" aria-label="Prøv selv: hvad overlader du til den næste lærer">
+  <div class="kol">
+    <p class="eyebrow">Prøv det · ingenting gemmes</p>
+    <h2 class="r">Hvad overlader du til den næste lærer?</h2>
+    <p class="intro r">Det her er profilen fra forløbet du læste i starten. Fire dele er udfyldt, én er delvis, og én står åben med vilje. Klik på en del, og mærk forskellen på et hul og en åben plads.</p>
+
+    <div class="dgliste r">
+      <div class="dim">
+        <button class="dimknap" type="button" aria-expanded="false" id="d-maal" aria-controls="p-maal">
+          <span class="dim-navn">Mål</span>
+          <span class="dim-prik p-fuld" aria-hidden="true">●</span>
+          <span class="dim-status">udfyldt</span>
+        </button>
+        <div class="plads-wrap" id="p-maal" role="region" aria-labelledby="d-maal">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Retningen er sat for min klasse. Din skal måske et andet sted hen."</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="dim">
+        <button class="dimknap" type="button" aria-expanded="false" id="d-indhold" aria-controls="p-indhold">
+          <span class="dim-navn">Indhold</span>
+          <span class="dim-prik p-fuld" aria-hidden="true">●</span>
+          <span class="dim-status">udfyldt</span>
+        </button>
+        <div class="plads-wrap" id="p-indhold" role="region" aria-labelledby="d-indhold">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Dilemmakortene trækker på vores fælles romanunivers. Skift forankringen til jeres. Det tager et kvarter og er hele forskellen."</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="dim">
+        <button class="dimknap" type="button" aria-expanded="false" id="d-metode" aria-controls="p-metode">
+          <span class="dim-navn">Metode</span>
+          <span class="dim-prik p-fuld" aria-hidden="true">●</span>
+          <span class="dim-status">udfyldt</span>
+        </button>
+        <div class="plads-wrap" id="p-metode" role="region" aria-labelledby="d-metode">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Spilstrukturen er afprøvet og bærer det hele. Lad den stå, eller lav den om. Den er din nu."</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="dim">
+        <button class="dimknap" type="button" aria-expanded="false" id="d-org" aria-controls="p-org">
+          <span class="dim-navn">Organisering</span>
+          <span class="dim-prik p-fuld" aria-hidden="true">●</span>
+          <span class="dim-status">udfyldt</span>
+        </button>
+        <div class="plads-wrap" id="p-org" role="region" aria-labelledby="d-org">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Grupper, lokale, signaler: planlagt til 28 bestemte elever. Dine er nogle andre."</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="dim">
+        <button class="dimknap" type="button" aria-expanded="false" id="d-eval" aria-controls="p-eval">
+          <span class="dim-navn">Evaluering</span>
+          <span class="dim-prik p-delvis" aria-hidden="true">●</span>
+          <span class="dim-status">delvis</span>
+        </button>
+        <div class="plads-wrap" id="p-eval" role="region" aria-labelledby="d-eval">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Exitspørgsmålene er her. Men hvordan evaluerer man etisk mod uden at dræbe det? Den plads står åben."</p>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="dim open" data-altid-aaben>
+        <button class="dimknap" type="button" aria-expanded="true" id="d-diff" aria-controls="p-diff">
+          <span class="dim-navn">Differentiering</span>
+          <span class="dim-prik p-aaben" aria-hidden="true">○</span>
+          <span class="dim-status">åben plads</span>
+        </button>
+        <div class="plads-wrap" id="p-diff" role="region" aria-labelledby="d-diff">
+          <div class="plads-krop"><div>
+            <p class="plads-tag">Åben plads · stilet til den næste</p>
+            <p class="plads-ord citat">"Bevidst åben. Jeg kender ikke din klasse. Det gør du."</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="lektion" id="lektion" hidden aria-live="polite">En tom plads er ikke et hul. Det er et sted der venter på den næste lærer.</p>
+  </div>
+</section>
+
+<!-- ============ 3 · Det manglende lag ============ -->
+<section id="lag" class="mv" aria-label="Almind erstatter intet">
+  <div class="kol">
+    <h2 class="r">Almind erstatter intet.</h2>
+    <p class="prosa r">Der findes allerede stærke samlinger: emu's fagportal, mitCFU's kuraterede medier, Levende Musik i Skolen, Materialeplatformen, Medier For Alle. <strong>Almind er jorden ovenpå: stedet hvor det, lærere selv laver med materialerne, slår rødder og vokser.</strong></p>
+
+    <div class="lagfigur r">
+      <div class="lag-almind">
+        <span class="navn">almind</span>
+        <span class="rolle">det fælles lag · forløb, forgreninger, fund</span>
+      </div>
+      <div class="risere r" aria-hidden="true"><span class="rodlinje"></span></div>
+      <div class="lag-grund">
+        <div class="lag-felt"><p class="navn"><a href="https://emu.dk" target="_blank" rel="noopener">emu</a></p><p class="hvad">fagportal og vejledning</p></div>
+        <div class="lag-felt"><p class="navn"><a href="https://mitcfu.dk" target="_blank" rel="noopener">mitCFU</a></p><p class="hvad">kuraterede medier</p></div>
+        <div class="lag-felt"><p class="navn"><a href="https://lms.dk" target="_blank" rel="noopener">Levende Musik i Skolen</a></p><p class="hvad">koncerter og materialer</p></div>
+        <div class="lag-felt"><p class="navn"><a href="https://materialeplatformen.dk" target="_blank" rel="noopener">Materialeplatformen</a></p><p class="hvad">forlagenes læremidler</p></div>
+        <div class="lag-felt"><p class="navn"><a href="https://medierforalle.dk" target="_blank" rel="noopener">Medier For Alle</a></p><p class="hvad">fri adgang til medier</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3.5 · Hvorfor nu ============ -->
+<section id="hvorfor-nu" aria-label="Fagfornyelsen">
+  <div class="kol">
+    <p class="eyebrow">Fagfornyelsen · nye fagplaner fra 2027/28</p>
+    <p class="tavle-linje r">Tusindvis af forløb skal skrives om i de her år.</p>
+    <p class="tavle-linje r">Det arbejde bliver lavet, uanset hvad.</p>
+    <p class="tavle-linje r">Spørgsmålet er om det forsvinder bagefter, eller om det får lov at <span class="adr">slå rødder og vokse</span>?</p>
+  </div>
+</section>
+
+<!-- ============ 4 · Filosofien ============ -->
+<section id="filosofi" aria-label="Alminding, hævd og scholé">
+  <div class="kol">
+    <div class="ord ord--alminding r">
+      <p class="ord-navn">alminding</p>
+      <p>I dansk tradition var et almind ikke bare et stykke jord. Det var bøndernes måde at holde noget fælles i live: de mødtes, satte græsningstider, holdt hegnene, løste konflikterne. Stedet var scenen. Arbejdet var det fælles.</p>
+      <p><em>Alminding</em> er det oldnordiske ord for den praksis: at forvalte det fælles i fællesskab.</p>
+    </div>
+
+    <div class="ord ord--haevd r">
+      <p class="ord-navn">hævd</p>
+      <div class="haevd-grid">
+        <div>
+          <p>Hævd er ret der opstår af brug. Den udstedes ikke; den aflejres, af vedvarende og uanfægtet praksis. Et arkiv registrerer hvem der ejer. Hævd husker hvad der blev gjort, igen og igen.</p>
+          <p>Almind er bygget som den slags register: her bliver gentagen professionel handling til struktur og adresse, uden at nogen redaktion bestemmer hvad der tæller.</p>
+        </div>
+        <svg id="haevdstreg" viewBox="0 0 120 24" aria-hidden="true">
+          <path d="M4,14 C 30,10 62,17 116,12" stroke-width="1.6" opacity=".35"/>
+          <path d="M6,13 C 40,18 82,8 114,13" stroke-width="1.6" opacity=".5"/>
+          <path d="M4,12 C 50,12 90,14 116,12" stroke-width="2.2" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ord ord--schole r">
+      <p class="ord-navn">scholé</p>
+      <p>Skolen er hverken produktionstid eller fritid. Den er studietid: fri tid til at studere det fælles, uden at nogen ejer det eller tjener på det.</p>
+      <p>Det er hvad Almind er for lærere. Et fælles studierum, hvor et forløb kan tages op, bearbejdes og gives videre.</p>
+    </div>
+
+    <p class="kilder r">Ordene har følgeskab: Korsgaard (2019) om skolen som commons · Masschelein &amp; Simons (2013) om scholé.</p>
+  </div>
+</section>
+
+<!-- ============ 5 · Invitationen ============ -->
+<section id="invitation" aria-label="Invitation til samtale om en pilot">
+  <div class="kol">
+    <svg id="minitrae" viewBox="0 0 560 96" role="img" aria-label="Slægten fortsætter: efter version 2 venter en stiplet, tom plads til den næste version." class="r">
+      <line x1="53" y1="38" x2="187" y2="38"/>
+      <line x1="213" y1="38" x2="347" y2="38"/>
+      <line class="aaben" x1="373" y1="38" x2="507" y2="38"/>
+      <circle class="rod" cx="40" cy="38" r="10"/>
+      <circle cx="200" cy="38" r="10"/>
+      <circle cx="360" cy="38" r="10"/>
+      <circle class="naeste" cx="520" cy="38" r="10"/>
+      <text class="v" x="40" y="70">V0</text>
+      <text x="40" y="88">EMU</text>
+      <text class="v" x="200" y="70">V1</text>
+      <text x="200" y="88">Valdemar</text>
+      <text class="v" x="360" y="70">V2</text>
+      <text x="360" y="88">Lukas</text>
+      <text class="v" x="520" y="70">·</text>
+      <text x="520" y="88">din?</text>
+    </svg>
+    <p class="naeste-linje r">Den næste version findes ikke endnu.</p>
+
+    <h2 class="r">Vi inviterer til en samtale.</h2>
+    <p class="indbydelse r">Om en pilot på VIA Silkeborg: et hold undervisere, et hold studerende, et semester. Pilotens form designes med jer, ikke for jer.</p>
+    <div class="inv-knapper r">
+      <a class="knap" href="mailto:354702@via.dk?subject=Samtale%20om%20en%20Almind-pilot">Skriv til Valdemar</a>
+      <a class="knap sekundaer" href="mailto:354702@via.dk?subject=Almind%3A%20send%20mig%20det%20fulde%20brief">Få det fulde brief</a>
+      <a class="knap sekundaer" href="app/browse.html">Se alle forløb</a>
+    </div>
+
+    <div class="slut-wm r">
+      <p class="wm-navn">almind</p>
+      <p class="wm-linje">frit, fælles og forgrenet</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="kol">
+    <p>Almind: fællesejet infrastruktur for undervisningsforløb.<br>Indhold CC BY-SA 4.0 · kildekode GPLv3 · login via WAYF · LTI 1.3.</p>
+    <p>Valdemar Silverstein Markussen<br>Lærerstuderende, VIA University College Silkeborg<br>354702@via.dk · 50 65 40 20</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var doc = document.documentElement;
+  var choreo = doc.classList.contains('choreo');
+
+  try {
+    /* ---------- måle stregerne, så de kan tegnes ---------- */
+    document.querySelectorAll('.draw, .ufoedt-solid').forEach(function (p) {
+      try {
+        var L = Math.ceil(p.getTotalLength()) + 2;
+        p.style.setProperty('--L', L);
+      } catch (e) { /* element uden geometri */ }
+    });
+
+    /* ---------- reveals ---------- */
+    if (choreo && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
+      document.querySelectorAll('.r, .risere, .haevd-grid').forEach(function (el) { io.observe(el); });
+    } else {
+      document.querySelectorAll('.r, .risere, .haevd-grid').forEach(function (el) { el.classList.add('in'); });
     }
-    liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));
-    stagger([...grid.children], 45);
-  }
-  tegnGrid(iGrid);
 
-  // Søgning
-  document.getElementById("soeg").addEventListener("input", (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    tegnGrid(
-      !q ? iGrid : iGrid.filter((f) =>
-        [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
-         ...(f.tema || []), ...Object.values(f.tags || {}).flat()]
-          .join(" ").toLowerCase().includes(q)
-      )
-    );
-  });
+    /* ---------- genealogi-scenen ---------- */
+    var scene = document.getElementById('gscene');
+    var svg = document.getElementById('gsvg');
+    var panel = document.getElementById('gpanel');
+    var els = scene.querySelectorAll('[data-b]');
+    var caps = scene.querySelectorAll('.cap');
+    var VB_A = [230, 258, 680, 268];
+    var VB_B = [0, 0, 1200, 700];
+    var TH = [0, 0.10, 0.24, 0.38, 0.52, 0.64, 0.80];
+    var cur = -1, top = 0, len = 1, vbRAF = 0, ticking = false;
+
+    function setVB(v) {
+      svg.setAttribute('viewBox', v.map(function (x) { return Math.round(x * 10) / 10; }).join(' '));
+    }
+    function tweenVB(to) {
+      cancelAnimationFrame(vbRAF);
+      var from = svg.getAttribute('viewBox').split(' ').map(Number);
+      var t0 = performance.now(), D = 1500;
+      function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / D), e = ease(k);
+        setVB(from.map(function (f, i) { return f + (to[i] - f) * e; }));
+        if (k < 1) vbRAF = requestAnimationFrame(step);
+      })(t0);
+    }
+    function applyBeat(n) {
+      if (n === cur) return;
+      var prev = cur; cur = n;
+      scene.dataset.beat = n;
+      els.forEach(function (el) {
+        var b = +el.dataset.b;
+        var u = el.dataset.until ? +el.dataset.until : Infinity;
+        el.classList.toggle('on', n >= b && n < u);
+      });
+      caps.forEach(function (c) { c.classList.toggle('on', +c.dataset.cap === n); });
+      panel.classList.toggle('on', n >= 6);
+      if (prev < 5 && n >= 5) tweenVB(VB_B);
+      else if (prev >= 5 && n < 5 && prev !== -1) tweenVB(VB_A);
+    }
+    function finalState() {
+      scene.dataset.beat = 6;
+      els.forEach(function (el) {
+        var u = el.dataset.until ? +el.dataset.until : Infinity;
+        el.classList.toggle('on', 6 < u);
+      });
+      caps.forEach(function (c) { c.classList.add('on'); });
+      panel.classList.add('on');
+      setVB(VB_B);
+    }
+    function measure() {
+      var r = scene.getBoundingClientRect();
+      top = r.top + window.scrollY;
+      len = Math.max(1, scene.offsetHeight - window.innerHeight);
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var p = Math.min(1, Math.max(0, (window.scrollY - top) / len));
+        var b = 0;
+        for (var i = 0; i < TH.length; i++) if (p >= TH[i]) b = i;
+        applyBeat(b);
+      });
+    }
+
+    if (choreo) {
+      setVB(VB_A);
+      measure();
+      onScroll();
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', function () { measure(); onScroll(); }, { passive: true });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); onScroll(); });
+    } else {
+      finalState();
+    }
+
+    /* skifter brugeren til reduceret bevægelse undervejs, lander scenen i slut-tilstand */
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (e) {
+      if (e.matches) { doc.classList.remove('choreo'); doc.classList.add('reduced'); finalState(); }
+    });
+
+    /* ---------- kantens fødsel ---------- */
+    var stat = document.getElementById('fund-status');
+    var res = document.getElementById('fund-res');
+    var bSamme = document.getElementById('knap-samme');
+    var bAndet = document.getElementById('knap-andet');
+    function foed(slags) {
+      svg.classList.add('born');
+      bSamme.setAttribute('aria-pressed', String(slags === 'samme'));
+      bAndet.setAttribute('aria-pressed', String(slags === 'andet'));
+      if (slags === 'samme') {
+        stat.textContent = 'status: replikeret · Randers, 2026 · 2 klasser';
+        res.textContent = 'Kanten er født: ikke en kontakt, men viden om det fælles. Ingen redaktion godkendte den.';
+      } else {
+        stat.textContent = 'status: modsagt · Randers, 2026 · uenighed registreret';
+        res.textContent = 'Uenighed er også en kant. Fundet ved mere nu, end det gjorde for et minut siden.';
+      }
+      res.hidden = false;
+    }
+    bSamme.addEventListener('click', function () { foed('samme'); });
+    bAndet.addEventListener('click', function () { foed('andet'); });
+
+    /* ---------- wizardmomentet ---------- */
+    var lektionVist = false;
+    document.querySelectorAll('.dim').forEach(function (dim) {
+      var btn = dim.querySelector('.dimknap');
+      var prik = dim.querySelector('.dim-prik');
+      var status = dim.querySelector('.dim-status');
+      var fast = dim.hasAttribute('data-altid-aaben');
+      var o = { g: prik.textContent, c: prik.className, s: status.textContent };
+      btn.addEventListener('click', function () {
+        var open = dim.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        if (!fast) {
+          if (open) {
+            prik.textContent = '○'; prik.className = 'dim-prik p-aaben';
+            status.textContent = 'overladt til den næste';
+          } else {
+            prik.textContent = o.g; prik.className = o.c; status.textContent = o.s;
+          }
+        }
+        if (open && !lektionVist) {
+          lektionVist = true;
+          document.getElementById('lektion').hidden = false;
+        }
+      });
+    });
+
+    /* ---------- wordmark-pillen + åbn-portalen-pillen ---------- */
+    var pille = document.getElementById('pille');
+    var pilleApp = document.getElementById('pille-app');
+    var start = document.getElementById('aabning');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        var vis = !es[0].isIntersecting;
+        pille.classList.toggle('vis', vis);
+        pilleApp.classList.toggle('vis', vis);
+      }, { threshold: 0 }).observe(start);
+    }
+  } catch (fejl) {
+    /* fejler koreografien, skal siden stadig kunne læses */
+    doc.classList.remove('choreo');
+    if (scene) { try { finalState(); } catch (e) {} }
+    console.error(fejl);
+  }
+})();
 </script>
 </body>
 </html>
