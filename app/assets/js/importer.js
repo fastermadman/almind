@@ -50,27 +50,49 @@ function htmlTilBlokke(html) {
     erFaseskel = (e) => faseTag && e.tagName === faseTag;
   }
 
+  // Nummererede under-overskrifter ("1 Det etiske felt åbnes — ...") ER
+  // Bevægelser i T1-T5-korpuset — deterministisk kendetegn: starter med
+  // tal + mellemrum. Andre under-overskrifter (sektionslabels som "Mål",
+  // "Bevægelser", "Didaktisk intention") er IKKE nummererede og forbliver
+  // flad tekst som hidtil — det er strukturelt udtræk, ikke didaktisk
+  // tolkning af hvad der "burde" være en aktivitet.
+  const NUMMERERET_UNDEROVERSKRIFT = /^(\d+)\s+(.+)/;
+
   const faser = [];
-  let akt = null;
+  let fase = null;
+  let huidigeAktivitet = null; // samler prosa efter en nummereret under-overskrift
   const nyFase = (t) => {
     // dokument.js nummererer selv faserne — "Fase 1 — Stemthed" bliver til "Stemthed"
     const renTitel = t.replace(/^fase\s*\d+\s*[—–:.-]\s*/i, "");
-    akt = { titel: renTitel, beskrivelse: "", aktiviteter: [], callouts: [] };
-    faser.push(akt);
+    fase = { titel: renTitel, beskrivelse: "", aktiviteter: [], callouts: [] };
+    faser.push(fase);
+    huidigeAktivitet = null; // ny fases indledende prosa hører til fasen, ikke en tidligere aktivitet
   };
   const tilfoejTekst = (t) => {
     if (!t) return;
-    if (!akt) nyFase("");
-    akt.beskrivelse += (akt.beskrivelse ? "\n\n" : "") + t;
+    if (!fase) nyFase("");
+    const maal = huidigeAktivitet || fase;
+    maal.beskrivelse += (maal.beskrivelse ? "\n\n" : "") + t;
   };
 
   for (const e of born) {
     if (erFaseskel(e)) { nyFase(tekst(e)); continue; }
+    if (/^H[1-4]$/.test(e.tagName)) {
+      const match = tekst(e).match(NUMMERERET_UNDEROVERSKRIFT);
+      if (match) {
+        if (!fase) nyFase("");
+        huidigeAktivitet = { titel: match[2], beskrivelse: "" };
+        fase.aktiviteter.push(huidigeAktivitet);
+        continue;
+      }
+      tilfoejTekst(tekst(e)); // ikke-nummereret under-overskrift: forbliver flad tekst
+      continue;
+    }
     if (e.tagName === "UL" || e.tagName === "OL") {
-      if (!akt) nyFase("");
+      if (!fase) nyFase("");
       [...e.querySelectorAll(":scope > li")].forEach((li) => {
         const t = tekst(li);
-        if (t) akt.aktiviteter.push(t);
+        if (t) fase.aktiviteter.push({ titel: "", beskrivelse: t });
       });
       continue;
     }
@@ -83,7 +105,7 @@ function htmlTilBlokke(html) {
       });
       continue;
     }
-    tilfoejTekst(tekst(e)); // p, h-underniveauer, blockquote m.m.
+    tilfoejTekst(tekst(e)); // p, blockquote m.m.
   }
 
   return { titel, faser };
