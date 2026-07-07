@@ -6,11 +6,13 @@
 
 import { hentManifest, hentDestillat, gemKladde, DIMENSIONER, DIM_NAVNE, familieFor } from "./data.js";
 
-const FAG_VALG = ["dansk", "historie", "religion", "matematik", "fysik", "teknik", "natur/teknik", "geografi", "biologi", "musik", "billedkunst", "drama"];
-const KLASSETRIN_VALG = ["0.-3. klasse", "4.-6. klasse", "7.-9. klasse", "10. klasse"];
+// Eksporteres: blok-editoren (blokke.js) genbruger definitionerne, så de
+// didaktiske spørgsmål har én kilde uanset forfatterflade.
+export const FAG_VALG = ["dansk", "historie", "religion", "matematik", "fysik", "teknik", "natur/teknik", "geografi", "biologi", "musik", "billedkunst", "drama"];
+export const KLASSETRIN_VALG = ["0.-3. klasse", "4.-6. klasse", "7.-9. klasse", "10. klasse"];
 
 // Strukturerede felter pr. destillat. id = tag-nøgle i kladden.
-const TRIN = [
+export const TRIN = [
   { navn: "Grundinfo", felter: "grundinfo" },
   {
     navn: "Didaktisk fundament",

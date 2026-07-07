@@ -101,7 +101,9 @@ export function renderDokument(f, tilstand = "laerer") {
         ark.appendChild(ol);
       }
     } else {
-      ark.appendChild(tekstEl("p", null, fase.beskrivelse));
+      // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
+      (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
+        .forEach((afsnit) => ark.appendChild(tekstEl("p", null, afsnit)));
       if (fase.aktiviteter?.length) {
         ark.appendChild(tekstEl("h3", null, "Bevægelser"));
         const ol = document.createElement("ol");

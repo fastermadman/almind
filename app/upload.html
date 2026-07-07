@@ -8,6 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/almind.css">
+  <script src="assets/vendor/mammoth.browser.min.js"></script>
+  <style>
+    /* Side-specifikt: de to indgange til forfatterskab */
+    .indgange { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0 3rem; }
+    @media (max-width: 700px) { .indgange { grid-template-columns: 1fr; } }
+    .indgang {
+      display: block; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-kort); padding: 1.8rem 1.7rem;
+      text-decoration: none; color: var(--ink); cursor: pointer;
+    }
+    .indgang h2 { font-family: var(--font-logo); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .indgang p { color: var(--muted); font-size: 0.95rem; }
+    .indgang:hover { border-color: var(--accent); }
+    .drop-zone { border: 2px dashed var(--border); }
+    .drop-zone.over { border-color: var(--accent); background: var(--surface-alt); }
+    #drop-status { display: block; margin-top: 0.8rem; font-family: var(--font-mono); font-size: 0.78rem; }
+    #drop-status.fejl { color: var(--fag-aes); }
+  </style>
 </head>
 <body>
 <div class="container">
@@ -26,11 +44,33 @@
   <div class="wizard">
     <h1>Del et forløb</h1>
     <p class="intro">
-      Wizarden stiller dig de spørgsmål den didaktiske teori stiller: ikke som kontrol,
-      men som hjælp til at gøre dit forløb let at overtage og bygge videre på.
-      Spørgsmålene kommer direkte fra Alminds teoretiske destillater.
+      To veje ind — begge ender i blok-editoren, hvor destillaternes didaktiske
+      spørgsmål er ved hånden undervejs, ikke en tunnel du skal igennem først.
     </p>
-    <div id="wizard-rod"></div>
+
+    <a class="indgang" id="fortsaet" href="rediger.html?kladde=1" hidden style="margin-bottom:1.25rem;">
+      <h2>Fortsæt hvor du slap</h2>
+      <p id="fortsaet-tekst"></p>
+    </a>
+
+    <div class="indgange">
+      <a class="indgang" href="rediger.html">
+        <h2>Byg fra bunden</h2>
+        <p>Start med et tomt kanvas og byg forløbet af blokke: faser, aktiviteter, callouts og åbne pladser.</p>
+      </a>
+
+      <label class="indgang drop-zone" id="drop-zone">
+        <h2>Har du allerede et dokument?</h2>
+        <p>
+          Træk det herind, eller klik og vælg. Word (.docx) og Markdown (.md) —
+          Google Docs: Filer &rarr; Download &rarr; Word. Overskrifterne bliver til faser,
+          punktlisterne til aktiviteter. Ingenting skal genskrives.
+          Et Almind-forløb (.json) åbner direkte i editoren.
+        </p>
+        <input type="file" id="fil-input" accept=".docx,.md,.markdown,.txt,.json" hidden>
+        <span id="drop-status"></span>
+      </label>
+    </div>
   </div>
 
   <footer class="site-footer">
@@ -40,8 +80,59 @@
 </div>
 
 <script type="module">
-  import { startWizard } from "./assets/js/wizard.js";
-  startWizard({ rod: document.getElementById("wizard-rod") });
+  import { gemKladde, hentKladde, datoTekst } from "./assets/js/data.js";
+  import { nytForloeb } from "./assets/js/blokke.js";
+  import { parseDocx, parseMarkdown } from "./assets/js/importer.js";
+
+  // Ligger der en kladde, tilbydes den først
+  const kladde = hentKladde();
+  if (kladde) {
+    document.getElementById("fortsaet").hidden = false;
+    document.getElementById("fortsaet-tekst").textContent =
+      `${kladde.titel || "Uden titel"} · sidst ændret ${datoTekst(kladde.opdateret)} · gemt lokalt i din browser`;
+  }
+
+  const zone = document.getElementById("drop-zone");
+  const input = document.getElementById("fil-input");
+  const status = document.getElementById("drop-status");
+
+  async function haandterFil(fil) {
+    status.classList.remove("fejl");
+    status.textContent = `Læser ${fil.name} ...`;
+    try {
+      const navn = fil.name.toLowerCase();
+      let f;
+      if (navn.endsWith(".json")) {
+        // Et downloadet Almind-forløb: samme form som forloeb.json — direkte ind
+        f = JSON.parse(await fil.text());
+        if (!f || typeof f !== "object" || !Array.isArray(f.faser)) {
+          throw new Error("JSON-filen ligner ikke et Almind-forløb (mangler faser).");
+        }
+      } else {
+        const blokke = navn.endsWith(".docx")
+          ? await parseDocx(await fil.arrayBuffer())
+          : parseMarkdown(await fil.text());
+        f = nytForloeb();
+        f.titel = blokke.titel || fil.name.replace(/\.(docx|md|markdown|txt)$/i, "");
+        f.faser = blokke.faser;
+      }
+      gemKladde(f);
+      location.href = "rediger.html?kladde=1";
+    } catch (fejl) {
+      console.error(fejl);
+      status.classList.add("fejl");
+      status.textContent = `Kunne ikke læse filen: ${fejl.message}`;
+    }
+  }
+
+  zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("over"); });
+  zone.addEventListener("dragleave", () => zone.classList.remove("over"));
+  zone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    zone.classList.remove("over");
+    if (e.dataTransfer.files[0]) haandterFil(e.dataTransfer.files[0]);
+  });
+  input.addEventListener("change", () => { if (input.files[0]) haandterFil(input.files[0]); });
 </script>
 </body>
 </html>

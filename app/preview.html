@@ -25,6 +25,7 @@
 
   <p class="intro" id="kladde-note" hidden style="font-family:var(--font-ui); background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--fagfarve, var(--ink)); border-radius:12px; padding:0.8rem 1.1rem; margin-top:1rem;">
     Dit forløb. Sådan ser det ud når det deles. Intet er sendt nogen steder hen: dette er en lokal demo.
+    <a href="rediger.html?kladde=1">&larr; Tilbage til editoren</a>
   </p>
 
   <div class="preview-vaerktoejer">
@@ -95,7 +96,10 @@
   fLaerer.addEventListener("click", () => vaelgFane("laerer"));
   fElev.addEventListener("click", () => vaelgFane("elev"));
   document.getElementById("fag-skifter").addEventListener("change", tegn);
-  document.getElementById("print-knap").addEventListener("click", () => window.print());
+  document.getElementById("print-knap").addEventListener("click", () => {
+    const q = params.get("kladde") === "1" ? "kladde=1" : `id=${forloeb.id}`;
+    location.href = `print.html?${q}&tilstand=${tilstand}`;
+  });
 
   tegn();
 </script>

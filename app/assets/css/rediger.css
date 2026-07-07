@@ -1,0 +1,159 @@
+/* ============================================================
+   Blok-editorens chrome. Loades kun af rediger.html.
+   Feltklasserne (.felt, .chips, .segment, .dim-vaelger, .knap)
+   arves fra almind.css — her bor kun det editoren selv ejer.
+   ============================================================ */
+
+.editor-hoved {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0;
+}
+.editor-hoved h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.4rem; }
+.editor-hoved .intro { color: var(--muted); max-width: 56ch; }
+.editor-knapper { display: flex; gap: 0.6rem; }
+
+.editor-layout {
+  display: grid; grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 2rem; align-items: start;
+}
+@media (max-width: 1000px) {
+  .editor-layout { grid-template-columns: 1fr; }
+  .profil-panel { position: static; }
+}
+
+.under { display: block; color: var(--muted); font-size: 0.85rem; font-family: var(--font-ui); margin-bottom: 0.8rem; }
+
+/* ---------- kanvas: sektioner og blok-kort ---------- */
+.editor-sektion { margin-bottom: 2.4rem; }
+.editor-sektion > h2 {
+  font-family: var(--font-ui); font-weight: 600; font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+}
+
+.blok-kort {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-modal); padding: 1.1rem 1.3rem; margin-bottom: 1rem;
+}
+
+.grundinfo { border-left: 4px solid var(--fagfarve, var(--accent)); margin-bottom: 2.4rem; }
+.grund-titel {
+  width: 100%; border: none; background: transparent;
+  font-family: var(--font-logo); font-weight: 800; font-size: 1.6rem;
+  margin-bottom: 0.6rem; color: var(--ink);
+}
+.grund-titel:focus { outline: none; }
+.grund-raekke { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+.mini-felt { display: flex; flex-direction: column; gap: 0.25rem; }
+.mini-label {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.72rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Fælles formfelter i editoren */
+.editor-layout select {
+  font-family: var(--font-ui); font-size: 0.9rem; color: var(--ink);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.4rem 0.6rem; background: var(--surface);
+}
+.tekstfelt, .dim-vaelger textarea, .callout-blok textarea, .profil-panel textarea {
+  width: 100%; border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.5rem 0.7rem; font-family: var(--font-body); font-size: 0.92rem;
+  background: var(--surface); color: var(--ink); resize: vertical; min-height: 58px;
+}
+.tekstfelt:focus, .dim-vaelger textarea:focus, .callout-blok textarea:focus, .profil-panel textarea:focus {
+  outline: none; border-color: var(--accent);
+}
+
+/* ---------- faser ---------- */
+.fase-kort { padding-bottom: 1.3rem; }
+.fase-hoved { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; }
+.fase-nr {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+.fase-titel {
+  flex: 1; border: none; background: transparent;
+  font-family: var(--font-logo); font-weight: 700; font-size: 1.1rem; color: var(--ink);
+  border-bottom: 1px dashed transparent;
+}
+.fase-titel:focus { outline: none; border-bottom-color: var(--accent); }
+
+.haandtag { cursor: grab; color: var(--muted); user-select: none; touch-action: none; line-height: 1; }
+.haandtag:active { cursor: grabbing; }
+.sortable-ghost { opacity: 0.35; }
+.sortable-chosen { box-shadow: 0 8px 22px rgba(44, 36, 32, 0.16); }
+
+.gruppe-navn {
+  display: block; font-family: var(--font-ui); font-weight: 600; font-size: 0.75rem;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
+  margin: 1.1rem 0 0.45rem;
+}
+
+.blok { display: flex; gap: 0.55rem; align-items: flex-start; }
+
+.aktivitet-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.aktivitet-blok {
+  background: var(--surface-alt); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.45rem 0.65rem; align-items: center;
+}
+.aktivitet-blok input {
+  flex: 1; border: none; background: transparent;
+  font-family: var(--font-body); font-size: 0.92rem; color: var(--ink);
+}
+.aktivitet-blok input:focus { outline: none; }
+
+/* Callout-blokke genbruger dokumentets callout-farver: editoren viser hvad printet giver */
+.callout-blok { display: block; margin: 0.5rem 0; }
+.callout-liste { display: flex; flex-direction: column; }
+.callout-hoved { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.35rem; }
+.callout-hoved select {
+  font-size: 0.78rem; padding: 0.2rem 0.4rem; border-radius: 6px;
+  background: rgba(255, 255, 255, 0.65); border-color: currentColor; color: inherit;
+}
+.callout-titel-felt {
+  flex: 1; border: none; background: transparent;
+  font-family: var(--font-ui); font-weight: 700; font-size: 0.85rem; color: inherit;
+}
+.callout-titel-felt:focus { outline: none; }
+.callout-blok textarea { background: rgba(255, 255, 255, 0.5); border-color: transparent; min-height: 48px; font-size: 0.88rem; }
+
+.blok-slet {
+  border: none; background: transparent; color: var(--muted);
+  cursor: pointer; font-size: 1.05rem; line-height: 1; padding: 0.1rem 0.3rem;
+}
+.blok-slet:hover { color: var(--fag-aes); }
+
+.tilfoej {
+  font-family: var(--font-ui); font-size: 0.85rem; font-weight: 500;
+  border: 1.5px dashed var(--border); background: transparent; color: var(--muted);
+  border-radius: var(--r-pill); padding: 0.35rem 0.95rem; cursor: pointer; margin-top: 0.55rem;
+}
+.tilfoej:hover { border-color: var(--accent); color: var(--accent); }
+
+.materiale-raekke {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 2fr auto;
+  gap: 0.4rem; margin-bottom: 0.4rem; align-items: center;
+}
+.materiale-raekke input {
+  border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.5rem;
+  font-size: 0.82rem; font-family: var(--font-ui); background: var(--surface); color: var(--ink);
+}
+@media (max-width: 700px) { .materiale-raekke { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- profil-panelet ---------- */
+.profil-panel {
+  position: sticky; top: 1rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-modal); padding: 1.2rem 1.3rem;
+  max-height: calc(100vh - 2rem); overflow-y: auto;
+}
+.profil-panel > h2 { font-family: var(--font-ui); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.3rem; }
+.profil-panel details { border-top: 1px solid var(--border); padding: 0.7rem 0; }
+.profil-panel summary {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.92rem;
+  cursor: pointer; margin-bottom: 0.6rem;
+}
+.profil-panel .felt { margin-bottom: 1.3rem; }
+.profil-panel .chips { gap: 0.35rem; }
+.profil-panel .chip { font-size: 0.8rem; padding: 0.3rem 0.7rem; }
+.profil-panel .segment button { font-size: 0.8rem; padding: 0.3rem 0.65rem; }

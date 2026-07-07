@@ -60,12 +60,15 @@ export function datoTekst(iso) {
   return `${m[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-// Wizard-kladde via sessionStorage
+// Kladden bor i localStorage: den overlever genstart. Én aktiv kladde ad
+// gangen — flere forløb håndteres som JSON-filer (download/upload i editoren),
+// samme form som målmodellen: ét forløb = én JSON-fil = ét fremtidigt repo.
 export function gemKladde(kladde) {
-  sessionStorage.setItem("almind_kladde", JSON.stringify(kladde));
+  localStorage.setItem("almind_kladde", JSON.stringify(kladde));
 }
 export function hentKladde() {
-  const raa = sessionStorage.getItem("almind_kladde");
+  // sessionStorage-fallback: kladder fra før skiftet kan stadig åbnes
+  const raa = localStorage.getItem("almind_kladde") || sessionStorage.getItem("almind_kladde");
   return raa ? JSON.parse(raa) : null;
 }
 

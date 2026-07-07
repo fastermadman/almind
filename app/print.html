@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+  <link rel="stylesheet" href="assets/css/print.css">
+  <script>window.PagedConfig = { auto: false };</script>
+  <script src="assets/vendor/paged.polyfill.js"></script>
+</head>
+<body>
+<script type="module">
+  import { hentForloeb, findForloeb, hentKladde, familieFor } from "./assets/js/data.js";
+  import { renderDokument } from "./assets/js/dokument.js";
+
+  const params = new URLSearchParams(location.search);
+  const tilstand = params.get("tilstand") === "elev" ? "elev" : "laerer";
+
+  let forloeb = params.get("kladde") === "1" ? hentKladde() : null;
+  if (!forloeb) {
+    const alle = await hentForloeb();
+    forloeb = findForloeb(alle, params.get("id")) || findForloeb(alle, "dss-v1");
+  }
+
+  document.title = `Print: ${forloeb.titel} · Almind`;
+  // Fagfarven skal nå sidehovederne, som Paged.js bygger UDEN FOR .ark — derfor på roden
+  document.documentElement.dataset.fag = familieFor(forloeb.fag);
+
+  document.body.appendChild(renderDokument(forloeb, tilstand));
+
+  // Paged.js chunker ud fra målte linjehøjder: fontene skal være færdige FØR paginering,
+  // ellers beregnes alle sideskift på fallback-fontens metrik.
+  await Promise.all([
+    document.fonts.load('700 16px "Bricolage Grotesque"'),
+    document.fonts.load('600 16px "Jost"'),
+    document.fonts.load('400 16px "Atkinson Hyperlegible Next"'),
+    document.fonts.load('400 16px "Noto Serif"'),
+  ]);
+  await document.fonts.ready;
+  await window.PagedPolyfill.preview();
+
+  // Værktøjslinjen indsættes EFTER paginering: Paged.js flytter alt body-indhold ind i siderne
+  const bar = document.createElement("div");
+  bar.className = "print-bar";
+  const q = params.get("kladde") === "1" ? "kladde=1" : `id=${forloeb.id}`;
+  const andenTilstand = tilstand === "laerer" ? "elev" : "laerer";
+  bar.innerHTML = `
+    <a href="preview.html?${q}">&larr; Tilbage til preview</a>
+    <span class="mellemrum"></span>
+    <a href="print.html?${q}&tilstand=${andenTilstand}">${andenTilstand === "elev" ? "Se elevmateriale" : "Se lærervejledning"}</a>
+    <button class="knap" id="print-knap">Print / gem som PDF</button>
+  `;
+  document.body.appendChild(bar);
+  document.getElementById("print-knap").addEventListener("click", () => window.print());
+</script>
+</body>
+</html>

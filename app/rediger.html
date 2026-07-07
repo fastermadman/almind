@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byg dit forløb · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+  <link rel="stylesheet" href="assets/css/rediger.css">
+  <script src="assets/vendor/sortable.min.js"></script>
+</head>
+<body>
+<div class="container" id="side">
+
+  <header class="site-header">
+    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html">Forside</a>
+      <a href="browse.html">Alle forløb</a>
+      <a href="graph.html">Konstellation</a>
+      <a href="preview.html?id=dss-v1">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
+  </header>
+
+  <div class="editor-hoved">
+    <div>
+      <h1 id="editor-titel">Byg dit forløb</h1>
+      <p class="intro">
+        Forløbet bygges af blokke: faser, aktiviteter, callouts og åbne pladser.
+        Træk i <span aria-hidden="true">⠿</span> for at flytte rundt. Alt gemmes løbende som kladde i din browser.
+      </p>
+    </div>
+    <div class="editor-knapper">
+      <button class="knap sekundaer" id="download-knap" title="Forløbet som JSON-fil — den form det deles og forkes i">Download JSON</button>
+      <button class="knap sekundaer" id="print-knap">Print</button>
+      <button class="knap" id="dokument-knap">Se som dokument</button>
+    </div>
+  </div>
+
+  <div class="arvelinje" id="arvelinje" hidden></div>
+
+  <div class="editor-layout">
+    <div id="kanvas"></div>
+    <aside id="profil-panel" class="profil-panel" aria-label="Didaktisk profil"></aside>
+  </div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+
+<script type="module">
+  import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor } from "./assets/js/data.js";
+  import { startEditor, nytForloeb, forkAf } from "./assets/js/blokke.js";
+
+  const params = new URLSearchParams(location.search);
+  let f = null;
+
+  if (params.get("kladde") === "1") f = hentKladde();
+  if (!f && params.get("fork")) {
+    const alle = await hentForloeb();
+    const original = findForloeb(alle, params.get("fork"));
+    if (original) f = forkAf(original);
+  }
+  if (!f) f = nytForloeb();
+
+  document.getElementById("side").dataset.fag = familieFor(f.fag);
+  if (f.fork_af) {
+    document.getElementById("editor-titel").textContent = "Fork: byg videre";
+    const alle = await hentForloeb();
+    const original = findForloeb(alle, f.fork_af);
+    if (original) {
+      const linje = document.getElementById("arvelinje");
+      linje.hidden = false;
+      linje.innerHTML = `
+        <span class="tag">${original.fag}</span>
+        <span>Du bygger videre på <strong></strong></span>
+        <span class="metadata">${original.forfatter} · ${original.institution} · ${original.aar} · ${original.licens}</span>
+      `;
+      linje.querySelector("strong").textContent =
+        original.titel + (original.undertitel ? ": " + original.undertitel : "");
+    }
+  }
+
+  startEditor({
+    kanvas: document.getElementById("kanvas"),
+    panel: document.getElementById("profil-panel"),
+    f,
+    fokusDimension: params.get("dimension"),
+  });
+
+  const gemOgGaa = (url) => { gemKladde(f); location.href = url; };
+  document.getElementById("dokument-knap").addEventListener("click", () => gemOgGaa("preview.html?kladde=1"));
+  document.getElementById("print-knap").addEventListener("click", () => gemOgGaa("print.html?kladde=1"));
+
+  // Filen ER persistensformen: ét forløb = én JSON = ét fremtidigt Codeberg-repo
+  document.getElementById("download-knap").addEventListener("click", () => {
+    gemKladde(f);
+    const navn = (f.titel || "forloeb").toLowerCase()
+      .replace(/[æå]/g, "a").replace(/ø/g, "o")
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "forloeb";
+    const blob = new Blob([JSON.stringify(f, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${navn}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+</script>
+</body>
+</html>
