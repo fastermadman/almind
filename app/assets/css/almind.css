@@ -581,6 +581,7 @@ img, svg { display: block; max-width: 100%; }
 .ark p { margin-bottom: 0.7rem; }
 .ark ol, .ark ul { margin: 0.4rem 0 0.9rem 1.3rem; }
 .ark li { margin-bottom: 0.3rem; }
+.ark .akt-titel { color: var(--fagtekst, var(--ink)); } /* aktivitetens titel, hvis udfyldt — Issue #22 */
 
 .callout {
   border-left: 3px solid; border-radius: 0 6px 6px 0;

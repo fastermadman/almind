@@ -13,6 +13,13 @@ export const DIM_NAVNE = {
   organisering: "Organisering", differentiering: "Differentiering", evaluering: "Evaluering",
 };
 
+// Fasers bogstav (A, B, C, ...) er altid udledt af rækkefølgen ved
+// visning — aldrig gemt. Dermed følger det automatisk med når faser
+// trækkes rundt, uden noget separat at holde synkroniseret.
+export function faseBogstav(i) {
+  return String.fromCharCode(65 + i);
+}
+
 export function familieFor(fag) {
   for (const [noegle, fam] of Object.entries(FAMILIER)) {
     if (fam.fag.includes(fag)) return noegle;
@@ -66,10 +73,22 @@ export function datoTekst(iso) {
 export function gemKladde(kladde) {
   localStorage.setItem("almind_kladde", JSON.stringify(kladde));
 }
+// Issue #22: aktiviteter var en flad liste af strenge, er nu {titel,
+// beskrivelse}. Kladder gemt før skiftet ligger stadig som strenge i
+// localStorage — pakkes ud her, ved selve indlæsningen, så INGEN anden
+// fil (blokke.js, dokument.js) behøver kende til det gamle format.
+function normaliserAktiviteter(f) {
+  (f.faser || []).forEach((fase) => {
+    fase.aktiviteter = (fase.aktiviteter || []).map((a) =>
+      typeof a === "string" ? { titel: "", beskrivelse: a } : a);
+  });
+  return f;
+}
+
 export function hentKladde() {
   // sessionStorage-fallback: kladder fra før skiftet kan stadig åbnes
   const raa = localStorage.getItem("almind_kladde") || sessionStorage.getItem("almind_kladde");
-  return raa ? JSON.parse(raa) : null;
+  return raa ? normaliserAktiviteter(JSON.parse(raa)) : null;
 }
 
 // Destillater

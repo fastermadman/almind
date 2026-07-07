@@ -99,13 +99,21 @@
 .aktivitet-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
 .aktivitet-blok {
   background: var(--surface-alt); border: 1px solid var(--border);
-  border-radius: 8px; padding: 0.45rem 0.65rem; align-items: center;
+  border-radius: 8px; padding: 0.45rem 0.65rem; align-items: flex-start;
 }
-.aktivitet-blok input {
-  flex: 1; min-width: 0; border: none; background: transparent;
+.aktivitet-blok .haandtag, .aktivitet-blok .blok-slet { margin-top: 0.35rem; }
+.aktivitet-indhold { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.aktivitet-titel-felt {
+  border: none; background: transparent; padding: 0;
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.78rem; color: var(--muted);
+}
+.aktivitet-titel-felt:focus { outline: none; color: var(--ink); }
+.aktivitet-beskrivelse-felt {
+  border: none; background: transparent; padding: 0; margin: 0; min-height: 24px;
   font-family: var(--font-body); font-size: 0.92rem; color: var(--ink);
+  box-sizing: border-box; resize: none; overflow-y: hidden; width: 100%;
 }
-.aktivitet-blok input:focus { outline: none; }
+.aktivitet-beskrivelse-felt:focus { outline: none; }
 
 /* Callout-blokke genbruger dokumentets callout-farver: editoren viser hvad printet giver */
 .callout-blok { display: block; margin: 0.5rem 0; }

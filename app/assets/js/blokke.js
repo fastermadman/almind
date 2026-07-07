@@ -6,7 +6,7 @@
 // Drag-to-reorder: SortableJS (loades som script-tag af rediger.html).
 
 import {
-  DIMENSIONER, DIM_NAVNE, familieFor,
+  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav,
   hentManifest, hentDestillat, gemKladde,
 } from "./data.js";
 import { TRIN, FAG_VALG, KLASSETRIN_VALG } from "./wizard.js";
@@ -197,7 +197,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
     const hoved = el("header", "fase-hoved");
     hoved.appendChild(haandtag());
-    hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
+    hoved.appendChild(el("span", "fase-nr", `Fase ${faseBogstav(i)}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
     hoved.appendChild(sletKnap("Slet fasen", () => {
       if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
@@ -215,7 +215,10 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     fase.aktiviteter.forEach((akt, j) => {
       const blok = el("li", "blok aktivitet-blok");
       blok.appendChild(haandtag());
-      blok.appendChild(inputFelt(null, akt, "Beskriv aktiviteten", (v) => (fase.aktiviteter[j] = v)));
+      const indhold = el("div", "aktivitet-indhold");
+      indhold.appendChild(inputFelt("aktivitet-titel-felt", akt.titel, "Titel (valgfrit)", (v) => (akt.titel = v)));
+      indhold.appendChild(tekstFelt("aktivitet-beskrivelse-felt", akt.beskrivelse, "Beskriv aktiviteten", (v) => (akt.beskrivelse = v)));
+      blok.appendChild(indhold);
       blok.appendChild(sletKnap("Slet aktiviteten", () => {
         fase.aktiviteter.splice(j, 1);
         gem(); tegnKanvas();
@@ -224,7 +227,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     });
     kort.appendChild(aktListe);
     kort.appendChild(tilfoejKnap("+ Aktivitet", () => {
-      fase.aktiviteter.push("");
+      fase.aktiviteter.push({ titel: "", beskrivelse: "" });
       gem(); tegnKanvas();
     }));
 
@@ -318,6 +321,12 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
   // ---------- greb: forudfyldte blokke, én mekanisme for alle tre niveauer ----------
 
+  // Greb-kataloget skriver aktiviteter som rene strenge (kortfattede navne
+  // er nok der) — pakkes ind i skemaet (Issue #22) ved selve indsættelsen.
+  function somAktivitet(a) {
+    return typeof a === "string" ? { titel: "", beskrivelse: a } : a;
+  }
+
   function indsaetGreb(g, fase) {
     if (g.niveau === "makro") {
       f.faser.push(...structuredClone(g.forudfyldt_indhold));
@@ -329,9 +338,9 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       }
       maal.aktiviteter ??= []; maal.callouts ??= [];
       if (g.niveau === "meso") {
-        maal.aktiviteter.push(...g.forudfyldt_indhold);
+        maal.aktiviteter.push(...g.forudfyldt_indhold.map(somAktivitet));
       } else {
-        maal.aktiviteter.push(...g.forudfyldt_indhold.aktiviteter);
+        maal.aktiviteter.push(...g.forudfyldt_indhold.aktiviteter.map(somAktivitet));
         if (g.forudfyldt_indhold.callout) {
           // kilde-mærkatet rider med som metadata — dokument.js ignorerer ukendte felter
           maal.callouts.push({ ...structuredClone(g.forudfyldt_indhold.callout), kilde: g.kilde });

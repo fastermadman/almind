@@ -2,7 +2,7 @@
 // Fortolker Typst-designsystemet fra WIZARD-PROMPT.md som HTML/CSS.
 // Callout-farverne er bevidst Typst-systemets egne: previewet viser hvad pipelinen producerer.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, faseBogstav } from "./data.js";
 
 const CALLOUT_TITLER = {
   valg: "Didaktisk valg",
@@ -17,6 +17,21 @@ function tekstEl(tag, klasse, tekst) {
   if (klasse) e.className = klasse;
   e.textContent = tekst; // altid textContent: kladde-data er brugerinput
   return e;
+}
+
+// Aktiviteter er {titel, beskrivelse} (Issue #22) — streng-fallback bevaret
+// for kladder der endnu ikke er rørt ved siden af skema-skiftet.
+function aktivitetLi(a) {
+  const li = document.createElement("li");
+  if (typeof a === "string") { li.textContent = a; return li; }
+  if (a.titel) {
+    const titelEl = document.createElement("strong");
+    titelEl.className = "akt-titel";
+    titelEl.textContent = a.titel + (a.beskrivelse ? ": " : "");
+    li.appendChild(titelEl);
+  }
+  if (a.beskrivelse) li.appendChild(document.createTextNode(a.beskrivelse));
+  return li;
 }
 
 function dgPrikker(status) {
@@ -86,7 +101,10 @@ export function renderDokument(f, tilstand = "laerer") {
 
   // Faser
   (f.faser || []).forEach((fase, i) => {
-    ark.appendChild(tekstEl("h2", null, `Fase ${i + 1}: ${fase.titel}`));
+    // "Fase A" alene hvis fasen ikke har fået sin egen titel endnu —
+    // ingen tomt ": " efter bogstavet.
+    ark.appendChild(tekstEl("h2", null,
+      fase.titel ? `Fase ${faseBogstav(i)}: ${fase.titel}` : `Fase ${faseBogstav(i)}`));
 
     if (tilstand === "elev") {
       const maal = document.createElement("div");
@@ -97,7 +115,7 @@ export function renderDokument(f, tilstand = "laerer") {
       if (fase.aktiviteter?.length) {
         ark.appendChild(tekstEl("h3", null, "Det skal du"));
         const ol = document.createElement("ol");
-        fase.aktiviteter.forEach((a) => ol.appendChild(tekstEl("li", null, a)));
+        fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
         ark.appendChild(ol);
       }
     } else {
@@ -107,7 +125,7 @@ export function renderDokument(f, tilstand = "laerer") {
       if (fase.aktiviteter?.length) {
         ark.appendChild(tekstEl("h3", null, "Bevægelser"));
         const ol = document.createElement("ol");
-        fase.aktiviteter.forEach((a) => ol.appendChild(tekstEl("li", null, a)));
+        fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
         ark.appendChild(ol);
       }
       (fase.callouts || []).forEach((c) => {

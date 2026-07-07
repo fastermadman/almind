@@ -66,7 +66,7 @@
 </div>
 
 <script type="module">
-  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, faseBogstav } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
   import { dgProfil, pladsFold } from "./assets/js/komponenter.js";
   import { observe } from "./assets/js/motion.js";
@@ -132,7 +132,7 @@
     sek.className = "fase panel";
     sek.style.marginBottom = "1.25rem";
     sek.innerHTML = `
-      <span class="fase-nr">Fase ${i + 1} af ${f.faser.length}</span>
+      <span class="fase-nr">Fase ${faseBogstav(i)} af ${f.faser.length}</span>
       <h3>${fase.titel}</h3>
       <p>${fase.beskrivelse}</p>
       ${fase.aktiviteter?.length ? `<ul>${fase.aktiviteter.map((a) => `<li>${a}</li>`).join("")}</ul>` : ""}
