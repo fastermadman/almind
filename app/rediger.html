@@ -37,10 +37,12 @@
       <button class="knap sekundaer" id="download-knap" title="Forløbet som JSON-fil — den form det deles og forkes i">Download JSON</button>
       <button class="knap sekundaer" id="print-knap">Print</button>
       <button class="knap" id="dokument-knap">Se som dokument</button>
+      <button class="knap" id="cb-knap" hidden></button>
     </div>
   </div>
 
   <div class="arvelinje" id="arvelinje" hidden></div>
+  <p class="cb-status" id="cb-status" hidden></p>
 
   <div class="editor-layout">
     <div id="kanvas"></div>
@@ -54,6 +56,15 @@
 </div>
 
 <script type="module">
+  // OAuth-loginet kræver 127.0.0.1 (RFC 8252/Forgejo), ikke localhost — se
+  // forgejo.js. Skiftet sker HER, på sideindlæsning, før noget andet, så
+  // brugeren aldrig oplever at "Log ind med Codeberg" tilsyneladende ikke gør
+  // noget ved første klik (det gjorde den ikke tidligere: den skiftede origin
+  // stille og krævede et andet klik for selve login'et).
+  if (location.hostname === "localhost") {
+    location.replace(location.href.replace("//localhost", "//127.0.0.1"));
+  }
+
   import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor } from "./assets/js/data.js";
   import { startEditor, nytForloeb, forkAf } from "./assets/js/blokke.js";
 
@@ -96,6 +107,56 @@
   const gemOgGaa = (url) => { gemKladde(f); location.href = url; };
   document.getElementById("dokument-knap").addEventListener("click", () => gemOgGaa("preview.html?kladde=1"));
   document.getElementById("print-knap").addEventListener("click", () => gemOgGaa("print.html?kladde=1"));
+
+  // Codeberg: login → del som ægte fork/gren + PR. Download-JSON består som
+  // fallback uden login — filen er stadig persistensformen.
+  const { erLoggetInd, login, hentBruger, delTilAlmind } = await import("./assets/js/forgejo.js");
+  const cbKnap = document.getElementById("cb-knap");
+  const cbStatus = document.getElementById("cb-status");
+  const visStatus = (tekst, erFejl = false) => {
+    cbStatus.hidden = false;
+    cbStatus.classList.toggle("fejl", erFejl);
+    cbStatus.textContent = tekst;
+  };
+
+  async function tegnCbKnap() {
+    cbKnap.hidden = false;
+    if (erLoggetInd()) {
+      cbKnap.textContent = "Del til Almind";
+      try {
+        visStatus(`Logget ind på Codeberg som ${await hentBruger()} · forslag sendes som pull request`);
+      } catch (fejl) {
+        visStatus(fejl.message, true);
+        if (!erLoggetInd()) cbKnap.textContent = "Log ind med Codeberg"; // 401 → logget ud
+      }
+    } else {
+      cbKnap.textContent = "Log ind med Codeberg";
+    }
+  }
+
+  cbKnap.addEventListener("click", async () => {
+    if (!erLoggetInd()) { login(); return; }
+    gemKladde(f);
+    cbKnap.disabled = true;
+    visStatus("Deler forløbet: fork/gren → commit → pull request ...");
+    try {
+      const prUrl = await delTilAlmind(f);
+      cbStatus.hidden = false;
+      cbStatus.classList.remove("fejl");
+      cbStatus.innerHTML = "";
+      cbStatus.append("Forslaget er sendt: ");
+      const a = document.createElement("a");
+      a.href = prUrl; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = prUrl;
+      cbStatus.appendChild(a);
+    } catch (fejl) {
+      visStatus("Kunne ikke dele: " + fejl.message, true);
+      tegnCbKnap();
+    } finally {
+      cbKnap.disabled = false;
+    }
+  });
+  tegnCbKnap();
 
   // Filen ER persistensformen: ét forløb = én JSON = ét fremtidigt Codeberg-repo
   document.getElementById("download-knap").addEventListener("click", () => {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Logger ind ... · Almind</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <style>
+    body { font-family: var(--font-ui); background: var(--bg); color: var(--ink);
+           display: grid; place-items: center; min-height: 100vh; margin: 0; }
+    .boks { text-align: center; max-width: 42ch; padding: 2rem; }
+    .fejl { color: var(--fag-aes); }
+  </style>
+</head>
+<body>
+<div class="boks" id="boks"><p>Logger ind med Codeberg ...</p></div>
+<script type="module">
+  import { haandterCallback } from "./assets/js/forgejo.js";
+  try {
+    const retur = await haandterCallback();
+    location.replace(retur);
+  } catch (fejl) {
+    document.getElementById("boks").innerHTML = "";
+    const p = document.createElement("p");
+    p.className = "fejl";
+    p.textContent = "Login mislykkedes: " + fejl.message;
+    const a = document.createElement("a");
+    a.href = "rediger.html";
+    a.textContent = "Tilbage til editoren";
+    document.getElementById("boks").append(p, a);
+  }
+</script>
+</body>
+</html>

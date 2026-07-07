@@ -10,6 +10,7 @@ import {
   hentManifest, hentDestillat, gemKladde,
 } from "./data.js";
 import { TRIN, FAG_VALG, KLASSETRIN_VALG } from "./wizard.js";
+import { GREB_KATALOG } from "./greb-katalog.js";
 
 export const CALLOUT_TYPER = {
   valg: "Didaktisk valg",
@@ -86,7 +87,9 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const t = el("textarea", klasse);
     t.value = vaerdi || "";
     t.placeholder = placeholder || "";
-    t.addEventListener("input", () => { onInput(t.value); gem(); });
+    const voks = () => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; };
+    t.addEventListener("input", () => { onInput(t.value); gem(); voks(); });
+    setTimeout(voks, 0); // kører først når feltet er sat ind i DOM'en af kalderen
     return t;
   }
 
@@ -174,6 +177,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       f.faser.push({ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] });
       gem(); tegnKanvas();
     }));
+    sek.appendChild(tilfoejKnap("+ Indsæt greb", () => aabnGrebKatalog(null)));
 
     new Sortable(liste, {
       ...DRAG, handle: ".fase-hoved .haandtag",
@@ -244,6 +248,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       fase.callouts.push({ type: "valg", titel: "", tekst: "" });
       gem(); tegnKanvas();
     }));
+    kort.appendChild(tilfoejKnap("+ Greb", () => aabnGrebKatalog(fase)));
 
     new Sortable(callListe, {
       ...DRAG, group: "callouts", handle: ".haandtag",
@@ -309,6 +314,57 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       gem(); tegnKanvas();
     }));
     return sek;
+  }
+
+  // ---------- greb: forudfyldte blokke, én mekanisme for alle tre niveauer ----------
+
+  function indsaetGreb(g, fase) {
+    if (g.niveau === "makro") {
+      f.faser.push(...structuredClone(g.forudfyldt_indhold));
+    } else {
+      let maal = fase || f.faser[f.faser.length - 1];
+      if (!maal) {
+        maal = { titel: "", beskrivelse: "", aktiviteter: [], callouts: [] };
+        f.faser.push(maal);
+      }
+      maal.aktiviteter ??= []; maal.callouts ??= [];
+      if (g.niveau === "meso") {
+        maal.aktiviteter.push(...g.forudfyldt_indhold);
+      } else {
+        maal.aktiviteter.push(...g.forudfyldt_indhold.aktiviteter);
+        if (g.forudfyldt_indhold.callout) {
+          // kilde-mærkatet rider med som metadata — dokument.js ignorerer ukendte felter
+          maal.callouts.push({ ...structuredClone(g.forudfyldt_indhold.callout), kilde: g.kilde });
+        }
+      }
+    }
+    gem(); tegnKanvas();
+  }
+
+  const NIVEAU_TEKST = { makro: "Forløbsskelet", meso: "Rytme", mikro: "Aktivitetsgreb" };
+
+  function aabnGrebKatalog(fase) {
+    const dlg = document.createElement("dialog");
+    dlg.className = "greb-dialog";
+    dlg.appendChild(el("h2", null, "Indsæt greb"));
+    dlg.appendChild(el("p", "under",
+      "Et greb er forudfyldte blokke. Efter indsættelse er de helt almindelige: redigér, flyt eller slet frit."));
+    GREB_KATALOG.forEach((g) => {
+      const kort = el("button", "greb-kort");
+      kort.type = "button";
+      kort.appendChild(el("span", "greb-niveau", NIVEAU_TEKST[g.niveau] || g.niveau));
+      kort.appendChild(el("strong", null, g.navn));
+      kort.appendChild(el("span", "greb-kilde", g.kilde));
+      kort.addEventListener("click", () => { dlg.close(); dlg.remove(); indsaetGreb(g, fase); });
+      dlg.appendChild(kort);
+    });
+    const luk = el("button", "tilfoej", "Luk");
+    luk.type = "button";
+    luk.addEventListener("click", () => { dlg.close(); dlg.remove(); });
+    dlg.appendChild(luk);
+    dlg.addEventListener("close", () => dlg.remove());
+    document.body.appendChild(dlg);
+    dlg.showModal(); // native dialog: Esc, fokus-fælde og ::backdrop følger med
   }
 
   // ---------- åbne pladser: invitationen er en blok-type, ikke en fejlliste ----------
