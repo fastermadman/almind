@@ -11,11 +11,16 @@ const BASE = "https://codeberg.org";
 const CLIENT_ID = "54cf58d8-a21d-40f9-a3aa-de406031d021"; // public client — ikke hemmelig
 const OPHAV = { ejer: "almind", repo: "dss-v1" };
 
-// RFC 8252: loopback-redirect skal være 127.0.0.1, ikke localhost (Forgejo
-// håndhæver anbefalingen). Vigtigere endnu: sessionStorage er origin-bundet,
-// så code_verifier gemt på localhost kan ikke læses når callbacken lander på
-// 127.0.0.1. Derfor tvinges hele appen over på 127.0.0.1 før login.
-const REDIRECT = "http://127.0.0.1:8080/app/auth-callback.html";
+// RFC 8252: loopback-redirect skal være 127.0.0.1, ikke localhost i dev
+// (Forgejo håndhæver anbefalingen). Vigtigere endnu: sessionStorage er
+// origin-bundet, så code_verifier gemt på localhost ikke kan læses når
+// callbacken lander på 127.0.0.1 — derfor tvinges dev-origin til 127.0.0.1
+// før login. I produktion er der kun ét muligt domæne: samme origin som
+// siden selv køres fra.
+const ER_DEV = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+const REDIRECT = ER_DEV
+  ? "http://127.0.0.1:8080/app/auth-callback.html"
+  : `${location.origin}/app/auth-callback.html`;
 
 function b64url(bytes) {
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
