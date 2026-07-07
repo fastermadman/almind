@@ -10,15 +10,19 @@
 }
 .editor-hoved h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.4rem; }
 .editor-hoved .intro { color: var(--muted); max-width: 56ch; }
-.editor-knapper { display: flex; gap: 0.6rem; }
+.editor-knapper { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 
 .editor-layout {
   display: grid; grid-template-columns: minmax(0, 1fr) 340px;
   gap: 2rem; align-items: start;
 }
+/* Grid-items har min-width:auto som standard og nægter derfor at blive
+   smallere end deres indhold, selvom sporet (minmax(0,1fr)) tillader det —
+   uden dette overflower #kanvas sit eget spor på smalle skærme. */
+#kanvas { min-width: 0; }
 @media (max-width: 1000px) {
   .editor-layout { grid-template-columns: 1fr; }
-  .profil-panel { position: static; }
+  .profil-panel { position: static; max-height: none; overflow-y: visible; }
 }
 
 .under { display: block; color: var(--muted); font-size: 0.85rem; font-family: var(--font-ui); margin-bottom: 0.8rem; }
@@ -73,7 +77,7 @@
   letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
 }
 .fase-titel {
-  flex: 1; border: none; background: transparent;
+  flex: 1; min-width: 0; border: none; background: transparent;
   font-family: var(--font-logo); font-weight: 700; font-size: 1.1rem; color: var(--ink);
   border-bottom: 1px dashed transparent;
 }
@@ -98,7 +102,7 @@
   border-radius: 8px; padding: 0.45rem 0.65rem; align-items: center;
 }
 .aktivitet-blok input {
-  flex: 1; border: none; background: transparent;
+  flex: 1; min-width: 0; border: none; background: transparent;
   font-family: var(--font-body); font-size: 0.92rem; color: var(--ink);
 }
 .aktivitet-blok input:focus { outline: none; }
@@ -112,7 +116,7 @@
   background: rgba(255, 255, 255, 0.65); border-color: currentColor; color: inherit;
 }
 .callout-titel-felt {
-  flex: 1; border: none; background: transparent;
+  flex: 1; min-width: 0; border: none; background: transparent;
   font-family: var(--font-ui); font-weight: 700; font-size: 0.85rem; color: inherit;
 }
 .callout-titel-felt:focus { outline: none; }

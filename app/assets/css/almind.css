@@ -52,7 +52,7 @@ img, svg { display: block; max-width: 100%; }
   color: var(--muted);
   margin-top: 0.35rem;
 }
-.site-nav { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-left: auto; }
 .site-nav a {
   font-family: var(--font-ui); font-weight: 500; font-size: 0.95rem;
   text-decoration: none; color: var(--ink);
@@ -514,7 +514,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* Åbne pladser-trin */
 .dim-vaelger { border: 1px solid var(--border); border-radius: var(--r-modal); background: var(--surface); margin-bottom: 0.8rem; padding: 1rem 1.2rem; }
-.dim-vaelger .dim-hoved { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.dim-vaelger .dim-hoved { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
 .dim-vaelger .dim-navn { font-family: var(--font-ui); font-weight: 600; }
 .dim-vaelger .dim-skifter { display: flex; gap: 0.4rem; }
 .dim-vaelger textarea { margin-top: 0.8rem; }
