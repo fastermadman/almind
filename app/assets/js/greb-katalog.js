@@ -5,9 +5,12 @@
 // Alt indhold er citeret fra data/forloeb.json eller skitsens strukturbeskrivelser
 // — intet opfundet. Sonnet-udtræk + Fable-review mod korpus, 2026-07-07.
 //
-// NB: "aktiviteter" er flade strenge, jf. dagens skema — når Issue #22
-// ({titel, beskrivelse}) lander, opdateres meso/mikro-udfoldelsen til samme
-// form, og kilde-mærkatet kan så også ride med på aktiviteter (i dag kun callouts).
+// Kataloget selv gemmer stadig aktiviteter som flade strenge (Issue #22
+// landede 2026-07-07: aktiviteter er nu {titel, beskrivelse} i selve
+// skemaet) — bevidst valg, ikke en glemt migrering: blokke.js's
+// indsaetGreb()/somAktivitet() pakker strengene ind ved selve
+// indsættelsen, så kataloget her forbliver det letteste at læse og udvide.
+// Kilde-mærkatet rider stadig kun med på callouts, ikke på aktiviteter.
 
 export const GREB_KATALOG = [
   {
