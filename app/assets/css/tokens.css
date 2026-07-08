@@ -28,6 +28,7 @@
 
   /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
+  --font-marauder: "Marauder", Georgia, serif;
   --font-ui: "Jost", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Georgia, serif;
   --font-display: "Noto Serif", Georgia, serif;
@@ -49,6 +50,24 @@
   --typ-green: #16a34a;   --typ-green-bg: #f0fdf4;   --typ-green-text: #14532d;
   --typ-purple: #7c3aed;  --typ-purple-bg: #faf5ff;  --typ-purple-text: #4c1d95;
   --typ-gray: #6b7280;    --typ-gray-bg: #f9fafb;
+}
+
+/* Selvhostet variabel font (Indestructible Type, SIL OFL) — samme kilde som index.html.
+   Direkte raw.githubusercontent.com: github.com/raw-redirectet mister CORS-headeren undervejs
+   (302-svaret sender en tom access-control-allow-origin), så browseren afviser fontfetchet. */
+@font-face {
+  font-family: 'Marauder';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder%5Bwght%5D.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Marauder';
+  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder-Italic%5Bwght%5D.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */

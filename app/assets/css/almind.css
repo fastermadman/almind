@@ -31,10 +31,14 @@ img, svg { display: block; max-width: 100%; }
 .site-header {
   display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
   padding: 1.5rem 0 1.25rem;
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
 .logo {
-  font-family: var(--font-logo);
-  font-weight: 800;
+  font-family: var(--font-marauder);
+  font-variation-settings: 'opsz' 72, 'wght' 600;
+  font-weight: normal; /* wght styres via font-variation-settings ovenfor */
   font-size: 2.45rem;
   letter-spacing: 0.01em;
   text-transform: lowercase;
@@ -44,13 +48,16 @@ img, svg { display: block; max-width: 100%; }
 }
 .logo small {
   display: block;
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: 0.66rem;
-  letter-spacing: 0.165em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 0.35rem;
+  font-family: var(--font-marauder);
+  font-variation-settings: 'opsz' 6, 'wght' 600;
+  font-size: 0.2776em;      /* em relativt til .logo — bevarer ratio automatisk */
+  letter-spacing: 0.0347em; /* em relativt til .logo small's EGEN font-size */
+  text-transform: lowercase;
+  color: var(--ink);
+  margin-top: 0.4rem;
+}
+.site-header .soegefelt {
+  max-width: 220px; padding: 0.45rem 1rem; font-size: 0.88rem;
 }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-left: auto; }
 .site-nav a {
