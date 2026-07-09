@@ -522,9 +522,9 @@ a { color: var(--accent); }
 .lag-grund { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: .7rem; }
 .lag-felt {
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-  padding: .95rem 1.1rem;
+  padding: .95rem 1.1rem; min-width: 0;
 }
-.lag-felt .navn { font-family: var(--font-ui); font-weight: 600; font-size: .95rem; }
+.lag-felt .navn { font-family: var(--font-ui); font-weight: 600; font-size: .95rem; overflow-wrap: break-word; }
 .lag-felt .navn a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color .15s, color .15s; }
 .lag-felt .navn a:hover, .lag-felt .navn a:focus-visible { color: var(--accent); border-color: var(--accent); }
 .lag-felt .hvad { font-family: var(--font-mono); font-weight: 340; font-size: .7rem; color: var(--muted-ink); margin-top: .3rem; letter-spacing: .02em; }
