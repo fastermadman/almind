@@ -325,6 +325,35 @@ a { color: var(--accent); }
 }
 .choreo #gsvg { height: min(58svh, 620px); width: var(--bred); }
 
+/* scroll-hint: nogen tror grafen er klikbar (er den ikke) — en diskret
+   antydning tidligt i scenen, ikke en fast fixture man kigger på hele vejen */
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 3vh; translate: -50% 0;
+  display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  font-family: var(--font-mono); font-size: .66rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted-ink);
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s ease;
+}
+.choreo .scroll-hint.vis { opacity: .75; }
+.choreo .scroll-hint svg { animation: hint-bob 1.8s ease-in-out infinite; }
+@keyframes hint-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* reaktivt tip: vises kun hvis nogen rent faktisk trykker på grafen */
+.tap-tip {
+  position: fixed; z-index: 70; left: 0; top: 0;
+  transform: translate(-50%, calc(-100% - 14px)) scale(.95);
+  font-family: var(--font-ui); font-weight: 500; font-size: .78rem;
+  background: var(--ink); color: var(--bg);
+  padding: .4rem .85rem; border-radius: var(--r-pill);
+  opacity: 0; pointer-events: none; white-space: nowrap;
+  transition: opacity .18s ease-out, transform .18s ease-out;
+}
+.tap-tip.vis { opacity: 1; transform: translate(-50%, calc(-100% - 14px)) scale(1); }
+
 /* svg-typografi */
 #gsvg text { font-family: var(--font-ui); fill: var(--ink); }
 #gsvg .v { font-family: var(--font-mono); font-size: 15px; font-weight: 650; fill: var(--fag-hum-text); }
@@ -776,6 +805,12 @@ a { color: var(--accent); }
       <p class="p-res" id="fund-res" hidden></p>
       <p class="p-fod">Svaret er tre sætninger. Ikke en rapport.</p>
     </aside>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>scroll</span>
+    </div>
+    <div class="tap-tip" aria-hidden="true">scroll for at fortsætte</div>
   </div>
 </section>
 
@@ -1012,6 +1047,7 @@ a { color: var(--accent); }
     var panel = document.getElementById('gpanel');
     var els = scene.querySelectorAll('[data-b]');
     var caps = scene.querySelectorAll('.cap');
+    var hint = document.querySelector('.scroll-hint');
     var VB_A = [230, 258, 680, 268];
     var VB_B = [0, 0, 1200, 700];
     var TH = [0, 0.10, 0.24, 0.38, 0.52, 0.64, 0.80];
@@ -1066,6 +1102,7 @@ a { color: var(--accent); }
       requestAnimationFrame(function () {
         ticking = false;
         var p = Math.min(1, Math.max(0, (window.scrollY - top) / len));
+        if (hint) hint.classList.toggle('vis', p > 0.006 && p < 0.035);
         var b = 0;
         for (var i = 0; i < TH.length; i++) if (p >= TH[i]) b = i;
         applyBeat(b);
@@ -1079,6 +1116,19 @@ a { color: var(--accent); }
       addEventListener('scroll', onScroll, { passive: true });
       addEventListener('resize', function () { measure(); onScroll(); }, { passive: true });
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); onScroll(); });
+
+      /* reaktivt tip: nogen tror grafen er trykbar — den er ikke, kun scroll driver den */
+      var tapTip = document.querySelector('.tap-tip');
+      var tapTipTimer = 0;
+      if (tapTip) {
+        svg.addEventListener('click', function (e) {
+          tapTip.style.left = e.clientX + 'px';
+          tapTip.style.top = e.clientY + 'px';
+          tapTip.classList.add('vis');
+          clearTimeout(tapTipTimer);
+          tapTipTimer = setTimeout(function () { tapTip.classList.remove('vis'); }, 1400);
+        });
+      }
     } else {
       finalState();
     }
