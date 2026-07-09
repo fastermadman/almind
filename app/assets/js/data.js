@@ -1,10 +1,9 @@
 // Datalag: forløb, fagfamilier, genealogi-hjælpere.
 
 export const FAMILIER = {
-  hum:   { navn: "Humaniora", fag: ["dansk", "historie", "religion"] },
-  stem:  { navn: "STEM",      fag: ["matematik", "fysik", "teknik"] },
-  natur: { navn: "Natur",     fag: ["natur/teknik", "geografi", "biologi"] },
-  aes:   { navn: "Æstetik",   fag: ["musik", "billedkunst", "drama"] },
+  hum:   { navn: "Humaniora",       fag: ["dansk", "historie", "religion"] },
+  natur: { navn: "Natur & teknik",  fag: ["natur/teknik", "geografi", "biologi", "matematik", "fysik", "teknik"] },
+  aes:   { navn: "Praktisk/Musisk", fag: ["musik", "billedkunst", "drama"] },
 };
 
 export const DIMENSIONER = ["maal", "indhold", "metode", "organisering", "differentiering", "evaluering"];

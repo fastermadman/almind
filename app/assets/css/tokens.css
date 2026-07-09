@@ -4,9 +4,9 @@
    ============================================================ */
 
 :root {
-  /* Platform-accent: mørk evergreen (Valdemars beslutning 2026-06-12).
+  /* Platform-accent: mørk skovgrøn (Valdemars beslutning 2026-07-09, afløser 2026-06-12-valget).
      Bruges til logo, knapper og platform-UI. Fagfarverne ejer fortsat indholdet. */
-  --accent:      #1f3b2c;
+  --accent:      #033f26;
 
   /* Neutral base */
   --bg:          #f4f3ee;
@@ -16,15 +16,15 @@
   --surface:     #ffffff;
   --surface-alt: #f9f8f5;
 
-  /* Fagfarver: fire familier */
-  --fag-hum:        #dc9848;
-  --fag-hum-text:   #7a4f1a;
-  --fag-stem:       #16233a;
-  --fag-stem-text:  #0d1a2e;
-  --fag-natur:      #4a6b58;
-  --fag-natur-text: #324d3d;
-  --fag-aes:        #8a2e3e;
-  --fag-aes-text:   #5a1e2a;
+  /* Fagfarver: tre familier (STEM fjernet 2026-07-09 — matematik/fysik/teknik
+     hører naturfagligt til i dansk kontekst, foldet ind i Natur & teknik).
+     Alle fire farver består WCAG AA direkte mod --bg, ingen separat -text-variant nødvendig. */
+  --fag-hum:        #b54a0c;
+  --fag-hum-text:   #b54a0c;
+  --fag-natur:      #16233a;
+  --fag-natur-text: #16233a;
+  --fag-aes:        #731702;
+  --fag-aes-text:   #731702;
 
   /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
@@ -72,6 +72,5 @@
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */
 [data-fag="hum"]   { --fagfarve: var(--fag-hum);   --fagtekst: var(--fag-hum-text); }
-[data-fag="stem"]  { --fagfarve: var(--fag-stem);  --fagtekst: var(--fag-stem-text); }
 [data-fag="natur"] { --fagfarve: var(--fag-natur); --fagtekst: var(--fag-natur-text); }
 [data-fag="aes"]   { --fagfarve: var(--fag-aes);   --fagtekst: var(--fag-aes-text); }

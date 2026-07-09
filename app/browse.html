@@ -41,15 +41,15 @@
 </div>
 
 <script type="module">
-  import { hentForloeb, familieFor, antalAabnePladser, kaede } from "./assets/js/data.js";
+  import { hentForloeb, familieFor, FAMILIER, antalAabnePladser, kaede } from "./assets/js/data.js";
   import { forloebKort } from "./assets/js/komponenter.js";
   import { stagger } from "./assets/js/motion.js";
 
   const alle = await hentForloeb();
   const grid = document.getElementById("grid");
 
-  const NAVNE = { hum: "Humaniora", stem: "STEM", natur: "Natur", aes: "Æstetik" };
-  const taellinger = { hum: 0, stem: 0, natur: 0, aes: 0 };
+  const taellinger = {};
+  for (const fam of Object.keys(FAMILIER)) taellinger[fam] = 0;
   alle.forEach((f) => taellinger[familieFor(f.fag)]++);
 
   // State fra URL (delbare filtre)
@@ -63,11 +63,11 @@
 
   // Fagfamilie-pills
   const famWrap = document.getElementById("fam-filtre");
-  for (const fam of ["hum", "stem", "natur", "aes"]) {
+  for (const fam of Object.keys(FAMILIER)) {
     const b = document.createElement("button");
     b.className = "filter-pill";
     b.dataset.fam = fam;
-    b.innerHTML = `${NAVNE[fam]}<span class="antal">${taellinger[fam]}</span>`;
+    b.innerHTML = `${FAMILIER[fam].navn}<span class="antal">${taellinger[fam]}</span>`;
     b.setAttribute("aria-pressed", String(state.fam === fam));
     b.addEventListener("click", () => {
       state.fam = state.fam === fam ? null : fam;

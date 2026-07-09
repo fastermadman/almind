@@ -1,6 +1,6 @@
 // Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
 
-import { familieFor, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
+import { familieFor, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
 
 export function forloebKort(f, alle) {
   const fam = familieFor(f.fag);
@@ -95,24 +95,19 @@ export function pladsFold(f, plads) {
 export function fagBaand(alle) {
   const wrap = document.createElement("div");
   wrap.className = "fagbaand";
-  const taellinger = { hum: 0, stem: 0, natur: 0, aes: 0 };
+  const taellinger = {};
+  for (const fam of Object.keys(FAMILIER)) taellinger[fam] = 0;
   alle.forEach((f) => taellinger[familieFor(f.fag)]++);
-  const navne = { hum: "Humaniora", stem: "STEM", natur: "Natur", aes: "Æstetik" };
-  const fagliste = {
-    hum: "Dansk · Historie · Religion",
-    stem: "Matematik · Fysik · Teknik",
-    natur: "Natur/teknik · Geografi · Biologi",
-    aes: "Musik · Billedkunst · Drama",
-  };
-  for (const fam of ["hum", "stem", "natur", "aes"]) {
+  for (const [fam, def] of Object.entries(FAMILIER)) {
     const a = document.createElement("a");
     a.className = "fagfelt";
     a.dataset.fag = fam;
     a.href = `browse.html?fam=${fam}`;
+    const fagliste = def.fag.map((fx) => fx[0].toUpperCase() + fx.slice(1)).join(" · ");
     a.innerHTML = `
-      <div class="fagnavn">${navne[fam]}</div>
-      <div class="fagfag">${fagliste[fam]}</div>
-      <div class="fagantal">${taellinger[fam]} ${taellinger[fam] === 1 ? "forløb" : "forløb"} &rarr;</div>
+      <div class="fagnavn">${def.navn}</div>
+      <div class="fagfag">${fagliste}</div>
+      <div class="fagantal">${taellinger[fam]} forløb &rarr;</div>
     `;
     wrap.appendChild(a);
   }

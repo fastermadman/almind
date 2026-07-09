@@ -261,29 +261,25 @@
 <div id="tip" role="presentation"></div>
 
 <script type="module">
-import { hentForloeb } from "./assets/js/data.js";
+import { hentForloeb, FAMILIER } from "./assets/js/data.js";
 
 const REDUCERET = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- Farver (matcher tokens.css) ---------- */
-const FAG_FARVE = {
-  "dansk":        "#dc9848",
-  "matematik":    "#16233a",
-  "fysik":        "#16233a",
-  "teknik":       "#16233a",
-  "natur/teknik": "#4a6b58",
-  "geografi":     "#4a6b58",
-  "biologi":      "#4a6b58",
-  "musik":        "#8a2e3e",
-  "billedkunst":  "#8a2e3e",
-  "drama":        "#8a2e3e",
-  "idræt":        "#8a2e3e",
+/* ---------- Farver: læses fra tokens.css's CSS-variable, ingen hardkodet hex (issue #11) ---------- */
+const rodstil = getComputedStyle(document.documentElement);
+const FAMILIE_FARVE = {
+  hum:   rodstil.getPropertyValue("--fag-hum").trim(),
+  natur: rodstil.getPropertyValue("--fag-natur").trim(),
+  aes:   rodstil.getPropertyValue("--fag-aes").trim(),
 };
-const FAG_NAVN = {
-  "dansk": "Dansk", "matematik": "Matematik", "fysik": "Fysik", "teknik": "Teknik",
-  "natur/teknik": "Natur/teknik", "geografi": "Geografi", "biologi": "Biologi",
-  "musik": "Musik", "billedkunst": "Billedkunst", "drama": "Drama", "idræt": "Idræt",
-};
+const FAG_FARVE = {};
+const FAG_NAVN = {};
+for (const [fam, def] of Object.entries(FAMILIER)) {
+  for (const fag of def.fag) {
+    FAG_FARVE[fag] = FAMILIE_FARVE[fam];
+    FAG_NAVN[fag] = fag[0].toUpperCase() + fag.slice(1);
+  }
+}
 const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed" };
 const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament" };
 

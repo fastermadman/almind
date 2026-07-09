@@ -56,7 +56,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
 /* ============ tokens (fra Almind-designsystemet, NIVEAU 1) ============ */
 :root {
-  --accent: #1f3b2c;
+  --accent: #033f26;
   --bg: #f4f3ee;
   --ink: #2c2420;
   --muted: #8a7e74;
@@ -65,11 +65,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   --surface: #ffffff;
   --surface-alt: #f9f8f5;
 
-  --fag-hum: #dc9848;
-  --fag-hum-text: #7a4f1a;
-  --fag-stem: #16233a;
-  --fag-natur: #4a6b58;
-  --fag-aes: #8a2e3e;
+  --fag-hum: #b54a0c;
+  --fag-hum-text: #b54a0c;
+  --fag-natur: #16233a;
+  --fag-aes: #731702;
 
   --typ-green: #16a34a;  --typ-green-bg: #f0fdf4;  --typ-green-text: #14532d;
   --typ-yellow: #d97706; --typ-yellow-bg: #fffbeb; --typ-yellow-text: #78350f;
@@ -263,21 +262,21 @@ a { color: var(--accent); }
 }
 .wm-navn {
   font-family: var(--font-marauder);
-  font-variation-settings: 'opsz' 72, 'wght' var(--wght, 600);
+  font-variation-settings: 'opsz' 6, 'wght' var(--wght, 700);
   font-size: var(--wm-scale);
   line-height: 1; letter-spacing: .01em; text-transform: lowercase; color: var(--accent);
 }
 .wm-linje {
   font-family: var(--font-marauder);
-  font-variation-settings: 'opsz' 6, 'wght' 600;
-  font-size: calc(var(--wm-scale) * 0.2776);
-  letter-spacing: .0347em; text-transform: lowercase; color: var(--ink);
-  margin-top: .9rem;
+  font-variation-settings: 'opsz' 6, 'wght' 400;
+  font-size: calc(var(--wm-scale) * 0.29);
+  letter-spacing: .01em; text-transform: lowercase; color: var(--ink);
+  margin-top: .15rem;
 }
 .wm-sub { font-family: var(--font-marauder); font-style: italic; font-weight: 450; color: var(--muted-ink); margin-top: 1.3rem; }
 
 .choreo .r .wm-navn { --wght: 400; transition: --wght .7s cubic-bezier(.16,1,.3,1); }
-.choreo .r.in .wm-navn { --wght: 600; }
+.choreo .r.in .wm-navn { --wght: 700; }
 
 /* ============ forside-cover ============ */
 #forside { background: var(--accent); }
@@ -342,8 +341,7 @@ a { color: var(--accent); }
 .dokglyf line { stroke: var(--border); stroke-width: 2; }
 
 .felt circle { fill: var(--surface); stroke-width: 2.5; }
-.felt.f-natur circle { stroke: var(--fag-natur); }
-.felt.f-stem circle { stroke: var(--fag-stem); }
+.felt.f-natur circle, .felt.f-stem circle { stroke: var(--fag-natur); } /* f-stem: matematik hører nu til Natur & teknik, STEM fjernet */
 .felt.f-aes circle { stroke: var(--fag-aes); }
 .felt.f-hum circle { stroke: var(--fag-hum); }
 .felt text { font-size: 12.5px; fill: var(--muted-ink); text-anchor: middle; }
