@@ -69,15 +69,8 @@
   import { hentForloeb, findForloeb, kaede, familieFor, datoTekst } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
   import { dgProfil, pladsFold } from "./assets/js/komponenter.js";
+  import { renderFaseIndhold } from "./assets/js/dokument.js";
   import { observe } from "./assets/js/motion.js";
-
-  // Aktiviteter er {titel, beskrivelse} (Issue #22) — streng-fallback bevaret
-  // for kladder der endnu ikke er rørt ved siden af skema-skiftet.
-  function aktivitetTekst(a) {
-    if (typeof a === "string") return a;
-    const titel = a.titel ? `<strong class="akt-titel">${a.titel}${a.beskrivelse ? ": " : ""}</strong>` : "";
-    return titel + (a.beskrivelse || "");
-  }
 
   const alle = await hentForloeb();
   const id = new URLSearchParams(location.search).get("id") || "dss-v1";
@@ -133,18 +126,21 @@
     });
   }
 
-  // Faser
+  // Faser — samme fase-indhold (tekst, aktiviteter, callouts) som "se som
+  // dokument" via renderFaseIndhold(), kun ramme/chrome er forskellig.
   const faserEl = document.getElementById("faser");
   (f.faser || []).forEach((fase, i) => {
     const sek = document.createElement("section");
     sek.className = "fase panel";
     sek.style.marginBottom = "1.25rem";
-    sek.innerHTML = `
-      <span class="fase-nr">Fase ${i + 1} af ${f.faser.length}</span>
-      <h3>${fase.titel}</h3>
-      <p>${fase.beskrivelse}</p>
-      ${fase.aktiviteter?.length ? `<ul>${fase.aktiviteter.map((a) => `<li>${aktivitetTekst(a)}</li>`).join("")}</ul>` : ""}
-    `;
+    const nr = document.createElement("span");
+    nr.className = "fase-nr";
+    nr.textContent = `Fase ${i + 1} af ${f.faser.length}`;
+    sek.appendChild(nr);
+    const h3 = document.createElement("h3");
+    h3.textContent = fase.titel;
+    sek.appendChild(h3);
+    sek.appendChild(renderFaseIndhold(fase, "laerer"));
     faserEl.appendChild(sek);
   });
 </script>

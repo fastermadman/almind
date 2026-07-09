@@ -1,6 +1,6 @@
 // Preview-renderer: forløbsobjekt ind, printklart dokument-DOM ud.
-// Fortolker Typst-designsystemet fra WIZARD-PROMPT.md som HTML/CSS.
-// Callout-farverne er bevidst Typst-systemets egne: previewet viser hvad pipelinen producerer.
+// renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
+// dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, faseBogstav } from "./data.js";
 
@@ -32,6 +32,44 @@ function aktivitetLi(a) {
   }
   if (a.beskrivelse) li.appendChild(document.createTextNode(a.beskrivelse));
   return li;
+}
+
+// Fasens indhold (beskrivelse, aktiviteter, callouts) — delt mellem
+// dokument.js's egen render (preview/print) og sequence.html, så de to
+// aldrig kan drifte fra hinanden igen (skete med callouts, Issue #22-hullet).
+export function renderFaseIndhold(fase, tilstand = "laerer") {
+  const frag = document.createDocumentFragment();
+  if (tilstand === "elev") {
+    const maal = document.createElement("div");
+    maal.className = "maal-boks";
+    maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
+    maal.appendChild(document.createTextNode(fase.beskrivelse));
+    frag.appendChild(maal);
+    if (fase.aktiviteter?.length) {
+      frag.appendChild(tekstEl("h3", null, "Det skal du"));
+      const ol = document.createElement("ol");
+      fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
+      frag.appendChild(ol);
+    }
+  } else {
+    // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
+    (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
+      .forEach((afsnit) => frag.appendChild(tekstEl("p", null, afsnit)));
+    if (fase.aktiviteter?.length) {
+      frag.appendChild(tekstEl("h3", null, "Bevægelser"));
+      const ol = document.createElement("ol");
+      fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
+      frag.appendChild(ol);
+    }
+    (fase.callouts || []).forEach((c) => {
+      const boks = document.createElement("aside");
+      boks.className = `callout callout-${c.type}`;
+      boks.appendChild(tekstEl("span", "callout-titel", c.titel || CALLOUT_TITLER[c.type] || c.type));
+      boks.appendChild(document.createTextNode(c.tekst));
+      frag.appendChild(boks);
+    });
+  }
+  return frag;
 }
 
 function dgPrikker(status) {
@@ -105,37 +143,7 @@ export function renderDokument(f, tilstand = "laerer") {
     // ingen tomt ": " efter bogstavet.
     ark.appendChild(tekstEl("h2", null,
       fase.titel ? `Fase ${faseBogstav(i)}: ${fase.titel}` : `Fase ${faseBogstav(i)}`));
-
-    if (tilstand === "elev") {
-      const maal = document.createElement("div");
-      maal.className = "maal-boks";
-      maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
-      maal.appendChild(document.createTextNode(fase.beskrivelse));
-      ark.appendChild(maal);
-      if (fase.aktiviteter?.length) {
-        ark.appendChild(tekstEl("h3", null, "Det skal du"));
-        const ol = document.createElement("ol");
-        fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
-        ark.appendChild(ol);
-      }
-    } else {
-      // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
-      (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
-        .forEach((afsnit) => ark.appendChild(tekstEl("p", null, afsnit)));
-      if (fase.aktiviteter?.length) {
-        ark.appendChild(tekstEl("h3", null, "Bevægelser"));
-        const ol = document.createElement("ol");
-        fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
-        ark.appendChild(ol);
-      }
-      (fase.callouts || []).forEach((c) => {
-        const boks = document.createElement("aside");
-        boks.className = `callout callout-${c.type}`;
-        boks.appendChild(tekstEl("span", "callout-titel", c.titel || CALLOUT_TITLER[c.type] || c.type));
-        boks.appendChild(document.createTextNode(c.tekst));
-        ark.appendChild(boks);
-      });
-    }
+    ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
 
   // Wizard-refleksioner (kladder): lærerens egne svar som valg-callouts

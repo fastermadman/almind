@@ -44,14 +44,16 @@
   --dg-fuld: var(--fagfarve, var(--muted));
   --dg-delvis: var(--fagfarve, var(--muted));
 
-  /* Callout-farver (2026-07-09: trukket ind i Alminds palet — samme hue-familie
-     som accent/fag-farverne, bare lysere, ikke længere generiske UI-kit-farver.
-     Note rettet: der findes ikke længere en Typst-skabelon at holde synkron med,
-     print.html kører på samme tokens.css via Paged.js. Alle består WCAG AA. */
-  --typ-blue: #2d4c80;    --typ-blue-bg: #edf1f7;    --typ-blue-text: #182844;
-  --typ-yellow: #9c5516;  --typ-yellow-bg: #f7f2ed;  --typ-yellow-text: #552e0c;
-  --typ-green: #1e6745;   --typ-green-bg: #edf7f3;   --typ-green-text: #0b281a;
-  --typ-purple: #684096;  --typ-purple-bg: #f2edf7;  --typ-purple-text: #41285d;
+  /* Callout-farver (2026-07-09: koblet direkte til fag-/accent-farverne, ikke
+     bare "samme familie" — hvor der er en begrebslig relation, genbruges selve
+     token'en, så de aldrig kan drifte fra hinanden igen. valg=natur (analytisk/
+     reflekterende), obs=hum (opmærksomhed/varsel), almind=accent (hedder jo
+     det), dramaturgi=aes (oxblod, drama-faget). gissel har intet fag-match,
+     forbliver sin egen dæmpede grå. Alle består WCAG AA. */
+  --typ-blue: var(--fag-natur);    --typ-blue-bg: #edf1f7;    --typ-blue-text: var(--fag-natur);
+  --typ-yellow: var(--fag-hum);    --typ-yellow-bg: #f7f1ed;  --typ-yellow-text: var(--fag-hum);
+  --typ-green: var(--accent);      --typ-green-bg: #edf7f3;   --typ-green-text: var(--accent);
+  --typ-purple: var(--fag-aes);    --typ-purple-bg: #f7efed;  --typ-purple-text: var(--fag-aes);
   --typ-gray: #606776;    --typ-gray-bg: #f1f2f4;
 }
 
