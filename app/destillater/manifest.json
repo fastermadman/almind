@@ -1,5 +1,5 @@
 {
-  "kommentar": "Subset af de 22 destillater fra Almind-Wizard. Skema 'standard' har lag1_teori/lag2_kategorier/lag3_spørgsmål og driver wizard-spørgsmål. Skema 'reference' er opslagsdata (definitioner, parametre).",
+  "kommentar": "Den fulde samling: alle 23 destillater fra Almind-Wizard (E.2 — sitets 5-styks-subset afskaffet). Skema 'standard' har lag1_teori/lag2_kategorier/lag3_spørgsmål og driver wizard-spørgsmål. Skema 'reference' er opslagsdata (definitioner, parametre, begrebslister). wizard_trin refererer til 5-trins-rygraden (arkitektur 8.2): 1 Kernen · 2 Forløbet · 3 Valg og fravalg · 4 Dækning · 5 Kobling. De 5 første poster bærer trin-numre fra før rygraden (bevaret uændret, jf. E.2's goal metric); koden slår aldrig op i wizard_trin, kun i id/fil/titel.",
   "destillater": [
     {
       "id": "gissel-2026-materialetyper",
@@ -40,6 +40,155 @@
       "skema": "reference",
       "wizard_trin": [4],
       "titel": "Kvaliteter ved digitale læremidler"
+    },
+    {
+      "id": "bilag1-centrale-begreber-2026",
+      "fil": "lag-0-fagfornyelse/bilag1-centrale-begreber-2026.json",
+      "lag": "0",
+      "skema": "reference",
+      "wizard_trin": [5],
+      "titel": "Bilag 1 (2026-ramme) — opslagsværk over centrale begreber",
+      "note": "Kilden til samspilsformerne (funktionelt/flerfagligt/tværfagligt) i trin 5 og til 2026-treklangen kundskaber-engagement-myndighed."
+    },
+    {
+      "id": "fagfornyelsen-2024-beslutningsgrundlag",
+      "fil": "lag-0-fagfornyelse/fagfornyelsen-2024-beslutningsgrundlag.json",
+      "lag": "0",
+      "skema": "standard",
+      "wizard_trin": [4],
+      "titel": "Fagfornyelsens beslutningsgrundlag — kvalitetskriterier for læremidler"
+    },
+    {
+      "id": "fagfornyelsen-2024-grundlag-principper",
+      "fil": "lag-0-fagfornyelse/fagfornyelsen-2024-grundlag-principper.json",
+      "lag": "0",
+      "skema": "standard",
+      "wizard_trin": [3],
+      "titel": "Fagfornyelsens didaktiske grundlag og fire principper",
+      "note": "Vokabular til didaktisk position — treklangen legitimerer forløbet, jf. almind_implikation."
+    },
+    {
+      "id": "kap1-laeremiddeltyper",
+      "fil": "lag-A-laeremiddelteori/kap1-laeremiddeltyper.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [5],
+      "titel": "Fire læremiddeltyper som didaktisk kategori"
+    },
+    {
+      "id": "kap12-kvalitetsvurdering",
+      "fil": "lag-A-laeremiddelteori/kap12-kvalitetsvurdering.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [4],
+      "titel": "Kvalitetsvurdering af læremidler — fire evalueringsmodeller"
+    },
+    {
+      "id": "kap2-didaktisering-redidaktisering",
+      "fil": "lag-A-laeremiddelteori/kap2-didaktisering-redidaktisering.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Didaktisering og redidaktisering — fra læremiddeldesign til didaktisk design"
+    },
+    {
+      "id": "kap22-funktionstypologi",
+      "fil": "lag-A-laeremiddelteori/kap22-funktionstypologi.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Funktionstypologi for didaktiske læremidler",
+      "note": "Styrende/støttende/åben — samme akse som strategi-feltet i den didaktiske profil."
+    },
+    {
+      "id": "kap4-laeremiddeltrekant-operationaliseret",
+      "fil": "lag-A-laeremiddelteori/kap4-laeremiddeltrekant-operationaliseret.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [4],
+      "titel": "Læremiddeltrekanten operationaliseret — 9-felts analyseskema"
+    },
+    {
+      "id": "kap5-fortolkningsmodel-laeremiddeltjek",
+      "fil": "lag-A-laeremiddelteori/kap5-fortolkningsmodel-laeremiddeltjek.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [4],
+      "titel": "Fortolkningsmodel i 5 trin og Læremiddeltjek med 6 parametre"
+    },
+    {
+      "id": "kap6-laereplansanalyse",
+      "fil": "lag-A-laeremiddelteori/kap6-laereplansanalyse.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [5],
+      "titel": "Læreplansanalyse — fire dimensioner og forholdet til læremidlet"
+    },
+    {
+      "id": "kap63-laeremiddeltrekanten",
+      "fil": "lag-A-laeremiddelteori/kap63-laeremiddeltrekanten.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Læremiddeltrekanten — udtryk, indhold og aktivitet"
+    },
+    {
+      "id": "kap7-didaktisk-cirkel-aarsplan",
+      "fil": "lag-A-laeremiddelteori/kap7-didaktisk-cirkel-aarsplan.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [5],
+      "titel": "Den didaktiske cirkel — fra læreplan til undervisningsplan"
+    },
+    {
+      "id": "kap7-udtryk-repraesentationsformer",
+      "fil": "lag-A-laeremiddelteori/kap7-udtryk-repraesentationsformer.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Udtryk og repræsentationsformer"
+    },
+    {
+      "id": "kap8-indhold-eksemplarisk",
+      "fil": "lag-A-laeremiddelteori/kap8-indhold-eksemplarisk.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [1],
+      "titel": "Indhold og genstand — eksemplarisk indholdsvalg",
+      "note": "Teorigrundlaget for eksemplarisk_centrum-spørgsmålet i trin 1 (Klafki)."
+    },
+    {
+      "id": "kap9-aktivitet-affordance",
+      "fil": "lag-A-laeremiddelteori/kap9-aktivitet-affordance.json",
+      "lag": "A",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Aktivitet og affordance — handlingsrum i forløbet"
+    },
+    {
+      "id": "bang-2022-samtalegrammatik",
+      "fil": "lag-C-didaktik/bang-2022-samtalegrammatik.json",
+      "lag": "C",
+      "skema": "standard",
+      "wizard_trin": [2],
+      "titel": "Samtalegrammatik, polyfoni og fortolkningsfællesskaber"
+    },
+    {
+      "id": "carlsen-hansen-2009-laeremiddelanalyse",
+      "fil": "lag-C-didaktik/carlsen-hansen-2009-laeremiddelanalyse.json",
+      "lag": "C",
+      "skema": "standard",
+      "wizard_trin": [4],
+      "titel": "Læremidler — definition, dimensioner og læremiddelfaglighed"
+    },
+    {
+      "id": "gissel-2026-typologi-laeremidler",
+      "fil": "lag-C-didaktik/gissel-2026-typologi-laeremidler.json",
+      "lag": "C",
+      "skema": "reference",
+      "wizard_trin": [5],
+      "titel": "Typologi for læremidler — tre grundtyper og seks kategorier",
+      "note": "Kilden til materialetype-vokabularet (seks_kategorier) i trin 5 — læses af gisselMaterialetyper() i data.js, aldrig hardcodet."
     }
   ]
 }

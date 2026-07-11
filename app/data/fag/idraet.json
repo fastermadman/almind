@@ -1,0 +1,89 @@
+{
+  "id": "idraet",
+  "navn": "Idræt",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "idr-1-3", "udtryk": "1.-3. klasse", "type": "spaend" },
+    { "id": "idr-4-6", "udtryk": "4.-6. klasse", "type": "spaend" },
+    { "id": "idr-7-9", "udtryk": "7.-9. klasse", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "idr-boldbasis-og-boldspil",
+      "navn": "Boldbasis og boldspil",
+      "sigte": "At forene teknisk mestring og taktisk forståelse med fairplay i mødet med forskellige boldspilskulturer.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "idr-1-3-m1", "trinforloeb": "idr-1-3", "sigte": "Eksperimenterer med boldtilvænning og sammenspil i boldlege og småspil." },
+        { "id": "idr-4-6-m1", "trinforloeb": "idr-4-6", "sigte": "Øver teknik og taktik, handler fair og bruger enkle fagbegreber om spillet." },
+        { "id": "idr-7-9-m1", "trinforloeb": "idr-7-9", "sigte": "Deltager i boldspil med tilpassede bevægelser og udvikler egne boldspilsaktiviteter efter fælles normer." }
+      ]
+    },
+    {
+      "id": "idr-dans-og-udtryk",
+      "navn": "Dans og udtryk",
+      "sigte": "At udøve, skabe og forstå dans gennem mødet med dansegenrer, kropslige udtryk og koreografier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "idr-1-3-m2", "trinforloeb": "idr-1-3", "sigte": "Eksperimenterer med bevægelser og kropslige udtryk til musik og former små fortællinger med kroppen." },
+        { "id": "idr-4-6-m2", "trinforloeb": "idr-4-6", "sigte": "Skaber mindre koreografier i fællesskab og præsenterer rytmiske sekvenser for hinanden." },
+        { "id": "idr-7-9-m2", "trinforloeb": "idr-7-9", "sigte": "Skaber og udfører komplekse koreografier og øver teknikker inden for forskellige dansegenrer." }
+      ]
+    },
+    {
+      "id": "idr-idraettens-mangfoldighed",
+      "navn": "Idrættens mangfoldighed",
+      "sigte": "Fordybelse i særlige idrætsformer og arenaer, der åbner faget mod lokalsamfundet og bevægelseskulturer uden for de øvrige områder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "idr-1-3-m3", "trinforloeb": "idr-1-3", "sigte": "Udforsker bevægelsesmuligheder i nærmiljøet og øver at begå sig sikkert i vand." },
+        { "id": "idr-4-6-m3", "trinforloeb": "idr-4-6", "sigte": "Eksperimenterer med bevægelsesmuligheder og tager medansvar i skolens nærmiljø." },
+        { "id": "idr-7-9-m3", "trinforloeb": "idr-7-9", "sigte": "Udvikler idrætsaktiviteter i forskellige arenaer og diskuterer deltagelsesmuligheder i idrætskulturer." }
+      ]
+    },
+    {
+      "id": "idr-krop-og-traening",
+      "navn": "Krop og træning",
+      "sigte": "Kropsbevidsthed og fysisk kunnen gennem alsidige bevægelsesformer, målrettet træning og forståelse af kroppens anatomi.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "idr-1-3-m4", "trinforloeb": "idr-1-3", "sigte": "Deltager i bevægelsesaktiviteter og undersøger kroppens bevægelsesmuligheder." },
+        { "id": "idr-4-6-m4", "trinforloeb": "idr-4-6", "sigte": "Deltager i grundtræningsformer og beskriver hvordan træning mærkes i kroppen." },
+        { "id": "idr-7-9-m4", "trinforloeb": "idr-7-9", "sigte": "Tilrettelægger træningsforløb ud fra træningsprincipper og forholder sig til sundhed og kropsidealer med fagbegreber." }
+      ]
+    },
+    {
+      "id": "idr-redskabsaktiviteter",
+      "navn": "Redskabsaktiviteter",
+      "sigte": "Kropskontrol gennem bevægelser i, på og over redskaber i mødet med redskabsgymnastik og parkour.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "idr-1-3-m5", "trinforloeb": "idr-1-3", "sigte": "Eksperimenterer med grundlæggende bevægelsesformer i redskaber og øver at hjælpe og støtte hinanden." },
+        { "id": "idr-4-6-m5", "trinforloeb": "idr-4-6", "sigte": "Øver færdigheder inden for redskabsgymnastik og parkour og samarbejder om sikker modtagning." },
+        { "id": "idr-7-9-m5", "trinforloeb": "idr-7-9", "sigte": "Samarbejder om komplekse færdigheder og skaber æstetiske produkter i redskabsgymnastik og parkour." }
+      ]
+    }
+  ],
+  "noegleideer": [
+    "Samarbejde og fællesskab",
+    "Kropslig øvelse og mestring",
+    "Kamp og præstation",
+    "Sundhed og kropsbevidsthed",
+    "Leg og eksperimenteren",
+    "Kreative og æstetiske udtryk"
+  ],
+  "kanon": null,
+  "valgfag_af": null
+}

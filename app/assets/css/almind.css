@@ -301,6 +301,20 @@ img, svg { display: block; max-width: 100%; }
 .fagfelt .fagfag { font-family: var(--font-ui); font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
 .fagfelt .fagantal { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst); margin-top: 0.5rem; }
 
+/* ---------- Facetter (browse) — fag/klassetrin/omfang, E.3b ---------- */
+.facetraekke { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.25rem 0 1rem; }
+.facetraekke .mini-felt { display: flex; flex-direction: column; gap: 0.3rem; min-width: 160px; }
+.facetraekke .mini-label {
+  font-family: var(--font-ui); font-size: 0.72rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);
+}
+.facetraekke select {
+  font-family: var(--font-body); font-size: 0.92rem;
+  padding: 0.5rem 0.75rem; border-radius: var(--r-modal);
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+}
+.facetraekke select:focus { border-color: var(--accent); outline: none; }
+
 /* ---------- Filtre (browse) ---------- */
 .filterraekke { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin: 1.25rem 0 1.75rem; }
 .filter-pill {
@@ -519,6 +533,54 @@ img, svg { display: block; max-width: 100%; }
   margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
 }
 
+/* E.2: wizard-rækker — faser-skitse (trin ②), fravalg (trin ③), materialer (trin ⑤) */
+.felt input[type="number"] {
+  width: 100%; font-family: var(--font-body); font-size: 0.95rem;
+  padding: 0.65rem 0.9rem; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface); color: var(--ink);
+}
+.wizard .raekke-liste { margin-bottom: 0.8rem; }
+.wizard .raekke {
+  position: relative; display: grid; gap: 0.6rem;
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface); padding: 1rem 2.6rem 1rem 1.2rem; margin-bottom: 0.8rem;
+}
+.wizard .raekke input[type="text"], .wizard .raekke select, .wizard .raekke textarea {
+  width: 100%; font-family: var(--font-body); font-size: 0.95rem;
+  padding: 0.55rem 0.7rem; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--ink);
+}
+.wizard .raekke textarea { min-height: 60px; resize: vertical; }
+.wizard .raekke-slet {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  border: none; background: none; color: var(--muted);
+  font-size: 1.1rem; line-height: 1; cursor: pointer; padding: 0.2rem 0.4rem;
+}
+.wizard .raekke-slet:hover { color: var(--ink); }
+.wizard .tilfoej {
+  border: 1px dashed var(--border); background: none; color: var(--muted);
+  border-radius: var(--r-modal); padding: 0.55rem 1rem; cursor: pointer;
+  font-family: var(--font-ui); font-size: 0.9rem; margin-bottom: 2.3rem;
+}
+.wizard .tilfoej:hover { border-color: var(--accent); color: var(--accent); }
+
+/* E.2, trin ②: udfoldelig didaktisk profil (enum-batteriet — alt valgfrit) */
+.wizard details.uddyb {
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface); padding: 1rem 1.2rem; margin-bottom: 2.3rem;
+}
+.wizard details.uddyb summary { cursor: pointer; font-family: var(--font-ui); font-weight: 600; }
+.wizard details.uddyb[open] summary { margin-bottom: 0.6rem; }
+.wizard details.uddyb .felt { margin-bottom: 1.6rem; }
+.wizard .uddyb-gruppe-navn {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);
+  margin: 1.4rem 0 0.8rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+
+/* Sekundær notelinje uden for .felt (dokument-renderens didaktiserings-note m.fl.) */
+.under { display: block; color: var(--muted); font-size: 0.85rem; font-family: var(--font-ui); }
+
 /* Åbne pladser-trin */
 .dim-vaelger { border: 1px solid var(--border); border-radius: var(--r-modal); background: var(--surface); margin-bottom: 0.8rem; padding: 1rem 1.2rem; }
 .dim-vaelger .dim-hoved { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
@@ -682,4 +744,101 @@ img, svg { display: block; max-width: 100%; }
   .ark-kolofon { flex-direction: column; }
   .ark-dg { text-align: left; }
   .dg-raekke { grid-template-columns: 105px auto 1fr; }
+}
+
+/* ---------- E.3a: fag-forside + dækningskort ---------- */
+a.tag { text-decoration: none; }
+a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
+
+.noegleideer-raekke {
+  display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.noegleideer-raekke .label {
+  font-family: var(--font-ui); font-size: 0.8rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted);
+}
+.noegleide {
+  font-family: var(--font-ui); font-size: 0.85rem;
+  padding: 0.25rem 0.85rem; border-radius: var(--r-pill);
+  border: 1px solid var(--fagfarve, var(--border));
+  color: var(--fagtekst, var(--ink));
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 7%, var(--surface));
+}
+
+/* Dækningskortet: indholdsområde × forløb. Overordnede områder fylder hele
+   bredden øverst, gennemgående ligger som tværgående bånd nederst — hierarkiet
+   VISES med layout, ikke kun med badges. */
+.daekningskort {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem; margin: 1rem 0 2.5rem;
+}
+.omraade-kort {
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface); padding: 1.15rem 1.3rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+}
+.omraade-kort.fuldbredde { grid-column: 1 / -1; }
+.omraade-kort.gennemgaaende {
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 4%, var(--surface));
+  border-left: 4px solid var(--fagfarve, var(--muted));
+}
+.omraade-hoved { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.omraade-hoved h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.05rem; }
+.relation-badge {
+  font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--fagtekst, var(--muted));
+  border: 1px solid var(--fagfarve, var(--border)); border-radius: var(--r-pill);
+  padding: 0.1rem 0.55rem;
+}
+.omraade-sigte { color: var(--muted); font-size: 0.92rem; max-width: 62ch; }
+.faelles-linje { font-family: var(--font-ui); font-size: 0.82rem; color: var(--muted); }
+.faelles-linje a { color: var(--fagtekst, var(--ink)); }
+
+/* Dækningsstatus: koblede forløb ELLER invitation. 0 er ikke en fejl —
+   samme stiplede invitation-idiom som åbne pladser. */
+.daekning-status { margin-top: 0.35rem; font-family: var(--font-ui); font-size: 0.88rem; }
+.daekning-status .antal-badge {
+  display: inline-block; font-weight: 600;
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 12%, var(--surface));
+  color: var(--fagtekst, var(--ink));
+  border-radius: var(--r-pill); padding: 0.15rem 0.7rem; margin-right: 0.4rem;
+}
+.daekning-status ul { list-style: none; margin-top: 0.4rem; }
+.daekning-status li { margin-top: 0.2rem; }
+.omraade-invitation {
+  margin-top: 0.35rem; padding: 0.8rem 1rem;
+  border: 2px dashed var(--fagfarve, var(--border)); border-radius: var(--r-modal);
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 4%, var(--surface));
+  font-family: var(--font-ui); font-size: 0.88rem; color: var(--muted);
+}
+.omraade-invitation a { color: var(--fagtekst, var(--ink)); font-weight: 600; }
+
+/* Områder uden for det valgte trinforløb dæmpes frem for at forsvinde —
+   kortet skal blive ved med at vise fagets fulde struktur. */
+.omraade-kort.udenfor-trin { opacity: 0.45; }
+.omraade-kort.udenfor-trin .daekning-status,
+.omraade-kort.udenfor-trin .omraade-invitation { display: none; }
+.udenfor-trin-note { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+
+.maal-fold summary {
+  cursor: pointer; font-family: var(--font-ui); font-size: 0.82rem;
+  color: var(--muted); list-style: none;
+}
+.maal-fold summary::-webkit-details-marker { display: none; }
+.maal-fold summary::before { content: "▸ "; }
+.maal-fold[open] summary::before { content: "▾ "; }
+.maal-fold ul { list-style: none; margin: 0.4rem 0 0.2rem; }
+.maal-fold li { font-size: 0.88rem; margin-top: 0.35rem; padding-left: 0.9rem; text-indent: -0.9rem; }
+.maal-fold li .maal-trin { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-right: 0.35rem; }
+
+.kanon-panel .kanon-punkter { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.8rem; }
+.kanon-punkt {
+  font-family: var(--font-body); font-size: 0.88rem;
+  border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: 0.2rem 0.8rem; background: var(--surface);
+}
+
+@media (max-width: 700px) {
+  .daekningskort { grid-template-columns: 1fr; }
 }

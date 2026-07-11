@@ -1,0 +1,69 @@
+{
+  "id": "engelsk",
+  "navn": "Engelsk",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "eng-2-3", "udtryk": "2.-3. klassetrin", "type": "spaend" },
+    { "id": "eng-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" },
+    { "id": "eng-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "eng-sprog-og-sproglaering",
+      "navn": "Sprog og sproglæring",
+      "sigte": "Det engelske sprogs opbygning og mønstre, sproglig opmærksomhed og sproglæringsstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "eng-2-3-m1", "trinforloeb": "eng-2-3", "sigte": "Undersøger og bruger enkelt engelsk ordforråd i legende, kommunikative aktiviteter." },
+        { "id": "eng-4-6-m1", "trinforloeb": "eng-4-6", "sigte": "Arbejder med alderssvarende ordforråd og bliver opmærksomme på sproglige mønstre." },
+        { "id": "eng-7-9-m1", "trinforloeb": "eng-7-9", "sigte": "Opbygger et mere præcist ordforråd og udtrykker sig med sproglig præcision." }
+      ]
+    },
+    {
+      "id": "eng-interaktion-og-dialog",
+      "navn": "Interaktion og dialog",
+      "sigte": "At ytre sig og lytte aktivt i mundtlig samtale samt skriftlig her-og-nu-interaktion.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "eng-2-3-m2", "trinforloeb": "eng-2-3", "sigte": "Deltager i enkle, mundtlige dialoger og skriftlige udvekslinger med støtte." },
+        { "id": "eng-4-6-m2", "trinforloeb": "eng-4-6", "sigte": "Deltager i spontan og forberedt mundtlig og skriftlig interaktion." },
+        { "id": "eng-7-9-m2", "trinforloeb": "eng-7-9", "sigte": "Deltager i mundtlige dialoger og formulerer sig i skriftlige interaktioner med andre engelsktalende." }
+      ]
+    },
+    {
+      "id": "eng-opleve-forstaa-skabe-tekster",
+      "navn": "Opleve, forstå og skabe tekster",
+      "sigte": "At opleve, forstå og skabe sammenhængende mundtlige, skriftlige og multimodale engelske tekster.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "eng-2-3-m3", "trinforloeb": "eng-2-3", "sigte": "Forstår alderssvarende tekster og skaber enkle mundtlige og multimodale tekster." },
+        { "id": "eng-4-6-m3", "trinforloeb": "eng-4-6", "sigte": "Læser, lytter til og skaber sammenhængende tekster med forskellige kommunikative formål." },
+        { "id": "eng-7-9-m3", "trinforloeb": "eng-7-9", "sigte": "Forstår og formidler viden, erfaringer og synspunkter i egne tekster." }
+      ]
+    },
+    {
+      "id": "eng-kultur-og-interkulturel-forstaaelse",
+      "navn": "Kultur og interkulturel forståelse",
+      "sigte": "Kultur, levevilkår og samfundsforhold i den engelsksprogede verden som afsæt for kulturmøder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "eng-2-3-m4", "trinforloeb": "eng-2-3", "sigte": "Sammenligner egen og engelsktalende børns hverdag og udtrykker sig om den." },
+        { "id": "eng-4-6-m4", "trinforloeb": "eng-4-6", "sigte": "Undersøger kulturelle forhold i engelsksprogede lande og møder forskellige perspektiver." },
+        { "id": "eng-7-9-m4", "trinforloeb": "eng-7-9", "sigte": "Formidler viden om kultur og reflekterer over kulturmøder ud fra flere perspektiver." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

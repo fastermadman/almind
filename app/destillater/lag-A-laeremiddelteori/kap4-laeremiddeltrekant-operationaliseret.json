@@ -1,0 +1,33 @@
+{
+  "kilde": "Hansen, T.I. & Skovmand, K. (2011). Fælles mål og midler, kap. 4.1–4.5",
+  "titel": "Læremiddeltrekanten operationaliseret – 9-felts analyseskema og mål/potentiale",
+  "lag": "A",
+  "lag1_teori": "Læremiddeltrekanten operationaliseres i et 9-felts analyseskema: tre hjørner (udtryk, indhold, aktivitet) krydset med tre vejperspektiver (tilgængelighed, progression, differentiering). Hvert felt rummer et konkret analytisk spørgsmål. Analysen skelner mellem læremidlets eksplicitte mål og potentiale (det erklærede) og dets implicitte mål og potentiale (det de faktiske udtryk, aktiviteter og indholdsvalg peger mod). Tilgængelighed er forudsætning for progression og differentiering; differentiering indbefatter tilgængelig progression for elever med forskellige potentialer. Analysen kan gennemføres simpelt (ét hjørne × én flade) eller komplekst (tre kategorier).",
+  "lag2_kategorier": [
+    "9-felts skema: udtryk/indhold/aktivitet × tilgængelighed/progression/differentiering",
+    "Eksplicit potentiale: erklærede mål i lærervejledning og varedeklaration",
+    "Implicit potentiale: hvad udtryk, indhold og aktiviteter faktisk peger mod",
+    "Tilgængelighed: adgang, barrierer, anknytningspunkter, motivation",
+    "Progression: kropslig, intellektuel og følelsesmæssig udvikling fremad mod mål",
+    "Differentiering: fælles ramme + rum for individuelle veje og behov",
+    "Drejemodel: alle tre perspektiver kan anlægges på alle tre hjørner"
+  ],
+  "lag3_spørgsmål": [
+    "Er udtrykket forståeligt i kraft af samspil mellem tekst, billeder og diagrammer?",
+    "Rummer udtrykket en udvikling fra simpel til kompleks repræsentation?",
+    "Åbner udtrykket for forskellige måder at blive opfattet og fortolket på?",
+    "Er indholdet tilgængeligt med en klar struktur der modsvarer elevernes forudsætninger?",
+    "Rummer indholdet en bevægelse fra nære konkrete problemstillinger til almen abstrakt behandling?",
+    "Inkluderer indholdet eleverne i fælles tematik med rum for individuel begrebsdannelse?",
+    "Er aktiviteterne engagerende og meningsfulde – knytter de an til elevernes hverdag?",
+    "Rummer aktiviteterne en fremadskridende vekselvirkning mellem konkrete og abstrakte handlinger?",
+    "Åbner aktiviteterne for forskellige læringsmåder der modsvarer elevernes behov og potentialer?",
+    "Hvad er læremidlets eksplicitte potentiale – hvad lover det?",
+    "Hvad er dets implicitte potentiale – hvad peger udtryk, indhold og aktiviteter faktisk mod?"
+  ],
+  "wizard_trin": "2+3+4+5",
+  "tool_type": "fundament",
+  "tool_navn": "hansenskovmand-9felts-skema",
+  "trigger": "Kerneredskab til analyse af ethvert læremiddel – bruges som operationaliseringsværktøj for læremiddeltrekanten i Almind-wizard",
+  "lærervejledning_sektion": "2+3+4+5"
+}

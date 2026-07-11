@@ -1,0 +1,76 @@
+{
+  "id": "musik",
+  "navn": "Musik",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "mus-1-3", "udtryk": "1.-3. klassetrin", "type": "spaend" },
+    { "id": "mus-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "mus-at-lave-musik",
+      "navn": "At lave musik",
+      "sigte": "At lave musik gennem skabende processer — sang, sammenspil, digital musikproduktion, improvisation, komposition, arrangement og lydformning.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mus-1-3-m1", "trinforloeb": "mus-1-3", "sigte": "Deltager i legende musikaktiviteter og laver musik og lyd med stemme, krop og instrumenter." },
+        { "id": "mus-4-6-m1", "trinforloeb": "mus-4-6", "sigte": "Udtrykker sig musikalsk ved i fællesskab at tilegne sig, omforme, dele og skabe musik." }
+      ]
+    },
+    {
+      "id": "mus-at-opleve-musik",
+      "navn": "At opleve musik",
+      "sigte": "Erfaringer med nye og kendte musikformer, som eleverne oplever, fortolker og formidler med indsigt i musikkens baggrund.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mus-1-3-m2", "trinforloeb": "mus-1-3", "sigte": "Har varierede musikoplevelser og får indblik i at musik kan opleves og forstås på flere måder." },
+        { "id": "mus-4-6-m2", "trinforloeb": "mus-4-6", "sigte": "Erfarer i mødet med forskellige klange og genrer hvordan musik kan opleves, beskrives og formidles." }
+      ]
+    },
+    {
+      "id": "mus-haandvaerk",
+      "navn": "Håndværk",
+      "sigte": "Grundlæggende praktiske og teoretiske redskaber i musikaktiviteter, herunder musikteori og hørelære — understøtter de to centrale områder.",
+      "relation": "understoettende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mus-1-3-m3", "trinforloeb": "mus-1-3", "sigte": "Møder og anvender enkle musikalske redskaber og teknikker gennem leg og øvelse." },
+        { "id": "mus-4-6-m3", "trinforloeb": "mus-4-6", "sigte": "Arbejder praktisk med varierede musikalske redskaber og teknikker med musikalsk fagsprog." }
+      ]
+    },
+    {
+      "id": "mus-sang",
+      "navn": "Sang",
+      "sigte": "Aktiv deltagelse i et musikalsk sangfællesskab og en levende, varieret sangkultur — indgår i de centrale områder og udfoldes desuden selvstændigt.",
+      "relation": "gennemgaaende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mus-1-3-m4", "trinforloeb": "mus-1-3", "sigte": "Indgår i sangfællesskab med et varieret repertoire af danske og internationale sange." },
+        { "id": "mus-4-6-m4", "trinforloeb": "mus-4-6", "sigte": "Synger med stigende sikkerhed et varieret, en- og flerstemmigt repertoire." }
+      ]
+    },
+    {
+      "id": "mus-musik-og-bevaegelse",
+      "navn": "Musik og bevægelse",
+      "sigte": "At erfare musik med og i kroppen — puls- og rytmefornemmelse, dans, timing og kropslig lytning — indgår i de centrale områder og udfoldes desuden selvstændigt.",
+      "relation": "gennemgaaende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mus-1-3-m5", "trinforloeb": "mus-1-3", "sigte": "Erfarer gennem leg samspil mellem krop og musik med enkle bevægelser." },
+        { "id": "mus-4-6-m5", "trinforloeb": "mus-4-6", "sigte": "Bidrager til det musikalske fællesskab med kropslige ideer, rytme og timing." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

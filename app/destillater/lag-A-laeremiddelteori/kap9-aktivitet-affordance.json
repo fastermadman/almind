@@ -1,0 +1,29 @@
+{
+  "kilde": "Hansen, J.J. (2012). Aktivitetsanalyse + Handlingsrum + Aktiviteternes tilgængelighed, progression og differentiering. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 9.1–9.4",
+  "titel": "Aktivitet og affordance – handlingsrum, tilgængelighed, progression og differentiering",
+  "lag": "A",
+  "lag1_teori": "Aktivitetsanalyse fokuserer på tre niveauer: interaktion (minutter), arbejdsforløb (timer) og emneforløb (uger). For hvert niveau analyseres: aktivitetens mål (hvad skal eleverne gøre?), formål (hvorfor?) og rammesætning (hvem beslutter hvad?). Handlingsrum er de muligheder for handling og interaktion som læremidlet åbner for. Åbne opgaver giver eleverne større handlingsrum og selvbestemmelse; lukkede opgaver styrer mod et bestemt svar. Aktiviteternes tilgængelighed afhænger af, om eleverne kan og vil udføre dem – det kræver balance mellem kropslige/eksplorative og symbolske/abstrakte aktiviteter. Progression bygger på Blooms taksonomi (gengive → forstå → anvende → analysere → kreativt producere → vurdere). Differentiering kræver variation i aktivitetstyper og skelnen mellem additive (tillægs-) og konstitutive (kerne-)aktiviteter. Kritik af læringsstilsteoriernes tendens til at skille udtryk, indhold og aktivitet ad.",
+  "lag2_kategorier": [
+    "Tre analyseniveauer: interaktion / arbejdsforløb / emneforløb",
+    "Aktivitetsanalyse: mål (hvad) + formål (hvorfor) + rammesætning (hvem beslutter)",
+    "Handlingsrum: åbne vs. lukkede opgaver og elevernes mulighed for selvbestemmelse",
+    "Tilgængelighed: balance mellem eksplorative/kropslige og symbolske/abstrakte aktiviteter",
+    "Bloom-progression: gengive → forstå → anvende → analysere → kreativt producere → vurdere",
+    "Additiv vs. konstitutiv aktivitet: tillæg til faglig erkendelse vs. trin i faglig erkendelse",
+    "Formativ evaluering som metaaktivitet der forbinder progression og differentiering"
+  ],
+  "lag3_spørgsmål": [
+    "På hvilket niveau analyseres aktiviteterne – interaktion, arbejdsforløb eller emneforløb?",
+    "Er aktiviteternes mål og formål ekspliciteret i læremidlet, eller er de underforstået?",
+    "Hvilke handlingsrum åbner læremidlet for – er opgaverne åbne eller lukkede?",
+    "Er aktiviteterne tilgængelige – kan eleverne udføre dem, og er de motiverende?",
+    "Er der en faglig progression i aktiviteterne fra konkrete/kropslige til abstrakte/symbolske?",
+    "Fungerer kropslige og varierede aktiviteter som additive tillæg eller konstitutive trin i den faglige erkendelse?",
+    "Rummer læremidlet en formativ evalueringsaktivitet der kobler progression og differentiering?"
+  ],
+  "wizard_trin": "5",
+  "tool_type": "design",
+  "tool_navn": "hansen-aktivitet-affordance",
+  "trigger": "Analyse og vurdering af læremidlets aktivitetsdimension – bruges i wizard trin der fokuserer på opgavetyper, handlingsrum og undervisningsdifferentiering",
+  "lærervejledning_sektion": "5"
+}

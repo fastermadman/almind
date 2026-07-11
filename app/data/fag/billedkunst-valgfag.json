@@ -1,0 +1,48 @@
+{
+  "id": "billedkunst-valgfag",
+  "navn": "Billedkunst (valgfag)",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "bilv-7-9", "udtryk": "7.-8. klassetrin eller 8.-9. klassetrin", "type": "enten-eller" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "bilv-billedbearbejdning",
+      "navn": "Billedbearbejdning",
+      "sigte": "Selvstændig og sikker udvælgelse og anvendelse af materialer, redskaber og teknikker relevant for billedets intention.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bilv-m1", "trinforloeb": "bilv-7-9", "sigte": "Bearbejder og udvælger udtryksformer reflekteret ud fra funktioner og udtrykskvaliteter." }
+      ]
+    },
+    {
+      "id": "bilv-billedfremstilling",
+      "navn": "Billedfremstilling",
+      "sigte": "Kunstbaserede arbejdsformer og fremstilling af billeder med selvvalgt indhold, inkl. kuratering og udstilling.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bilv-m2", "trinforloeb": "bilv-7-9", "sigte": "Fremstiller selvstændigt billeder, skaber udstillingsformater og udtrykker sig med fagbegreber." }
+      ]
+    },
+    {
+      "id": "bilv-billedudforskning",
+      "navn": "Billedudforskning",
+      "sigte": "Udforskning og aktiv inddragelse af kunstens og kulturens billeder og billedformer i egne billeder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bilv-m3", "trinforloeb": "bilv-7-9", "sigte": "Udforsker, udvælger og sammenstiller visuelle virkemidler fra kunstens billeder i egne billeder." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": "billedkunst"
+}

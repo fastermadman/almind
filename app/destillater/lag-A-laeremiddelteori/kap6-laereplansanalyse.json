@@ -1,0 +1,28 @@
+{
+  "kilde": "Hansen, T.I. & Skovmand, K. (2011). Fælles mål og midler, kap. 6.1–6.3",
+  "titel": "Læreplansanalyse – fire dimensioner og forholdet til læremidlet",
+  "lag": "A",
+  "lag1_teori": "Læreplaner er komplekse tekster der simultant er politiske, faglige, pædagogiske og didaktiske dokumenter – og de er principielt omskiftelige. Læreplansanalysen organiseres langs fire dimensioner: (1) politisk (Folketing og folkeskolelov, historisk udvikling fra vejledende til bindende); (2) faglig (basisfagenes indflydelse, nye metoder og kundskaber); (3) pædagogisk (dannelsessyn og elevopfattelse); (4) didaktisk (mål, indhold, metode og progressionsforestillinger i trin- og slutmål). Læreplaner og læremidler er forbundne: læremidlet fortolker og udmønter læreplanen – men der er altid et fortolkningsrum. Afsøg dette rum frem for at lade læremidlets fortolkning stå som den eneste gyldige.",
+  "lag2_kategorier": [
+    "Fire læreplansanalytiske dimensioner: politisk · faglig · pædagogisk · didaktisk",
+    "Læreplanstyper: statslig (Fælles Mål) · lokal (kommunal/skole) · uformel (lærerens)",
+    "Udvikling: fra vejledende betænkning (1960) til bindende trinmål (Fælles Mål 2009)",
+    "Fortolkningsrum: 1:1-forhold eksisterer ikke – læreren fortolker og forvalter",
+    "Legitimitetsspørgsmål: lever læremidlet op til ny viden, aktuel læreplan og folkeskolelov?",
+    "Fagfornyelsen som afløser: stærkere dannelsessprog end Fælles Mål 2009"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilke politiske beslutninger og hvilken historisk kontekst har formet denne læreplan?",
+    "Hvilken faglig viden og hvilke metoder fra basisfaget afspejler læreplanen?",
+    "Hvilket dannelsessyn og hvilken elevopfattelse er skrevet ind i læreplanen?",
+    "Hvilke forestillinger om progression, indhold og metode indeholder læreplanen?",
+    "Hvordan fortolker og udmønter dette læremiddel læreplanen – og er det den eneste mulige fortolkning?",
+    "Er der steder hvor læremidlets fortolkning er i konflikt med lærerens eget dannelses- eller fagsyn?"
+  ],
+  "wizard_trin": "2",
+  "tool_type": "design",
+  "tool_navn": "hansenskovmand-laereplansanalyse",
+  "trigger": "Wizard trin der arbejder med legitimering af forløb i relation til læreplan – særligt relevant for Almind-forløb der skal referere til Fagfornyelsen frem for Fælles Mål 2009",
+  "lærervejledning_sektion": "2",
+  "almind_kobling": "Fagfornyelsen (råudkast 2025) erstatter Fælles Mål som læreplansreference i Almind. Destillatet giver det analytiske apparat til at forstå hvorfor – og til at begrunde valget over for lærere der er vant til Fælles Mål."
+}

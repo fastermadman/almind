@@ -1,0 +1,81 @@
+{
+  "id": "natur-teknologi",
+  "navn": "Natur/teknologi",
+  "familie": "naturfag",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "nat-1-3", "udtryk": "1.-3. klassetrin", "type": "spaend" },
+    { "id": "nat-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "nat-undersoegelse-og-modellering",
+      "navn": "Undersøgelse og modellering",
+      "sigte": "Naturfaglige og teknologiske praksisser ude og inde med enkelt udstyr — står centralt i faget.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["biologi", "fysik-kemi", "geografi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "nat-1-3-m1", "trinforloeb": "nat-1-3", "sigte": "Undrer sig, stiller spørgsmål og formidler resultater med begyndende fagsprog og enkle modeller." },
+        { "id": "nat-1-3-m2", "trinforloeb": "nat-1-3", "sigte": "Fremstiller prototyper på hverdagens teknologiske problemstillinger gennem enkle designprocesser." },
+        { "id": "nat-4-6-m1", "trinforloeb": "nat-4-6", "sigte": "Indsamler og bearbejder data og formidler med fagsprog og modeller med stigende abstraktionsgrad." },
+        { "id": "nat-4-6-m2", "trinforloeb": "nat-4-6", "sigte": "Undersøger teknologiske problemstillinger, udvikler prototyper og kommunikerer om proces og produkt." }
+      ]
+    },
+    {
+      "id": "nat-natur",
+      "navn": "Natur",
+      "sigte": "At opleve, undersøge og fordybe sig i den nære natur og naturfænomener — hedder \"Livet på Jorden\" på 4.-6. klassetrin.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": ["nat-1-3"],
+      "maal": [
+        { "id": "nat-1-3-m3", "trinforloeb": "nat-1-3", "sigte": "Opdager og undersøger levende organismer gennem årstiderne med sansning, observation og enkle modeller." },
+        { "id": "nat-1-3-m4", "trinforloeb": "nat-1-3", "sigte": "Udforsker og observerer vands kredsløb i naturen og kobler til modeller." }
+      ]
+    },
+    {
+      "id": "nat-livet-paa-jorden",
+      "navn": "Livet på Jorden",
+      "sigte": "Fordybelse i livet på Jorden og betingelser for liv gennem oplevelser, undersøgelse og modellering — viderefører området \"Natur\" fra 1.-3. klassetrin.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": ["nat-4-6"],
+      "maal": [
+        { "id": "nat-4-6-m3", "trinforloeb": "nat-4-6", "sigte": "Får indblik i biodiversitet og modellerer organismers tilpasning og samspil i økosystemer." },
+        { "id": "nat-4-6-m4", "trinforloeb": "nat-4-6", "sigte": "Undersøger landskabet i et område og modellerer dets forandringer." },
+        { "id": "nat-4-6-m5", "trinforloeb": "nat-4-6", "sigte": "Undersøger interesser og natursyn hos brugere af et område og danner eget natursyn." }
+      ]
+    },
+    {
+      "id": "nat-teknologi",
+      "navn": "Teknologi",
+      "sigte": "At beskrive og undersøge teknologier og teknologiske systemer fra elevernes hverdag og arbejde med løsninger på problemstillinger.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "nat-1-3-m5", "trinforloeb": "nat-1-3", "sigte": "Beskriver og afprøver enkle teknologiers funktion og beskriver vandværket som teknologisk system." },
+        { "id": "nat-4-6-m6", "trinforloeb": "nat-4-6", "sigte": "Fordyber sig i robotters funktion med blokprogrammering og begyndende naturfaglig argumentation." },
+        { "id": "nat-4-6-m7", "trinforloeb": "nat-4-6", "sigte": "Bygger elektriske kredsløb og modellerer at energi kan skifte form." }
+      ]
+    },
+    {
+      "id": "nat-mennesket",
+      "navn": "Mennesket",
+      "sigte": "Organers funktion, den begyndende pubertet og faktorer med indvirkning på sundhed.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "nat-1-3-m6", "trinforloeb": "nat-1-3", "sigte": "Undersøger kroppens sanser, muskler og skelet og beskriver vaner om bevægelse og hvile." },
+        { "id": "nat-4-6-m8", "trinforloeb": "nat-4-6", "sigte": "Undersøger fordøjelsessystemet og blodet som transportsystem, herunder gennem dissektion." },
+        { "id": "nat-4-6-m9", "trinforloeb": "nat-4-6", "sigte": "Formulerer og besvarer spørgsmål om pubertet og udvikler kritisk sans om egen sundhed." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

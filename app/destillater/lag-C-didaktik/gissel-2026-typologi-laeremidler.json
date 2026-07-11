@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "gissel-2026-typologi-laeremidler",
+    "kilde": "Gissel, S.T. (2026). Typologi for læremidler og ressourcer, der kan bruges til læring eller undervisning. MONA, 1, s. 52–68.",
+    "lag": "lag-C-didaktik",
+    "dækker": ["GisselTypologiLaeremidler.md"],
+    "brug": "Typebestemmelse og klassifikation af materialer brugt i undervisning. Bruges når wizard skal hjælpe lærer med at identificere og begrunde valg af undervisningsmateriale."
+  },
+
+  "kernepåstand": "Alle materialer brugt i undervisning kan klassificeres langs to akser: materialets grundtype (tekst / redskab / fysisk entitet) og om det bærer præg af at være beregnet til undervisning (læremiddel) eller ikke (læringsressource). Det giver 6 kategorier i alt.",
+
+  "grundskel": {
+    "laermiddel": {
+      "definition": "Tekst, redskab eller fysisk entitet der bærer præg af at være beregnet til undervisning og/eller læring.",
+      "noeglepointe": "Det er affordances – materialets handlemuligheder i relation til en bruger og kontekst – der afgør om noget fungerer som læremiddel. Affordances er relationelle, ikke faste iboende egenskaber.",
+      "teoretisk_afsæt": "Gibson (1979): affordance-begrebet. Hvad et materiale 'tilbyder' afhænger af materialets karakteristika + brugerens erfaringer og intentioner + den konkrete situation."
+    },
+    "laeringsressource": {
+      "definition": "Tekst, redskab eller fysisk entitet der ikke umiddelbart bærer præg af at være beregnet til undervisning, men som kan inddrages i undervisnings- og læreprocesser.",
+      "noeglepointe": "Læreren skal selv opdage det didaktiske potentiale og udføre den didaktiske bearbejdning: formulere mål, designe aktiviteter, tilrettelægge evaluering og differentiering."
+    }
+  },
+
+  "tre_grundtyper": {
+    "tekster": {
+      "definition": "Sammenhængende meningsbærende helheder formidlet gennem tegnsystemer og udtryksformer som ord, billeder, lyd eller andre modaliteter. Tekster har et kommunikativt formål og en betydning i samfundet uafhængigt af skolen.",
+      "eksempler": ["billeder", "TV-indslag", "grafiske modeller", "populærvidenskabelige artikler", "bøger", "breve", "YouTube-videoer", "avisartikler", "digte", "computerspil"]
+    },
+    "redskaber": {
+      "definition": "Materialer der kan muliggøre bestemte processer eller gøre dem nemmere, mere effektive, mere motiverende. Bruges til undersøgelse, produktion, dataindsamling, kommunikation, repræsentation og kompensation.",
+      "eksempler": ["mikroskop", "regneark", "tekstbehandlingsprogram", "lommeregner", "kikkert", "lydmåler-app"]
+    },
+    "fysiske_entiteter": {
+      "definition": "Fysiske entiteter i eller fra den virkelighed, vi ønsker at forstå. De er i semiotisk forstand selve objektet – ikke et tegn for objektet. De bærer ikke på en indkodet kommunikativ mening, men er de faktiske genstande eller fænomener.",
+      "eksempler": ["plante fra skoven", "orm", "forstenet søpindsvin", "svinelever til dissektion", "fabriksbesøg", "ekskursion", "interview med en fisker"],
+      "noeglepointe": "Adskiller sig fra tekster ved at de ikke repræsenterer verden, men er (et stykke af) verden."
+    }
+  },
+
+  "seks_kategorier": {
+    "undervisningstekster": {
+      "type": "Tekst + Læremiddel",
+      "definition": "Tekster udviklet med det formål at indgå i undervisning og/eller understøtte elevers læreproces. Rettet direkte mod elever og/eller lærere som intenderet målgruppe.",
+      "kendetegn": [
+        "Indeholder indhold tilpasset målgruppens interesser, behov og forudsætninger",
+        "Beskriver faglige mål, elevaktiviteter og organisering",
+        "Understøtter differentiering og evaluering",
+        "Indeholder ofte lærervejledning"
+      ],
+      "eksempler": ["grundbog til bestemt fag/klassetrin", "opgaveark", "digitalt træningsprogram", "undervisningsforløb på fagportal"],
+      "relation_til_daekningsgrad": "Didaktisk dækningsgrad (Gissel et al., 2023) måler hvor mange centrale didaktiske valg der er faciliteret i undervisningsteksten. Høj dækningsgrad = mange aspekter dækket (mål, organisering, differentiering, variation, progression, evaluering). Lav dækningsgrad = kun indhold eller opgaver, ingen faglige mål eller undervisningsovervejelser."
+    },
+    "tekster_i_undervisning": {
+      "type": "Tekst + Læringsressource",
+      "definition": "Tekster der ikke bærer præg af at være udformet til undervisningsbrug, men som læreren bringer ind i undervisningen med en didaktisk hensigt.",
+      "laerers_opgave": "Formulere faglige mål, udvikle opgaver og aktiviteter, planlægge evaluering og differentiering – hele den didaktiske bearbejdning.",
+      "eksempler": ["skønlitterær novelle", "kortfilm", "avisartikel", "maleri", "fagbog ikke beregnet til skolen"],
+      "historisk_reference": "Svarer til Skyum-Nielsens (1995) 'sekundære uddannelsestekster' og Hansen & Skovmands (2011) 'semantiske læremidler'"
+    },
+    "undervisningsredskaber": {
+      "type": "Redskab + Læremiddel",
+      "definition": "Værktøjer der bærer præg af at være skabt med henblik på undervisning og har særlige potentialer i forhold til undervisning og læring.",
+      "eksempler": ["GeoGebra (matematik)", "Padlet", "programmerbar robot (taktil)", "kridttavle", "interaktiv tavle", "Micro:bit", "centicubes", "interaktive gulvmåtter"],
+      "noeglepointe": "Undervisningsredskaber indeholder ikke aktiviteter – dem skal læreren selv finde på. Skelnet EdTech/TechEd: EdTech er undervisningsredskabet som middel til at nå faglige mål; TechEd er teknologien som målet i sig selv.",
+      "historisk_reference": "Svarer til Giljes (2021) 'primære redskaber'. Har ingen pendant i Hansen og Hansens tredelte typologi."
+    },
+    "redskaber_i_undervisning": {
+      "type": "Redskab + Læringsressource",
+      "definition": "Redskaber ikke designet specifikt til undervisning, men som inddrages fordi de kan noget nyttigt i en undervisningssammenhæng.",
+      "eksempler": ["mikroskop", "regneark", "tekstbehandlingsprogram", "lommeregner", "teststrips til nitrat", "kikkert", "hammer", "lydmåler-app"],
+      "historisk_reference": "Svarer til Giljes (2021) 'sekundære redskaber' og Hansen og Hansens 'funktionelle læremidler'"
+    },
+    "fysiske_undervisningsentiteter": {
+      "type": "Fysisk entitet + Læremiddel",
+      "definition": "Fysiske entiteter der minder om den oprindelige entitet, men er bearbejdet og presenteret i en form der gør dem mere anvendelige i undervisningssammenhæng. Taget ud af naturlig kontekst og gjort mere tilgængelige.",
+      "eksempler": [
+        "plastiktorso med udtagelige organer",
+        "plastikskelet",
+        "DNA- eller molekylemodeller",
+        "organiseret bjergartsamling",
+        "VR/AR-teknologi til at vise sub-mikroskopiske entiteter eller planeter",
+        "roterende model af solsystemet"
+      ],
+      "noeglepointe": "Reduceret størrelse, holdbarhed, hygiejne eller manipulerbarhed er didaktiske træk der gør entiteten særligt egnet til undervisning."
+    },
+    "fysiske_entiteter_i_undervisning": {
+      "type": "Fysisk entitet + Læringsressource",
+      "definition": "Fysiske entiteter i eller fra den virkelighed vi ønsker at forstå. Ikke skabt med undervisning for øje, men inddrages fordi de er selve fænomenet – ikke en repræsentation af det.",
+      "eksempler": ["plante fra skoven", "orm", "forstenet søpindsvin", "svinelever til dissektion", "fabriksbesøg", "ekskursion i skoven", "interview med fisker", "kartofler og vand til osmose-forsøg"],
+      "laerers_opgave": "Skabe et didaktisk design der gør mødet med entiteten fagligt udbytterigt."
+    }
+  },
+
+  "historisk_placering": {
+    "skyum_nielsen_1995": "Primære vs. sekundære uddannelsestekster. Kun tekster. Grundlaget for skellet skabt/ikke-skabt-til-undervisning.",
+    "hansen_hansen_2010_tredelt": "Didaktiske / semantiske / funktionelle læremidler. Udbredt i Danmark, men uklar behandling af fysiske genstande og af skellet undervisningsberegnet/ikke.",
+    "skjelbred_2019": "Videreudvikler tekst-skellet + introducerer 'genstande' som separat kategori. Literacy-fokus giver dog snæver definition af 'værktøjer'.",
+    "gilje_2021": "Primære/sekundære skoletekster + primære/sekundære redskaber. Overbegreberne 'læremidler' (primære) og 'læringsressourcer' (sekundære). Mangler kategori til fysiske entiteter.",
+    "gissel_2026": "Udvider til 3×2 = 6 kategorier. Løser problemet med fysiske entiteter. Fastholder 'læremidler'/'læringsressourcer'-skellet. Forankrer i affordance-teori (Gibson)."
+  },
+
+  "bestemmelsespraksis": {
+    "fremgangsmåde": [
+      "1. Hvilken grundtype er materialet? (tekst / redskab / fysisk entitet)",
+      "2. Bærer det præg af at være beregnet til undervisning? (læremiddel / læringsressource)",
+      "3. Hvis undervisningstekst: vurdér didaktisk dækningsgrad",
+      "4. Hvis læringsressource: beskriv hvad læreren selv skal didaktisere"
+    ],
+    "affordance_pointe": "Bestemmelsen er ikke absolut. Samme materiale kan fungere som læremiddel for én lærer og læringsressource for en anden, alt efter lærerens fagsyn, intention og kontekst. Vi kan fremanalysere træk, men erkende at andre kan se andre affordances.",
+    "graensetilfaelde": "Et krydsord fundet online kan ses som undervisningstekst (lavt didaktiseret læremiddel) eller som irrelevant for undervisning, afhængigt af lærerens vurdering."
+  },
+
+  "almind_relevans": {
+    "typologi_som_klassifikation": "Almind kan bruge denne typologi til at klassificere delte materialer: er det en undervisningstekst (fuldt didaktiseret), en læringsressource (kræver bearbejdning), eller noget derimellem?",
+    "dækningsgrad_som_metadata": "Undervisningstekster på Almind kan vurderes efter didaktisk dækningsgrad som kvalitetsindikator.",
+    "laereres_behov": "Typologien tydeliggør hvornår læreren modtager et 'færdigt' læremiddel vs. en ressource der kræver eget didaktisk design – relevant for vejledning i platformen."
+  },
+
+  "kobling_til_andre_destillater": [
+    "gissel-2024-daekningsgrad-og-analyse — dækningsgradsbegrebet er direkte relateret til undervisningstekster (høj/lav dækningsgrad)",
+    "carlsen-hansen-2009-laeremiddelanalyse — analyseguiden opererer med de samme tre Gissel-dimensioner inden for undervisningstekster"
+  ]
+}

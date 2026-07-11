@@ -1,0 +1,64 @@
+{
+  "id": "modersmaalsundervisning",
+  "navn": "Modersmålsundervisning",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "mod-bhk-5", "udtryk": "Børnehaveklassen-5. klassetrin", "type": "spaend" },
+    { "id": "mod-6-9", "udtryk": "6.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "mod-tale-og-lytte",
+      "navn": "Tale og lytte",
+      "sigte": "At forstå og udvikle talesprog og tilpasse sprogbrug til kontekst og situation — et af fagets centrale områder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mod-bhk-5-m1", "trinforloeb": "mod-bhk-5", "sigte": "Deltager i mundtlige samspil og fortæller om emner tæt på eget liv." },
+        { "id": "mod-6-9-m1", "trinforloeb": "mod-6-9", "sigte": "Deltager nuanceret i mundtlige samspil om et bredt udvalg af emner og responderer kritisk." }
+      ]
+    },
+    {
+      "id": "mod-skrive-og-laese",
+      "navn": "Skrive og læse",
+      "sigte": "At forstå og udvikle skriftsprog og tilpasse sprogbrug til kontekst og situation — et af fagets centrale områder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mod-bhk-5-m2", "trinforloeb": "mod-bhk-5", "sigte": "Læser og undersøger tekster med fokus på afkodning og skriver egne tekster med billedstøtte." },
+        { "id": "mod-6-9-m2", "trinforloeb": "mod-6-9", "sigte": "Læser tekster med fokus på struktur og formål og skriver egne tekster med bevidste sproglige valg." }
+      ]
+    },
+    {
+      "id": "mod-sprogtilegnelse-og-flersproget-kommunikation",
+      "navn": "Sprogtilegnelse og flersproget kommunikation",
+      "sigte": "Bevidsthed om flersproget sprogbrug og sproglige strategier — understøtter de to centrale færdighedsområder.",
+      "relation": "understoettende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mod-bhk-5-m3", "trinforloeb": "mod-bhk-5", "sigte": "Bruger forskellige sprog og strategier, herunder gestik og mimik, til at gøre sig forståelig." },
+        { "id": "mod-6-9-m3", "trinforloeb": "mod-6-9", "sigte": "Bruger strategier på tværs af kendte sprog og er bevidste om egen sprogindlæring." }
+      ]
+    },
+    {
+      "id": "mod-kultur-og-hverdagsliv",
+      "navn": "Kultur og hverdagsliv",
+      "sigte": "Kultur- og samfundsforhold i de områder sproget bruges — konteksten der leverer temaer til de øvrige områder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mod-bhk-5-m4", "trinforloeb": "mod-bhk-5", "sigte": "Undersøger traditioner fra hverdagslivet og udvikler begyndende bevidsthed om eget ståsted." },
+        { "id": "mod-6-9-m4", "trinforloeb": "mod-6-9", "sigte": "Sammenligner udtryksformer og traditioner og udvikler bevidsthed om egne værdier og identitet." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

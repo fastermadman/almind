@@ -1,0 +1,87 @@
+{
+  "id": "biologi",
+  "navn": "Biologi",
+  "familie": "naturfag",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "bio-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "bio-undersoegelse-og-modellering",
+      "navn": "Undersøgelse og modellering",
+      "sigte": "At formulere undersøgelsesspørgsmål, gennemføre undersøgelser og forholde sig kritisk til undersøgelser og modeller — fagets metodiske fundament.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["natur-teknologi", "fysik-kemi", "geografi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m1", "trinforloeb": "bio-7-9", "sigte": "Udvikler forklaringer på naturfaglige spørgsmål ved at undersøge og modellere og formidle med fagsprog." },
+        { "id": "bio-7-9-m2", "trinforloeb": "bio-7-9", "sigte": "Forholder sig kritisk til egne og andres undersøgelser og modeller og designer selv undersøgelser." }
+      ]
+    },
+    {
+      "id": "bio-livet-udvikler-sig",
+      "navn": "Livet udvikler sig",
+      "sigte": "Evolutionsteorien som fagets grundfortælling, der sætter rammen for de øvrige indholdsområder.",
+      "relation": "overordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m3", "trinforloeb": "bio-7-9", "sigte": "Opnår indsigt i evolution og modellerer grundmekanismer samt illustrerer biologisk systematik." },
+        { "id": "bio-7-9-m4", "trinforloeb": "bio-7-9", "sigte": "Udforsker hvordan menneskelig aktivitet påvirker evolution og biodiversitet lokalt og globalt." }
+      ]
+    },
+    {
+      "id": "bio-kend-din-krop",
+      "navn": "Kend din krop",
+      "sigte": "Menneskekroppen og sundhed — kroppen som et sammenhængende system påvirket af indre processer og omgivelser.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m5", "trinforloeb": "bio-7-9", "sigte": "Undersøger og sammenligner organer og organsystemer i menneskekroppen." },
+        { "id": "bio-7-9-m6", "trinforloeb": "bio-7-9", "sigte": "Forklarer hvordan indre processer og omgivelser påvirker kroppen med henblik på informerede sundhedsvalg." }
+      ]
+    },
+    {
+      "id": "bio-oplev-naturen-omkring-dig",
+      "navn": "Oplev naturen omkring dig",
+      "sigte": "Naturens mangfoldighed, organismers samspil i økosystemer og bæredygtig levevis.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m7", "trinforloeb": "bio-7-9", "sigte": "Gennemfører feltundersøgelser og illustrerer organismers økologiske samspil i naturen." },
+        { "id": "bio-7-9-m8", "trinforloeb": "bio-7-9", "sigte": "Diskuterer interessemodsætninger om naturforvaltning og udvikler et forhold til naturen." }
+      ]
+    },
+    {
+      "id": "bio-opdag-mikroskopisk-biologi",
+      "navn": "Opdag mikroskopisk biologi",
+      "sigte": "Mikroorganismer, celler, gener og cellulære processer — biologiens ikke umiddelbart iagttagelige side.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m9", "trinforloeb": "bio-7-9", "sigte": "Undersøger celletyper og illustrerer enkle nedarvningsmønstre hos udvalgte organismer." },
+        { "id": "bio-7-9-m10", "trinforloeb": "bio-7-9", "sigte": "Undersøger mikroorganismers vækst og betydning og reflekterer over bioteknologiens etik." }
+      ]
+    },
+    {
+      "id": "bio-en-baeredygtig-fremtid",
+      "navn": "En bæredygtig fremtid",
+      "sigte": "Naturfaglig forståelse af virkelighedsnære problemstillinger om miljø, klima og sundhed.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["fysik-kemi", "geografi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bio-7-9-m11", "trinforloeb": "bio-7-9", "sigte": "Belyser en aktuel problemstilling med kobling af viden fra flere naturfag." },
+        { "id": "bio-7-9-m12", "trinforloeb": "bio-7-9", "sigte": "Argumenterer, tager stilling og handler lokalt på problemstillinger om klima, miljø og sundhed." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

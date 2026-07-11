@@ -1,0 +1,27 @@
+{
+  "kilde": "Hansen, J.J. (2012). Fra tegnbegreb til didaktisk model – læremiddeltrekanten. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 6.3",
+  "titel": "Læremiddeltrekanten – udtryk, indhold og aktivitet i didaktisk analyse",
+  "lag": "A",
+  "lag1_teori": "Læremiddeltrekanten er en semiotisk-didaktisk analysemodel med tre hjørner: udtryk (repræsentationsformer), indhold (genstand og kontekst) og aktivitet (handlinger og affordance). Modellen bygger på vejmetaforen: læring som bevægelse frem mod mål. Heraf udledes tre tværgående analyseperspektiver der gælder alle tre hjørner: tilgængelighed (er der en farbar vej?), progression (fører vejen frem mod mål?) og differentiering (er der forskellige veje at gå ad?). I folkeskolen får modellens kategorier didaktisk betydning i kraft af formelle læringsmål (Fælles Mål).",
+  "lag2_kategorier": [
+    "Udtryk: repræsentationsformer og multimodalitet",
+    "Indhold: genstand, kontekst og erkendelsesdimensioner",
+    "Aktivitet: handlinger, opgavetyper og affordance",
+    "Tilgængelighed: er læremidlets udtryk, indhold og aktiviteter til at gå til?",
+    "Progression: udvikler læremidlet eleverne i retning af læringsmålene?",
+    "Differentiering: åbner læremidlet for forskellige veje og elevforudsætninger?"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilket udtryk har læremidlet – hvilke repræsentationsformer dominerer?",
+    "Hvad er læremidlets indhold – hvad arbejder eleverne med?",
+    "Hvilke aktiviteter og handlingsmønstre lægger læremidlet op til?",
+    "Er udtryk, indhold og aktiviteter tilgængelige for eleverne?",
+    "Er der en faglig progression i udtryk, indhold og aktiviteter?",
+    "Åbner læremidlet for differentierede læringsmuligheder?"
+  ],
+  "wizard_trin": "2+3+4",
+  "tool_type": "fundament",
+  "tool_navn": "hansen-laeremiddeltrekanten",
+  "trigger": "Overordnet analyseramme for ethvert didaktisk læremiddel – bruges som struktur for hele wizard-forløbet i Almind",
+  "lærervejledning_sektion": "2+3+4+5"
+}

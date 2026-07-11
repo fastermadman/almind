@@ -1,0 +1,60 @@
+{
+  "id": "madkundskab-valgfag",
+  "navn": "Madkundskab (valgfag)",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "madv-7-9", "udtryk": "7.-8. klassetrin eller 8.-9. klassetrin", "type": "enten-eller" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "madv-madlavning",
+      "navn": "Madlavning",
+      "sigte": "Håndværk og smag i relation til mad — fagets største og styrende indholdsområde.",
+      "relation": "overordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "madv-m1", "trinforloeb": "madv-7-9", "sigte": "Planlægger, organiserer og udfører madlavning selvstændigt med begrundelser i fagsprog." },
+        { "id": "madv-m2", "trinforloeb": "madv-7-9", "sigte": "Eksperimenterer med smag og begrunder madvalg ud fra faglig forståelse af smag." }
+      ]
+    },
+    {
+      "id": "madv-foedevarer",
+      "navn": "Fødevarer",
+      "sigte": "Kendskab til fødevarer og etiske spørgsmål om forbrug og valg af mad.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "madv-m3", "trinforloeb": "madv-7-9", "sigte": "Tilbereder et bredt udvalg af fødevarer og diskuterer fødevareproduktion og -forbrug." }
+      ]
+    },
+    {
+      "id": "madv-mad-krop-og-klode",
+      "navn": "Mad, krop og klode",
+      "sigte": "Kritisk stillingtagen til sundheds- og bæredygtighedsmæssige spørgsmål gennem praktisk madlavning.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "madv-m4", "trinforloeb": "madv-7-9", "sigte": "Tilbereder mad med hensyn til smag, sundhed og bæredygtighed med begrundelse i kostanbefalingerne." }
+      ]
+    },
+    {
+      "id": "madv-mennesker-og-maaltider",
+      "navn": "Mennesker og måltider",
+      "sigte": "Madens sociale, historiske og kulturelle betydning og måltiders rolle på tværs af kulturer.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "madv-m5", "trinforloeb": "madv-7-9", "sigte": "Tilbereder og deltager i måltider fra forskellige madkulturer og samtaler om hvorfor vi spiser som vi gør." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": "madkundskab"
+}

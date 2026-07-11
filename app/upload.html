@@ -10,9 +10,11 @@
   <link rel="stylesheet" href="assets/css/almind.css">
   <script src="assets/vendor/mammoth.browser.min.js"></script>
   <style>
-    /* Side-specifikt: de to indgange til forfatterskab */
-    .indgange { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0 3rem; }
+    /* Side-specifikt: de tre indgange til forfatterskab */
+    .indgange[hidden] { display: none; }
+    .indgange { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 2rem 0 3rem; }
     @media (max-width: 700px) { .indgange { grid-template-columns: 1fr; } }
+    .indgang[hidden] { display: none; }
     .indgang {
       display: block; background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--r-kort); padding: 1.8rem 1.7rem;
@@ -35,16 +37,15 @@
     <nav class="site-nav" aria-label="Hovednavigation">
       <a href="index.html">Forside</a>
       <a href="browse.html">Alle forløb</a>
-      <a href="graph.html">Konstellation</a>
       <a href="preview.html?id=dss-v1">Preview</a>
       <a class="knap" href="upload.html">Del et forløb</a>
     </nav>
   </header>
 
   <div class="wizard">
-    <h1>Del et forløb</h1>
-    <p class="intro">
-      To veje ind — begge ender i blok-editoren, hvor destillaternes didaktiske
+    <h1 id="side-titel">Del et forløb</h1>
+    <p class="intro" id="side-intro">
+      Tre veje ind — alle ender i blok-editoren, hvor destillaternes didaktiske
       spørgsmål er ved hånden undervejs, ikke en tunnel du skal igennem først.
     </p>
 
@@ -54,6 +55,11 @@
     </a>
 
     <div class="indgange">
+      <a class="indgang" href="upload.html?wizard=1">
+        <h2>Byg guidet — fra kernen og ud</h2>
+        <p>Fem trin der starter hvor forløbet starter: hvad er dit eksemplariske centrum? Slutter i editoren med et færdigt skelet.</p>
+      </a>
+
       <a class="indgang" href="rediger.html">
         <h2>Byg fra bunden</h2>
         <p>Start med et tomt kanvas og byg forløbet af blokke: faser, aktiviteter, callouts og åbne pladser.</p>
@@ -71,6 +77,8 @@
         <span id="drop-status"></span>
       </label>
     </div>
+
+    <div id="wizard-rod" hidden></div>
   </div>
 
   <footer class="site-footer">
@@ -84,8 +92,22 @@
   import { nytForloeb } from "./assets/js/blokke.js";
   import { parseDocx, parseMarkdown } from "./assets/js/importer.js";
 
-  // Ligger der en kladde, tilbydes den først
-  const kladde = hentKladde();
+  // ?wizard=1: den guidede vej — 5-trins rygraden (arkitektur 8.2) monteres
+  // her og afleverer sin kladde til editoren, som de to andre indgange.
+  const wizardTilstand = new URLSearchParams(location.search).get("wizard") === "1";
+  if (wizardTilstand) {
+    document.querySelector(".indgange").hidden = true;
+    document.getElementById("side-titel").textContent = "Byg guidet";
+    document.getElementById("side-intro").textContent =
+      "Fem trin: kernen, forløbet, valg og fravalg, dækning og kobling. Kun det eksemplariske centrum er påkrævet — resten inviterer. Du lander i editoren med et færdigt skelet.";
+    const rod = document.getElementById("wizard-rod");
+    rod.hidden = false;
+    const { startWizard } = await import("./assets/js/wizard.js");
+    startWizard({ rod });
+  }
+
+  // Ligger der en kladde, tilbydes den først (ikke oven på wizard-flowet)
+  const kladde = wizardTilstand ? null : hentKladde();
   if (kladde) {
     document.getElementById("fortsaet").hidden = false;
     document.getElementById("fortsaet-tekst").textContent =

@@ -1,0 +1,28 @@
+{
+  "kilde": "Hansen, J.J. (2012). Repræsentationsformer + Modus, modalitet og multimodalitet + Udtrykkets tilgængelighed, progression og differentiering. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 7.1–7.6",
+  "titel": "Udtryk og repræsentationsformer – tilgængelighed, progression og differentiering",
+  "lag": "A",
+  "lag1_teori": "Udtryk analyseres via seks basale repræsentationsformer forankret i Peirces tegnteori og Husserls fænomenologi: kropslig, genstandsmæssig, billedmæssig, diagrammatisk, sproglig og symbolsk. Fra venstre mod højre i denne typologi stiger abstraktionsgraden og falder umiddelbar tilgængelighed. Multimodalitet betegner samspillet mellem disse former i et læremiddel. Udtrykkets tilgængelighed handler om brugervenlighed, læsbarhed og multimodalt samspil. Udtrykkets progression handler om faglig udvikling fra kropslig/konkret mod symbolsk/abstrakt, og fra berettende mod argumenterende fremstillingsform. Udtrykkets differentiering handler om varieret brug af repræsentationsformer der åbner for forskellige læringsmåder.",
+  "lag2_kategorier": [
+    "Seks repræsentationsformer: kropslig / genstandsmæssig / billedmæssig / diagrammatisk / sproglig / symbolsk",
+    "Multimodalitet: samspil mellem repræsentationsformer i læremidlet",
+    "Modalitet: graden af realitetsstatus og troværdighed i en repræsentation",
+    "Fem fremstillingsformer: berettende / instruerende / beskrivende / forklarende / argumenterende",
+    "Tilgængelighed: brugervenlighed, læsbarhed, multimodalt samspil",
+    "Progression: fra konkret/kropslig til abstrakt/symbolsk repræsentation",
+    "Differentiering: varieret udtryk der åbner for forskellige elevforudsætninger og læringsmåder"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilke repræsentationsformer dominerer i læremidlets udtryk?",
+    "Er der et hensigtsmæssigt multimodalt samspil – tydeliggøres forholdet mellem tekst, billede og diagram?",
+    "Er sproget læsbart – er der balance mellem hverdagssprog og fagsprog, og er begreberne uddybet gradvist?",
+    "Er der en progression i udtrykkets repræsentationsformer fra konkret til abstrakt?",
+    "Hvilke fremstillingsformer dominerer – og er det alderssvarende?",
+    "Åbner udtrykkets mangfoldighed for differentiering i undervisningen?"
+  ],
+  "wizard_trin": "3",
+  "tool_type": "design",
+  "tool_navn": "hansen-udtryk-repraesentationsformer",
+  "trigger": "Analyse og vurdering af læremidlets udtryksdimension – bruges i wizard trin der fokuserer på repræsentation og tilgængelighed",
+  "lærervejledning_sektion": "3"
+}

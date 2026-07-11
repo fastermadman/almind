@@ -1,0 +1,28 @@
+{
+  "kilde": "Hansen, T.I. & Skovmand, K. (2011). Fælles mål og midler, kap. 7.1–7.5",
+  "titel": "Den didaktiske cirkel – fra læreplan til undervisningsplan",
+  "lag": "A",
+  "lag1_teori": "Den didaktiske cirkel beskriver bevægelsen læreplan → årsplan → undervisningsplan → praksis → evaluering → genfortolkning af læreplan. Overgangene kræver fortolkning (læreplan → årsplan), konkretisering (årsplan → undervisningsplan) og realisering (undervisningsplan → praksis). Årsplanen bør indeholde ni kategorier: mål/formål, indhold, udtryk, aktiviteter, samarbejde med andre fag, differentiering, forventninger, evaluering og læremidler – i denne rækkefølge, så læremidler vurderes ud fra allerede formulerede mål og indhold, ikke omvendt. Undervisningsplanen operationaliseres via fem hv-spørgsmål: hvornår (uge), hvad (indhold), hvorfor (mål), hvordan (aktiviteter), hvad så (evaluering). Kortlægningsskemaet (indhold × udtryksformer) konkretiserer forholdet mellem CKF'er og repræsentationsformer pr. klassetrin.",
+  "lag2_kategorier": [
+    "Didaktisk cirkel: læreplan → årsplan → undervisningsplan → praksis → evaluering → genfortolkning",
+    "Tre overgange: fortolkning · konkretisering · realisering",
+    "Ni årsplanskategorier: mål · indhold · udtryk · aktiviteter · samarbejde · differentiering · forventninger · evaluering · læremidler",
+    "Læremidler kommer sidst i årsplanen – vurderes ud fra allerede formulerede mål",
+    "Fem hv-spørgsmål til undervisningsplan: hvornår · hvad · hvorfor · hvordan · hvad så",
+    "Kortlægningsskema: CKF × udtryksformer pr. klassetrin og skoletrin"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilke fortolkningsvalg kræver denne læreplan inden den kan omsættes til årsplan?",
+    "Er mål og indhold formuleret inden læremidlet vælges – eller styrer læremidlet disse valg?",
+    "Hvad er det overordnede, underordnede og specificerede indhold i dette forløb?",
+    "Hvilke udtryksformer er i spil – og er der balance mellem repræsentationsformerne?",
+    "Er der sammenhæng i progressionen på tværs af klassetrin og skoletrin?",
+    "Hvordan evalueres forløbet, og fører evalueringen til en genfortolkning af praksis?"
+  ],
+  "wizard_trin": "1+2",
+  "tool_type": "design",
+  "tool_navn": "hansenskovmand-didaktisk-cirkel",
+  "trigger": "Wizard trin 1 (forløbsprofil) og trin 2 (planlægningsstruktur) – giver det overordnede planlægningssystem som lærervejledningens sektioner er organiseret efter",
+  "lærervejledning_sektion": "2+3+4",
+  "almind_kobling": "Den didaktiske cirkel er den strukturelle begrundelse for lærervejledningens fire sektioner: Sektion 2 (årsplanlægning) = cirklens årsplan-niveau; Sektion 3 (forløbsplanlægning) = undervisningsplan-niveau; Sektion 4 (gennemførelse) = realiserings-niveau. Cirklen forklarer også hvorfor redidaktisering sker naturligt: evaluering fører til genfortolkning."
+}

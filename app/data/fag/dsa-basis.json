@@ -1,0 +1,48 @@
+{
+  "id": "dsa-basis",
+  "navn": "Dansk som andetsprog, basis",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "dsab-bhk-9", "udtryk": "Et trinforløb, hvor der undervises maksimalt to år i faget fra børnehaveklassen-9. klassetrin", "type": "vindue" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "dsab-tale-og-skrive",
+      "navn": "Tale og skrive",
+      "sigte": "At bruge tale- og skriftsprog til at indgå i den faglige undervisning ved brug af kommunikationsstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsab-m1", "trinforloeb": "dsab-bhk-9", "sigte": "Udtrykker sig om alderssvarende emner med et begyndende fagsprog og enkle strategier." }
+      ]
+    },
+    {
+      "id": "dsab-lytte-og-laese",
+      "navn": "Lytte og læse",
+      "sigte": "At møde fag- og hverdagssprog for at forstå indholdet i den faglige undervisning ved brug af forståelsesstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsab-m2", "trinforloeb": "dsab-bhk-9", "sigte": "Samtaler om indhold i tekster og anvender enkle strategier til at forstå indholdet." }
+      ]
+    },
+    {
+      "id": "dsab-sprog-og-sprogbrug",
+      "navn": "Sprog og sprogbrug",
+      "sigte": "At udvikle dansk sprog og forstå sprogets opbygning gennem sammenligning med sprog, eleven kender.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsab-m3", "trinforloeb": "dsab-bhk-9", "sigte": "Undersøger sprogets brug og opbygning og sammenligner dansk med sprog, de kender." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

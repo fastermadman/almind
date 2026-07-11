@@ -1,0 +1,65 @@
+{
+  "id": "matematik",
+  "navn": "Matematik",
+  "familie": "naturfag",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "mat-1-3", "udtryk": "1.-3. klassetrin", "type": "spaend" },
+    { "id": "mat-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" },
+    { "id": "mat-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "mat-matematiske-kerneideer",
+      "navn": "Matematiske kerneidéer",
+      "sigte": "Matematikkens begreber, sammenhænge og repræsentationer — fagets største del, altid til stede, formelt underinddelt i Tal og regnestrategier, Algebra, Geometri og måling samt Statistik og sandsynlighed.",
+      "relation": "gennemgaaende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mat-1-3-m1", "trinforloeb": "mat-1-3", "sigte": "Tal og regnestrategier: bruger naturlige tal og fleksible regnestrategier i titalssystemet." },
+        { "id": "mat-1-3-m2", "trinforloeb": "mat-1-3", "sigte": "Algebra: beskriver generelle sammenhænge og løser problemer med ubekendte tal ved at sammenligne regneudtryk." },
+        { "id": "mat-1-3-m3", "trinforloeb": "mat-1-3", "sigte": "Geometri og måling: beskriver og sammenligner figurers egenskaber og måler længde, vægt og areal." },
+        { "id": "mat-1-3-m4", "trinforloeb": "mat-1-3", "sigte": "Statistik og sandsynlighed: indsamler, organiserer og tolker data om kategorier og antal." },
+        { "id": "mat-4-6-m1", "trinforloeb": "mat-4-6", "sigte": "Tal og regnestrategier: bruger rationale tal og fleksible regnestrategier og forbinder repræsentationer af samme værdi." },
+        { "id": "mat-4-6-m2", "trinforloeb": "mat-4-6", "sigte": "Algebra: beskriver sammenhænge med tabeller, grafer og variable og opstiller og løser ligninger." },
+        { "id": "mat-4-6-m3", "trinforloeb": "mat-4-6", "sigte": "Geometri og måling: undersøger polygoners egenskaber og beregner omkreds, areal og rumfang." },
+        { "id": "mat-4-6-m4", "trinforloeb": "mat-4-6", "sigte": "Statistik og sandsynlighed: tolker data om fordelinger, udviklinger og sandsynlighed." },
+        { "id": "mat-7-9-m1", "trinforloeb": "mat-7-9", "sigte": "Tal og regnestrategier: bruger reelle tal og forhold og forklarer forskelle mellem taltyper." },
+        { "id": "mat-7-9-m2", "trinforloeb": "mat-7-9", "sigte": "Algebra: beskriver funktionelle sammenhænge og løser lineære ligninger grafisk og algebraisk." },
+        { "id": "mat-7-9-m3", "trinforloeb": "mat-7-9", "sigte": "Geometri og måling: begrunder figurers egenskaber og formler for omkreds, areal og rumfang." },
+        { "id": "mat-7-9-m4", "trinforloeb": "mat-7-9", "sigte": "Statistik og sandsynlighed: bruger data og sandsynlighedsmodeller til at sammenligne, forudsige og undersøge." }
+      ]
+    },
+    {
+      "id": "mat-matematiske-taenke-og-handlemaader",
+      "navn": "Matematiske tænke- og handlemåder",
+      "sigte": "Hvordan man arbejder matematisk — problemløsning, modellering og ræsonnement.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mat-1-3-m5", "trinforloeb": "mat-1-3", "sigte": "Bidrager til problemløsning med uformelle strategier og ræsonnementer." },
+        { "id": "mat-4-6-m5", "trinforloeb": "mat-4-6", "sigte": "Løser problemer systematisk og opstiller, anvender og tolker enkle matematiske modeller." },
+        { "id": "mat-7-9-m5", "trinforloeb": "mat-7-9", "sigte": "Løser problemer fleksibelt, ræsonnerer deduktivt og vurderer matematiske modeller." }
+      ]
+    },
+    {
+      "id": "mat-matematik-i-anvendelse",
+      "navn": "Matematik i anvendelse",
+      "sigte": "Hvordan matematik indgår i omverdenen — i sammenhæng med hverdag, samfund og natur.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mat-1-3-m6", "trinforloeb": "mat-1-3", "sigte": "Beskriver situationer, fremstiller produkter og handler i den nære omverden med matematik." },
+        { "id": "mat-4-6-m6", "trinforloeb": "mat-4-6", "sigte": "Tolker matematikholdige tekster og vurderer muligheder og valg i hverdags- og naturforhold." },
+        { "id": "mat-7-9-m6", "trinforloeb": "mat-7-9", "sigte": "Vurderer matematikholdige tekster, skaber overblik og vurderer valg i hverdags-, natur- og samfundsforhold." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

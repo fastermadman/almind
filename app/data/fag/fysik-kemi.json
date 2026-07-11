@@ -1,0 +1,78 @@
+{
+  "id": "fysik-kemi",
+  "navn": "Fysik/kemi",
+  "familie": "naturfag",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "fys-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "fys-undersoegelse-og-modellering",
+      "navn": "Undersøgelse og modellering",
+      "sigte": "Undersøgende og modellerende arbejde, hvor der både skabes modeller gennem undersøgelser og undersøgelser gennem modeller — fagets metodiske fundament.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["natur-teknologi", "biologi", "geografi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fys-7-9-m1", "trinforloeb": "fys-7-9", "sigte": "Udvikler forklaringer på naturfaglige spørgsmål ved at undersøge og modellere og formidle med fagsprog." },
+        { "id": "fys-7-9-m2", "trinforloeb": "fys-7-9", "sigte": "Forholder sig kritisk til egne og andres undersøgelser og modeller og designer selv undersøgelser." }
+      ]
+    },
+    {
+      "id": "fys-energi-og-energiomdannelse",
+      "navn": "Energi og energiomdannelse",
+      "sigte": "Energiens former og de love der gælder ved omdannelse, samt stillingtagen til energiforsyning i et bæredygtigt perspektiv.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fys-7-9-m3", "trinforloeb": "fys-7-9", "sigte": "Identificerer energiomdannelser og forstår at energi ændrer form men er bevaret." },
+        { "id": "fys-7-9-m4", "trinforloeb": "fys-7-9", "sigte": "Bygger elektriske kredsløb til teknologiske løsninger og forholder sig til afhængighed af elektricitet." },
+        { "id": "fys-7-9-m5", "trinforloeb": "fys-7-9", "sigte": "Generaliserer bølgers egenskaber og undersøger transport af energi." }
+      ]
+    },
+    {
+      "id": "fys-universets-bestanddele-og-sammenhaenge",
+      "navn": "Universets bestanddele og sammenhænge",
+      "sigte": "At alt er opbygget af partikler og påvirkes af kræfter — fra atomers opbygning til universets sammenhænge.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fys-7-9-m6", "trinforloeb": "fys-7-9", "sigte": "Formulerer sammenhænge mellem himmellegemers bevægelser og cyklusser på Jorden." },
+        { "id": "fys-7-9-m7", "trinforloeb": "fys-7-9", "sigte": "Undersøger fænomener i universet ved hjælp af modeller og viden om kræfter og bevægelser." },
+        { "id": "fys-7-9-m8", "trinforloeb": "fys-7-9", "sigte": "Undersøger atomets opbygning gennem simuleringer og perspektiverer til historiske teorier." }
+      ]
+    },
+    {
+      "id": "fys-stof-og-stofegenskaber",
+      "navn": "Stof og stofegenskaber",
+      "sigte": "Stoffers opbygning og egenskaber, og kritisk stillingtagen til produktion og forbrug af produkter.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fys-7-9-m9", "trinforloeb": "fys-7-9", "sigte": "Identificerer og forklarer fænomener fra hverdagen ud fra fysiske egenskaber." },
+        { "id": "fys-7-9-m10", "trinforloeb": "fys-7-9", "sigte": "Observerer og modellerer molekylers opbygning og kemiske processer med fagord." },
+        { "id": "fys-7-9-m11", "trinforloeb": "fys-7-9", "sigte": "Undersøger materialers egenskaber og designer løsninger og prototyper på hverdagsudfordringer." }
+      ]
+    },
+    {
+      "id": "fys-en-baeredygtig-fremtid",
+      "navn": "En bæredygtig fremtid",
+      "sigte": "Fænomener og naturfaglige problemstillinger om klima, miljø og bæredygtighed.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["biologi", "geografi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fys-7-9-m12", "trinforloeb": "fys-7-9", "sigte": "Belyser en aktuel problemstilling med kobling af viden fra flere naturfag." },
+        { "id": "fys-7-9-m13", "trinforloeb": "fys-7-9", "sigte": "Argumenterer, tager stilling og handler lokalt på problemstillinger om klima, miljø og sundhed." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

@@ -1,0 +1,64 @@
+{
+  "id": "fransk",
+  "navn": "Fransk",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "fra-6-7", "udtryk": "6.-7. klassetrin", "type": "spaend" },
+    { "id": "fra-8-9", "udtryk": "8.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "fra-sprog-og-sproglaering",
+      "navn": "Sprog og sproglæring",
+      "sigte": "Det franske sprogs opbygning og mønstre, tilegnelse af udtale og ordforråd samt sproglæringsstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fra-6-7-m1", "trinforloeb": "fra-6-7", "sigte": "Eksperimenterer med udtale, ord, fraser og chunks i kommunikative aktiviteter." },
+        { "id": "fra-8-9-m1", "trinforloeb": "fra-8-9", "sigte": "Bruger grundlæggende ordforråd og chunks og tilpasser sproget til konteksten." }
+      ]
+    },
+    {
+      "id": "fra-lytte-laese-opleve",
+      "navn": "Lytte, læse, opleve",
+      "sigte": "Tilegnelse og forståelse af mundtlige, skriftlige og multimodale tekster på fransk.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fra-6-7-m2", "trinforloeb": "fra-6-7", "sigte": "Forstår hovedindholdet af korte tekster med støtte fra billeder, lyd og kontekst." },
+        { "id": "fra-8-9-m2", "trinforloeb": "fra-8-9", "sigte": "Forstår hovedindhold og udvalgte detaljer af sammenhængende tekster." }
+      ]
+    },
+    {
+      "id": "fra-tale-skrive-skabe",
+      "navn": "Tale, skrive, skabe",
+      "sigte": "At udtrykke sig i samtale og selvstændigt producere fransk tilpasset kontekst og formål.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fra-6-7-m3", "trinforloeb": "fra-6-7", "sigte": "Deltager aktivt i korte samtaler og reagerer på andres udsagn." },
+        { "id": "fra-8-9-m3", "trinforloeb": "fra-8-9", "sigte": "Deltager aktivt i meningsfulde samtaler og udtrykker egne meninger sammenhængende." }
+      ]
+    },
+    {
+      "id": "fra-kultur-og-interkulturel-forstaaelse",
+      "navn": "Kultur og interkulturel forståelse",
+      "sigte": "Interkulturel forståelse gennem elevernes møde med fransksprogede kulturer og samfund.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "fra-6-7-m4", "trinforloeb": "fra-6-7", "sigte": "Undersøger fransktalende børn og unges hverdagsliv gennem hverdagsnære temaer." },
+        { "id": "fra-8-9-m4", "trinforloeb": "fra-8-9", "sigte": "Undersøger fransksprogede fællesskaber og forholder sig til andres erfaringer." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

@@ -1,0 +1,46 @@
+{
+  "kilde": "Bang, L.R. (2022). Lærerstyrede tekstsamtaler. Ph.d.-afhandling, Aarhus Universitet. Artikel 1, Artikel 3, Kap. 3, 6 og 8.",
+  "titel": "Samtalegrammatik, polyfoni og fortolkningsfællesskaber — Bang (2022)",
+  "lag": "C",
+  "lag1_teori": "Bang (2022) analyserer empirisk to samtalemodeller i lærerstyrede tekstsamtaler: gymnasiets IRE-samtale (initiativ-respons-evaluering) og Forfatterskolens OSMT-samtale (observation-supplering-modstand-tilslutning). IRE dominerer gymnasiet (79% af samtaleenheder er IRE-baserede) og producerer konformitet: eleverne gætter på lærerens forventede svar og er andreparter der svarer, ikke førstetalere der bidrager. OSMT-logikken (jazz-samtalen) åbner for divergente diskurstråde og polyfoni: eleverne er medskabere af diskurserne. Jazz/partitur-metaforen beskriver de to samtaletyper: partitur-samtalen følger et fastlagt manuskript med klare overgangsrelevante steder (ORS); jazz-samtalen improviserer inden for en norm med mulige færdiggørelsespunkter (MFP) der skaber kollektiv tænketid. Tre teoretiske begreber forankrer analysen: Fishs fortolkningsfællesskaber (fortolkning er altid formet af fællesskabets normer og kutyme), Bakhtins polyfoni (det indre overbevisende ord vs. det autoritative ord), og Hetmars diskurstråde (sagsrelaterede/regulerende · eksplicitte/implicitte · konvergente/divergente).",
+  "lag2_kategorier": [
+    "IRE: initiativ-respons-evaluering — læreren er altid førstetaler, eleven svarer og evalueres",
+    "OSMT: observation-supplering-modstand-tilslutning — eleverne er medskabere",
+    "79% IRE: empirisk dokumentation — gymnasiesamtalen er ikke demokratisk selvom den lader som om",
+    "Jazz/partitur: partitur = fastlagt manuskript med ORS · jazz = improvisation med MFP og kollektiv tænketid",
+    "ORS (overgangsrelevante steder): klart signal om hvornår man må tale — spørgsmålet efterlader altid et ORS",
+    "MFP (mulige færdiggørelsespunkter): uklart hvornår turen slutter — åbner for at alle kan blive førstetaler",
+    "Fortolkningsfællesskaber (Fish): fortolkning er formet af fællesskabets normer — læreren demonstrerer spillereglerne",
+    "Det indre overbevisende ord (Bakhtin): ord der overtager ved at demonstreres, ikke udstedes som autoritet",
+    "Det autoritative ord (Bakhtin): monologisk — lægger ikke op til elevens egen tænkning",
+    "Diskurstråde (Hetmar): konvergente (ét rigtigt svar) vs. divergente (mange gyldige bidrag)",
+    "IRE-divergens: invitation til personlig oplevelse inden for en ramme læreren har defineret — divergens med loft",
+    "OSMT-divergens: ingen afgrænset ramme — den æstetiske oplevelse er individuel og aldrig forkert",
+    "Polyfoni: sameksistens af mange stemmer — lav polyfoni i IRE, høj polyfoni i OSMT",
+    "Prima vista-princippet: ingen har læst teksten på forhånd — demokratisk ligestilling i mødet med teksten",
+    "Demokratisk dilemma: læreren inviterer til fri deltagelse men trækker invitationen tilbage med ledende spørgsmål",
+    "Transformation: læreren kan omdanne spørgsmål til udsagn — skaber MFP frem for ORS"
+  ],
+  "lag3_spørgsmål": [
+    "Er spørgsmålene i forløbet autentiske (læreren ejer ikke svaret) eller displayspørgsmål (ét rigtigt svar)?",
+    "Producerer samtalestrukturen ORS (eleverne venter på tur) eller MFP (eleverne kan blive førstetalere)?",
+    "Er der optag — bygger læreren videre på elevens bidrag frem for at evaluere det?",
+    "Er diskurstrådene konvergente (ét facit efterspørges) eller divergente (mange bidrag er gyldige)?",
+    "Er der polyfoni — høres mange elevstemmer, eller dominerer læreren og én elev?",
+    "Demonstrerer læreren det indre overbevisende ord — eller udsteder hun det autoritative ord?",
+    "Kan læreren omdanne ét spørgsmål til et udsagn for at åbne for OSMT-logik?",
+    "Er fortolkningsfællesskabets spilleregler demonstreret i praksis eller forklaret som regler?"
+  ],
+  "wizard_trin": "3+4",
+  "tool_type": "design",
+  "tool_navn": "bang-samtalegrammatik",
+  "trigger": "Alle faser med klassedialog, gruppediskussion eller mundtlig aktivitet — bruges til at begrunde samtalestruktur og spørgsmålsdesign i lærervejledningen",
+  "lærervejledning_sektion": "3+4",
+  "almind_implikation": "Lærervejledningens Sektion 4 (gennemførelse) bruger Bang til at specificere lærerens konkrete samtalehandlinger: hvilke spørgsmål der er autentiske, hvornår læreren bør trække sig og observere, hvornår optag er afgørende. [!bang]-boksen i wizard-outputtet specificerer samtalestruktur per fase.",
+  "krydsreferencer": [
+    "Brodersen (2021) — autentiske spørgsmål og optag er Dysthes begreber, anvendt i Brodersens dialog-artikel (art. 4)",
+    "Dysthe (2012) — polyfoni og flerstemmighed er det teoretiske grundlag Bang operationaliserer empirisk",
+    "Biesta (2010) — subjektifikation kræver OSMT-logik: eleven kan ikke træde frem som etisk subjekt i IRE-samtalen",
+    "Hansen, Graf & Hansen (2012) kap. 9 — åbne vs. lukkede opgaver svarer til OSMT vs. IRE på aktivitetsniveau"
+  ]
+}

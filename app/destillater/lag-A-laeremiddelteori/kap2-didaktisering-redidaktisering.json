@@ -1,0 +1,26 @@
+{
+  "kilde": "Hansen, J.J. (2012). Mellem læremiddeldesign og didaktisk design + Didaktisering og redidaktisering + Redidaktisering af didaktiske læremidler. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 2.1–2.4",
+  "titel": "Didaktisering og redidaktisering – fra læremiddeldesign til didaktisk design",
+  "lag": "A",
+  "lag1_teori": "Lærerens planlægningsarbejde befinder sig i spændingsfeltet mellem afkodning af læremiddeldesign og formgivning af et didaktisk design. Didaktisering er den planlægningsproces hvor læreren transformerer et semantisk læremiddel til et didaktisk design under hensyntagen til mål, indhold, metoder, elevforudsætninger og rammer. Redidaktisering er tilsvarende transformation af et didaktisk læremiddel. Tre planlægningsstrategier karakteriserer læreres tilgang: uafhængig (plukker frit), læremiddelstyret (følger læremidlets design), læremiddelstøttet (bruger som idékatalog). Strategivalget afhænger af lærerens praksisteori – et sammensat system af viden, erfaringer og værdier der ligger bag den pædagogiske selvforståelse.",
+  "lag2_kategorier": [
+    "Didaktisering: transformation af semantisk læremiddel → didaktisk design",
+    "Redidaktisering: transformation af didaktisk læremiddel → nyt didaktisk design",
+    "Tre planlægningsstrategier: uafhængig / læremiddelstyret / læremiddelstøttet",
+    "Praksisteori: tavs viden, erfaringer og værdier bag lærerens pædagogiske praksis",
+    "Læremiddeldesign: indlejrede beslutningsfelter om mål, indhold, metoder, evaluering",
+    "Didaktisk design: konkret undervisningsplan med mål og handlinger"
+  ],
+  "lag3_spørgsmål": [
+    "Er processen her didaktisering (fra semantisk) eller redidaktisering (fra didaktisk læremiddel)?",
+    "Hvilken planlægningsstrategi anvender læreren – og er det bevidst?",
+    "Hvilke elementer af læremiddeldesignet overtages, og hvilke transformeres?",
+    "Hvilke aspekter af lærerens praksisteori er i spil ved valg og bearbejdning af dette læremiddel?",
+    "Lever det nye didaktiske design op til undervisningens mål, elevforudsætninger og rammer?"
+  ],
+  "wizard_trin": "2",
+  "tool_type": "fundament",
+  "tool_navn": "hansen-didaktisering-redidaktisering",
+  "trigger": "Wizard trin 2: Det centrale begrebspar for Almind-forking – hvad sker der når en lærer bearbejder et læremiddel?",
+  "lærervejledning_sektion": "2+3"
+}

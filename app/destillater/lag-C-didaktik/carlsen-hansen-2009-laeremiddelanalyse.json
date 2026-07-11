@@ -1,0 +1,40 @@
+{
+  "kilde": "Carlsen, B. & Hansen, T.I. (2009). Læremidler i folkeskolen. I: Karsten Schnack (red.), Didaktik på kryds og tværs. Danmarks Pædagogiske Universitetsforlag. s. 9–29.",
+  "titel": "Læremidler — definition, dimensioner og læremiddelfaglighed",
+  "lag": "C",
+  "lag1_teori": "Carlsen & Hansen definerer læremidler som 'midler der bringes ind i undervisnings- og læringssammenhænge med elevens læring som mål'. Alle læremidler har tre dimensioner: vidensdimensionen (hvad skal eleven lære?), læringsdimensionen (hvordan skal eleven lære det?) og undervisningsdimensionen (hvordan kan undervisningen planlægges, gennemføres og evalueres?). Tre typer: tekster (selvberoende tematisk indhold — skønlitteratur, film, billeder), redskaber (lærings- og undervisningsredskaber) og didaktiske læremidler (designede materialer med bestemt fortolkning af fag, undervisning og læring der vil noget med eleven OG noget med læreren). Læremiddelfaglighed er lærerens kompetence til at analysere, planlægge med, anvende, evaluere og udvikle læremidler kritisk. Analyseguiden operationaliserer de tre dimensioner i konkrete kriterier: videnskriterier (fagsyn, trinmål, indholdsstruktur), undervisningsmæssige kriterier (differentiering, evaluering, lærerrolle) og læringskriterier (læringssyn, opgavetyper, elevrolle).",
+  "lag2_kategorier": [
+    "Definition: midler der bringes ind i undervisnings- og læringssammenhænge med elevens læring som mål",
+    "Vidensdimension: hvad skal eleven lære? — fagsyn, trinmål, indholdsstruktur",
+    "Læringsdimension: hvordan skal eleven lære det? — læringssyn, opgavetyper, elevrolle",
+    "Undervisningsdimension: hvordan planlægges, gennemføres og evalueres? — differentiering, lærerrolle, evaluering",
+    "Tre typer: tekster (selvberoende indhold) · redskaber (lærings- og undervisningsredskaber) · didaktiske læremidler (designede med bestemt fortolkning)",
+    "Didaktisk læremiddel: vil noget med eleven OG noget med læreren",
+    "Læremiddelfaglighed: analytisk · planlægning · praktisk handling · evaluering · udvikling",
+    "Analyseguide: videnskriterier · undervisningsmæssige kriterier · læringskriterier",
+    "Lærerroller: formidler · facilitator · vejleder · evaluator",
+    "Opgavetyper progression: reproduktion → analyse → fortolkning → vurdering",
+    "Elevroller: reproducerende ↔ udforskende"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilken af de tre dimensioner dækker dette læremiddel stærkest — og hvad overlader det til læreren?",
+    "Hvilket fagsyn er indlejret — implicit eller eksplicit?",
+    "Hvilken lærerrolle inviterer materialet til — formidler, facilitator, vejleder eller evaluator?",
+    "Hvilken elevrolle dominerer — reproducerende eller udforskende?",
+      "Hvilke opgavetyper er til stede — og er der progression fra reproduktion mod vurdering?",
+    "Vil læremidlet noget med eleven? Vil det noget med læreren? Er de to intentioner afstemt?",
+    "Hvilke differentieringsmetoder er til stede — og hvilke er tomme pladser?"
+  ],
+  "wizard_trin": "1+2",
+  "tool_type": "fundament",
+  "tool_navn": "carlsen-hansen-laeremiddelanalyse",
+  "trigger": "Trin 1 og 2 i wizard — bruges til at karakterisere og analysere det forløb der transformeres. De tre dimensioner er det analytiske grundbegreb der bærer hele lærervejledningens struktur.",
+  "lærervejledning_sektion": "1+2+3",
+  "almind_implikation": "De tre dimensioner (videns/lærings/undervisning) strukturerer dækningsgradsprofilen i wizard-outputtet. Analyseguidens tre kriterie-kategorier (videns/undervisning/lærings) svarer direkte til lærervejledningens tre analyseakser. Tomme pladser i undervisningsdimensionen (differentiering, evaluering) er de hyppigste fork-invitationer i Almind-forløb.",
+  "krydsreferencer": [
+    "Gissel & Pettersson (2024) — didaktisk dækningsgrad operationaliserer Carlsen & Hansens undervisningsdimension med seks konkrete akser",
+    "Hansen, Graf & Hansen (2012) kap. 1 — fire læremiddeltyper uddyber Carlsen & Hansens tre typer",
+    "Hansen & Skovmand (2011) kap. 5 — Læremiddeltjek med 6 parametre udvider analyseguiden",
+    "Brodersen (2021) — undervisningsdimensionens metode-aspekt belyses via virksomhedsformer"
+  ]
+}

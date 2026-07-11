@@ -17,7 +17,6 @@
     <nav class="site-nav" aria-label="Hovednavigation">
       <a href="index.html">Forside</a>
       <a href="browse.html">Alle forløb</a>
-      <a href="graph.html">Konstellation</a>
       <a href="preview.html?id=dss-v1">Preview</a>
       <a class="knap" href="upload.html">Del et forløb</a>
     </nav>
@@ -66,7 +65,7 @@
 </div>
 
 <script type="module">
-  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
   import { dgProfil, pladsFold } from "./assets/js/komponenter.js";
   import { renderFaseIndhold } from "./assets/js/dokument.js";
@@ -83,8 +82,10 @@
     ? [f.tags.strategi, f.tags.anslag_type ? "Anslag: " + f.tags.anslag_type : null, f.tags.evalueringsform]
         .filter((t) => t && t !== "Ingen (åben plads)")
     : [];
+  // Fag-tagget linker til fag-forsiden (E.3a) og viser fagets navn, ikke id'et
+  const fagPost = (await hentFagIndex()).find((x) => x.id === f.fag);
   document.getElementById("tags").innerHTML =
-    `<span class="tag">${f.fag}</span><span class="tag neutral">${f.klassetrin}</span>` +
+    `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a><span class="tag neutral">${f.klassetrin}</span>` +
     (f.tema || []).slice(0, 3).map((t) => `<span class="tag neutral">${t}</span>`).join("") +
     maskintags.map((t) => `<span class="tag neutral" title="Fra wizard-profilen">${t}</span>`).join("");
   document.getElementById("titel").textContent = f.titel;

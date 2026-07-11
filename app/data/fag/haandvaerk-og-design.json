@@ -1,0 +1,52 @@
+{
+  "id": "haandvaerk-og-design",
+  "navn": "Håndværk og design",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "hod-3-4", "udtryk": "3.-4. klassetrin", "type": "spaend" },
+    { "id": "hod-5-6", "udtryk": "5.-6. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "hod-haandvaerk-og-skabende-processer",
+      "navn": "Håndværk og skabende processer",
+      "sigte": "Håndværksmæssige færdigheder og håndtering af værktøjer, redskaber og maskiner i undersøgende og kreative arbejdsformer.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "hod-3-4-m1", "trinforloeb": "hod-3-4", "sigte": "Arbejder med grundlæggende håndværksteknikker i skabende processer og enkle designopgaver." },
+        { "id": "hod-5-6-m1", "trinforloeb": "hod-5-6", "sigte": "Udvikler og skaber ting til et formål gennem kreativ formgivning." }
+      ]
+    },
+    {
+      "id": "hod-materialer-og-ressourcer",
+      "navn": "Materialer og ressourcer",
+      "sigte": "At skelne, vurdere og vælge mellem materialer med omtanke for ressourceforbrug og holdbarhed.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "hod-3-4-m2", "trinforloeb": "hod-3-4", "sigte": "Undersøger materialer gennem håndværksmæssig bearbejdning med omtanke for holdbarhed og spild." },
+        { "id": "hod-5-6-m2", "trinforloeb": "hod-5-6", "sigte": "Formgiver ting med fokus på materialers egenskaber og holdbarhed." }
+      ]
+    },
+    {
+      "id": "hod-ting-og-haandvaerkskultur",
+      "navn": "Ting og håndværkskultur",
+      "sigte": "Tingenes funktion og udtryk i sammenhæng med materialer og teknikker på tværs af tider og kulturer.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "hod-3-4-m3", "trinforloeb": "hod-3-4", "sigte": "Undersøger håndværksmæssige kulturteknikker og fremstiller ting med en bestemt funktion." },
+        { "id": "hod-5-6-m3", "trinforloeb": "hod-5-6", "sigte": "Afprøver håndværksteknikker fra forskellige kulturer og udvikler ting ud fra egne designs." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

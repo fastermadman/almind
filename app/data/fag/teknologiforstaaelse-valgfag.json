@@ -1,0 +1,50 @@
+{
+  "id": "teknologiforstaaelse-valgfag",
+  "navn": "Teknologiforståelse (valgfag)",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "tekv-7-9", "udtryk": "7.-8. eller 8.-9. klassetrin", "type": "enten-eller" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "tekv-digital-kreativitet-og-design",
+      "navn": "Digital kreativitet og design",
+      "sigte": "At skabe digitale artefakter gennem iterative processer med kreative metoder og designvalg.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tekv-m1", "trinforloeb": "tekv-7-9", "sigte": "Arbejder iterativt med at skabe digitale artefakter med kreative metoder og argumentation for egne valg." }
+      ]
+    },
+    {
+      "id": "tekv-programmering-og-modellering",
+      "navn": "Programmering og modellering",
+      "sigte": "De konstruktive lag bag digitale teknologier — materielt grundlag, programmering og modellering — og programmering som sprog og håndværk.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tekv-m2", "trinforloeb": "tekv-7-9", "sigte": "Bruger programmering som sprog og værktøj og diskuterer fejl og tilpasninger med programmeringsbegreber." },
+        { "id": "tekv-m3", "trinforloeb": "tekv-7-9", "sigte": "Undersøger modellers perspektiver og bias gennem diagrammer og afprøvning mod verden." }
+      ]
+    },
+    {
+      "id": "tekv-undersoegelse-og-stillingtagen",
+      "navn": "Undersøgelse og stillingtagen",
+      "sigte": "At undersøge og tage stilling til den gensidige påvirkning mellem mennesker og digitale teknologier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tekv-m4", "trinforloeb": "tekv-7-9", "sigte": "Undersøger digitale fænomener i eget hverdagsliv." },
+        { "id": "tekv-m5", "trinforloeb": "tekv-7-9", "sigte": "Tager stilling til digitale fænomeners betydning på baggrund af praktiske undersøgelser og bredere perspektiver." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

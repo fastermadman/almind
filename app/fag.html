@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fag · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container" id="side">
+
+  <header class="site-header">
+    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
+    <nav class="site-nav" aria-label="Hovednavigation">
+      <a href="index.html">Forside</a>
+      <a href="browse.html">Alle forløb</a>
+      <a href="preview.html?id=dss-v1">Preview</a>
+      <a class="knap" href="upload.html">Del et forløb</a>
+    </nav>
+  </header>
+
+  <div class="detalje-hoved">
+    <div class="kort-tags" id="tags"></div>
+    <h1 id="titel"></h1>
+    <div class="metadata" id="meta"></div>
+    <div class="noegleideer-raekke" id="noegleideer" hidden></div>
+  </div>
+
+  <div class="filterraekke" id="trin-filtre" role="group" aria-label="Filtrér på trinforløb"></div>
+
+  <section aria-labelledby="dk-titel">
+    <h2 class="sektionstitel" id="dk-titel">Dækningskort</h2>
+    <p class="metadata" style="max-width:64ch;">
+      Fagets indholdsområder krydset med forløb, der har koblet sig på dem.
+      Et tomt område er ikke en mangel — det er en invitation.
+    </p>
+    <div class="daekningskort" id="daekningskort"></div>
+  </section>
+
+  <section class="panel kanon-panel" id="kanon-panel" hidden style="margin-bottom:2.5rem;">
+    <h2 id="kanon-titel"></h2>
+    <div class="kanon-punkter" id="kanon-punkter"></div>
+  </section>
+
+  <section aria-labelledby="fl-titel">
+    <h2 class="sektionstitel" id="fl-titel">Forløb</h2>
+    <div class="kortgrid" id="forloebsliste"></div>
+    <p class="metadata" style="margin-top:1.5rem;">
+      <a href="graph.html">Se forløbenes slægtskab og delte indholdsområder på tværs af fag i konstellationen →</a>
+    </p>
+  </section>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+
+<script type="module">
+  import { hentFag, hentFagIndex, hentForloeb, familieFor, FAMILIER } from "./assets/js/data.js";
+  import { forloebKort } from "./assets/js/komponenter.js";
+  import { stagger } from "./assets/js/motion.js";
+
+  const fagId = new URLSearchParams(location.search).get("id") || "dansk";
+  const fagIndex = await hentFagIndex();
+  const alle = await hentForloeb();
+
+  let fag = null;
+  try { fag = await hentFag(fagId); } catch { /* ukendt id håndteres nedenfor */ }
+  if (!fag) {
+    document.getElementById("titel").textContent = "Ukendt fag";
+    document.getElementById("daekningskort").innerHTML =
+      `<div class="tom-tilstand" style="grid-column:1/-1;">Faget "${fagId}" findes ikke.<br><br>
+       <a class="knap" href="browse.html">Se alle forløb</a></div>`;
+    throw new Error(`ukendt fag-id: ${fagId}`);
+  }
+
+  const fam = familieFor(fag.id);
+  document.getElementById("side").dataset.fag = fam;
+  document.title = `${fag.navn} · Almind`;
+  const fagNavn = (id) => fagIndex.find((f) => f.id === id)?.navn || id;
+
+  // ---------- hoved ----------
+  const fagForloeb = alle.filter((f) => f.fag === fag.id);
+  const tags = document.getElementById("tags");
+  tags.innerHTML = `
+    <span class="tag">${FAMILIER[fam]?.navn || fag.familie}</span>
+    <span class="tag neutral">fagplan ${fag.fagplan_version} · ${fag.fagplan_status}</span>
+  `;
+  if (fag.valgfag_af) {
+    const a = document.createElement("a");
+    a.className = "tag neutral";
+    a.href = `fag.html?id=${fag.valgfag_af}`;
+    a.textContent = `Valgfag af ${fagNavn(fag.valgfag_af)}`;
+    tags.appendChild(a);
+  }
+  document.getElementById("titel").textContent = fag.navn;
+  document.getElementById("meta").textContent =
+    `${fagForloeb.length} ${fagForloeb.length === 1 ? "forløb" : "forløb"} · ${fag.indholdsomraader.length} indholdsområder`;
+
+  if (fag.noegleideer?.length) {
+    const wrap = document.getElementById("noegleideer");
+    wrap.hidden = false;
+    wrap.innerHTML = `<span class="label">Nøgleidéer — tværgående linser:</span>` +
+      fag.noegleideer.map((n) => `<span class="noegleide">${n}</span>`).join("");
+  }
+
+  // ---------- trinforløb-filter ----------
+  // Ét filter styrer både dækningskort og forløbsliste. Fagets EGNE udtryk
+  // (arkitektur 7.1) — børnehaveklassen har ingen og får ingen knapper.
+  let valgtTrin = null; // trinforloeb-id, fx "idr-4-6"
+  const trinWrap = document.getElementById("trin-filtre");
+  (fag.trinforloeb || []).forEach((t) => {
+    const b = document.createElement("button");
+    b.className = "filter-pill";
+    b.textContent = t.udtryk;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      valgtTrin = valgtTrin === t.id ? null : t.id;
+      trinWrap.querySelectorAll(".filter-pill").forEach((x) =>
+        x.setAttribute("aria-pressed", String(x === b && valgtTrin === t.id)));
+      tegn();
+    });
+    trinWrap.appendChild(b);
+  });
+
+  // Forløbs-klassetrin ("7.-9. klasse") matches mod fagets udtryk ("7.-9.
+  // klassetrin") på taltokens, ikke tekst — ordvalget varierer mellem fag og
+  // ældre forløb. Uden tal (børnehaveklassen): løs tekstsammenligning.
+  function trinMatch(klassetrin, udtryk) {
+    const tal = (s) => (s.match(/\d+/g) || []).slice(0, 2).join("-");
+    const a = tal(klassetrin || ""), b = tal(udtryk || "");
+    if (a && b) return a === b;
+    return (klassetrin || "").toLowerCase().includes((udtryk || "").toLowerCase().slice(0, 8));
+  }
+  const udtrykFor = (trinId) => fag.trinforloeb.find((t) => t.id === trinId)?.udtryk || trinId;
+
+  // ---------- dækningskort ----------
+  const RELATION_TEKST = {
+    overordnet: "overordnet",
+    gennemgaaende: "gennemgående",
+    perspektiv: "perspektiv",
+    understoettende: "understøttende",
+  };
+  // Layoutrækkefølge: overordnede rammer øverst, gennemgående bånd nederst —
+  // hierarkiet vises med placering og bredde, badges er sekundære.
+  const ORDEN = { overordnet: 0, sideordnet: 1, perspektiv: 1, understoettende: 1, gennemgaaende: 2 };
+
+  function koblede(omr) {
+    let liste = fagForloeb.filter((f) => f.fagplan_ref?.indholdsomraader?.includes(omr.id));
+    if (valgtTrin) liste = liste.filter((f) => trinMatch(f.klassetrin, udtrykFor(valgtTrin)));
+    return liste;
+  }
+
+  function omraadeKort(omr) {
+    const kort = document.createElement("div");
+    const rel = omr.relation || "sideordnet";
+    kort.className = "omraade-kort"
+      + (ORDEN[rel] !== 1 ? " fuldbredde" : "")
+      + (rel === "gennemgaaende" ? " gennemgaaende" : "");
+
+    // Områder scoped til bestemte trinforløb dæmpes (forsvinder ikke) når
+    // et andet trin er valgt — kortet viser altid fagets fulde struktur.
+    const udenforTrin = valgtTrin && omr.trinforloeb?.length && !omr.trinforloeb.includes(valgtTrin);
+    if (udenforTrin) kort.classList.add("udenfor-trin");
+
+    const badge = rel !== "sideordnet" ? `<span class="relation-badge">${RELATION_TEKST[rel]}</span>` : "";
+    const faelles = omr.faelles_med?.length
+      ? `<div class="faelles-linje">Deles med ${omr.faelles_med.map((id) =>
+          `<a href="fag.html?id=${id}">${fagNavn(id)}</a>`).join(" · ")}</div>`
+      : "";
+
+    const maal = (omr.maal || []).filter((m) => !valgtTrin || m.trinforloeb === valgtTrin);
+    const maalFold = maal.length
+      ? `<details class="maal-fold"><summary>Mål (${maal.length})</summary><ul>` +
+        maal.map((m) => `<li>${valgtTrin ? "" : `<span class="maal-trin">${udtrykFor(m.trinforloeb)}</span>`}${m.sigte || m.id}</li>`).join("") +
+        `</ul></details>`
+      : "";
+
+    const forloeb = koblede(omr);
+    const daekning = forloeb.length
+      ? `<div class="daekning-status"><span class="antal-badge">${forloeb.length}</span>${forloeb.length === 1 ? "forløb åbner" : "forløb åbner"} dette område<ul>` +
+        forloeb.map((f) => `<li><a href="sequence.html?id=${f.id}">${f.titel}</a></li>`).join("") +
+        `</ul></div>`
+      : `<div class="omraade-invitation">Ingen forløb åbner dette område endnu —
+         <a href="upload.html?wizard=1">vær den første</a>.</div>`;
+
+    kort.innerHTML = `
+      <div class="omraade-hoved"><h3>${omr.navn}</h3>${badge}</div>
+      <p class="omraade-sigte">${omr.sigte || ""}</p>
+      ${faelles}
+      ${maalFold}
+      ${udenforTrin ? `<span class="udenfor-trin-note">ikke i ${udtrykFor(valgtTrin)}</span>` : daekning}
+    `;
+    return kort;
+  }
+
+  // ---------- kanon ----------
+  if (fag.kanon) {
+    const panel = document.getElementById("kanon-panel");
+    panel.hidden = false;
+    document.getElementById("kanon-titel").textContent = fag.kanon.titel;
+    document.getElementById("kanon-punkter").innerHTML =
+      (fag.kanon.punkter || []).map((p) => `<span class="kanon-punkt">${p}</span>`).join("");
+  }
+
+  // ---------- render ----------
+  const dkWrap = document.getElementById("daekningskort");
+  const flWrap = document.getElementById("forloebsliste");
+
+  function tegn() {
+    dkWrap.innerHTML = "";
+    [...fag.indholdsomraader]
+      .sort((a, b) => (ORDEN[a.relation || "sideordnet"] ?? 1) - (ORDEN[b.relation || "sideordnet"] ?? 1))
+      .forEach((omr) => dkWrap.appendChild(omraadeKort(omr)));
+
+    let liste = fagForloeb;
+    if (valgtTrin) liste = liste.filter((f) => trinMatch(f.klassetrin, udtrykFor(valgtTrin)));
+    flWrap.innerHTML = "";
+    if (!liste.length) {
+      flWrap.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">
+        Ingen ${fag.navn}-forløb${valgtTrin ? ` i ${udtrykFor(valgtTrin)}` : ""} endnu.
+        Det er ikke en mangel. Det er en åben plads.<br><br>
+        <a class="knap" href="upload.html?wizard=1">Bliv den første: byg et forløb</a></div>`;
+    } else {
+      liste.forEach((f) => flWrap.appendChild(forloebKort(f, alle)));
+      stagger([...flWrap.children], 35);
+    }
+  }
+
+  tegn();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "kilde": "Hansen, J.J. (2012). Didaktiske læremidlers funktionstypologi. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 2.2",
+  "titel": "Funktionstypologi for didaktiske læremidler",
+  "lag": "A",
+  "lag1_teori": "Didaktiske læremidler har en differentieret funktionsprofil og kan varetage forskellige undervisningsfunktioner: de kan strukturere og styre undervisningen, fungere som hjælperedskab for læreren, eller udgøre et selvstændigt læringsrum for eleven. Funktionstypologien synliggør at læremidlet på den ene side aflaster læreren, men på den anden side indlejrer bestemte styringsformer der kan udfordre lærerens pædagogiske suverænitet. Læreren stilles derfor over for opgaven at afkode læremiddeldesignet og dets konsekvenser forud for redidaktisering.",
+  "lag2_kategorier": [
+    "Styrende funktion: læremidlet strukturerer og dirigerer undervisningsforløbet",
+    "Støttende funktion: læremidlet fungerer som hjælperedskab og inspirationskilde",
+    "Læringsrum: læremidlet udgør et selvstændigt rum for elevens arbejde",
+    "Indlejrede beslutningsfelter: mål, indhold, metode og evaluering er nedlagt i designet",
+    "Pædagogisk suverænitet: lærerens autonomi over undervisningens formgivning"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilken funktionsprofil har læremidlet – er det primært styrende, støttende eller udgør det et selvstændigt læringsrum?",
+    "Hvilke beslutningsfelter er indlejret i læremiddeldesignet, og hvilke overlades til læreren?",
+    "I hvilken grad udfordrer læremidlets styringsform lærerens pædagogiske suverænitet?",
+    "Hvilke funktioner ønsker læreren at bevare, ændre eller supplere ved redidaktisering?"
+  ],
+  "wizard_trin": "2",
+  "tool_type": "design",
+  "tool_navn": "hansen-funktionstypologi",
+  "trigger": "Analyse af et konkret didaktisk læremiddels funktionsprofil forud for forking",
+  "lærervejledning_sektion": "2"
+}

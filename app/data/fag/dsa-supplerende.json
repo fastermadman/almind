@@ -1,0 +1,56 @@
+{
+  "id": "dsa-supplerende",
+  "navn": "Dansk som andetsprog, supplerende",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "dsas-bhk-3", "udtryk": "Børnehaveklassen-3. klasse", "type": "spaend" },
+    { "id": "dsas-4-6", "udtryk": "4.-6. klasse", "type": "spaend" },
+    { "id": "dsas-7-9", "udtryk": "7.-9. klasse", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "dsas-tale-og-skrive",
+      "navn": "Tale og skrive",
+      "sigte": "At bruge tale- og skriftsprog til at indgå i den faglige undervisning ved brug af kommunikationsstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsas-bhk-3-m1", "trinforloeb": "dsas-bhk-3", "sigte": "Udtrykker sig om emner der optager dem og bruger et begyndende fagsprog." },
+        { "id": "dsas-4-6-m1", "trinforloeb": "dsas-4-6", "sigte": "Udtrykker sig om relevante faglige emner i et mere præcist fagsprog." },
+        { "id": "dsas-7-9-m1", "trinforloeb": "dsas-7-9", "sigte": "Udtrykker sig om aktuelle emner i et nuanceret fagsprog i forskellige kommunikationssituationer." }
+      ]
+    },
+    {
+      "id": "dsas-lytte-og-laese",
+      "navn": "Lytte og læse",
+      "sigte": "At bruge fag- og hverdagssprog til at forstå indholdet i den faglige undervisning ved brug af forståelsesstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsas-bhk-3-m2", "trinforloeb": "dsas-bhk-3", "sigte": "Samtaler om indhold i tekster og giver udtryk for forståelse og oplevelser." },
+        { "id": "dsas-4-6-m2", "trinforloeb": "dsas-4-6", "sigte": "Samtaler om og forklarer formål og indhold med oplæg eller tekst." },
+        { "id": "dsas-7-9-m2", "trinforloeb": "dsas-7-9", "sigte": "Undersøger og diskuterer sproget i tekster i forhold til emne og formål." }
+      ]
+    },
+    {
+      "id": "dsas-sprog-og-sproglaering",
+      "navn": "Sprog og sproglæring",
+      "sigte": "At udvikle dansk sprog og forstå sprogets opbygning gennem sammenligning med sprog, eleven kender.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dsas-bhk-3-m3", "trinforloeb": "dsas-bhk-3", "sigte": "Leger med sprogets form og får begyndende forståelse for brugen af dansk i faglig undervisning." },
+        { "id": "dsas-4-6-m3", "trinforloeb": "dsas-4-6", "sigte": "Eksperimenterer med sprogets form og forstår hvordan det bruges og er opbygget." },
+        { "id": "dsas-7-9-m3", "trinforloeb": "dsas-7-9", "sigte": "Eksperimenterer med sprogets form og er bevidste om sprogbrug i faglig undervisning." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

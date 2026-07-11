@@ -1,0 +1,59 @@
+{
+  "id": "musik-valgfag",
+  "navn": "Musik (valgfag)",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "musv-7-9", "udtryk": "7.-8. eller 8.-9. klassetrin", "type": "enten-eller" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "musv-at-lave-musik",
+      "navn": "At lave musik",
+      "sigte": "Selv at lave musik gennem skabende processer — sang, sammenspil, digital musikproduktion, improvisation, komposition og arrangement.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "musv-m1", "trinforloeb": "musv-7-9", "sigte": "Eksperimenterer med og udtrykker sig gennem musik og lyd med stemme, krop, instrumenter og digitale redskaber." }
+      ]
+    },
+    {
+      "id": "musv-at-opleve-musik",
+      "navn": "At opleve musik",
+      "sigte": "Fordybelse i egne musikoplevelser og nuanceret forståelse af musik som fænomen og del af liv, kultur og identitet.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "musv-m2", "trinforloeb": "musv-7-9", "sigte": "Fortolker, nuancerer og deler erfaringer med hvordan musik opleves, forstås og anvendes." }
+      ]
+    },
+    {
+      "id": "musv-haandvaerk",
+      "navn": "Håndværk",
+      "sigte": "Praktiske og teoretiske redskaber i musikaktiviteter, herunder musikteori og hørelære — understøtter de to centrale områder.",
+      "relation": "understoettende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "musv-m3", "trinforloeb": "musv-7-9", "sigte": "Anvender varierede musikalske redskaber og teknikker med stigende sikkerhed og fagsprog." }
+      ]
+    },
+    {
+      "id": "musv-musik-i-brug",
+      "navn": "Musik i brug",
+      "sigte": "At udvikle og iværksætte oplevelser hvor musik bruges til gavn for andre, og undersøge musikkens rolle i familie-, skole- og samfundsliv — nyt område, findes ikke i det obligatoriske fag.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "musv-m4", "trinforloeb": "musv-7-9", "sigte": "Iværksætter og vurderer brug af musik og lyd gennem musikalske bidrag der gør en forskel for andre." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": "musik"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "tysk",
+  "navn": "Tysk",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "tys-6-7", "udtryk": "6.-7. klassetrin", "type": "spaend" },
+    { "id": "tys-8-9", "udtryk": "8.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "tys-sprog-og-sproglaering",
+      "navn": "Sprog og sproglæring",
+      "sigte": "Det tyske sprogs opbygning og mønstre, tilegnelse af ordforråd og chunks samt sproglæringsstrategier.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tys-6-7-m1", "trinforloeb": "tys-6-7", "sigte": "Undersøger sproget og eksperimenterer med ord, fraser og chunks i kommunikative aktiviteter." },
+        { "id": "tys-8-9-m1", "trinforloeb": "tys-8-9", "sigte": "Bruger et varieret ordforråd og tilpasser sproget til konteksten." }
+      ]
+    },
+    {
+      "id": "tys-lytte-laese-opleve",
+      "navn": "Lytte, læse, opleve",
+      "sigte": "Afkodning og forståelse af mundtlige, skriftlige og multimodale tekster på tysk.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tys-6-7-m2", "trinforloeb": "tys-6-7", "sigte": "Afkoder og forstår hovedindholdet af korte tekster med støtte fra billeder, lyd og kontekst." },
+        { "id": "tys-8-9-m2", "trinforloeb": "tys-8-9", "sigte": "Afkoder og forstår hovedindhold og detaljer af sammenhængende tekster." }
+      ]
+    },
+    {
+      "id": "tys-tale-skrive-skabe",
+      "navn": "Tale, skrive, skabe",
+      "sigte": "At udtrykke sig i samtale og selvstændigt producere tysk tilpasset kontekst og formål.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tys-6-7-m3", "trinforloeb": "tys-6-7", "sigte": "Deltager aktivt i korte samtaler og skaber enkle tekster og kreative produkter." },
+        { "id": "tys-8-9-m3", "trinforloeb": "tys-8-9", "sigte": "Deltager aktivt i meningsfulde samtaler og skaber længere tekster og kreative produkter." }
+      ]
+    },
+    {
+      "id": "tys-kultur-og-interkulturel-forstaaelse",
+      "navn": "Kultur og interkulturel forståelse",
+      "sigte": "Interkulturel forståelse gennem elevernes møde med tysksprogede kulturer og samfund.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "tys-6-7-m4", "trinforloeb": "tys-6-7", "sigte": "Lever sig ind i tysktalende menneskers liv og forholder sig til egne og andres erfaringer." },
+        { "id": "tys-8-9-m4", "trinforloeb": "tys-8-9", "sigte": "Undersøger tysksprogede fællesskaber og samfund og sammenligner med egen kontekst." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

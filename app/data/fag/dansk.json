@@ -1,0 +1,114 @@
+{
+  "id": "dansk",
+  "navn": "Dansk",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "dan-1-3", "udtryk": "1.-3. klassetrin", "type": "spaend" },
+    { "id": "dan-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" },
+    { "id": "dan-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "dan-laesning-og-laesekultur",
+      "navn": "Læsning og læsekultur",
+      "sigte": "Udvikling af læsefærdigheder og læseglæde som adgang til deltagelse i læsefællesskaber.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m1", "trinforloeb": "dan-1-3", "sigte": "Læser enkle tekster sikkert og efterhånden automatiseret og fortæller hvad tekster handler om." },
+        { "id": "dan-4-6-m1", "trinforloeb": "dan-4-6", "sigte": "Læser alderssvarende tekster flydende med forståelse og afstemmer tempo efter formål." },
+        { "id": "dan-7-9-m1", "trinforloeb": "dan-7-9", "sigte": "Læser mangfoldige tekster flydende og vurderer løbende teksters hensigt og pålidelighed." }
+      ]
+    },
+    {
+      "id": "dan-skrivning-og-tekstfremstilling",
+      "navn": "Skrivning og tekstfremstilling",
+      "sigte": "Udvikling af skriftlige og multimodale udtryksfærdigheder som vej til erkendelse og handlekraft.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m2", "trinforloeb": "dan-1-3", "sigte": "Skriver alene og med andre og formulerer tekster tilpasset situation og modtager." },
+        { "id": "dan-4-6-m2", "trinforloeb": "dan-4-6", "sigte": "Skriver i mange fremstillingsformer med reflekteret brug af modaliteter og teknologi." },
+        { "id": "dan-7-9-m2", "trinforloeb": "dan-7-9", "sigte": "Indgår i længere skriveprocesser og fremstiller velfungerende tekster med varierede formål." }
+      ]
+    },
+    {
+      "id": "dan-mundtlighed-og-samtale",
+      "navn": "Mundtlighed og samtale",
+      "sigte": "Udvikling af tale- og lyttefærdigheder som redskab til at ytre sig og deltage reflekteret i samtaleformer.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m3", "trinforloeb": "dan-1-3", "sigte": "Præsenterer sammenhængende historier og fagligt indhold med enkel struktur." },
+        { "id": "dan-4-6-m3", "trinforloeb": "dan-4-6", "sigte": "Præsenterer fagligt indhold i en form tilpasset modtagere og giver respons." },
+        { "id": "dan-7-9-m3", "trinforloeb": "dan-7-9", "sigte": "Præsenterer faglige opgaver med relevante teknologier og inviterer til dialog." }
+      ]
+    },
+    {
+      "id": "dan-kommunikation-og-sagtekster",
+      "navn": "Kommunikation og sagtekster",
+      "sigte": "Sprog, kommunikation og sagtekster som vej til at skabe mening, argumentere og handle.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m4", "trinforloeb": "dan-1-3", "sigte": "Undersøger hvordan sproglige valg skaber betydning i hverdagskommunikation." },
+        { "id": "dan-4-6-m4", "trinforloeb": "dan-4-6", "sigte": "Eksperimenterer med kommunikation i virkelighedsnære situationer og reflekterer over virkningen." },
+        { "id": "dan-7-9-m4", "trinforloeb": "dan-7-9", "sigte": "Vurderer teksters sandhedsværdi i digital kommunikation og analyserer sprogets og teknologiens betydning for ytringsfrihed." }
+      ]
+    },
+    {
+      "id": "dan-fortolkning-og-fiktion",
+      "navn": "Fortolkning og fiktion",
+      "sigte": "Sprog, fiktion og kunst i mange former, herunder dansk litteraturs kanon, som måder at erfare verden æstetisk og fortolkende.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m5", "trinforloeb": "dan-1-3", "sigte": "Genfortæller, samtaler om indhold og arbejder skabende med fiktion." },
+        { "id": "dan-4-6-m5", "trinforloeb": "dan-4-6", "sigte": "Udforsker temaer, begrunder fortolkninger og arbejder multimodalt skabende med fiktion." },
+        { "id": "dan-7-9-m5", "trinforloeb": "dan-7-9", "sigte": "Analyserer, fortolker og perspektiverer eksistentielle og etiske temaer i fiktion og kunst." }
+      ]
+    },
+    {
+      "id": "dan-faellesskab-og-identitet",
+      "navn": "Fællesskab og identitet",
+      "sigte": "Tekstarbejde om hvordan fællesskaber og identitet formes — anlægger perspektiver på tværs af indholdsområderne.",
+      "relation": "perspektiv",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "dan-1-3-m6", "trinforloeb": "dan-1-3", "sigte": "Undersøger og udtrykker sig kreativt om erfaringer med fællesskaber i hverdagslivet." },
+        { "id": "dan-4-6-m6", "trinforloeb": "dan-4-6", "sigte": "Undersøger hvordan relationer og livsvalg former fællesskaber og reflekterer over roller." },
+        { "id": "dan-7-9-m6", "trinforloeb": "dan-7-9", "sigte": "Undersøger uddannelses- og jobveje samt køn, krop og normer og formulerer tanker om eget liv." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": {
+    "titel": "Dansk litteraturs kanon",
+    "punkter": [
+      "Folkeviser (genre)",
+      "Ludvig Holberg",
+      "Adam Oehlenschläger",
+      "N.F.S. Grundtvig",
+      "St. St. Blicher",
+      "H.C. Andersen",
+      "Herman Bang",
+      "Henrik Pontoppidan",
+      "Johannes V. Jensen",
+      "Martin Andersen Nexø",
+      "Tom Kristensen",
+      "Karen Blixen",
+      "Peter Seeberg",
+      "Tove Ditlevsen",
+      "Henrik Ibsen"
+    ]
+  },
+  "valgfag_af": null
+}

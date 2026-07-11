@@ -1,0 +1,34 @@
+{
+  "kilde": "Hansen, T.I. (2024). Grundlag for nyt format for Folkeskolens Fagplaner. Børne- og Undervisningsministeriet.",
+  "titel": "Fagfornyelsens didaktiske grundlag og fire principper",
+  "lag": "0",
+  "lag1_teori": "Fagfornyelsen bygger på en treklang — engagement, kundskaber og myndighed — direkte forankret i folkeskolens § 1. Myndighed er det overordnede dannelsesmål: eleven skal kunne handle i eget liv og samfund. Treklangen er ikke en ny didaktisk model men en 'klangbund' for fagplanerne. Fire didaktiske principper operationaliserer treklangen i undervisningsdesign: fordybelse, praksisorientering, inddragelse og fællesskab. Disse er ikke valgbare features men grundpræmisser for hvad Fagfornyelsen kalder god undervisning.",
+  "lag2_kategorier": [
+    "Treklang: engagement · kundskaber · myndighed — forankret i § 1",
+    "Myndighed: overordnet dannelsesmål — eleven handler i eget liv og samfund",
+    "Fordybelse: tid og rum til at gå i dybden med ét eksemplarisk indhold",
+    "Praksisorientering: aktiviteter forbinder sig til elevernes virkelighed og handlemuligheder",
+    "Inddragelse: eleverne har medbestemmelse over indhold, form eller retning",
+    "Fællesskab: aktiviteter der kun giver mening i fællesskab — ikke som individuel opgave",
+    "Legitimeringsargument: konkret didaktisk valg → fagets dannelsesformål → folkeskolens § 1"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilke af de fire principper er aktive i dette forløb — fordybelse, praksisorientering, inddragelse, fællesskab?",
+    "Er der ét eksemplarisk centrum der bærer fordybelsen — eller spredes forløbet over for meget?",
+    "Hvornår i forløbet er eleverne aktive medbestemmere (inddragelse)?",
+    "Hvilke aktiviteter kræver fællesskab for at give mening?",
+    "Kan forløbet legitimeres direkte til § 1 via treklangen?"
+  ],
+  "wizard_trin": "1",
+  "tool_type": "fundament",
+  "tool_navn": "fagfornyelse-principper",
+  "trigger": "Alle forløb — Fagfornyelsen er det primære læreplansgrundlag",
+  "lærervejledning_sektion": "2",
+  "almind_implikation": "Lærervejledningens Sektion 2 (årsplanlægning) legitimerer forløbet via treklangen og de fire principper — ikke via Fælles Mål-kompetencemål. Det giver stærkere argumentationskæde og taler ind i det lærerne faktisk undervises i på læreruddannelsen 2025-26.",
+  "krydsreferencer": [
+    "Folkeskolens § 1 — treklangen er § 1-forankret",
+    "Beslutningsgrundlag for Fagfornyelsen (2024) — efterspørger kvalitetskriterier for læremidler",
+    "Biesta (2010) — subjektifikation svarer til myndighedsdimensionen",
+    "Gissel & Pettersson (2024) — dækningsgrad operationaliserer fornyelsens krav"
+  ]
+}

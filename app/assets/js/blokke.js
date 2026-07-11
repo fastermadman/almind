@@ -7,9 +7,9 @@
 
 import {
   DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav,
-  hentManifest, hentDestillat, gemKladde,
+  hentManifest, hentDestillat, hentFagIndex, gemKladde, gisselMaterialetyper,
 } from "./data.js";
-import { TRIN, FAG_VALG, KLASSETRIN_VALG } from "./wizard.js";
+import { PROFIL_GRUPPER, trinUdtrykFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 
 export const CALLOUT_TYPER = {
@@ -31,8 +31,10 @@ const DRAG = { animation: 150, forceFallback: true, fallbackTolerance: 4 };
 
 export function nytForloeb() {
   return {
-    id: "kladde", titel: "", undertitel: null, forfatter: "Dig", institution: "Din skole",
+    id: "kladde", schema_version: 2, titel: "", undertitel: null, forfatter: "Dig", institution: "Din skole",
     aar: new Date().getFullYear(), fag: "dansk", klassetrin: "", licens: "CC BY-SA 4.0",
+    omfang: null, eksemplarisk_centrum: null, fravalg: [], didaktisk_position: null,
+    fagplan_ref: null, samspil: null,
     opdateret: iDag(), fork_af: null, forks: [], beskrivelse: "", tags: {},
     daekningsgrad: Object.fromEntries(DIMENSIONER.map((d) => [d, "fuld"])),
     tomme_pladser: [], faser: [], materialer: [], refleksioner: [],
@@ -42,7 +44,7 @@ export function nytForloeb() {
 export function forkAf(original) {
   const f = structuredClone(original);
   f.id = "kladde";
-  f.fork_af = original.id;
+  f.fork_af = { id: original.id, opdateret: original.opdateret };
   f.forks = [];
   f.generation = (original.generation ?? 0) + 1;
   f.undertitel = "Fork af " + (original.undertitel || original.titel);
@@ -55,9 +57,14 @@ export function forkAf(original) {
   return f;
 }
 
-export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
+export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   f.faser ??= []; f.tomme_pladser ??= []; f.materialer ??= [];
   f.refleksioner ??= []; f.tags ??= {}; f.daekningsgrad ??= {};
+
+  // Fag fra fag-index (26, ikke 12 hardcodede) og Gissel-typer fra destillatet
+  // — hentes én gang her, så kanvas-tegningen kan forblive synkron.
+  const fagIndex = await hentFagIndex();
+  const gisselTyper = await gisselMaterialetyper().catch(() => []);
 
   let gemT = null;
   const gem = () => {
@@ -135,27 +142,43 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const fagWrap = el("label", "mini-felt");
     fagWrap.appendChild(el("span", "mini-label", "Fag"));
     const fagSel = document.createElement("select");
-    FAG_VALG.forEach((v) => {
-      const o = new Option(v, v, false, v === f.fag);
+    fagIndex.forEach((fag) => {
+      const o = new Option(fag.navn, fag.id, false, fag.id === f.fag);
       fagSel.appendChild(o);
     });
     fagSel.addEventListener("change", () => {
       f.fag = fagSel.value;
+      f.klassetrin = ""; // det gamle udtryk hører til det gamle fag
       document.getElementById("side").dataset.fag = familieFor(f.fag);
       gem();
+      tegnTrinValg();
     });
     fagWrap.appendChild(fagSel);
     raekke.appendChild(fagWrap);
 
+    // Klassetrin: fagets egne trinforløbs-udtryk, ikke faste buckets.
+    // Tom liste (børnehaveklassen o.l.) → fritekst, jf. arkitektur 6.2.
     const trinWrap = el("label", "mini-felt");
     trinWrap.appendChild(el("span", "mini-label", "Klassetrin"));
-    const trinSel = document.createElement("select");
-    trinSel.appendChild(new Option("Vælg ...", "", false, !f.klassetrin));
-    const valg = KLASSETRIN_VALG.includes(f.klassetrin) || !f.klassetrin
-      ? KLASSETRIN_VALG : [f.klassetrin, ...KLASSETRIN_VALG];
-    valg.forEach((v) => trinSel.appendChild(new Option(v, v, false, v === f.klassetrin)));
-    trinSel.addEventListener("change", () => { f.klassetrin = trinSel.value; gem(); });
-    trinWrap.appendChild(trinSel);
+    const trinZone = el("span");
+    trinWrap.appendChild(trinZone);
+    async function tegnTrinValg() {
+      const udtryk = await trinUdtrykFor(f.fag);
+      trinZone.innerHTML = "";
+      if (!udtryk.length) {
+        const inp = inputFelt(null, f.klassetrin, "fx Børnehaveklassen", (v) => (f.klassetrin = v));
+        trinZone.appendChild(inp);
+        return;
+      }
+      const trinSel = document.createElement("select");
+      trinSel.appendChild(new Option("Vælg ...", "", false, !f.klassetrin));
+      const valg = udtryk.includes(f.klassetrin) || !f.klassetrin
+        ? udtryk : [f.klassetrin, ...udtryk];
+      valg.forEach((v) => trinSel.appendChild(new Option(v, v, false, v === f.klassetrin)));
+      trinSel.addEventListener("change", () => { f.klassetrin = trinSel.value; gem(); });
+      trinZone.appendChild(trinSel);
+    }
+    tegnTrinValg();
     raekke.appendChild(trinWrap);
 
     kort.appendChild(raekke);
@@ -305,6 +328,17 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
       raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
       raekke.appendChild(inputFelt(null, m.url, "URL", (v) => (m.url = v)));
+      // Gissel-type + didaktisering (schema 6.2) — typerne fra destillatet
+      if (gisselTyper.length) {
+        const typeSel = document.createElement("select");
+        typeSel.appendChild(new Option("Materialetype (Gissel) ...", "", false, !m.materialetype));
+        gisselTyper.forEach((t) =>
+          typeSel.appendChild(new Option(t.navn, t.id, false, m.materialetype === t.id)));
+        typeSel.addEventListener("change", () => { m.materialetype = typeSel.value || null; gem(); });
+        raekke.appendChild(typeSel);
+      }
+      raekke.appendChild(inputFelt(null, m.didaktisering,
+        "Didaktisering: hvad har du gjort ved materialet?", (v) => (m.didaktisering = v)));
       raekke.appendChild(sletKnap("Fjern materialet", () => {
         f.materialer.splice(j, 1);
         gem(); tegnKanvas();
@@ -313,7 +347,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     });
     sek.appendChild(liste);
     sek.appendChild(tilfoejKnap("+ Materiale", () => {
-      f.materialer.push({ titel: "", type: "", faust: "", url: "" });
+      f.materialer.push({ titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "" });
       gem(); tegnKanvas();
     }));
     return sek;
@@ -498,8 +532,7 @@ export function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
     const manifest = await hentManifest().catch(() => null);
 
-    for (const t of TRIN) {
-      if (typeof t.felter === "string") continue; // grundinfo og pladser bor på kanvassen
+    for (const t of PROFIL_GRUPPER) {
       const grp = document.createElement("details");
       grp.open = true;
       grp.appendChild(el("summary", null, t.navn));

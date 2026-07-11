@@ -1,0 +1,60 @@
+{
+  "id": "madkundskab",
+  "navn": "Madkundskab",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "mad-5-6", "udtryk": "5.-6. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "mad-madlavning",
+      "navn": "Madlavning",
+      "sigte": "Håndværk og smag i relation til mad — fagets største og styrende indholdsområde.",
+      "relation": "overordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mad-5-6-m1", "trinforloeb": "mad-5-6", "sigte": "Laver mad med grundlæggende madlavningsteknikker, -metoder og hygiejneprincipper." },
+        { "id": "mad-5-6-m2", "trinforloeb": "mad-5-6", "sigte": "Tilbereder indbydende mad og sætter ord på smagsoplevelser med faglige begreber." }
+      ]
+    },
+    {
+      "id": "mad-foedevarer",
+      "navn": "Fødevarer",
+      "sigte": "Kendskab til fødevarer og deres anvendelsesmuligheder i madlavningen.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mad-5-6-m3", "trinforloeb": "mad-5-6", "sigte": "Undersøger, håndterer og anvender udvalgte fødevarer og fødevaregrupper." }
+      ]
+    },
+    {
+      "id": "mad-mad-krop-og-klode",
+      "navn": "Mad, krop og klode",
+      "sigte": "Madens og madlavningens betydning i relation til sundhed og bæredygtighed.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mad-5-6-m4", "trinforloeb": "mad-5-6", "sigte": "Laver mad med afsæt i de officielle kostanbefalinger og forklarer sund og bæredygtig mad." }
+      ]
+    },
+    {
+      "id": "mad-mennesker-og-maaltider",
+      "navn": "Mennesker og måltider",
+      "sigte": "Madens og måltidernes sociale og kulturelle betydning i menneskers liv.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "mad-5-6-m5", "trinforloeb": "mad-5-6", "sigte": "Tilbereder, anretter og deltager i kulturelt bestemte måltider." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

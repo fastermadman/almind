@@ -1,6 +1,7 @@
 [
   {
     "id": "dss-v0",
+    "schema_version": 2,
     "titel": "Den Svære Samtale",
     "undertitel": "Dilemmaspil om demokratisk samtale",
     "forfatter": "Demokrati Under Udvikling",
@@ -8,6 +9,12 @@
     "aar": 2024,
     "fag": "dansk",
     "klassetrin": "7.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "mundtlighed",
       "demokratisk samtale",
@@ -86,6 +93,7 @@
   },
   {
     "id": "dss-v1",
+    "schema_version": 2,
     "titel": "Den Svære Samtale",
     "undertitel": "Redidaktiseret til 8.D",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -93,6 +101,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "mundtlighed",
       "demokratisk samtale",
@@ -103,7 +117,10 @@
     "licens": "CC BY-SA 4.0",
     "opdateret": "2026-04-22",
     "generation": 1,
-    "fork_af": "dss-v0",
+    "fork_af": {
+      "id": "dss-v0",
+      "opdateret": "2024-09-12"
+    },
     "forks": [
       "dss-v2"
     ],
@@ -232,6 +249,7 @@
   },
   {
     "id": "dss-v2",
+    "schema_version": 2,
     "titel": "Den Svære Samtale",
     "undertitel": "Sprogligt bearbejdet version",
     "forfatter": "Lukas Brandt",
@@ -239,6 +257,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "7.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "mundtlighed",
       "demokratisk samtale",
@@ -248,7 +272,10 @@
     "licens": "CC BY-SA 4.0",
     "opdateret": "2026-06-01",
     "generation": 2,
-    "fork_af": "dss-v1",
+    "fork_af": {
+      "id": "dss-v1",
+      "opdateret": "2026-04-22"
+    },
     "forks": [],
     "diff": "Lukas spiller V1 igen i 8.D — samme forløb, samme klasse, men dilemmakortenes sprog bearbejdet fra akademisk til hverdagsagtigt elevniveau. Resultatet er empirisk: deltagelsestærsklen faldt, flere kom i spil, autentiske samtaler spirede frem uden konstant lærerintervention. Men autonomitærsklen holdt. Dominerende elever argumenterede fortsat strategisk; perifere elever fortsat etisk. Sproglig bearbejdning er ikke nok. Den didaktik der forskyver det mønster, er stadig en åben plads — og den plads er Lukas' gave til den næste.",
     "citat": {
@@ -339,6 +366,7 @@
   },
   {
     "id": "tema1-mundtlighed",
+    "schema_version": 2,
     "titel": "Mundtlighed: fra stemthed til etisk samtale",
     "undertitel": "Tema 1 · 8.D Silkeborg",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -346,6 +374,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "mundtlighed",
       "stemthed",
@@ -499,6 +533,7 @@
   },
   {
     "id": "tema2-laesning",
+    "schema_version": 2,
     "titel": "Læsning: Djævelens Lærling og fortolkningsfællesskabet",
     "undertitel": "Tema 2 · 8.D Silkeborg",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -506,6 +541,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "læsning",
       "fantasy",
@@ -563,21 +604,27 @@
         "type": "E-bog",
         "faust": "CFUEBOG1100877",
         "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFUEBOG1100877",
-        "note": "Kenneth Bøgh Andersen. Med pædagogisk note af Trine Ferdinand."
+        "note": "Kenneth Bøgh Andersen. Med pædagogisk note af Trine Ferdinand.",
+        "materialetype": null,
+        "didaktisering": null
       },
       {
         "titel": "Djævelens lærling (lydbog)",
         "type": "Lydbog",
         "faust": "CFULYD1128318",
         "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFULYD1128318",
-        "note": "Til elever der har gavn af at høre romanen læst højt."
+        "note": "Til elever der har gavn af at høre romanen læst højt.",
+        "materialetype": null,
+        "didaktisering": null
       },
       {
         "titel": "Litteraturguide (Gyldendal)",
         "type": "Vejledning",
         "faust": "26886120",
         "url": "https://mitcfu.dk/pv/26886120_1.pdf",
-        "note": "Forlagets pædagogiske vejledning, 7.-9. klasse."
+        "note": "Forlagets pædagogiske vejledning, 7.-9. klasse.",
+        "materialetype": null,
+        "didaktisering": null
       }
     ],
     "faser": [
@@ -669,6 +716,7 @@
   },
   {
     "id": "tema3-skrivning",
+    "schema_version": 2,
     "titel": "Skrivning: dagbog, undskyldning og breve",
     "undertitel": "Tema 3 · Troldenes tid · 8.D Silkeborg",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -676,6 +724,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "skrivning",
       "tænkeskrivning",
@@ -731,7 +785,9 @@
         "type": "Bog",
         "faust": "140451339",
         "url": "https://mitcfu.dk/MaterialeInfo/?faust=140451339",
-        "note": "Adam O., 2025. Jonas' lillesøster Liv er forsvundet, og ingen andre end ham kan huske hende. Forløbets fælles fiktion."
+        "note": "Adam O., 2025. Jonas' lillesøster Liv er forsvundet, og ingen andre end ham kan huske hende. Forløbets fælles fiktion.",
+        "materialetype": null,
+        "didaktisering": null
       }
     ],
     "faser": [
@@ -819,6 +875,7 @@
   },
   {
     "id": "tema4-kortfilm",
+    "schema_version": 2,
     "titel": "Kortfilm og multimodalitet: din skolegang som kortfilm",
     "undertitel": "Tema 4 · 8.D Silkeborg",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -826,6 +883,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "kortfilm",
       "multimodalitet",
@@ -961,6 +1024,7 @@
   },
   {
     "id": "tema5-journalistik",
+    "schema_version": 2,
     "titel": "Journalistiske tekster og argumentation: framing og diskurs",
     "undertitel": "Tema 5 · 8.D Silkeborg",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -968,6 +1032,12 @@
     "aar": 2026,
     "fag": "dansk",
     "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "journalistik",
       "framing",
@@ -1108,12 +1178,19 @@
   },
   {
     "id": "broekvaerkstedet",
+    "schema_version": 2,
     "titel": "Brøkværkstedet: fra pizzadeling til talinje",
     "forfatter": "Mette Holm Sørensen",
     "institution": "Risskov Skole, Aarhus",
     "aar": 2026,
     "fag": "matematik",
     "klassetrin": "4.-5. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "brøker",
       "konkret-abstrakt",
@@ -1195,12 +1272,19 @@
   },
   {
     "id": "stroem-i-huset",
+    "schema_version": 2,
     "titel": "Strøm i huset: kredsløb, fejlfinding og el-sikkerhed",
     "forfatter": "Anders Vestergaard",
     "institution": "Brændgårdskolen, Herning",
     "aar": 2026,
-    "fag": "fysik",
+    "fag": "fysik-kemi",
     "klassetrin": "7.-8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "elektricitet",
       "kredsløb",
@@ -1282,12 +1366,19 @@
   },
   {
     "id": "aaen-bag-skolen",
+    "schema_version": 2,
     "titel": "Åen bag skolen: feltundersøgelse af vandløbets tilstand",
     "forfatter": "Jonas Krogh Pedersen",
     "institution": "Sejs Skole, Silkeborg",
     "aar": 2026,
-    "fag": "natur/teknik",
+    "fag": "natur-teknologi",
     "klassetrin": "5.-6. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "vandløb",
       "feltarbejde",
@@ -1379,12 +1470,19 @@
   },
   {
     "id": "vejret-over-danmark",
+    "schema_version": 2,
     "titel": "Vejret over Danmark: målinger, data og prognoser",
     "forfatter": "Frederik Lindholm",
     "institution": "Balleskolen, Silkeborg",
     "aar": 2026,
     "fag": "geografi",
     "klassetrin": "7.-8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "vejr",
       "data",
@@ -1471,12 +1569,19 @@
   },
   {
     "id": "stomp-skolegaarden",
+    "schema_version": 2,
     "titel": "Stomp og polyrytmik: skolegårdens percussion-orkester",
     "forfatter": "Camilla Østergaard",
     "institution": "Vestre Skole, Aarhus",
     "aar": 2026,
     "fag": "musik",
     "klassetrin": "6.-7. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "stomp",
       "polyrytmik",
@@ -1560,12 +1665,19 @@
   },
   {
     "id": "plakaten-der-raaber",
+    "schema_version": 2,
     "titel": "Plakaten der råber: protestkunst og blikfang",
     "forfatter": "Sofie Munk Jeppesen",
     "institution": "Langsøskolen, Silkeborg",
     "aar": 2026,
     "fag": "billedkunst",
     "klassetrin": "8.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
     "tema": [
       "plakatkunst",
       "protest",

@@ -1,0 +1,52 @@
+{
+  "id": "billedkunst",
+  "navn": "Billedkunst",
+  "familie": "praktisk-musisk",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "bil-2-3", "udtryk": "2.-3. klassetrin", "type": "spaend" },
+    { "id": "bil-4-6", "udtryk": "4.-6. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "bil-billedbearbejdning",
+      "navn": "Billedbearbejdning",
+      "sigte": "Praktiske færdigheder og udtryksformer gennem bearbejdning af billeder med materialer, redskaber og teknikker.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bil-2-3-m1", "trinforloeb": "bil-2-3", "sigte": "Bearbejder billeder med grundlæggende materialer, redskaber og teknikker." },
+        { "id": "bil-4-6-m1", "trinforloeb": "bil-4-6", "sigte": "Bearbejder, afprøver og kombinerer materialer, redskaber og teknikker relevant for intentionen." }
+      ]
+    },
+    {
+      "id": "bil-billedfremstilling",
+      "navn": "Billedfremstilling",
+      "sigte": "Den skabende proces fra idéudvikling til præsentation af billedets udtryk og intention.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bil-2-3-m2", "trinforloeb": "bil-2-3", "sigte": "Fremstiller billeder og afprøver enkle præsentations- og udstillingsformer." },
+        { "id": "bil-4-6-m2", "trinforloeb": "bil-4-6", "sigte": "Fremstiller billeder med fokus på intention og præsenterer dem i udstillingsformater." }
+      ]
+    },
+    {
+      "id": "bil-billedudforskning",
+      "navn": "Billedudforskning",
+      "sigte": "At undersøge kunstens og kulturens billeder som inspiration til egne billeder.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bil-2-3-m3", "trinforloeb": "bil-2-3", "sigte": "Udforsker, sammenligner og sorterer visuelle virkemidler og bruger dem i egne billeder." },
+        { "id": "bil-4-6-m3", "trinforloeb": "bil-4-6", "sigte": "Udforsker, kategoriserer og udvælger visuelle virkemidler ved brug af fagbegreber." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

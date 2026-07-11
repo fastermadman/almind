@@ -18,7 +18,6 @@
     <nav class="site-nav" aria-label="Hovednavigation">
       <a href="index.html">Forside</a>
       <a href="browse.html" class="aktiv">Alle forløb</a>
-      <a href="graph.html">Konstellation</a>
       <a href="preview.html?id=dss-v1">Preview</a>
       <a class="knap" href="upload.html">Del et forløb</a>
     </nav>
@@ -26,7 +25,24 @@
 
   <h1 style="font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin-top:1rem;">Alle forløb</h1>
 
-  <div class="filterraekke" id="fam-filtre" role="group" aria-label="Filtrér på fagfamilie"></div>
+  <div class="facetraekke" role="group" aria-label="Facetter">
+    <label class="mini-felt">
+      <span class="mini-label">Fag</span>
+      <select id="facet-fag"><option value="">Alle fag</option></select>
+    </label>
+    <label class="mini-felt">
+      <span class="mini-label">Klassetrin</span>
+      <select id="facet-klassetrin"><option value="">Alle klassetrin</option></select>
+    </label>
+    <label class="mini-felt">
+      <span class="mini-label">Omfang</span>
+      <select id="facet-omfang">
+        <option value="">Alle</option>
+        <option value="lektion">Enkelt lektion</option>
+        <option value="forloeb">Forløb</option>
+      </select>
+    </label>
+  </div>
   <div class="filterraekke" style="margin-top:-0.9rem;">
     <button class="filter-pill" id="filter-pladser" aria-pressed="false">Har åbne pladser</button>
     <button class="filter-pill" id="filter-forks" aria-pressed="false">Har versionshistorik</button>
@@ -41,40 +57,68 @@
 </div>
 
 <script type="module">
-  import { hentForloeb, familieFor, FAMILIER, antalAabnePladser, kaede } from "./assets/js/data.js";
+  import { hentForloeb, hentFagIndex, antalAabnePladser, kaede } from "./assets/js/data.js";
   import { forloebKort } from "./assets/js/komponenter.js";
   import { stagger } from "./assets/js/motion.js";
 
   const alle = await hentForloeb();
+  const fagIndex = await hentFagIndex();
   const grid = document.getElementById("grid");
+  const fagNavn = (id) => fagIndex.find((f) => f.id === id)?.navn || id;
 
-  const taellinger = {};
-  for (const fam of Object.keys(FAMILIER)) taellinger[fam] = 0;
-  alle.forEach((f) => taellinger[familieFor(f.fag)]++);
-
-  // State fra URL (delbare filtre)
+  // State fra URL (delbare filtre). 0.1-reglen: kun facetter med en reel
+  // søgeintention (fag/trin/omfang, jf. arkitektur 7.2) — teorivokabular
+  // (dewey/anslag/strategi m.fl.) forbliver bevidst UDEN for denne liste,
+  // kun søgbart via fritekst nedenfor.
   const params = new URLSearchParams(location.search);
   const state = {
-    fam: params.get("fam") || null,
+    fag: params.get("fag") || "",
+    klassetrin: params.get("klassetrin") || "",
+    omfang: params.get("omfang") || "",
     pladser: params.get("pladser") === "1",
     forks: params.get("forks") === "1",
     q: params.get("q") || "",
   };
 
-  // Fagfamilie-pills
-  const famWrap = document.getElementById("fam-filtre");
-  for (const fam of Object.keys(FAMILIER)) {
-    const b = document.createElement("button");
-    b.className = "filter-pill";
-    b.dataset.fam = fam;
-    b.innerHTML = `${FAMILIER[fam].navn}<span class="antal">${taellinger[fam]}</span>`;
-    b.setAttribute("aria-pressed", String(state.fam === fam));
-    b.addEventListener("click", () => {
-      state.fam = state.fam === fam ? null : fam;
-      opdater();
+  // Fag-facet: alle 26 fag fra fag-index, ikke kun de familier der har forløb i dag.
+  const fagSel = document.getElementById("facet-fag");
+  fagIndex.forEach((fag) => {
+    const o = document.createElement("option");
+    o.value = fag.id; o.textContent = fag.navn;
+    if (fag.id === state.fag) o.selected = true;
+    fagSel.appendChild(o);
+  });
+
+  // Klassetrin-facet: udledt af de faktiske forløbs egne klassetrin-værdier
+  // (ikke fagets trinforløb-skema — ældre forløb bruger fritekst der ikke
+  // nødvendigvis matcher et fags nuværende udtryk). Fagafhængig når et fag
+  // er valgt; ellers en flad, tværgående liste (arkitektur 7.1).
+  const trinSel = document.getElementById("facet-klassetrin");
+  function tegnTrinValg() {
+    const kilde = state.fag ? alle.filter((f) => f.fag === state.fag) : alle;
+    const trin = [...new Set(kilde.map((f) => f.klassetrin).filter(Boolean))].sort();
+    trinSel.innerHTML = '<option value="">Alle klassetrin</option>';
+    trin.forEach((t) => {
+      const o = document.createElement("option");
+      o.value = t; o.textContent = t;
+      if (t === state.klassetrin) o.selected = true;
+      trinSel.appendChild(o);
     });
-    famWrap.appendChild(b);
   }
+  tegnTrinValg();
+
+  document.getElementById("facet-omfang").value = state.omfang;
+
+  fagSel.addEventListener("change", () => {
+    state.fag = fagSel.value;
+    if (state.klassetrin && !alle.some((f) => f.fag === state.fag && f.klassetrin === state.klassetrin)) {
+      state.klassetrin = ""; // det gamle klassetrin findes måske ikke i det nye fag
+    }
+    tegnTrinValg();
+    opdater();
+  });
+  trinSel.addEventListener("change", () => { state.klassetrin = trinSel.value; opdater(); });
+  document.getElementById("facet-omfang").addEventListener("change", (e) => { state.omfang = e.target.value; opdater(); });
 
   document.getElementById("filter-pladser").addEventListener("click", () => { state.pladser = !state.pladser; opdater(); });
   document.getElementById("filter-forks").addEventListener("click", () => { state.forks = !state.forks; opdater(); });
@@ -86,19 +130,21 @@
   function opdater() {
     // URL-sync
     const p = new URLSearchParams();
-    if (state.fam) p.set("fam", state.fam);
+    if (state.fag) p.set("fag", state.fag);
+    if (state.klassetrin) p.set("klassetrin", state.klassetrin);
+    if (state.omfang) p.set("omfang", state.omfang);
     if (state.pladser) p.set("pladser", "1");
     if (state.forks) p.set("forks", "1");
     if (state.q) p.set("q", state.q);
     history.replaceState(null, "", p.toString() ? "?" + p.toString() : "browse.html");
 
-    famWrap.querySelectorAll(".filter-pill").forEach((b) =>
-      b.setAttribute("aria-pressed", String(b.dataset.fam === state.fam)));
     document.getElementById("filter-pladser").setAttribute("aria-pressed", String(state.pladser));
     document.getElementById("filter-forks").setAttribute("aria-pressed", String(state.forks));
 
     let liste = alle;
-    if (state.fam) liste = liste.filter((f) => familieFor(f.fag) === state.fam);
+    if (state.fag) liste = liste.filter((f) => f.fag === state.fag);
+    if (state.klassetrin) liste = liste.filter((f) => f.klassetrin === state.klassetrin);
+    if (state.omfang) liste = liste.filter((f) => f.omfang?.type === state.omfang);
     if (state.pladser) liste = liste.filter((f) => antalAabnePladser(f) > 0);
     if (state.forks) liste = liste.filter((f) => kaede(alle, f.id).length > 1);
     if (state.q) {
@@ -111,11 +157,10 @@
 
     grid.innerHTML = "";
     if (!liste.length) {
-      const fam = state.fam ? NAVNE[state.fam] : null;
       grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">
-        ${fam ? `Ingen ${fam}-forløb matcher endnu.` : "Ingen forløb matcher endnu."}
+        ${state.fag ? `Ingen ${fagNavn(state.fag)}-forløb matcher endnu.` : "Ingen forløb matcher endnu."}
         Det er ikke en mangel. Det er en åben plads.<br><br>
-        <a class="knap" href="upload.html">Bliv den første: del et forløb</a></div>`;
+        <a class="knap" href="upload.html?wizard=1">Bliv den første: del et forløb</a></div>`;
       return;
     }
     liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));

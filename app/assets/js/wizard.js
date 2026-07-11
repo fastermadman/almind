@@ -1,19 +1,19 @@
-// Wizard-motor: deles af upload.html (tom start) og fork.html (forudfyldt).
+// Wizard-motor: det guidede forfatterflow (arkitektur 8.2's 5-trins rygrad).
+// ① Kernen · ② Forløbet · ③ Valg og fravalg · ④ Dækning · ⑤ Kobling (valgfri).
 // Princip: maskinlæsbare svar. Chips, segmenter og dropdowns producerer tags
-// der binder forløb sammen og gør dem søgbare. Fritekst er undtagelsen, ikke reglen.
-// Valgmulighederne kommer fra destillaternes lag2_kategorier (struktureret her,
-// med destillatet som kilde vist under hvert felt).
+// og schema_version 2-felter; fritekst er undtagelsen, ikke reglen.
+// Flowet skriver et forløbs-skelet som kladde og ender i blok-editoren
+// (rediger.html) — ikke en tunnel, men en guidet vej ind i samme kanvas.
 
-import { hentManifest, hentDestillat, gemKladde, DIMENSIONER, DIM_NAVNE, familieFor } from "./data.js";
+import {
+  hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde,
+  gisselMaterialetyper, SAMSPIL_FORMER, DIMENSIONER, DIM_NAVNE, familieFor,
+} from "./data.js";
 
-// Eksporteres: blok-editoren (blokke.js) genbruger definitionerne, så de
-// didaktiske spørgsmål har én kilde uanset forfatterflade.
-export const FAG_VALG = ["dansk", "historie", "religion", "matematik", "fysik", "teknik", "natur/teknik", "geografi", "biologi", "musik", "billedkunst", "drama"];
-export const KLASSETRIN_VALG = ["0.-3. klasse", "4.-6. klasse", "7.-9. klasse", "10. klasse"];
-
-// Strukturerede felter pr. destillat. id = tag-nøgle i kladden.
-export const TRIN = [
-  { navn: "Grundinfo", felter: "grundinfo" },
+// Enum-batteriet: destillaternes strukturerede spørgsmål. Alt her er VALGFRIT
+// (arkitektur 8.3) — i wizard'en bor det sammenfoldet under trin ② (kun ved
+// omfang "forloeb"), i blok-editoren som profil-panelet. Én kilde, to flader.
+export const PROFIL_GRUPPER = [
   {
     navn: "Didaktisk fundament",
     destillat: "hansen-graf-2012-redidaktisering",
@@ -43,24 +43,60 @@ export const TRIN = [
     felter: [
       { id: "legitimitet", type: "segment", label: "Legitimitet: er indholdet forankret i gældende læreplaner?", under: "portvagtparameter 1", valg: ["Ja", "Delvist", "Nej"] },
       { id: "variation", type: "segment", label: "Understøtter aktiviteterne variation?", under: "portvagtparameter 3: mikro-, meso- og makroniveau", valg: ["Ja", "Delvist", "Nej"] },
-      { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads i næste trin", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
+      { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads under Dækning", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
     ],
   },
-  { navn: "Åbne pladser", felter: "pladser" },
 ];
+
+// Rygradens fem trin. felter-strengen vælger renderfunktion i startWizard;
+// blok-editoren bruger kun PROFIL_GRUPPER ovenfor.
+export const TRIN = [
+  { navn: "Kernen", felter: "kerne" },
+  { navn: "Forløbet", felter: "forloeb" },
+  { navn: "Valg og fravalg", felter: "fravalg" },
+  { navn: "Dækning", felter: "pladser" },
+  { navn: "Kobling (valgfri)", felter: "kobling" },
+];
+
+// Fagets egne trinforløbs-udtryk ("1.-3. klasse" for idræt, "klasse" for
+// børnehaveklassen = tom liste → fritekst). Deles med blok-editoren.
+export async function trinUdtrykFor(fagId) {
+  try {
+    const fag = await hentFag(fagId);
+    return (fag.trinforloeb || []).map((t) => t.udtryk);
+  } catch {
+    return []; // ukendt fag-id (gamle kladder): fald tilbage til fritekst
+  }
+}
 
 export async function startWizard({ rod, original = null, startDimension = null }) {
   const state = {
     trin: 0,
-    grundinfo: {
-      titel: original ? original.titel : "",
-      fag: original ? original.fag : "dansk",
-      klassetrin: original ? original.klassetrin : "",
-      beskrivelse: original ? original.beskrivelse : "",
+    kerne: {
+      titel: original?.titel || "",
+      fag: original?.fag || "dansk",
+      klassetrin: original?.klassetrin || "",
+      beskrivelse: original?.beskrivelse || "",
+      konkret: original?.eksemplarisk_centrum?.konkret || "",
+      alment: original?.eksemplarisk_centrum?.alment || "",
+      omfangType: original?.omfang?.type || "forloeb",
+      lektioner: original?.omfang?.lektioner || "",
     },
+    faser: original ? structuredClone(original.faser || []) : [],
     tags: { ...(original?.tags || {}) },   // maskinlæsbare svar; fork arver originalens tags
     fritekst: {},
     pladser: {},
+    fravalg: original?.fravalg?.length ? structuredClone(original.fravalg) : [],
+    position: {
+      fagsyn: original?.didaktisk_position?.fagsyn || "",
+      laeringssyn: original?.didaktisk_position?.laeringssyn || "",
+    },
+    kobling: {
+      omraader: new Set(original?.fagplan_ref?.indholdsomraader || []),
+      materialer: original ? structuredClone(original.materialer || []) : [],
+      samspilForm: original?.samspil?.form || "",
+      samspilFag: new Set(original?.samspil?.fag || []),
+    },
     fokusDimension: startDimension || null,
     original,
   };
@@ -71,19 +107,27 @@ export async function startWizard({ rod, original = null, startDimension = null 
     state.pladser[dim] = { aaben: erTom, besked: erTom ? arvetBesked : "" };
   });
 
+  const fagIndex = await hentFagIndex();
   const manifest = await hentManifest();
   const kilder = {};
-  for (const t of TRIN) {
-    for (const did of [t.destillat, t.destillat2].filter(Boolean)) {
-      const post = manifest.destillater.find((d) => d.id === did);
-      if (post) kilder[did] = post;
-    }
+  const kildeIder = PROFIL_GRUPPER.flatMap((g) => [g.destillat, g.destillat2])
+    .concat(["kap8-indhold-eksemplarisk", "gissel-2026-typologi-laeremidler", "bilag1-centrale-begreber-2026"])
+    .filter(Boolean);
+  for (const did of kildeIder) {
+    const post = manifest.destillater.find((d) => d.id === did);
+    if (post) kilder[did] = post;
+  }
+  async function kildeTekstFor(did) {
+    const post = kilder[did];
+    if (!post) return "";
+    const dest = await hentDestillat(post);
+    return "Kilde: " + (dest.kilde || dest.meta?.kilde || post.titel);
   }
 
   async function visTrin() {
     const t = TRIN[state.trin];
     rod.innerHTML = "";
-    rod.dataset.fag = familieFor(state.grundinfo.fag);
+    rod.dataset.fag = familieFor(state.kerne.fag);
 
     const prog = document.createElement("div");
     prog.className = "wizard-progression";
@@ -102,9 +146,11 @@ export async function startWizard({ rod, original = null, startDimension = null 
     navn.textContent = `Trin ${state.trin + 1} af ${TRIN.length}: ${t.navn}`;
     rod.appendChild(navn);
 
-    if (t.felter === "grundinfo") visGrundinfo();
+    if (t.felter === "kerne") await visKerne();
+    else if (t.felter === "forloeb") await visForloeb();
+    else if (t.felter === "fravalg") visFravalg();
     else if (t.felter === "pladser") visPladser();
-    else await visStruktureredeFelter(t);
+    else await visKobling();
 
     visNav();
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -202,33 +248,44 @@ export async function startWizard({ rod, original = null, startDimension = null 
     return ta;
   }
 
-  async function visStruktureredeFelter(t) {
-    const grupper = [
-      { did: t.destillat, felter: t.felter },
-      ...(t.destillat2 ? [{ did: t.destillat2, felter: t.felter2 }] : []),
-    ];
-    for (const gruppe of grupper) {
-      const post = kilder[gruppe.did];
-      let kildeTekst = "";
-      if (post) {
-        const dest = await hentDestillat(post);
-        kildeTekst = "Kilde: " + (dest.kilde || dest.meta?.kilde || post.titel);
-      }
-      gruppe.felter.forEach((def) => {
-        const wrap = feltRamme(def, kildeTekst);
-        let kontrol;
-        if (def.type === "chips") kontrol = byggeChips(def);
-        else if (def.type === "segment") kontrol = byggeSegment(def);
-        else if (def.type === "select") kontrol = byggeSelect(def);
-        else kontrol = byggeTekst(def);
-        wrap.insertBefore(kontrol, wrap.querySelector(".destillat-kilde"));
-        rod.appendChild(wrap);
-      });
-    }
+  function tekstFelt(def, vaerdi, onInput, kildeTekst) {
+    const wrap = feltRamme(def, kildeTekst);
+    const ta = document.createElement("textarea");
+    ta.value = vaerdi || "";
+    if (def.placeholder) ta.placeholder = def.placeholder;
+    ta.addEventListener("input", () => onInput(ta.value));
+    wrap.insertBefore(ta, wrap.querySelector(".destillat-kilde"));
+    return wrap;
   }
 
-  function visGrundinfo() {
-    const g = state.grundinfo;
+  function tilfoejKnap(tekst, onClick) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "tilfoej";
+    b.textContent = tekst;
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  // ---------- trin ①: Kernen ----------
+  // Eksemplarisk centrum FØR grundinfo: det første spørgsmål er hvad forløbet
+  // er et eksempel på (Klafki) — titel og fag følger efter, ikke omvendt.
+
+  async function visKerne() {
+    const g = state.kerne;
+    const klafkiKilde = await kildeTekstFor("kap8-indhold-eksemplarisk");
+
+    rod.appendChild(tekstFelt({
+      label: "Det konkrete: hvilket stof, værk eller fænomen står i centrum?",
+      under: "ét nedslag, ikke et pensum — det konkrete valg der bærer forløbet",
+      placeholder: "fx \"Tove Ditlevsens 'Barndommens gade'\" eller \"gær der hæver dej\"",
+    }, g.konkret, (v) => (g.konkret = v), klafkiKilde));
+
+    rod.appendChild(tekstFelt({
+      label: "Det almene: hvilken større indsigt er stoffet et eksempel på?",
+      under: "hvad åbner det konkrete for — det eleverne har med sig, når stoffet er glemt",
+      placeholder: "fx \"hvordan litteratur giver sprog til klasse og opvækst\" eller \"at mikroorganismer omsætter stof\"",
+    }, g.alment, (v) => (g.alment = v)));
 
     const titelFelt = feltRamme({ label: "Forløbets titel" });
     const titelInput = document.createElement("input");
@@ -240,36 +297,246 @@ export async function startWizard({ rod, original = null, startDimension = null 
 
     const fagFelt = feltRamme({ label: "Fag" });
     const fagSel = document.createElement("select");
-    FAG_VALG.forEach((v) => {
+    fagIndex.forEach((fag) => {
       const o = document.createElement("option");
-      o.value = v; o.textContent = v;
-      if (v === g.fag) o.selected = true;
+      o.value = fag.id; o.textContent = fag.navn;
+      if (fag.id === g.fag) o.selected = true;
       fagSel.appendChild(o);
     });
-    fagSel.addEventListener("change", () => { g.fag = fagSel.value; rod.dataset.fag = familieFor(g.fag); });
     fagFelt.appendChild(fagSel);
     rod.appendChild(fagFelt);
 
-    const trinFelt = feltRamme({ label: "Klassetrin" });
-    const trinSel = document.createElement("select");
-    KLASSETRIN_VALG.forEach((v) => {
-      const o = document.createElement("option");
-      o.value = v; o.textContent = v;
-      if (g.klassetrin.includes(v.split(".")[0])) o.selected = true;
-      trinSel.appendChild(o);
-    });
-    if (g.klassetrin) { const o = document.createElement("option"); o.value = g.klassetrin; o.textContent = g.klassetrin; o.selected = true; trinSel.appendChild(o); }
-    trinSel.addEventListener("change", () => (g.klassetrin = trinSel.value));
-    trinFelt.appendChild(trinSel);
+    // Klassetrin: fagets egne trinforløbs-udtryk, ikke faste buckets.
+    // Tom liste (børnehaveklassen o.l.) → fritekst, jf. arkitektur 6.2.
+    const trinFelt = feltRamme({ label: "Klassetrin", under: "fagets egne trinforløb — skifter med faget" });
+    const trinZone = document.createElement("div");
+    trinFelt.appendChild(trinZone);
     rod.appendChild(trinFelt);
 
-    const beskFelt = feltRamme({ label: "Kort beskrivelse", under: "to-tre sætninger: hvad gør forløbet, og hvad er det stærkt på?" });
-    const ta = document.createElement("textarea");
-    ta.value = g.beskrivelse;
-    ta.addEventListener("input", () => (g.beskrivelse = ta.value));
-    beskFelt.insertBefore(ta, null);
-    rod.appendChild(beskFelt);
+    async function tegnTrinValg() {
+      const udtryk = await trinUdtrykFor(g.fag);
+      trinZone.innerHTML = "";
+      if (!udtryk.length) {
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.value = g.klassetrin;
+        inp.placeholder = "fx Børnehaveklassen — faget har intet trinforløb";
+        inp.addEventListener("input", () => (g.klassetrin = inp.value));
+        trinZone.appendChild(inp);
+        return;
+      }
+      const sel = document.createElement("select");
+      const tomt = document.createElement("option");
+      tomt.value = ""; tomt.textContent = "Vælg ...";
+      sel.appendChild(tomt);
+      const alle = udtryk.includes(g.klassetrin) || !g.klassetrin ? udtryk : [g.klassetrin, ...udtryk];
+      alle.forEach((v) => {
+        const o = document.createElement("option");
+        o.value = v; o.textContent = v;
+        if (v === g.klassetrin) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change", () => (g.klassetrin = sel.value));
+      trinZone.appendChild(sel);
+    }
+    fagSel.addEventListener("change", () => {
+      g.fag = fagSel.value;
+      g.klassetrin = ""; // det gamle udtryk hører til det gamle fag
+      rod.dataset.fag = familieFor(g.fag);
+      tegnTrinValg();
+    });
+    await tegnTrinValg();
+
+    const omfangFelt = feltRamme({
+      label: "Omfang",
+      under: "en enkelt lektion springer dramaturgi-apparatet over — et forløb får det hele",
+    });
+    const seg = document.createElement("div");
+    seg.className = "segment";
+    seg.setAttribute("role", "group");
+    const lektionerWrap = document.createElement("div");
+    const tegnLektioner = () => {
+      lektionerWrap.innerHTML = "";
+      if (g.omfangType !== "forloeb") return;
+      const inp = document.createElement("input");
+      inp.type = "number";
+      inp.min = "1";
+      inp.value = g.lektioner;
+      inp.placeholder = "Antal lektioner (valgfrit)";
+      inp.style.marginTop = "0.6rem";
+      inp.addEventListener("input", () => (g.lektioner = inp.value));
+      lektionerWrap.appendChild(inp);
+    };
+    [["lektion", "Enkelt lektion"], ["forloeb", "Forløb"]].forEach(([v, navn]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = navn;
+      b.setAttribute("aria-pressed", String(g.omfangType === v));
+      b.addEventListener("click", () => {
+        g.omfangType = v;
+        seg.querySelectorAll("button").forEach((x) =>
+          x.setAttribute("aria-pressed", String(x.textContent === navn)));
+        tegnLektioner();
+      });
+      seg.appendChild(b);
+    });
+    omfangFelt.appendChild(seg);
+    omfangFelt.appendChild(lektionerWrap);
+    tegnLektioner();
+    rod.appendChild(omfangFelt);
+
+    rod.appendChild(tekstFelt({
+      label: "Kort beskrivelse",
+      under: "to-tre sætninger: hvad gør forløbet, og hvad er det stærkt på?",
+    }, g.beskrivelse, (v) => (g.beskrivelse = v)));
   }
+
+  // ---------- trin ②: Forløbet ----------
+
+  async function visForloeb() {
+    const erForloeb = state.kerne.omfangType === "forloeb";
+
+    const intro = document.createElement("p");
+    intro.className = "intro";
+    intro.textContent = erForloeb
+      ? "Skitsér forløbets faser — titel og en sætning om hver er nok. Aktiviteter, callouts og detaljer bygger du bagefter i editoren."
+      : "Skitsér lektionens indhold som én eller få faser. Detaljerne bygger du bagefter i editoren.";
+    rod.appendChild(intro);
+
+    const liste = document.createElement("div");
+    liste.className = "raekke-liste";
+    const tegnFaser = () => {
+      liste.innerHTML = "";
+      state.faser.forEach((fase, i) => {
+        const kort = document.createElement("div");
+        kort.className = "raekke";
+        const titel = document.createElement("input");
+        titel.type = "text";
+        titel.value = fase.titel || "";
+        titel.placeholder = `Fase ${String.fromCharCode(65 + i)}: titel`;
+        titel.addEventListener("input", () => (fase.titel = titel.value));
+        kort.appendChild(titel);
+        const besk = document.createElement("textarea");
+        besk.value = fase.beskrivelse || "";
+        besk.placeholder = "Hvad sker der i denne fase — og hvorfor?";
+        besk.addEventListener("input", () => (fase.beskrivelse = besk.value));
+        kort.appendChild(besk);
+        const slet = document.createElement("button");
+        slet.type = "button";
+        slet.className = "raekke-slet";
+        slet.textContent = "×";
+        slet.title = "Slet fasen";
+        slet.setAttribute("aria-label", "Slet fasen");
+        slet.addEventListener("click", () => { state.faser.splice(i, 1); tegnFaser(); });
+        kort.appendChild(slet);
+        liste.appendChild(kort);
+      });
+    };
+    tegnFaser();
+    rod.appendChild(liste);
+    rod.appendChild(tilfoejKnap("+ Fase", () => {
+      state.faser.push({ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] });
+      tegnFaser();
+    }));
+
+    // Enum-batteriet: valgfrit og sammenfoldet — og kun ved omfang "forloeb".
+    // En enkelt lektion bærer ikke et dramaturgi-apparat (arkitektur 8.2-8.3).
+    if (!erForloeb) return;
+
+    const uddyb = document.createElement("details");
+    uddyb.className = "uddyb";
+    const summary = document.createElement("summary");
+    summary.textContent = "Uddyb didaktisk profil (valgfrit)";
+    uddyb.appendChild(summary);
+    const forklaring = document.createElement("p");
+    forklaring.className = "under";
+    forklaring.textContent = "Destillaternes spørgsmål om fundament, dramaturgi og evaluering. Intet er påkrævet — svarene gør forløbet søgbart og nemmere at overtage.";
+    uddyb.appendChild(forklaring);
+
+    for (const gruppe of PROFIL_GRUPPER) {
+      const grupper = [
+        { did: gruppe.destillat, felter: gruppe.felter },
+        ...(gruppe.destillat2 ? [{ did: gruppe.destillat2, felter: gruppe.felter2 }] : []),
+      ];
+      const h = document.createElement("p");
+      h.className = "uddyb-gruppe-navn";
+      h.textContent = gruppe.navn;
+      uddyb.appendChild(h);
+      for (const grp of grupper) {
+        const kildeTekst = await kildeTekstFor(grp.did);
+        grp.felter.forEach((def) => {
+          const wrap = feltRamme(def, kildeTekst);
+          let kontrol;
+          if (def.type === "chips") kontrol = byggeChips(def);
+          else if (def.type === "segment") kontrol = byggeSegment(def);
+          else if (def.type === "select") kontrol = byggeSelect(def);
+          else kontrol = byggeTekst(def);
+          wrap.insertBefore(kontrol, wrap.querySelector(".destillat-kilde"));
+          uddyb.appendChild(wrap);
+        });
+      }
+    }
+    rod.appendChild(uddyb);
+  }
+
+  // ---------- trin ③: Valg og fravalg ----------
+  // Inviteret, ikke tvunget (arkitektur 2 + 6.2): fravalget er en didaktisk
+  // handling (Wagenschein), positionen er valgfri men aktivt inviteret.
+
+  function visFravalg() {
+    const intro = document.createElement("p");
+    intro.className = "intro";
+    intro.textContent = "Et fravalg er ikke en mangel — det er mod til fordybelse. Hvad har du bevidst valgt fra, og hvorfor? Den næste lærer kan forke forløbet og træffe det modsatte valg.";
+    rod.appendChild(intro);
+
+    const liste = document.createElement("div");
+    liste.className = "raekke-liste";
+    const tegnRaekker = () => {
+      liste.innerHTML = "";
+      state.fravalg.forEach((fv, i) => {
+        const kort = document.createElement("div");
+        kort.className = "raekke";
+        const hvad = document.createElement("input");
+        hvad.type = "text";
+        hvad.value = fv.hvad || "";
+        hvad.placeholder = "Hvad er valgt fra? fx \"forfatterens øvrige værker\"";
+        hvad.addEventListener("input", () => (fv.hvad = hvad.value));
+        kort.appendChild(hvad);
+        const hvorfor = document.createElement("textarea");
+        hvorfor.value = fv.hvorfor || "";
+        hvorfor.placeholder = "Hvorfor? Begrundelsen vises til den næste lærer.";
+        hvorfor.addEventListener("input", () => (fv.hvorfor = hvorfor.value));
+        kort.appendChild(hvorfor);
+        const slet = document.createElement("button");
+        slet.type = "button";
+        slet.className = "raekke-slet";
+        slet.textContent = "×";
+        slet.title = "Fjern fravalget";
+        slet.setAttribute("aria-label", "Fjern fravalget");
+        slet.addEventListener("click", () => { state.fravalg.splice(i, 1); tegnRaekker(); });
+        kort.appendChild(slet);
+        liste.appendChild(kort);
+      });
+    };
+    tegnRaekker();
+    rod.appendChild(liste);
+    rod.appendChild(tilfoejKnap("+ Fravalg", () => {
+      state.fravalg.push({ hvad: "", hvorfor: "" });
+      tegnRaekker();
+    }));
+
+    rod.appendChild(tekstFelt({
+      label: "Dit fagsyn (valgfrit)",
+      under: "hvad er faget til for, som dette forløb ser det? Én-to sætninger gør forløbet nemmere at vurdere — og uenighed nemmere at forke",
+    }, state.position.fagsyn, (v) => (state.position.fagsyn = v)));
+
+    rod.appendChild(tekstFelt({
+      label: "Dit læringssyn (valgfrit)",
+      under: "hvordan lærer elever noget, som dette forløb ser det?",
+    }, state.position.laeringssyn, (v) => (state.position.laeringssyn = v)));
+  }
+
+  // ---------- trin ④: Dækning ----------
 
   function visPladser() {
     const intro = document.createElement("p");
@@ -313,6 +580,163 @@ export async function startWizard({ rod, original = null, startDimension = null 
     });
   }
 
+  // ---------- trin ⑤: Kobling (valgfri) ----------
+  // Frivillig legitimering (arkitektur 3): koblede forløb optræder på fagets
+  // dækningskort — det er invitationen, ikke et krav.
+
+  async function visKobling() {
+    const g = state.kerne;
+    const intro = document.createElement("p");
+    intro.className = "intro";
+    intro.textContent = "Alt her er valgfrit. Kobler du forløbet til fagplanen, optræder det på fagets dækningskort — det er sådan andre lærere finder det.";
+    rod.appendChild(intro);
+
+    // Fagplan-reference: fagets egne indholdsområder som chips
+    let fagFil = null;
+    try { fagFil = await hentFag(g.fag); } catch { /* ukendt fag-id: sektionen udelades */ }
+    if (fagFil?.indholdsomraader?.length) {
+      const felt = feltRamme({
+        label: `Hvilke indholdsområder i ${fagFil.navn} åbner forløbet?`,
+        under: `fagplan ${fagFil.fagplan_version} — koblingen pinnes til denne version`,
+      });
+      const c = document.createElement("div");
+      c.className = "chips";
+      c.setAttribute("role", "group");
+      fagFil.indholdsomraader.forEach((omr) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = omr.navn;
+        b.title = omr.sigte || "";
+        b.setAttribute("aria-pressed", String(state.kobling.omraader.has(omr.id)));
+        b.addEventListener("click", () => {
+          state.kobling.omraader.has(omr.id)
+            ? state.kobling.omraader.delete(omr.id)
+            : state.kobling.omraader.add(omr.id);
+          b.setAttribute("aria-pressed", String(state.kobling.omraader.has(omr.id)));
+        });
+        c.appendChild(b);
+      });
+      felt.appendChild(c);
+      rod.appendChild(felt);
+    }
+
+    // Materialer med Gissel-type + didaktiserings-note (arkitektur 6.2).
+    // Typerne læses fra typologi-destillatet — aldrig hardcodet.
+    const typer = await gisselMaterialetyper();
+    const typologiKilde = await kildeTekstFor("gissel-2026-typologi-laeremidler");
+    const matFelt = feltRamme({
+      label: "Materialer",
+      under: "links til mitCFU eller andre kilder — de printes med, så materialet følger dokumentet",
+    }, typologiKilde);
+    const matListe = document.createElement("div");
+    matListe.className = "raekke-liste";
+    const tegnMaterialer = () => {
+      matListe.innerHTML = "";
+      state.kobling.materialer.forEach((m, i) => {
+        const kort = document.createElement("div");
+        kort.className = "raekke";
+        const titel = document.createElement("input");
+        titel.type = "text";
+        titel.value = m.titel || "";
+        titel.placeholder = "Titel";
+        titel.addEventListener("input", () => (m.titel = titel.value));
+        kort.appendChild(titel);
+        const url = document.createElement("input");
+        url.type = "text";
+        url.value = m.url || "";
+        url.placeholder = "URL";
+        url.addEventListener("input", () => (m.url = url.value));
+        kort.appendChild(url);
+        const typeSel = document.createElement("select");
+        const tomt = document.createElement("option");
+        tomt.value = ""; tomt.textContent = "Materialetype (Gissel) ...";
+        typeSel.appendChild(tomt);
+        typer.forEach((t) => {
+          const o = document.createElement("option");
+          o.value = t.id; o.textContent = t.navn;
+          if (m.materialetype === t.id) o.selected = true;
+          typeSel.appendChild(o);
+        });
+        typeSel.addEventListener("change", () => (m.materialetype = typeSel.value || null));
+        kort.appendChild(typeSel);
+        const did = document.createElement("textarea");
+        did.value = m.didaktisering || "";
+        did.placeholder = "Didaktisering: hvad har du gjort ved materialet? (kun relevant for læringsressourcer)";
+        did.addEventListener("input", () => (m.didaktisering = did.value));
+        kort.appendChild(did);
+        const slet = document.createElement("button");
+        slet.type = "button";
+        slet.className = "raekke-slet";
+        slet.textContent = "×";
+        slet.title = "Fjern materialet";
+        slet.setAttribute("aria-label", "Fjern materialet");
+        slet.addEventListener("click", () => { state.kobling.materialer.splice(i, 1); tegnMaterialer(); });
+        kort.appendChild(slet);
+        matListe.appendChild(kort);
+      });
+    };
+    tegnMaterialer();
+    matFelt.insertBefore(matListe, matFelt.querySelector(".destillat-kilde"));
+    const matKnap = tilfoejKnap("+ Materiale", () => {
+      state.kobling.materialer.push({ titel: "", url: "", materialetype: null, didaktisering: "" });
+      tegnMaterialer();
+    });
+    matFelt.insertBefore(matKnap, matFelt.querySelector(".destillat-kilde"));
+    rod.appendChild(matFelt);
+
+    // Samspil: Bilag 1's tre former
+    const bilagKilde = await kildeTekstFor("bilag1-centrale-begreber-2026");
+    const samFelt = feltRamme({
+      label: "Indgår forløbet i fagligt samspil?",
+      under: "Bilag 1's tre former — vælg kun hvis forløbet reelt arbejder sammen med andre fag",
+    }, bilagKilde);
+    const samSel = document.createElement("select");
+    const intet = document.createElement("option");
+    intet.value = ""; intet.textContent = "Nej — forløbet står alene";
+    samSel.appendChild(intet);
+    SAMSPIL_FORMER.forEach((form) => {
+      const o = document.createElement("option");
+      o.value = form.id; o.textContent = `${form.navn} — ${form.under}`;
+      if (state.kobling.samspilForm === form.id) o.selected = true;
+      samSel.appendChild(o);
+    });
+    const samFagZone = document.createElement("div");
+    const tegnSamFag = () => {
+      samFagZone.innerHTML = "";
+      if (!state.kobling.samspilForm) return;
+      const c = document.createElement("div");
+      c.className = "chips";
+      c.setAttribute("role", "group");
+      c.style.marginTop = "0.6rem";
+      fagIndex.filter((fag) => fag.id !== g.fag).forEach((fag) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = fag.navn;
+        b.setAttribute("aria-pressed", String(state.kobling.samspilFag.has(fag.id)));
+        b.addEventListener("click", () => {
+          state.kobling.samspilFag.has(fag.id)
+            ? state.kobling.samspilFag.delete(fag.id)
+            : state.kobling.samspilFag.add(fag.id);
+          b.setAttribute("aria-pressed", String(state.kobling.samspilFag.has(fag.id)));
+        });
+        c.appendChild(b);
+      });
+      samFagZone.appendChild(c);
+    };
+    samSel.addEventListener("change", () => {
+      state.kobling.samspilForm = samSel.value;
+      tegnSamFag();
+    });
+    samFelt.insertBefore(samSel, samFelt.querySelector(".destillat-kilde"));
+    samFelt.insertBefore(samFagZone, samFelt.querySelector(".destillat-kilde"));
+    tegnSamFag();
+    rod.appendChild(samFelt);
+  }
+
+  // ---------- navigation ----------
+
   function visNav() {
     const nav = document.createElement("div");
     nav.className = "wizard-nav";
@@ -324,8 +748,15 @@ export async function startWizard({ rod, original = null, startDimension = null 
 
     const frem = document.createElement("button");
     frem.className = "knap";
-    frem.textContent = state.trin === TRIN.length - 1 ? "Se dit forløb som dokument" : "Videre";
+    frem.textContent = state.trin === TRIN.length - 1 ? "Åbn i editoren" : "Videre";
     frem.addEventListener("click", () => {
+      // Det eksemplariske centrum er skemaets eneste obligatoriske nye felt
+      // (arkitektur 6.2) — resten af wizard'en inviterer, dette ene kræver.
+      if (state.trin === 0 && !state.kerne.konkret.trim()) {
+        rod.querySelector(".felt textarea")?.focus();
+        rod.querySelector(".felt")?.scrollIntoView({ block: "center", behavior: "smooth" });
+        return;
+      }
       if (state.trin < TRIN.length - 1) { state.trin++; visTrin(); }
       else afslut();
     });
@@ -335,8 +766,10 @@ export async function startWizard({ rod, original = null, startDimension = null 
     rod.appendChild(nav);
   }
 
-  function afslut() {
-    const g = state.grundinfo;
+  // ---------- afslut: skriv schema_version 2-kladden, land i editoren ----------
+
+  async function afslut() {
+    const g = state.kerne;
     const tommePladser = DIMENSIONER
       .filter((d) => state.pladser[d].aaben)
       .map((d) => ({ dimension: d, besked: state.pladser[d].besked || "Bevidst åben plads." }));
@@ -354,8 +787,35 @@ export async function startWizard({ rod, original = null, startDimension = null 
       .filter(([, v]) => v && v.trim())
       .map(([id, v]) => ({ kilde: id === "anslag_tekst" ? "Anslag" : "Didaktisering", tekst: v.trim() }));
 
+    const omfang = g.omfangType === "lektion"
+      ? { type: "lektion" }
+      : { type: "forloeb", ...(g.lektioner ? { lektioner: Number(g.lektioner) } : {}) };
+
+    const fravalg = state.fravalg
+      .filter((fv) => (fv.hvad || "").trim())
+      .map((fv) => ({ hvad: fv.hvad.trim(), hvorfor: (fv.hvorfor || "").trim() }));
+
+    const didaktisk_position = (state.position.fagsyn.trim() || state.position.laeringssyn.trim())
+      ? { fagsyn: state.position.fagsyn.trim(), laeringssyn: state.position.laeringssyn.trim() }
+      : null;
+
+    let fagplan_ref = null;
+    if (state.kobling.omraader.size) {
+      const fagFil = await hentFag(g.fag).catch(() => null);
+      fagplan_ref = {
+        version: fagFil?.fagplan_version || null,
+        indholdsomraader: [...state.kobling.omraader],
+        maal: [],
+      };
+    }
+
+    const samspil = state.kobling.samspilForm
+      ? { form: state.kobling.samspilForm, fag: [...state.kobling.samspilFag] }
+      : null;
+
     gemKladde({
       id: "kladde",
+      schema_version: 2,
       titel: g.titel || "Uden titel",
       undertitel: original ? "Fork af " + (original.undertitel || original.titel) : null,
       forfatter: "Dig",
@@ -363,18 +823,24 @@ export async function startWizard({ rod, original = null, startDimension = null 
       aar: new Date().getFullYear(),
       fag: g.fag,
       klassetrin: g.klassetrin || "",
+      omfang,
+      eksemplarisk_centrum: { konkret: g.konkret.trim(), alment: g.alment.trim() },
+      fravalg,
+      didaktisk_position,
+      fagplan_ref,
+      samspil,
       licens: "CC BY-SA 4.0",
       opdateret: new Date().toISOString().slice(0, 10),
-      fork_af: original ? original.id : null,
+      fork_af: original ? { id: original.id, opdateret: original.opdateret } : null,
       beskrivelse: g.beskrivelse || "",
       tags: state.tags,
       daekningsgrad,
       tomme_pladser: tommePladser,
-      faser: original ? original.faser : [],
-      materialer: original ? original.materialer || [] : [],
+      faser: state.faser.filter((f) => (f.titel || "").trim() || (f.beskrivelse || "").trim()),
+      materialer: state.kobling.materialer.filter((m) => (m.titel || "").trim() || (m.url || "").trim()),
       refleksioner,
     });
-    location.href = "preview.html?kladde=1";
+    location.href = "rediger.html?kladde=1";
   }
 
   visTrin();

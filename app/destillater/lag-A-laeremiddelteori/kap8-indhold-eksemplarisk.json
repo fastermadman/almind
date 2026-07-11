@@ -1,0 +1,28 @@
+{
+  "kilde": "Hansen, J.J. (2012). Mål og indhold + Det eksemplariske indholdsvalg + Indholdets tilgængelighed, progression og differentiering. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 8.1–8.7",
+  "titel": "Indhold og genstand – eksemplarisk valg, tilgængelighed, progression og differentiering",
+  "lag": "A",
+  "lag1_teori": "Indhold er ikke det samme som mål: indholdet er det eleverne arbejder med, målet er udbyttet. Et læremiddels indhold analyseres via en indholdsmodel med erkendelsens objekter (genstande, kontekst) og subjekter (elevens livsverden, erfaringer). Det eksemplariske indholdsvalg kombinerer fire kriterier: basisfagdidaktisk relevans (fagets logik), etnodidaktisk relevans (elevernes erfaringsverden), udfordringsdidaktisk relevans (samfundets aktuelle problemer) og eksistensdidaktisk relevans (menneskets grundvilkår). Klafkis kategoriale dannelsessyn forener disse. Indholdets tilgængelighed kræver dobbeltsidig åbning: stoffet åbner sig for eleven og eleven for stoffet. Progression beskrives via Blooms, Simpsons og Krathwohls taksonomier (kognitivt, psykomotorisk, affektivt). Differentiering skelner mellem skal-progression (fælles mål) og kan-progression (individuelle udfordringer).",
+  "lag2_kategorier": [
+    "Skel mellem mål (hvad læres) og indhold (hvad arbejdes med)",
+    "Eksemplarisk indholdsvalg: basisfag + etnodidaktik + udfordringsdidaktik + eksistensdidaktik",
+    "Klafkis kategoriale dannelse: material + formal dannelse forenet",
+    "Dobbeltsidig åbning: stoffet åbner sig for eleven – eleven åbner sig for stoffet",
+    "Tre taksonomier: kognitiv (Bloom), psykomotorisk (Simpson), affektiv (Krathwohl)",
+    "Skal-progression: fælles faglige mål for klassen",
+    "Kan-progression: individuelle udvidede udfordringer"
+  ],
+  "lag3_spørgsmål": [
+    "Er der et tydeligt skel i læremidlet mellem mål (hvad skal læres) og indhold (hvad arbejdes der med)?",
+    "Er indholdets valg eksemplarisk – kan det begrundes fagdidaktisk, etnodidaktisk og eksistensdidaktisk?",
+    "Er der en dobbeltsidig åbning – kan eleverne forbinde indholdet med deres livsverden og med det faglige univers?",
+    "Er indholdet motiverende og relevant – er der anknytningspunkter til elevernes forforståelse?",
+    "Er der en faglig progression i indholdet fra det konkrete/nære mod det abstrakte/almene?",
+    "Skelner læremidlet mellem skal-progression (for alle) og kan-progression (for den enkelte)?"
+  ],
+  "wizard_trin": "4",
+  "tool_type": "design",
+  "tool_navn": "hansen-indhold-eksemplarisk",
+  "trigger": "Analyse og vurdering af læremidlets indholdsdimension – bruges i wizard trin der fokuserer på faglig relevans og eksemplaritet",
+  "lærervejledning_sektion": "4"
+}

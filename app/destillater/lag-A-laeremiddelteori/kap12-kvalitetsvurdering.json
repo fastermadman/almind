@@ -1,0 +1,27 @@
+{
+  "kilde": "Hansen, J.J. (2012). Kvalitet i læremidler – fire veje til vurdering. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 12",
+  "titel": "Kvalitetsvurdering af læremidler – fire evalueringsmodeller",
+  "lag": "A",
+  "lag1_teori": "Læremidlers kvalitet er kontekstafhængig og afhænger af evalueringsformål, evalueringssubjekt og metode. Fire evalueringsmodeller organiseres i en matrix langs to akser: summativ/formativ (resultat-/procesorienteret) og praksisviden/udviklingsviden. (1) Planlægningsorienteret vurdering: summativ praksisviden – læreren vurderer om læremidlet støtter planlægning og lever op til Fælles Mål. (2) Professionsfaglig vurdering: summativ udviklingsviden – hermeneutisk analyse af læremidlets design og brugspotentiale med henblik på vidensdeling i professionen. (3) Praksisorienteret vurdering: formativ praksisviden – erfaringsopsamling om læremidlets funktionalitet i faktisk undervisning. (4) Skolekulturel vurdering: formativ udviklingsviden – afdækning af skolekulturelle barrierer og drivkræfter for at realisere læremidlets potentiale.",
+  "lag2_kategorier": [
+    "Matrix: summativ/formativ × praksisviden/udviklingsviden",
+    "Planlægningsorienteret vurdering: lever læremidlet op til Fælles Mål? Støtter det planlægning?",
+    "Professionsfaglig vurdering: hermeneutisk design-analyse, oplysning af professionen",
+    "Praksisorienteret vurdering: erfaringsbaseret vurdering af brugervenlighed og pædagogisk funktionalitet",
+    "Skolekulturel vurdering: infrastruktur, lærerkompetencer og organisatoriske barrierer",
+    "Innovativt potentiale: læremiddelvurdering som løftestang for skoleudvikling"
+  ],
+  "lag3_spørgsmål": [
+    "Hvad er formålet med vurderingen – planlægning, professionel vidensopbygning, praksisforbedring eller skoleudvikling?",
+    "Lever læremidlet op til relevante Fælles Mål og understøtter det lærerens planlægning?",
+    "Hvad er læremidlets brugspotentiale set fra et professionsfagligt perspektiv?",
+    "Hvilke erfaringer fra faktisk brug af læremidlet kan kvalificere en vurdering?",
+    "Hvilke skolekulturelle betingelser skal være til stede for at realisere læremidlets pædagogiske potentiale?",
+    "Kan læremiddelvurderingen bruges som grundlag for strategisk skoleudvikling?"
+  ],
+  "wizard_trin": "6",
+  "tool_type": "design",
+  "tool_navn": "hansen-kvalitetsvurdering-fire-modeller",
+  "trigger": "Evaluerings- og kvalitetsvurderingstrin i wizard – bruges når en fork skal vurderes eller godkendes",
+  "lærervejledning_sektion": "6"
+}

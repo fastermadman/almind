@@ -1,0 +1,29 @@
+{
+  "kilde": "Ekspertgruppe for Fagfornyelsen (2024). Beslutningsgrundlag for Fagfornyelsen. Børne- og Undervisningsministeriet.",
+  "titel": "Fagfornyelsens beslutningsgrundlag — kvalitetskriterier for læremidler",
+  "lag": "0",
+  "lag1_teori": "Beslutningsgrundlaget er det politiske og faglige ophav til Fagfornyelsen. Det efterspørger eksplicit 'vejledende kriterier for lokal vurdering af læremidlers kvalitet med tæt sammenhæng til intentionerne bag Fagfornyelsen'. Almind-wizarden er præcis det kriteriesæt dokumentet efterspørger. Fagfornyelsen er ikke primært en kompetencemålsreform men en dannelsesreform — fokus er på faglighed i dybden, sammenhæng og progression, og elevens myndiggørelse.",
+  "lag2_kategorier": [
+    "Eksplicit efterspørgsel: vejledende kvalitetskriterier for lokal læremiddelvurdering",
+    "Almind-positionering: wizarden er det kriteriesæt beslutningsgrundlaget efterspørger",
+    "Dannelsesreform frem for kompetencemålsreform: faglighed i dybden, ikke bredde",
+    "Sammenhæng og progression: på tværs af fag, årgange og forløb",
+    "Myndiggørelse: eleven som aktiv, ansvarlig deltager — ikke passiv modtager"
+  ],
+  "lag3_spørgsmål": [
+    "Kan dette forløb legitimeres som svar på Fagfornyelsens intention — ikke bare som opfyldelse af kompetencemål?",
+    "Bidrager forløbet til sammenhæng og progression i elevens samlede skolegang?",
+    "Myndiggør forløbet eleven — eller leverer det primært information?"
+  ],
+  "wizard_trin": "1",
+  "tool_type": "fundament",
+  "tool_navn": "fagfornyelse-beslutningsgrundlag",
+  "trigger": "Sektion 2 i lærervejledningen — legitimeringsargumentet",
+  "lærervejledning_sektion": "2",
+  "almind_implikation": "Almind kan positionere sig direkte i det hul beslutningsgrundlaget identificerer: platformen leverer de kvalitetskriterier ministeriet efterspørger men ikke selv har produceret. Det er et stærkt argument for Alminds relevans over for skoler, kommuner og UCC/VIA.",
+  "krydsreferencer": [
+    "Hansen (2024) grundlagsdokument — treklang og fire principper",
+    "Gissel & Pettersson (2024) — operationaliserer kvalitetskriterierne",
+    "Nielsen et al. (2025) — empirisk fundament for lærervejledningsdesign"
+  ]
+}

@@ -16,6 +16,7 @@
       --navy:       var(--accent);
       --salvie:     var(--fag-natur);
       --violet:     #7c3aed;
+      --teal:       #0f766e;
       --bordeaux:   var(--fag-aes);
       --blaek:      var(--ink);
       --blaek-svag: rgba(44,36,32,.55);
@@ -168,6 +169,7 @@
     #legende .sw.stiplet-okker   { border-top: 2px dashed var(--okker); }
     #legende .sw.stiplet-salvie  { border-top: 2px dashed var(--salvie); }
     #legende .sw.stiplet-violet  { border-top: 2px dashed var(--violet); }
+    #legende .sw.stiplet-teal    { border-top: 2px dashed var(--teal); }
     #legende .prik {
       display: inline-block; width: 10px; height: 10px; border-radius: 99px;
       border: 1.5px dashed var(--okker); vertical-align: middle;
@@ -219,7 +221,6 @@
     <nav class="site-nav" aria-label="Hovednavigation">
       <a href="index.html">Forside</a>
       <a href="browse.html">Alle forløb</a>
-      <a href="graph.html" class="aktiv">Konstellation</a>
       <a href="preview.html?id=dss-v1">Preview</a>
       <a class="knap" href="upload.html">Del et forløb</a>
     </nav>
@@ -240,7 +241,8 @@
         <span class="sw tynd"></span>nær relation<br>
         <span class="sw stiplet-okker"></span>delt åben plads &nbsp;
         <span class="sw stiplet-salvie"></span>delt greb &nbsp;
-        <span class="sw stiplet-violet"></span>delt empiri<br>
+        <span class="sw stiplet-violet"></span>delt empiri &nbsp;
+        <span class="sw stiplet-teal"></span>delt indholdsområde<br>
         <span class="prik"></span>forløbet lader pladser stå åbne
       </div>
       <button id="nogetandet" type="button">Noget andet →</button>
@@ -261,7 +263,9 @@
 <div id="tip" role="presentation"></div>
 
 <script type="module">
-import { hentForloeb, FAMILIER } from "./assets/js/data.js";
+import { hentForloeb, hentFagIndex, hentFag, FAMILIER } from "./assets/js/data.js";
+
+const fagIndex = await hentFagIndex(); // FAMILIER læses synkront lige nedenfor, før hentForloeb() ellers ville have ventet på den
 
 const REDUCERET = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -280,8 +284,8 @@ for (const [fam, def] of Object.entries(FAMILIER)) {
     FAG_NAVN[fag] = fag[0].toUpperCase() + fag.slice(1);
   }
 }
-const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed" };
-const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament" };
+const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed", omraade: "#0f766e" };
+const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament", omraade: "Delt indholdsområde (fagplan)" };
 
 /* ---------- Data fra forloeb.json ---------- */
 const alle = await hentForloeb();
@@ -315,7 +319,7 @@ const NODER = alle.map(f => {
 const FORK_KANTER = alle
   .filter(f => f.fork_af)
   .map(f => ({
-    source: f.fork_af,
+    source: f.fork_af.id,
     target: f.id,
     type:   "fork",
     af:     f.forfatter,
@@ -349,7 +353,39 @@ const SVAGE_KANTER = [
     forklaring: "Reuters mod Ritzau. Klassens målinger mod DMI. Samme empiriske fundament: hold to fremstillinger af samme virkelighed op mod hinanden, og lad afvigelsen være det der undervises i." },
 ];
 
-const KANTER = [...FORK_KANTER, ...NAER_KANTER, ...SVAGE_KANTER];
+/* Delte indholdsområder: UDLEDT af fag-filernes faelles_med, ikke redaktionelt
+   kurateret (E.3b/arkitektur 7.1 — "fagets pluralitetsvisning": fork-slægtskab
+   + delte indholdsområder som graf). Kun fag med mindst ét forløb i dag deltager. */
+const unikkeFag = [...new Set(alle.map((f) => f.fag))];
+const fagFiler = {};
+for (const fagId of unikkeFag) {
+  try { fagFiler[fagId] = await hentFag(fagId); } catch { /* ukendt/opfundet fag-id uden fag-fil */ }
+}
+const fagParOmraader = new Map(); // "fagA|fagB" (sorteret) → Set af delte omraadenavne
+for (const [fagId, fagFil] of Object.entries(fagFiler)) {
+  for (const omr of fagFil?.indholdsomraader || []) {
+    for (const delerMed of omr.faelles_med || []) {
+      if (!fagFiler[delerMed]) continue; // intet forløb i det fag endnu — ingen node at forbinde til
+      const noeg = [fagId, delerMed].sort().join("|");
+      if (!fagParOmraader.has(noeg)) fagParOmraader.set(noeg, new Set());
+      fagParOmraader.get(noeg).add(omr.navn);
+    }
+  }
+}
+const fagNavnRigtigt = (id) => fagIndex.find((f) => f.id === id)?.navn || id;
+const OMRAADE_KANTER = [...fagParOmraader].map(([noeg, omraader]) => {
+  const [fagA, fagB] = noeg.split("|");
+  const a = alle.find((f) => f.fag === fagA);
+  const b = alle.find((f) => f.fag === fagB);
+  if (!a || !b) return null;
+  const navne = [...omraader].join('", "');
+  return {
+    source: a.id, target: b.id, type: "omraade", deler: [...omraader].join(", "),
+    forklaring: `${fagNavnRigtigt(fagA)} og ${fagNavnRigtigt(fagB)} deler indholdsområdet "${navne}" i fagplanen — en strukturel kobling fra fag-filerne, ikke en redaktionel kuratering.`,
+  };
+}).filter(Boolean);
+
+const KANTER = [...FORK_KANTER, ...NAER_KANTER, ...SVAGE_KANTER, ...OMRAADE_KANTER];
 
 /* Start-positioner (bevaret fra original-grafen) */
 const SEED = {
@@ -623,7 +659,7 @@ function visIntro() {
     <p class="pkicker">Konstellation</p>
     <h2>Det her er ikke et arkiv</h2>
     <p>Hvert punkt er et undervisningsforløb. De fulde streger er <strong>slægtskab</strong>: Den Svære Samtale findes i tre generationer, og hver streg husker hvem der forkede, hvornår — og hvad der ændrede sig.</p>
-    <p>De stiplede streger er <strong>svage forbindelser</strong> på tværs af fag. Ingen har kurateret dem ovenfra; de findes fordi forløbene deler noget — en åben plads, et greb, et empirisk fundament.</p>
+    <p>De stiplede streger er <strong>svage forbindelser</strong> på tværs af fag. De findes fordi forløbene deler noget — en åben plads, et greb, et empirisk fundament, eller et indholdsområde fra selve fagplanen.</p>
     <p class="hint">Prøv: klik på <em>Den Svære Samtale V1</em> — eller på stregen mellem V1 og V2.</p>`;
 }
 
@@ -682,7 +718,7 @@ function visHvorforPanel(k) {
 }
 
 /* ---------- Noget andet ---------- */
-const svage = KANTER.filter(k => k.type === "plads" || k.type === "metode" || k.type === "empiri");
+const svage = KANTER.filter(k => k.type === "plads" || k.type === "metode" || k.type === "empiri" || k.type === "omraade");
 
 function spotlight(k) {
   kantSel.classed("lit",   kk => kk === k)

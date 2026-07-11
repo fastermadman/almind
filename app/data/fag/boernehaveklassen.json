@@ -1,0 +1,71 @@
+{
+  "id": "boernehaveklassen",
+  "navn": "Børnehaveklassen",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [],
+  "indholdsomraader": [
+    {
+      "id": "bhk-faellesskaber-og-tilhoersforhold",
+      "navn": "Fællesskaber og tilhørsforhold",
+      "sigte": "Skolens sociale og faglige fællesskaber, værdier og traditioner — fungerer som overordnet indholdsområde.",
+      "relation": "overordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bhk-m1", "trinforloeb": null, "sigte": "Deltager i og bidrager til skolens fællesskaber og træffer valg der styrker deres handlemuligheder." }
+      ]
+    },
+    {
+      "id": "bhk-leg-krop-og-bevaegelse",
+      "navn": "Leg, krop og bevægelse",
+      "sigte": "Alsidige lege med fokus på fantasi og kreativitet.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bhk-m2", "trinforloeb": null, "sigte": "Deltager i selvinitieret og planlagt leg og tilpasser og eksperimenterer med den." },
+        { "id": "bhk-m3", "trinforloeb": null, "sigte": "Arbejder med kropslige og musikalske udtryksformer i leg og bevægelse." }
+      ]
+    },
+    {
+      "id": "bhk-kommunikation-og-sproglig-udvikling",
+      "navn": "Kommunikation og sproglig udvikling",
+      "sigte": "Sproglig opmærksomhed og udvikling gennem alsidige udtryksformer — en dimension i arbejdet med alle indholdsområder.",
+      "relation": "gennemgaaende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bhk-m4", "trinforloeb": null, "sigte": "Udforsker sproget i tale og skrift og eksperimenterer med at læse og skrive ord og enkle sætninger." },
+        { "id": "bhk-m5", "trinforloeb": null, "sigte": "Udtrykker egne tanker og oplevelser forståeligt og indgår i forskellige samtaleformer." }
+      ]
+    },
+    {
+      "id": "bhk-natur-og-matematisk-opmaerksomhed",
+      "navn": "Natur og matematisk opmærksomhed",
+      "sigte": "Natur, naturfaglige fænomener samt tal, mønstre og former i elevernes hverdag.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bhk-m6", "trinforloeb": null, "sigte": "Bruger tal, mønstre og enkle figurer til at beskrive situationer fra leg og hverdag." },
+        { "id": "bhk-m7", "trinforloeb": null, "sigte": "Undersøger årstidernes forandring gennem indsamling og observation af fund fra naturen." }
+      ]
+    },
+    {
+      "id": "bhk-kulturel-og-aestetisk-opmaerksomhed",
+      "navn": "Kulturel og æstetisk opmærksomhed",
+      "sigte": "Æstetiske og kulturelle erfaringer og oplevelser.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "bhk-m8", "trinforloeb": null, "sigte": "Møder og anvender forskellige æstetiske og kulturelle udtryksformer gennem egne eksperimenter." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

@@ -1,0 +1,32 @@
+{
+  "kilde": "Hansen, T.I. & Skovmand, K. (2011). Fælles mål og midler, kap. 5.1–5.3",
+  "titel": "Fortolkningsmodel i 5 trin og Læremiddeltjek med 6 parametre",
+  "lag": "A",
+  "lag1_teori": "Fortolkningsmodellen beskriver 5 trin fra analysekontekst til praksisperspektiv: (1) Kontekst – afklar egen rolle (udøver/vejleder/iagttager) og brugssammenhæng; (2) Karakteristik – første indtryk og analytisk distance; (3) Analyse – læremiddeltrekanten som optik; (4) Vurdering – indre sammenhæng + ydre praksissammenhæng; (5) Praksisperspektiv – konkret planlægning af brug og evt. redidaktisering. Læremiddeltjek er et 6-parameter evalueringsværktøj: tre vejkategorier (tilgængelighed, progression, differentiering) ud fra elevperspektiv + tre sammenhængskategorier (lærerstøtte, sammenhæng, legitimitet) ud fra lærer- og samfundsperspektiv. Lærerstøtte samler de tre vejperspektiver i et lærerperspektiv. Sammenhæng vurderer indre logik mellem mål, udtryk, indhold og aktiviteter. Legitimitet vurderer overensstemmelse med ny viden, læreplan og folkeskolelov.",
+  "lag2_kategorier": [
+    "Tre brugerroller: udøver (funktionalitet), vejleder (aktualitet), iagttager (validitet)",
+    "Fortolkningsmodel trin 1–5: kontekst → karakteristik → analyse → vurdering → praksisperspektiv",
+    "Vejkategorier (elevperspektiv): tilgængelighed · progression · differentiering",
+    "Sammenhængskategorier: lærerstøtte · sammenhæng · legitimitet",
+    "Lærerstøtte: planlægning + gennemførsel + evaluering understøttet af læremidlet",
+    "Sammenhæng: realisering af mål + formidling af indhold + aktivering af elever",
+    "Legitimitet: ny viden + aktuel læreplan + folkeskolelov (§1 + §5 + §18)",
+    "Kvantitativ + kvalitativ: 1-5 skala per parameter + analytisk begrundelse"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilken rolle indtager brugeren – udøver, vejleder eller iagttager – og hvad betyder det for analysen?",
+    "Hvad er det første indtryk af læremidlet, og hvilke forventninger skaber det?",
+    "Hvad er læremidlets didaktiske potentiale vurderet ud fra læremiddeltrekanten?",
+    "Er der sammenhæng mellem læremidlets eksplicitte og implicitte mål?",
+    "Støtter læremidlet lærerens planlægning, gennemførsel og evaluering – og på hvilke måder?",
+    "Hænger læremidlets mål, udtryk, indhold og aktiviteter sammen som en integreret helhed?",
+    "Er læremidlet i overensstemmelse med ny faglig/pædagogisk viden, aktuel læreplan og folkeskolens formål?",
+    "Hvilke konkrete redidaktiseringsmuligheder åbner analysen for?"
+  ],
+  "wizard_trin": "6",
+  "tool_type": "design",
+  "tool_navn": "hansenskovmand-fortolkningsmodel-laeremiddeltjek",
+  "trigger": "Evaluerings- og kvalitetsvurderingstrin i wizard – fortolkningsmodellens 5 trin strukturerer lærervejledningens 4 sektioner; Læremiddeltjeks 6 parametre bruges til vurdering af forket forløb",
+  "lærervejledning_sektion": "1+2+3+4+6",
+  "almind_kobling": "Fortolkningsmodellens tre brugerroller (udøver/vejleder/iagttager) svarer præcist til Nielsen et al. (2025)'s fire brugssituationer. Lærervejledningens 4 sektioner kan mappes: Sektion 1 (inspiration) = iagttager; Sektion 2 (årsplanlægning) = vejleder; Sektion 3 (forløbsplanlægning) = vejleder+iagttager; Sektion 4 (gennemførelse) = udøver."
+}

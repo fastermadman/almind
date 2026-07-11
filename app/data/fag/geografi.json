@@ -1,0 +1,87 @@
+{
+  "id": "geografi",
+  "navn": "Geografi",
+  "familie": "naturfag",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "geo-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "geo-undersoegelse-og-modellering",
+      "navn": "Undersøgelse og modellering",
+      "sigte": "At undre sig, stille spørgsmål, modellere og undersøge verden med geografiske metoder — fagets metodiske fundament.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["natur-teknologi", "biologi", "fysik-kemi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m1", "trinforloeb": "geo-7-9", "sigte": "Udvikler forklaringer på naturfaglige spørgsmål ved at undersøge og modellere og formidle med fagsprog." },
+        { "id": "geo-7-9-m2", "trinforloeb": "geo-7-9", "sigte": "Forholder sig kritisk til egne og andres undersøgelser og modeller og designer selv undersøgelser." }
+      ]
+    },
+    {
+      "id": "geo-naturgrundlag-og-landskabsudvikling",
+      "navn": "Naturgrundlag og landskabsudvikling",
+      "sigte": "Hvordan naturens processer former landskaber og jordbund, og hvordan menneskers brug af naturgrundlaget ændrer dem.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m3", "trinforloeb": "geo-7-9", "sigte": "Undersøger hvordan landskaber opstår og forandres ud fra feltarbejde, kort og data." },
+        { "id": "geo-7-9-m4", "trinforloeb": "geo-7-9", "sigte": "Identificerer sammenhænge mellem naturgrundlag og menneskelige aktiviteter, herunder ressourcebrug." }
+      ]
+    },
+    {
+      "id": "geo-befolkning-og-byudvikling",
+      "navn": "Befolkning og byudvikling",
+      "sigte": "Hvordan befolkninger ændrer størrelse og sammensætning, og hvordan byer planlægges, vokser og ændres.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m5", "trinforloeb": "geo-7-9", "sigte": "Forklarer by- og befolkningsudvikling lokalt med støtte i kort, GIS, statistik og feltarbejde." },
+        { "id": "geo-7-9-m6", "trinforloeb": "geo-7-9", "sigte": "Begrunder globale mønstre i by- og befolkningsudvikling." }
+      ]
+    },
+    {
+      "id": "geo-vejr-og-klima",
+      "navn": "Vejr og klima",
+      "sigte": "Hvordan klima og vejr påvirker natur og mennesker, og hvordan klimaet forandres naturligt og menneskeskabt.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m7", "trinforloeb": "geo-7-9", "sigte": "Undersøger vejret lokalt med egne målinger og viden om vindsystemer og årstider." },
+        { "id": "geo-7-9-m8", "trinforloeb": "geo-7-9", "sigte": "Begrunder årsager til og konsekvenser af klimaforandringer med modeller for fremtidsscenarier." }
+      ]
+    },
+    {
+      "id": "geo-graenser-og-globalisering",
+      "navn": "Grænser og globalisering",
+      "sigte": "Hvordan verden både er opdelt af grænser, interesser og konflikter og forbundet gennem globalisering.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m9", "trinforloeb": "geo-7-9", "sigte": "Undersøger hvordan globalisering påvirker egen hverdag gennem forbrug, mobilitet og handel." },
+        { "id": "geo-7-9-m10", "trinforloeb": "geo-7-9", "sigte": "Identificerer sammenhænge mellem ulighed, interessemodsætninger og konflikter mellem lande og aktører." }
+      ]
+    },
+    {
+      "id": "geo-en-baeredygtig-fremtid",
+      "navn": "En bæredygtig fremtid",
+      "sigte": "Virkelighedsnære problemstillinger inden for natur, samfund, kultur og teknologi fra det nære til det globale.",
+      "relation": "gennemgaaende",
+      "faelles_med": ["biologi", "fysik-kemi"],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "geo-7-9-m11", "trinforloeb": "geo-7-9", "sigte": "Belyser en aktuel problemstilling med kobling af viden fra flere naturfag." },
+        { "id": "geo-7-9-m12", "trinforloeb": "geo-7-9", "sigte": "Argumenterer, tager stilling og handler lokalt på problemstillinger om klima, miljø og sundhed." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

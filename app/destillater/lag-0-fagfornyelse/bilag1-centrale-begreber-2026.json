@@ -1,0 +1,67 @@
+{
+  "kilde": "Børne- og Undervisningsministeriet (2025). Bilag 1: Centrale begreber i arbejdet med fagplaner. Version 2, oktober 2025.",
+  "titel": "Bilag 1 (2026-ramme) — opslagsværk over centrale begreber for fagudvalg",
+  "lag": "0",
+  "kildesti": "/Users/valdefar/Developer/UVM fagofornyelsen/Fagfornyelsen/260126-bilag-1-centrale-begreber-version-2.pdf-d36e0405-059e-409c-872a-b3487a8a831e/full.md",
+  "sammenlignet_mod": [
+    "50_Almind/Almind-Wizard/destillater/lag-0-fagfornyelse/fagfornyelsen-2024-grundlag-principper.json",
+    "50_Almind/Almind-Wizard/destillater/lag-0-fagfornyelse/fagfornyelsen-2024-beslutningsgrundlag.json",
+    "50_Almind/Almind-Wizard/WIZARD-PROMPT.md (Fagfornyelsen-afsnittet: treklang + fire principper)",
+    "50_Almind/Fagfornyelsen-Operationalisering/MOC — Fagfornyelsen-operationalisering til Almind.md (Bilag 2-resumé, ikke gen-læst i denne fase)"
+  ],
+  "lag1_teori": "Bilag 1 er et opslagsværk for fagudvalgene til brug ved skrivning af fagplaner efter Bilag 2's skabelon. Bilaget bekræfter selv (afsnit 1) at det er version 2, og at afsnittene om kundskaber, engagement og myndighed er justeret 'som følge af, at fagenes fælles ramme udgår fra fagplanen' — dvs. en strukturel ændring i selve fagplan-arkitekturen ligger til grund for dele af begrebsændringerne, ikke kun en sproglig opdatering. Treklangen (kundskaber/engagement/myndighed) er bevaret substantielt, men uddybet — særligt kundskabsbegrebet, der nu eksplicit deles i tre former. De fire didaktiske principper fra 2024-grundlaget (fordybelse/praksisorientering/inddragelse/fællesskab) optræder ikke som navngivet sæt i Bilag 1; i stedet introduceres et nyt, mere granuleret framework ('10 kendetegn på alsidig undervisning') i det helt nye kapitel 5 (Undervisning). Bilag 1 tilføjer desuden et helt nyt kapitel 4 (Indhold) med indholdstyper, indholdsvalgskriterier, mål- og progressionsforståelse, samt et nyt afsnit om inkluderende sprogbrug (kapitel 2).",
+  "begrebsliste": [
+    { "begreb": "Kundskaber", "forklaring": "Helhedsorienteret begreb om fortrolighed og fordybelse; tre former: (1) implicit forståelse/fortrolighed (knowing with, tavs karakter), (2) færdighedsmæssige kundskaber (knowing how, procedurer/teknikker), (3) kommunikerbare kundskaber (knowing that, sproglig/begrebslig karakter)." },
+    { "begreb": "Engagement", "forklaring": "Dybere og vedvarende faglig interesse, ikke individuel lyst/motivation alene; har både et socialt sigte (fagligt fællesskab) og et personligt sigte (selvopfattelse, virkelyst)." },
+    { "begreb": "Myndighed", "forklaring": "Evne til at træffe selvstændige beslutninger, handle, tage ansvar og ytre sig med autoritet; alsidigt begreb der omfatter fantasi samt etisk, æstetisk og historisk erfaringsdannelse — bredere end kun det demokratiske." },
+    { "begreb": "Indhold", "forklaring": "Alt der tematiseres og gøres til genstand for opmærksomhed, bearbejdning og erkendelse i undervisningen; den didaktiske treklang bruges som optik for udvælgelse og organisering af indhold." },
+    { "begreb": "Skolefag vs. referencefag", "forklaring": "Skolefagets afgrænsning tager afsæt i fagets bidrag til folkeskolens formålsparagraf, ikke i akademiske referencefags videnskabelige systematik." },
+    { "begreb": "Fænomenbaseret indhold", "forklaring": "Fænomener, mønstre og sammenhænge eleverne kan opleve, erfare og undersøge (fx madens egenskaber, organismer, ytringer)." },
+    { "begreb": "Metodisk indhold", "forklaring": "Tankegange og erkendelses-/arbejdsformer der bruges til at omgås fænomenbaseret indhold (fx kildekritik, målemetoder, læseforståelsesstrategier)." },
+    { "begreb": "Teoretisk indhold", "forklaring": "Teorier og erkendelser der giver et sammenhængende bud på forståelse af fænomenbaseret indhold (fx pladetektonik)." },
+    { "begreb": "Indholdsvalgskriterier", "forklaring": "Seks kriterier til at kvalificere indholdsvalg: eksemplaritet, fundament, funktionalitet, kulturoverlevering, dannelsesudfordringer, interessanthed." },
+    { "begreb": "Mål", "forklaring": "Sætter retning for planlægning, gennemførelse og udvikling af undervisning; formuleres i tæt sammenhæng med et indholdsområde; ikke alle dele af elevernes udvikling skal (eller kan) have formulerede mål." },
+    { "begreb": "Progressionsforståelser", "forklaring": "Fire perspektiver på progression: (1) kundskabslogik og indholdsbaserede erkendeskridt, (2) indholdsvalg og mestring, (3) rodfæstelse og spiralbevægelse, (4) vækst og horisontudvidelse. Eksplicit advarsel mod at beskrive progression via Blooms kognitive taksonomi-verber, da det løsriver progression fra specifikt indhold." },
+    { "begreb": "Faglige kompetencer", "forklaring": "Valgfrit begreb uden selvstændig strukturerende funktion i fagplanen; hvis brugt, kendetegnet ved tre forhold: central tankegang, omsætning til kvalificerede handlemåder, manifestation som mestring." },
+    { "begreb": "Didaktiske principper (10 kendetegn på alsidig undervisning)", "forklaring": "Formålsbevidst, Fællesskabende, Alsidigt udviklende, Mestringsorienteret, Indholdsfokuseret, Undersøgende, Skabende, Musisk, Meningsfuld, Stilladseret. De tre første knytter især an til myndighed, de fire næste til kundskaber, de tre sidste til engagement." },
+    { "begreb": "Tværfaglighed", "forklaring": "Tre former for fagligt samspil: funktionelt samspil (fag som redskabsfag), flerfagligt samspil (parallelt arbejde med samme fænomen fra forskellige perspektiver), tværfagligt samspil (fælles, fagligt integrerede mål om komplekse problemstillinger)." },
+    { "begreb": "Sproglig udvikling", "forklaring": "To dele: ordkendskab (fagord samt førfaglige ord/gråzonesprog) og fagets tekster (teksters formål styrer struktur og læsemåde — genrepædagogisk tilgang)." },
+    { "begreb": "Elevbegrebet", "forklaring": "Anbefaling om at bruge 'forskellige forudsætninger' eller 'forskellige støtte- og undervisningsmæssige behov' frem for 'elever med særlige behov'." },
+    { "begreb": "Læringsmiljøbegrebet", "forklaring": "Anbefaling om at bruge 'deltagelsesfremmende' frem for 'inklusion' i beskrivelsen af læringsmiljøer." }
+  ],
+  "sammenligning_kernebegreber": {
+    "indholdsområde": "Bruges i Bilag 1 som forudsat, ikke-defineret begreb (fx koblet til mål i 4.4 og til progression i 4.5). Ingen selvstændig definition af 'indholdsområde' findes i Bilag 1 — begrebet forudsættes kendt fra Bilag 2's skriveskabelon.",
+    "trinforløb": "Optræder slet ikke i Bilag 1's tekst. Bilag 2's struktur (indholdsområder → trinforløb → mål, jf. MOC-resumé) genfindes ikke eksplicit her — Bilag 1 kobler kun mål direkte til 'indholdsområde', ikke til 'trinforløb'.",
+    "mål": "Defineres eksplicit i 4.4: retningsgivende for planlægning/gennemførelse/udvikling af undervisning, tæt koblet til indholdsområde og fagets formål/karakter. Eksplicit forbehold: ikke alle dele af elevudviklingen skal have formulerede mål — et forbehold der ikke findes i lag-0."
+  },
+  "ændringer_siden_2024": [
+    "Bilaget bekræfter selv eksplicit at afsnittene om kundskaber/engagement/myndighed er justeret fordi 'fagenes fælles ramme udgår fra fagplanen' — en strukturel ændring i fagplan-arkitekturen ligger bag dele af begrebsændringerne.",
+    "Præsentationsrækkefølgen af treklangen er ændret fra 'engagement, kundskaber og myndighed' (lag-0) til 'kundskaber, engagement, myndighed' (Bilag 1's afsnitsnumre 3.1–3.3).",
+    "Kundskabsbegrebet er uddybet betydeligt: opdelt i tre eksplicitte former (implicit/tavs, færdighedsmæssig, kommunikerbar) — ingen tilsvarende tredeling findes i lag-0.",
+    "De fire didaktiske principper fra 2024-grundlaget (fordybelse, praksisorientering, inddragelse, fællesskab) optræder IKKE som navngivet sæt i Bilag 1. I stedet introduceres '10 kendetegn på alsidig undervisning' (afsnit 5.1) som nyt, mere granuleret framework.",
+    "Af de fire 2024-principper har kun 'fællesskab' en klar navnemæssig parallel i de 10 kendetegn ('Fællesskabende'). 'Fordybelse' overlever kun indlejret som delkvalitet i kendetegn 5 ('Indholdsfokuseret'), ikke som selvstændigt princip. 'Praksisorientering' og 'Inddragelse' har ingen tydelig 1:1-parallel blandt de 10 kendetegn.",
+    "Helt nyt kapitel 4 (Indhold) er tilføjet: tre indholdstyper (fænomenbaseret/metodisk/teoretisk) samt seks indholdsvalgskriterier — ingen af disse findes i lag-0.",
+    "'Eksemplaritet' optræder i Bilag 1 som selvstændigt indholdsvalgskriterium (4.3), mens det i lag-0 kun indgik som delaspekt af principperne 'fordybelse' (eksemplarisk indhold).",
+    "Nyt afsnit om progressionsforståelser (4.5) med fire perspektiver samt en eksplicit advarsel mod Blooms taksonomi-verber — ingen tilsvarende kategorisering eller forbehold findes i lag-0.",
+    "Nyt afsnit om faglige kompetencer (4.6) som valgfrit, ikke-strukturerende begreb — nævnes slet ikke i lag-0.",
+    "Helt nyt kapitel 5 (Undervisning) med tre delafsnit: didaktiske principper (10 kendetegn), tværfaglighed, sproglig udvikling — ingen af disse tre findes i lag-0.",
+    "Nyt afsnit 'Fagplaner for alle elever i folkeskolen' (kapitel 2) med to nye begrebsanbefalinger: 'elevbegrebet' (undgå 'særlige behov') og 'læringsmiljøbegrebet' (undgå 'inklusion', brug 'deltagelsesfremmende') — findes slet ikke i lag-0.",
+    "Kernebegrebet 'trinforløb' (del af Bilag 2's indholdsområde→trinforløb→mål-kæde) optræder slet ikke i Bilag 1 — mål kobles kun eksplicit til 'indholdsområde'.",
+    "'Mål' defineres i Bilag 1 med et eksplicit forbehold om at ikke alle dele af elevudviklingen skal (eller kan) have formulerede mål — dette forbehold findes ikke i lag-0.",
+    "lag-0's beslutningsgrundlag-fokus på 'dannelsesreform frem for kompetencemålsreform' og 'kvalitetskriterier for læremidler' nævnes ikke direkte i Bilag 1 — Bilag 1 forholder sig udelukkende til fagplan-skrivning, ikke til læremiddelvurdering.",
+    "Skolefag-vs.-referencefag-distinktionen (4.1) er ny og tematiseres slet ikke i lag-0."
+  ],
+  "wizard_trin": "1",
+  "tool_type": "opslagsværk",
+  "tool_navn": "bilag1-centrale-begreber-2026",
+  "trigger": "Fase C — skema-arkitektur for fagplan-udtræk skal bygge på det opdaterede begrebsapparat, ikke kun lag-0's 2024-grundlag",
+  "lærervejledning_sektion": "2",
+  "almind_implikation": "Fase C's skema kan ikke lægge de fire 2024-principper (fordybelse/praksisorientering/inddragelse/fællesskab) direkte til grund som fagudvalgenes aktive begrebsapparat, da de ikke genfindes navngivet i Bilag 1. Skemaet bør i stedet forholde sig til de 10 kendetegn på alsidig undervisning samt de tre indholdstyper og seks indholdsvalgskriterier som det aktuelle 2026-begrebsapparat. 'Trinforløb' skal hentes fra Bilag 2 (skriveskabelonen), ikke fra Bilag 1, da begrebet ikke defineres her.",
+  "krydsreferencer": [
+    "fagfornyelsen-2024-grundlag-principper.json — treklang og fire principper, delvist erstattet/omformuleret i Bilag 1",
+    "fagfornyelsen-2024-beslutningsgrundlag.json — dannelsesreform-fokus, ikke direkte tematiseret i Bilag 1",
+    "WIZARD-PROMPT.md — Fagfornyelsens fire principper citeres her som aktuelt teorigrundlag; bør opdateres i lyset af denne sammenligning",
+    "MOC — Fagfornyelsen-operationalisering til Almind.md — Bilag 2-resumé (skriveskabelon: Fagets formål → Fagets karakter → Fagets indhold (indholdsområder→trinforløb→mål) → Undervisning og evaluering)"
+  ],
+  "status": "B.1 og B.2 gennemført — ikke gennemgået/godkendt af Valdi endnu. lag-0-filerne er ikke redigeret i denne fase, jf. rolle-instruks."
+}

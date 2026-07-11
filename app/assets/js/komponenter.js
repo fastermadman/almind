@@ -102,7 +102,10 @@ export function fagBaand(alle) {
     const a = document.createElement("a");
     a.className = "fagfelt";
     a.dataset.fag = fam;
-    a.href = `browse.html?fam=${fam}`;
+    // Familie er ikke længere en browse.html-facet (arkitektur 7.2: familie
+    // degraderes til farvetema, ikke filter) — linker til den ufiltrerede
+    // liste i stedet for et fam-parameter browse.html ikke længere forstår.
+    a.href = "browse.html";
     const fagliste = def.fag.map((fx) => fx[0].toUpperCase() + fx.slice(1)).join(" · ");
     a.innerHTML = `
       <div class="fagnavn">${def.navn}</div>

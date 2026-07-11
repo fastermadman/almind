@@ -1,0 +1,98 @@
+{
+  "id": "historie",
+  "navn": "Historie",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "his-3-6", "udtryk": "3.-6. klassetrin", "type": "spaend" },
+    { "id": "his-7-9", "udtryk": "7.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "his-fortaellinger-og-spor",
+      "navn": "Fortællinger og spor",
+      "sigte": "Hvordan fortiden undersøges gennem fortællinger og spor som kilder — til stede i al undervisning og kombineres altid med et af de øvrige områder.",
+      "relation": "gennemgaaende",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "his-3-6-m1", "trinforloeb": "his-3-6", "sigte": "Skaber fortællinger om selvvalgte historiske temaer og viser hvordan spor og kilder er brugt." },
+        { "id": "his-7-9-m1", "trinforloeb": "his-7-9", "sigte": "Sammenholder historieformidling med samtidige kilder og vurderer ophav, hensigt og vinkling." }
+      ]
+    },
+    {
+      "id": "his-verdensbilleder-og-faellesskaber",
+      "navn": "Verdensbilleder og fællesskaber",
+      "sigte": "Kulturhistorie — hvordan mennesker i forskellige tider har tænkt og forestillet sig verden.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "his-3-6-m2", "trinforloeb": "his-3-6", "sigte": "Skifter perspektiv til fortidige verdensbilleder og skaber visuelle overblik over fællesskaber over tid." },
+        { "id": "his-7-9-m2", "trinforloeb": "his-7-9", "sigte": "Fordyber sig i kulturfællesskaber og skaber begrundede overblik over kulturhistorisk udvikling." }
+      ]
+    },
+    {
+      "id": "his-hverdagsliv-og-vilkaar",
+      "navn": "Hverdagsliv og vilkår",
+      "sigte": "Økonomisk og social historie — livsvilkår og menneskers samspil med naturen gennem tiden.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "his-3-6-m3", "trinforloeb": "his-3-6", "sigte": "Indlever sig i hverdagsliv i forskellige samfundstyper og skaber overblik over menneske-natur-samspil." },
+        { "id": "his-7-9-m3", "trinforloeb": "his-7-9", "sigte": "Fordyber sig i samfundstypers betydning for livet og diskuterer aktør- og strukturforklaringer på forandring." }
+      ]
+    },
+    {
+      "id": "his-magt-og-frihed",
+      "navn": "Magt og frihed",
+      "sigte": "Politisk historie — hvordan magtforhold og ideer om frihed har ændret sig over tid.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "his-3-6-m4", "trinforloeb": "his-3-6", "sigte": "Skifter perspektiv til menneskers oplevelse af styreformer og skaber overblik over styreformer i Danmarkshistorien." },
+        { "id": "his-7-9-m4", "trinforloeb": "his-7-9", "sigte": "Indlever sig i historiske magtkampe og vurderer årsager til politisk udvikling fra aktør- og strukturperspektiv." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": {
+    "titel": "Historiekanon",
+    "punkter": [
+      "Ertebøllekulturen",
+      "Tutankhamon",
+      "Solvognen",
+      "Kejser Augustus",
+      "Jellingstenen",
+      "Absalon",
+      "Kalmarunionen",
+      "Columbus",
+      "Reformationen",
+      "Christian 4.",
+      "Den Westfalske Fred",
+      "Statskuppet 1660",
+      "Stavnsbåndets ophævelse",
+      "Stormen på Bastillen",
+      "Ophævelse af slavehandlen",
+      "Københavns bombardement",
+      "Grundloven 1849",
+      "Stormen på Dybbøl 1864",
+      "Slaget på Fælleden",
+      "Systemskiftet 1901",
+      "Kvinders valgret",
+      "Genforeningen",
+      "Kanslergadeforliget",
+      "Holocaust, jødeaktionen og augustoprøret i 1943",
+      "FN's Verdenserklæring om Menneskerettigheder",
+      "Energikrisen 1973",
+      "Murens fald",
+      "Maastricht 1992",
+      "Nordatlanten og rigsfællesskabet",
+      "11. september 2001"
+    ]
+  },
+  "valgfag_af": null
+}

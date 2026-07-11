@@ -2,7 +2,7 @@
 // renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, faseBogstav } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, faseBogstav, materialetypeNavn } from "./data.js";
 
 const CALLOUT_TITLER = {
   valg: "Didaktisk valg",
@@ -131,7 +131,14 @@ export function renderDokument(f, tilstand = "laerer") {
       a.href = m.url; a.target = "_blank"; a.rel = "noopener";
       a.textContent = m.titel;
       li.appendChild(a);
-      li.appendChild(document.createTextNode(` (${m.type}, mitCFU faust ${m.faust})`));
+      // Metadata varierer med kilden: gamle materialer har type/faust,
+      // schema 2-materialer har Gissel-type + evt. didaktiserings-note.
+      const meta = [];
+      if (m.type) meta.push(m.type);
+      if (m.faust) meta.push(`mitCFU faust ${m.faust}`);
+      if (m.materialetype) meta.push(materialetypeNavn(m.materialetype));
+      if (meta.length) li.appendChild(document.createTextNode(` (${meta.join(", ")})`));
+      if (m.didaktisering) li.appendChild(tekstEl("div", "under", "Didaktisering: " + m.didaktisering));
       ul.appendChild(li);
     });
     ark.appendChild(ul);

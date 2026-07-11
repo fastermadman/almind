@@ -1,0 +1,63 @@
+{
+  "id": "samfundsfag",
+  "navn": "Samfundsfag",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    { "id": "sam-8-9", "udtryk": "8.-9. klassetrin", "type": "spaend" }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "sam-politik-magt-og-deltagelse",
+      "navn": "Politik, magt og deltagelse",
+      "sigte": "Hvordan borgeren kan deltage og have indflydelse, og om demokrati og magt i Danmark og Europa.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "sam-8-9-m1", "trinforloeb": "sam-8-9", "sigte": "Undersøger politiske institutioner og aktører og deres betydning for demokratiet." },
+        { "id": "sam-8-9-m2", "trinforloeb": "sam-8-9", "sigte": "Analyserer aktuelle politiske problemstillinger og udtrykker egne begrundede holdninger." }
+      ]
+    },
+    {
+      "id": "sam-oekonomi-fordeling-og-forbrug",
+      "navn": "Økonomi, fordeling og forbrug",
+      "sigte": "Statens, virksomheders og privatpersoners rolle i økonomien og sammenhængen mellem privat- og samfundsøkonomi.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "sam-8-9-m3", "trinforloeb": "sam-8-9", "sigte": "Tager stilling til økonomiske problemstillinger om udvikling, velfærd og bæredygtighed." },
+        { "id": "sam-8-9-m4", "trinforloeb": "sam-8-9", "sigte": "Undersøger egen og andres privatøkonomi i sammenhæng med samfundsøkonomien." }
+      ]
+    },
+    {
+      "id": "sam-sociale-og-kulturelle-forhold",
+      "navn": "Sociale og kulturelle forhold",
+      "sigte": "Sociale forskelle, socialisering og identitetsdannelse samt kultur og fællesskaber.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "sam-8-9-m5", "trinforloeb": "sam-8-9", "sigte": "Undersøger fællesskaber og kulturer og øver sig i at forklare andre perspektiver." },
+        { "id": "sam-8-9-m6", "trinforloeb": "sam-8-9", "sigte": "Identificerer mulige årsager til sociale forskelle og diskuterer deres betydning." }
+      ]
+    },
+    {
+      "id": "sam-samfundsfaglig-metode",
+      "navn": "Samfundsfaglig metode",
+      "sigte": "At foretage samfundsfaglige undersøgelser og indgå sagligt argumenterende i faglig og demokratisk samtale.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        { "id": "sam-8-9-m7", "trinforloeb": "sam-8-9", "sigte": "Formulerer undersøgelsesspørgsmål og anvender kilder kritisk i faglig argumentation." },
+        { "id": "sam-8-9-m8", "trinforloeb": "sam-8-9", "sigte": "Deltager engageret og sagligt i demokratiske samtaler og forholder sig til andre holdninger." }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

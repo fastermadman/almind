@@ -1,0 +1,25 @@
+{
+  "kilde": "Hansen, J.J. (2012). Læremiddelbegrebet – en kategori i didaktikken. I Hansen, Graf & Hansen: Læremidler i didaktikken, kap. 1",
+  "titel": "Fire læremiddeltyper som didaktisk kategori",
+  "lag": "A",
+  "lag1_teori": "Læremiddelbegrebet befinder sig i en teoretisk naturtilstand i didaktikken. Hansen indfører en typologi med fire læremiddeltyper: (1) semantiske læremidler (bærere af selvstændigt betydningspotentiale uden didaktisk formgivning – fx skønlitteratur, film, aviser), (2) didaktiske læremidler (designet med eksplicit didaktisk formgivning – mål, indhold, metoder, evaluering), (3) redidaktiserede læremidler (semantiske læremidler som er didaktisk bearbejdet til skolebrug), og (4) praksissimulerende læremidler (læremidler der imiterer autentisk praksis). Typologien er et didaktisk grundbegreb der bringer læremidlet på det didaktiske landkort.",
+  "lag2_kategorier": [
+    "Semantiske læremidler: selvstændigt betydningspotentiale, ikke designet til undervisning",
+    "Didaktiske læremidler: eksplicit didaktisk formgivning (mål, indhold, metode, evaluering)",
+    "Redidaktiserede læremidler: semantiske læremidler transformeret til skolebrug",
+    "Praksissimulerende læremidler: imiterer autentisk praksis",
+    "Læremiddelkultur: skolens samlede praksis med valg og brug af læremidler",
+    "Didaktik 2.0: digitale læremidler sætter ny scene for læring"
+  ],
+  "lag3_spørgsmål": [
+    "Hvilken type læremiddel er dette – semantisk, didaktisk, redidaktiseret eller praksissimulerende?",
+    "Er læremidlet designet med eksplicit didaktisk formgivning, eller bærer det et selvstændigt betydningspotentiale der kræver didaktisering?",
+    "Hvad er læremidlets funktion i den planlagte undervisning – styrer det eller støtter det?",
+    "Afspejler valget af læremiddel en bevidst læremiddelkultur på skolen?"
+  ],
+  "wizard_trin": "1",
+  "tool_type": "fundament",
+  "tool_navn": "hansen-laeremiddeltyper",
+  "trigger": "Wizard trin 1: Identifikation og karakterisering af det læremiddel der skal forkes/redidaktiseres",
+  "lærervejledning_sektion": "1"
+}
