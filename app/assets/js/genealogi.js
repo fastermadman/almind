@@ -88,11 +88,17 @@ export function vertikaltTrae(kaede, aktivId) {
     const li = document.createElement("li");
     if (f.id === aktivId) li.className = "aktiv";
     const pladser = antalAabnePladser(f);
+    // E.5: fork_af.opdateret er den PINNEDE forælder-tilstand ved forkingen
+    // (E.1) — afviger den fra forælderens NUVÆRENDE opdateret-dato, er
+    // forælderen redigeret siden. Kæden (kaede) rummer altid forælderen.
+    const forael = f.fork_af ? kaede.find((k) => k.id === f.fork_af.id) : null;
+    const forladet = forael && forael.opdateret !== f.fork_af.opdateret;
     li.innerHTML = `
       <span class="v-label">V${i}</span>
       <div class="v-titel"><a href="sequence.html?id=${f.id}">${f.titel}${f.undertitel ? ": " + f.undertitel : ""}</a></div>
       <div class="v-meta">${f.forfatter} · ${f.institution} · ${f.aar}${pladser ? ` · ${pladser} åbne pladser` : ""}</div>
       ${f.diff ? `<div class="v-diff">${f.diff}</div>` : ""}
+      ${forladet ? `<div class="v-forladet">Forket fra en tidligere version af "${forael.titel}" — forælderen er redigeret siden</div>` : ""}
     `;
     ol.appendChild(li);
   });

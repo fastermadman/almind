@@ -42,9 +42,10 @@ Neutral base + fire fagfarver (bordeaux #8a2e3e for æstetik), neutralt logo, in
 
 1. Drafting Mono loades ikke (woff2 skal selvhostes); ui-monospace som fallback.
 2. Marauder og No Tears er ikke i brug: alle seed-forløb er udskoling. Indskolings-preview er fase 2.
-3. 5 af 22 destillater medfølger; resten kopieres fra `50_Almind/Almind-Wizard/destillater/` ved behov (manifest.json udvides tilsvarende).
+3. Alle 23 destillater medfølger nu (E.2, 2026-07-11) — kopieret fra `50_Almind/Almind-Wizard/destillater/`, manifest.json udvidet tilsvarende.
 4. Wizard-kladden bor i sessionStorage: den overlever genindlæsning men ikke lukket fane. Demo-vilkår.
 5. Bordeaux-tekstvarianten #5a1e2a er ikke formelt kontrasttjekket endnu.
+6. **Browser-testing:** den lokale preview-cache kan servere stale `fetch()`-svar (fx `manifest.json`, `fag-index.json`) selv efter filen er ændret på disk — overlever `location.reload(true)` og nye faner på samme origin. Kun en ny origin (fx anden port) eller `fetch(url, {cache:'no-store'})` omgår det pålideligt. Ramt gentagne gange under E.2/E.3b/E.5 — tjek dette FØRST hvis en ændring "ikke ses" i browseren, før koden mistænkes.
 
 ## Næste skridt (Sonnet-polish)
 

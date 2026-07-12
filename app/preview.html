@@ -37,7 +37,6 @@
     <select id="fag-skifter" class="filter-pill" aria-label="Skift fagfarve">
       <option value="">Forløbets eget fag</option>
       <option value="hum">Humaniora</option>
-      <option value="stem">STEM</option>
       <option value="natur">Natur</option>
       <option value="aes">Æstetik</option>
     </select>
@@ -78,7 +77,7 @@
   function tegn() {
     rod.innerHTML = "";
     const ark = renderDokument(forloeb, tilstand);
-    // Fag-skifter demonstrerer at designsystemet baerer alle fire familier
+    // Fag-skifter demonstrerer at designsystemet baerer alle tre familier
     const valgt = document.getElementById("fag-skifter").value;
     ark.dataset.fag = valgt || egetFag;
     rod.appendChild(ark);

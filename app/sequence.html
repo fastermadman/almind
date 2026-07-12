@@ -33,6 +33,8 @@
     </div>
   </div>
 
+  <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
+
   <div class="to-kolonner">
     <div>
       <section class="panel" id="dg-panel" style="margin-bottom:1.5rem;">
@@ -41,10 +43,20 @@
         <div id="pladser" style="margin-top:1.25rem;"></div>
       </section>
 
+      <section class="panel" id="fravalg-panel" hidden style="margin-bottom:1.5rem;">
+        <h2>Bevidste fravalg</h2>
+        <ul class="fravalg-liste" id="fravalg"></ul>
+      </section>
+
       <section id="faser" aria-label="Forløbets faser"></section>
     </div>
 
     <aside>
+      <section class="panel" id="position-panel" hidden style="margin-bottom:1.5rem;">
+        <h2>Forfatterens position</h2>
+        <div id="position"></div>
+      </section>
+
       <section class="panel" id="genealogi-panel">
         <h2>Forløbets liv</h2>
         <div id="vtrae"></div>
@@ -84,8 +96,15 @@
     : [];
   // Fag-tagget linker til fag-forsiden (E.3a) og viser fagets navn, ikke id'et
   const fagPost = (await hentFagIndex()).find((x) => x.id === f.fag);
+  // E.5: forældelsesflag — pinnet fagplan-version (koblet ved forfatterens
+  // valg) vs. fagets nuværende version i fag-index.json. Diskret, ikke en
+  // fejl: fagplanen er stadig et udkast, koblingen var gyldig da den blev lavet.
+  const forladetFagplan = f.fagplan_ref && fagPost && f.fagplan_ref.version !== fagPost.fagplan_version;
   document.getElementById("tags").innerHTML =
     `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a><span class="tag neutral">${f.klassetrin}</span>` +
+    (forladetFagplan
+      ? `<span class="tag forladet" title="Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}">Fagplan opdateret siden kobling</span>`
+      : "") +
     (f.tema || []).slice(0, 3).map((t) => `<span class="tag neutral">${t}</span>`).join("") +
     maskintags.map((t) => `<span class="tag neutral" title="Fra wizard-profilen">${t}</span>`).join("");
   document.getElementById("titel").textContent = f.titel;
@@ -101,6 +120,47 @@
   observe(document.getElementById("dg-panel"));
   const pladserEl = document.getElementById("pladser");
   (f.tomme_pladser || []).forEach((p) => pladserEl.appendChild(pladsFold(f, p)));
+
+  // E.6: eksemplarisk_centrum, fravalg, didaktisk_position og samspil havde
+  // ingen læser-side forbruger (kun skrevet af wizard/editor) — 0.1-reglen
+  // krævede enten fjernelse eller en forbruger. eksemplarisk_centrum er
+  // ligefrem obligatorisk i skemaet (arkitektur 6.2), så konsumenten hører
+  // hjemme her, ikke en fjernelse af feltet.
+  if (f.eksemplarisk_centrum?.konkret || f.eksemplarisk_centrum?.alment) {
+    const ek = document.getElementById("eksemplarisk-centrum");
+    ek.hidden = false;
+    ek.innerHTML = `
+      ${f.eksemplarisk_centrum.konkret ? `<p><span class="ek-label">Det konkrete</span>${f.eksemplarisk_centrum.konkret}</p>` : ""}
+      ${f.eksemplarisk_centrum.alment ? `<p><span class="ek-label">Det almene</span>${f.eksemplarisk_centrum.alment}</p>` : ""}
+    `;
+  }
+
+  if (f.fravalg?.length) {
+    const panel = document.getElementById("fravalg-panel");
+    panel.hidden = false;
+    const liste = document.getElementById("fravalg");
+    f.fravalg.forEach((fv) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${fv.hvad}</strong><span>${fv.hvorfor}</span>`;
+      liste.appendChild(li);
+    });
+  }
+
+  if (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn || f.samspil) {
+    const panel = document.getElementById("position-panel");
+    panel.hidden = false;
+    const pos = document.getElementById("position");
+    if (f.didaktisk_position?.fagsyn) pos.appendChild(Object.assign(document.createElement("p"), { innerHTML: `<span class="ek-label">Fagsyn</span>${f.didaktisk_position.fagsyn}` }));
+    if (f.didaktisk_position?.laeringssyn) pos.appendChild(Object.assign(document.createElement("p"), { innerHTML: `<span class="ek-label">Læringssyn</span>${f.didaktisk_position.laeringssyn}` }));
+    if (f.samspil) {
+      const SAMSPIL_NAVN = { funktionelt: "Funktionelt samspil", flerfagligt: "Flerfagligt samspil", tvaerfagligt: "Tværfagligt samspil" };
+      const fagIndex = await hentFagIndex();
+      const fagnavne = (f.samspil.fag || []).map((id) => fagIndex.find((x) => x.id === id)?.navn || id).join(", ");
+      pos.appendChild(Object.assign(document.createElement("p"), {
+        innerHTML: `<span class="ek-label">Samspil</span>${SAMSPIL_NAVN[f.samspil.form] || f.samspil.form}${fagnavne ? " med " + fagnavne : ""}`,
+      }));
+    }
+  }
 
   // Genealogi
   const k = kaede(alle, f.id);

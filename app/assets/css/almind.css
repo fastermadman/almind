@@ -209,6 +209,8 @@ img, svg { display: block; max-width: 100%; }
   color: var(--fagtekst);
 }
 .tag.neutral { background: var(--surface-alt); color: var(--muted); border: 1px solid var(--border); }
+/* E.5: forældelsesflag — diskret, ikke en fejl (jf. arkitektur afsnit 5) */
+.tag.forladet { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
 
 .metadata {
   font-family: var(--font-mono);
@@ -350,6 +352,31 @@ img, svg { display: block; max-width: 100%; }
 .detalje-hoved .undertitel { font-family: var(--font-display); color: var(--muted); font-size: 1.1rem; margin-bottom: 0.9rem; }
 .detalje-hoved .metadata { margin-bottom: 1.4rem; }
 
+/* E.6: eksemplarisk_centrum — obligatorisk Klafki-felt, fik ingen læser-side
+   forbruger før slutaudittet. Rammesættende, derfor over to-kolonner, ikke i et panel. */
+.eksemplarisk-centrum {
+  max-width: 760px; margin: 0 0 2rem; padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--fagfarve, var(--accent));
+  background: var(--surface); border-radius: 0 var(--r-modal) var(--r-modal) 0;
+}
+.eksemplarisk-centrum p { margin: 0 0 0.7rem; font-size: 0.98rem; line-height: 1.5; }
+.eksemplarisk-centrum p:last-child { margin-bottom: 0; }
+.ek-label {
+  display: block; font-family: var(--font-ui); font-weight: 600; font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--fagtekst, var(--muted));
+  margin-bottom: 0.15rem;
+}
+
+/* E.6: fravalg — adskilt fra tomme_pladser (arkitektur 6.2), derfor egen liste, ikke fold */
+.fravalg-liste { list-style: none; }
+.fravalg-liste li { margin-bottom: 1rem; }
+.fravalg-liste li:last-child { margin-bottom: 0; }
+.fravalg-liste strong { display: block; font-family: var(--font-ui); font-size: 0.92rem; margin-bottom: 0.2rem; }
+.fravalg-liste span { display: block; font-size: 0.88rem; color: var(--muted); }
+
+#position p { margin: 0 0 1rem; font-size: 0.92rem; line-height: 1.45; }
+#position p:last-child { margin-bottom: 0; }
+
 .to-kolonner {
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
   gap: 2.5rem; align-items: start; margin-bottom: 3rem;
@@ -387,6 +414,8 @@ img, svg { display: block; max-width: 100%; }
 .vtrae .v-titel a:hover { text-decoration: underline; }
 .vtrae .v-meta { font-family: var(--font-ui); font-size: 0.82rem; color: var(--muted); }
 .vtrae .v-diff { font-size: 0.88rem; margin-top: 0.35rem; opacity: 0.9; }
+/* E.5: forælderen er redigeret siden forkingen — diskret, ikke en fejl */
+.vtrae .v-forladet { font-size: 0.8rem; margin-top: 0.35rem; color: var(--muted); font-style: italic; }
 
 /* Dækningsgradsprofil: prikker, samme layout som print (dg-prik fra Typst-systemet) */
 .dg-profil { display: grid; gap: 0.55rem; }
@@ -648,7 +677,10 @@ img, svg { display: block; max-width: 100%; }
   padding-bottom: 0.25rem; margin: 1.3rem 0 0.6rem;
 }
 .ark p { margin-bottom: 0.7rem; }
-.ark ol, .ark ul { margin: 0.4rem 0 0.9rem 1.3rem; }
+/* padding-left nødvendig: globalt reset (linje 5) nulstiller ol/ul's
+   standard-padding, som ellers giver plads til "outside"-listemarkøren —
+   uden den hænger tal/prikker uden for boksen, til venstre for alt andet. */
+.ark ol, .ark ul { margin: 0.4rem 0 0.9rem 1.3rem; padding-left: 1.2rem; }
 .ark li { margin-bottom: 0.3rem; }
 .ark .akt-titel { color: var(--fagtekst, var(--ink)); } /* aktivitetens titel, hvis udfyldt — Issue #22 */
 
