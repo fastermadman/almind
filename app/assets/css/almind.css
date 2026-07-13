@@ -34,7 +34,11 @@ img, svg { display: block; max-width: 100%; }
   position: sticky; top: 0; z-index: 50;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+  min-height: 96px; /* reserverer højde: sitehoved.js renderer først når JS kører (navigation-plan §1) */
 }
+/* Søgeformen er en usynlig wrapper på desktop — .soegefelt opfører sig som
+   før (raw <input>), formens funktion (submit til browse.html) består */
+.site-header > .soegeform { display: contents; }
 .logo {
   font-family: var(--font-marauder);
   font-variation-settings: 'opsz' 6, 'wght' 700;
@@ -60,7 +64,13 @@ img, svg { display: block; max-width: 100%; }
   max-width: 220px; padding: 0.45rem 1rem; font-size: 0.88rem;
 }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-left: auto; }
-.site-nav a {
+.site-nav a:not(.knap) {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.82rem;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  text-decoration: none; color: var(--ink);
+  padding: 0.4rem 0.85rem; border-radius: var(--r-knap);
+}
+.site-nav a.knap {
   font-family: var(--font-ui); font-weight: 500; font-size: 0.95rem;
   text-decoration: none; color: var(--ink);
   padding: 0.4rem 0.85rem; border-radius: var(--r-knap);
@@ -88,6 +98,56 @@ img, svg { display: block; max-width: 100%; }
 /* Nav-knappen: .site-nav a vandt specificitetskampen og gjorde teksten mørk på mørk */
 .site-nav a.knap { background: var(--accent); border: 1.5px solid var(--accent); color: var(--bg); }
 .site-nav a.knap:hover { background: transparent; color: var(--accent); }
+
+/* ---------- Mobilmenu (≤700px, navigation-plan §3) ---------- */
+/* Native <details> — dokument, ikke SaaS: ingen hamburger-ikon, ingen JS-menu-maskine */
+/* position ikke relative her med vilje: panelets absolute inset skal
+   referere .site-header (sticky = positioned ancestor), ikke den smalle
+   Menu-knap, ellers klemmes panelet ind under knappen frem for fuld bredde */
+.mobilmenu { display: none; margin-left: auto; }
+.mobilmenu summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.82rem;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 0.4rem 0.85rem; border-radius: var(--r-knap); color: var(--ink);
+}
+.mobilmenu summary::-webkit-details-marker { display: none; }
+.mobilmenu summary::after { content: "▾"; font-size: 0.75em; }
+.mobilmenu[open] summary::after { content: "▴"; }
+.mobilmenu summary:hover { background: var(--surface-alt); }
+.mobilmenu > nav {
+  position: absolute; inset: 100% 0 auto 0; z-index: 49;
+  display: flex; flex-direction: column; gap: 0.15rem;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem 1.5rem;
+}
+.mobilmenu .soegeform { margin-bottom: 0.5rem; }
+.mobilmenu .soegeform .soegefelt { max-width: none; width: 100%; }
+.mobilmenu > nav a:not(.knap) {
+  display: flex; align-items: center; min-height: 44px;
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--ink); text-decoration: none;
+  padding: 0.4rem 0.4rem; border-radius: var(--r-knap);
+}
+.mobilmenu > nav a.knap {
+  display: flex; align-items: center; min-height: 44px;
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.4rem 0.4rem; border-radius: var(--r-knap);
+}
+.mobilmenu > nav a:hover { background: var(--surface-alt); }
+.mobilmenu > nav a.knap {
+  justify-content: center; margin-top: 0.4rem;
+  background: var(--accent); border: 1.5px solid var(--accent); color: var(--bg);
+}
+.mobilmenu > nav a.knap:hover { background: transparent; color: var(--accent); }
+
+@media (max-width: 700px) {
+  .site-header > .soegeform, .site-header > .site-nav { display: none; }
+  .mobilmenu { display: block; }
+}
 
 /* ---------- Søgefelt ---------- */
 .soegefelt {
@@ -299,8 +359,7 @@ img, svg { display: block; max-width: 100%; }
   transition: background 0.15s;
 }
 .fagfelt:hover { background: color-mix(in srgb, var(--fagfarve) 5%, var(--surface)); }
-.fagfelt .fagnavn { font-family: var(--font-ui); font-weight: 600; font-size: 0.95rem; }
-.fagfelt .fagfag { font-family: var(--font-ui); font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+.fagfelt .fagnavn { font-family: var(--font-display); font-weight: 600; font-size: 1.18rem; line-height: 1.3; }
 .fagfelt .fagantal { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst); margin-top: 0.5rem; }
 
 /* ---------- Facetter (browse) — fag/klassetrin/omfang, E.3b ---------- */

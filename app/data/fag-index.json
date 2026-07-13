@@ -114,7 +114,7 @@
  {
   "id": "fransk",
   "navn": "Fransk",
-  "familie": "praktisk-musisk",
+  "familie": "humaniora",
   "fagplan_version": "2026-06-udkast2",
   "har_fagplan": true
  },
@@ -177,7 +177,7 @@
  {
   "id": "tysk",
   "navn": "Tysk",
-  "familie": "praktisk-musisk",
+  "familie": "humaniora",
   "fagplan_version": "2026-06-udkast2",
   "har_fagplan": true
  }

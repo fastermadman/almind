@@ -106,10 +106,10 @@ export function fagBaand(alle) {
     // degraderes til farvetema, ikke filter) — linker til den ufiltrerede
     // liste i stedet for et fam-parameter browse.html ikke længere forstår.
     a.href = "browse.html";
-    const fagliste = def.fag.map((fx) => fx[0].toUpperCase() + fx.slice(1)).join(" · ");
+    // Den fulde fagliste (11+ navne pr. familie) er støj, ikke information —
+    // familien selv + antal er nok til at orientere (Valdemar, 2026-07-14).
     a.innerHTML = `
       <div class="fagnavn">${def.navn}</div>
-      <div class="fagfag">${fagliste}</div>
       <div class="fagantal">${taellinger[fam]} forløb &rarr;</div>
     `;
     wrap.appendChild(a);

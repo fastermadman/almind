@@ -200,3 +200,31 @@
 .profil-panel .chips { gap: 0.35rem; }
 .profil-panel .chip { font-size: 0.8rem; padding: 0.3rem 0.7rem; }
 .profil-panel .segment button { font-size: 0.8rem; padding: 0.3rem 0.65rem; }
+
+/* W1: fravalg-rækker i panelet (deler stil med wizardens trin ③) */
+.profil-panel .raekke-liste { margin-bottom: 0.6rem; }
+.profil-panel .raekke {
+  position: relative; display: grid; gap: 0.5rem;
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface-alt); padding: 0.85rem 2.3rem 0.85rem 1rem; margin-bottom: 0.6rem;
+}
+.profil-panel .raekke input[type="text"], .profil-panel .raekke textarea {
+  width: 100%; font-family: var(--font-body); font-size: 0.85rem;
+  padding: 0.45rem 0.6rem; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--ink);
+}
+.profil-panel .raekke textarea { min-height: 46px; resize: vertical; }
+.profil-panel .raekke-slet {
+  position: absolute; top: 0.35rem; right: 0.35rem;
+  border: none; background: none; color: var(--muted);
+  font-size: 1rem; line-height: 1; cursor: pointer; padding: 0.15rem 0.3rem;
+}
+.profil-panel .raekke-slet:hover { color: var(--ink); }
+
+/* W1: eksemplarisk centrum på kanvas — det ubesvarede spørgsmål øverst */
+.centrum-felter { margin-bottom: 1.2rem; }
+.centrum-felter .felt { margin-bottom: 1rem; }
+
+/* W1: publish-gate-dialogen genbruger greb-dialogens chrome */
+.centrum-dialog .felt { margin-bottom: 1.2rem; }
+.centrum-dialog .tilfoej:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -32,15 +32,7 @@
 <body>
 <div class="container">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header" data-aktiv="upload"></header>
 
   <div class="wizard">
     <h1 id="side-titel">Del et forløb</h1>
@@ -83,14 +75,17 @@
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
   </footer>
 </div>
 
 <script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
   import { gemKladde, hentKladde, datoTekst } from "./assets/js/data.js";
   import { nytForloeb } from "./assets/js/blokke.js";
   import { parseDocx, parseMarkdown } from "./assets/js/importer.js";
+
+  sitehoved(document.querySelector(".site-header"));
 
   // ?wizard=1: den guidede vej — 5-trins rygraden (arkitektur 8.2) monteres
   // her og afleverer sin kladde til editoren, som de to andre indgange.

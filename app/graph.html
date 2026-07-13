@@ -216,15 +216,7 @@
 <body>
 <div class="container">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header"></header>
 
   <div class="graf-intro">
     <p class="graf-eyebrow">Konstellation</p>
@@ -263,7 +255,10 @@
 <div id="tip" role="presentation"></div>
 
 <script type="module">
+import { sitehoved } from "./assets/js/sitehoved.js";
 import { hentForloeb, hentFagIndex, hentFag, FAMILIER } from "./assets/js/data.js";
+
+sitehoved(document.querySelector(".site-header"));
 
 const fagIndex = await hentFagIndex(); // FAMILIER læses synkront lige nedenfor, før hentForloeb() ellers ville have ventet på den
 

@@ -12,16 +12,7 @@
 <body>
 <div class="container">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <input class="soegefelt" id="soeg" type="search" placeholder="Søg forløb, fag, tema, trin ..." aria-label="Søg i forløb">
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html" class="aktiv">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header" data-aktiv="forside"></header>
 
   <section class="hero" id="hero" data-fag="hum" aria-label="Fremhævet forløb">
     <div class="hero-tekst">
@@ -44,7 +35,7 @@
     <div class="trae-ramme" id="hero-trae"></div>
   </section>
 
-  <h2 class="sektionstitel">Fagene</h2>
+  <h2 class="sektionstitel" id="fag">Fagene</h2>
   <div id="fagbaand"></div>
 
   <h2 class="sektionstitel">Forløb fra fællesskabet</h2>
@@ -52,15 +43,18 @@
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
   </footer>
 </div>
 
 <script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, kaede, familieFor } from "./assets/js/data.js";
   import { horisontaltTrae } from "./assets/js/genealogi.js";
   import { forloebKort, fagBaand } from "./assets/js/komponenter.js";
   import { stagger, tegnTrae } from "./assets/js/motion.js";
+
+  sitehoved(document.querySelector(".site-header"));
 
   const alle = await hentForloeb();
 

@@ -69,43 +69,27 @@ export async function trinUdtrykFor(fagId) {
   }
 }
 
-export async function startWizard({ rod, original = null, startDimension = null }) {
+// original/startDimension er fjernet (fund C — døde parametre, ingen kalder
+// dem; fork-med-dimension ejes af editor-vejen rediger.html?fork=&dimension=).
+export async function startWizard({ rod }) {
   const state = {
     trin: 0,
     kerne: {
-      titel: original?.titel || "",
-      fag: original?.fag || "dansk",
-      klassetrin: original?.klassetrin || "",
-      beskrivelse: original?.beskrivelse || "",
-      konkret: original?.eksemplarisk_centrum?.konkret || "",
-      alment: original?.eksemplarisk_centrum?.alment || "",
-      omfangType: original?.omfang?.type || "forloeb",
-      lektioner: original?.omfang?.lektioner || "",
+      titel: "", fag: "dansk", klassetrin: "", beskrivelse: "",
+      konkret: "", alment: "", omfangType: "forloeb", lektioner: "",
     },
-    faser: original ? structuredClone(original.faser || []) : [],
-    tags: { ...(original?.tags || {}) },   // maskinlæsbare svar; fork arver originalens tags
+    faser: [],
+    tags: {},
     fritekst: {},
     pladser: {},
-    fravalg: original?.fravalg?.length ? structuredClone(original.fravalg) : [],
-    position: {
-      fagsyn: original?.didaktisk_position?.fagsyn || "",
-      laeringssyn: original?.didaktisk_position?.laeringssyn || "",
-    },
+    fravalg: [],
+    position: { fagsyn: "", laeringssyn: "" },
     kobling: {
-      omraader: new Set(original?.fagplan_ref?.indholdsomraader || []),
-      materialer: original ? structuredClone(original.materialer || []) : [],
-      samspilForm: original?.samspil?.form || "",
-      samspilFag: new Set(original?.samspil?.fag || []),
+      omraader: new Set(), materialer: [], samspilForm: "", samspilFag: new Set(),
     },
-    fokusDimension: startDimension || null,
-    original,
   };
 
-  DIMENSIONER.forEach((dim) => {
-    const erTom = original ? original.daekningsgrad?.[dim] === "tom" : false;
-    const arvetBesked = original?.tomme_pladser?.find((p) => p.dimension === dim)?.besked || "";
-    state.pladser[dim] = { aaben: erTom, besked: erTom ? arvetBesked : "" };
-  });
+  DIMENSIONER.forEach((dim) => { state.pladser[dim] = { aaben: false, besked: "" }; });
 
   const fagIndex = await hentFagIndex();
   const manifest = await hentManifest();
@@ -575,7 +559,6 @@ export async function startWizard({ rod, original = null, startDimension = null 
         b.addEventListener("click", () => { p.aaben = b.dataset.v === "aaben"; tegn(); }));
       tegn();
       boks.appendChild(omraade);
-      if (state.fokusDimension === dim) boks.style.borderColor = "var(--accent)";
       rod.appendChild(boks);
     });
   }
@@ -752,10 +735,17 @@ export async function startWizard({ rod, original = null, startDimension = null 
     frem.addEventListener("click", () => {
       // Det eksemplariske centrum er skemaets eneste obligatoriske nye felt
       // (arkitektur 6.2) — resten af wizard'en inviterer, dette ene kræver.
-      if (state.trin === 0 && !state.kerne.konkret.trim()) {
-        rod.querySelector(".felt textarea")?.focus();
-        rod.querySelector(".felt")?.scrollIntoView({ block: "center", behavior: "smooth" });
-        return;
+      // Parret er udeleligt (fund C): konkret uden alment er en aktivitet,
+      // alment uden konkret er en floskel.
+      if (state.trin === 0) {
+        const felter = rod.querySelectorAll(".felt textarea");
+        const manglerKonkret = !state.kerne.konkret.trim();
+        const mangler = manglerKonkret ? felter[0] : !state.kerne.alment.trim() ? felter[1] : null;
+        if (mangler) {
+          mangler.focus();
+          mangler.closest(".felt")?.scrollIntoView({ block: "center", behavior: "smooth" });
+          return;
+        }
       }
       if (state.trin < TRIN.length - 1) { state.trin++; visTrin(); }
       else afslut();
@@ -775,13 +765,7 @@ export async function startWizard({ rod, original = null, startDimension = null 
       .map((d) => ({ dimension: d, besked: state.pladser[d].besked || "Bevidst åben plads." }));
 
     const daekningsgrad = {};
-    DIMENSIONER.forEach((d) => {
-      daekningsgrad[d] = state.pladser[d].aaben
-        ? "tom"
-        : original?.daekningsgrad?.[d] && original.daekningsgrad[d] !== "tom"
-          ? original.daekningsgrad[d]
-          : "fuld";
-    });
+    DIMENSIONER.forEach((d) => { daekningsgrad[d] = state.pladser[d].aaben ? "tom" : "fuld"; });
 
     const refleksioner = Object.entries(state.fritekst)
       .filter(([, v]) => v && v.trim())
@@ -817,7 +801,7 @@ export async function startWizard({ rod, original = null, startDimension = null 
       id: "kladde",
       schema_version: 2,
       titel: g.titel || "Uden titel",
-      undertitel: original ? "Fork af " + (original.undertitel || original.titel) : null,
+      undertitel: null,
       forfatter: "Dig",
       institution: "Din skole",
       aar: new Date().getFullYear(),
@@ -831,7 +815,7 @@ export async function startWizard({ rod, original = null, startDimension = null 
       samspil,
       licens: "CC BY-SA 4.0",
       opdateret: new Date().toISOString().slice(0, 10),
-      fork_af: original ? { id: original.id, opdateret: original.opdateret } : null,
+      fork_af: null,
       beskrivelse: g.beskrivelse || "",
       tags: state.tags,
       daekningsgrad,

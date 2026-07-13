@@ -12,15 +12,7 @@
 <body>
 <div class="container" id="side">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="preview.html?id=dss-v1" class="aktiv">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header"></header>
 
   <p class="intro" id="kladde-note" hidden style="font-family:var(--font-ui); background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--fagfarve, var(--ink)); border-radius:12px; padding:0.8rem 1.1rem; margin-top:1rem;">
     Dit forløb. Sådan ser det ud når det deles. Intet er sendt nogen steder hen: dette er en lokal demo.
@@ -47,13 +39,16 @@
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
   </footer>
 </div>
 
 <script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, hentKladde, familieFor } from "./assets/js/data.js";
   import { renderDokument } from "./assets/js/dokument.js";
+
+  sitehoved(document.querySelector(".site-header"));
 
   const params = new URLSearchParams(location.search);
   let forloeb;

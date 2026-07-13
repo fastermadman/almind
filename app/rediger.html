@@ -14,15 +14,7 @@
 <body>
 <div class="container" id="side">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html">Forside</a>
-      <a href="browse.html">Alle forløb</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header"></header>
 
   <div class="editor-hoved">
     <div>
@@ -50,7 +42,7 @@
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
   </footer>
 </div>
 
@@ -64,8 +56,11 @@
     location.replace(location.href.replace("//localhost", "//127.0.0.1"));
   }
 
+  import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor } from "./assets/js/data.js";
-  import { startEditor, nytForloeb, forkAf } from "./assets/js/blokke.js";
+  import { startEditor, nytForloeb, forkAf, centrumOK, aabnCentrumDialog } from "./assets/js/blokke.js";
+
+  sitehoved(document.querySelector(".site-header"));
 
   const params = new URLSearchParams(location.search);
   let f = null;
@@ -135,6 +130,10 @@
 
   cbKnap.addEventListener("click", async () => {
     if (!erLoggetInd()) { login(); return; }
+    if (!centrumOK(f)) {
+      const fortsat = await aabnCentrumDialog(f, gemKladde);
+      if (!fortsat) return;
+    }
     gemKladde(f);
     cbKnap.disabled = true;
     visStatus("Deler forløbet: fork/gren → commit → pull request ...");

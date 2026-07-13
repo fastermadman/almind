@@ -12,16 +12,7 @@
 <body>
 <div class="container">
 
-  <header class="site-header">
-    <a class="logo" href="../index.html">almind<small>frit, fælles &amp; forgrenet</small></a>
-    <input class="soegefelt" id="soeg" type="search" placeholder="Søg forløb, fag, tema, trin ..." aria-label="Søg i forløb">
-    <nav class="site-nav" aria-label="Hovednavigation">
-      <a href="index.html">Forside</a>
-      <a href="browse.html" class="aktiv">Alle forløb</a>
-      <a href="preview.html?id=dss-v1">Preview</a>
-      <a class="knap" href="upload.html">Del et forløb</a>
-    </nav>
-  </header>
+  <header class="site-header" data-aktiv="browse"></header>
 
   <h1 style="font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin-top:1rem;">Alle forløb</h1>
 
@@ -48,18 +39,22 @@
     <button class="filter-pill" id="filter-forks" aria-pressed="false">Har versionshistorik</button>
   </div>
 
+  <div id="fag-genvej"></div>
   <div class="kortgrid" id="grid"></div>
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
-    <span>Alt indhold: CC BY-SA 4.0</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
   </footer>
 </div>
 
 <script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, hentFagIndex, antalAabnePladser, kaede } from "./assets/js/data.js";
   import { forloebKort } from "./assets/js/komponenter.js";
   import { stagger } from "./assets/js/motion.js";
+
+  sitehoved(document.querySelector(".site-header"));
 
   const alle = await hentForloeb();
   const fagIndex = await hentFagIndex();
@@ -140,6 +135,28 @@
 
     document.getElementById("filter-pladser").setAttribute("aria-pressed", String(state.pladser));
     document.getElementById("filter-forks").setAttribute("aria-pressed", String(state.forks));
+
+    // Fag-genvej (navigation-plan §4.3): "idræt" i søgefeltet betyder næsten
+    // altid "vis mig faget" — banner over resultaterne, ikke en dropdown.
+    const genvejZone = document.getElementById("fag-genvej");
+    genvejZone.innerHTML = "";
+    if (state.q) {
+      const q = state.q.toLowerCase();
+      const match = fagIndex.filter((fag) => fag.navn.toLowerCase().includes(q));
+      if (match.length) {
+        const boks = document.createElement("div");
+        boks.className = "tom-tilstand";
+        boks.append("Leder du efter faget? → ");
+        match.slice(0, 3).forEach((fag, i) => {
+          if (i > 0) boks.append(" · ");
+          const a = document.createElement("a");
+          a.href = `fag.html?id=${fag.id}`;
+          a.textContent = fag.navn;
+          boks.appendChild(a);
+        });
+        genvejZone.appendChild(boks);
+      }
+    }
 
     let liste = alle;
     if (state.fag) liste = liste.filter((f) => f.fag === state.fag);

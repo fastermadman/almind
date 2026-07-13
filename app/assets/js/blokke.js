@@ -6,8 +6,8 @@
 // Drag-to-reorder: SortableJS (loades som script-tag af rediger.html).
 
 import {
-  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav,
-  hentManifest, hentDestillat, hentFagIndex, gemKladde, gisselMaterialetyper,
+  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav, SAMSPIL_FORMER,
+  hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
 } from "./data.js";
 import { PROFIL_GRUPPER, trinUdtrykFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
@@ -55,6 +55,83 @@ export function forkAf(original) {
   delete f.diff;
   delete f.citat;
   return f;
+}
+
+// Publish-gate (arkitektur 1.2): §2-håndhævelsen flytter til delingsøjeblikket.
+// Kaldes af rediger.html FØR delTilAlmind/gemTilEgenGren — ikke ved indgang.
+export function centrumOK(f) {
+  return !!(f.eksemplarisk_centrum?.konkret?.trim() && f.eksemplarisk_centrum?.alment?.trim());
+}
+
+export function aabnCentrumDialog(f, gemKladdeFn) {
+  return new Promise((resolve) => {
+    f.eksemplarisk_centrum ??= { konkret: "", alment: "" };
+    const c = f.eksemplarisk_centrum;
+
+    const dlg = document.createElement("dialog");
+    dlg.className = "greb-dialog centrum-dialog";
+    const h2 = document.createElement("h2");
+    h2.textContent = "Før forløbet deles";
+    dlg.appendChild(h2);
+    const intro = document.createElement("p");
+    intro.className = "under";
+    intro.textContent = "Hvad fordyber eleverne sig i — og hvad åbner det?";
+    dlg.appendChild(intro);
+
+    const fortsaet = document.createElement("button");
+    function felt(label, vaerdi, placeholder, onInput) {
+      const wrap = document.createElement("div");
+      wrap.className = "felt";
+      const l = document.createElement("span");
+      l.className = "felt-label";
+      l.textContent = label;
+      wrap.appendChild(l);
+      const ta = document.createElement("textarea");
+      ta.className = "tekstfelt";
+      ta.value = vaerdi || "";
+      ta.placeholder = placeholder;
+      ta.addEventListener("input", () => { onInput(ta.value); fortsaet.disabled = !centrumOK(f); });
+      wrap.appendChild(ta);
+      return wrap;
+    }
+
+    dlg.appendChild(felt(
+      "Det konkrete: hvilket stof, værk eller fænomen står i centrum?",
+      c.konkret,
+      "fx \"Tove Ditlevsens 'Barndommens gade'\" eller \"gær der hæver dej\"",
+      (v) => (c.konkret = v),
+    ));
+    dlg.appendChild(felt(
+      "Det almene: hvilken større indsigt er stoffet et eksempel på?",
+      c.alment,
+      "fx \"hvordan litteratur giver sprog til klasse og opvækst\" eller \"at mikroorganismer omsætter stof\"",
+      (v) => (c.alment = v),
+    ));
+
+    fortsaet.type = "button";
+    fortsaet.className = "tilfoej";
+    fortsaet.textContent = "Udfyld og fortsæt";
+    fortsaet.disabled = !centrumOK(f);
+    fortsaet.addEventListener("click", () => {
+      if (!centrumOK(f)) return;
+      gemKladdeFn(f);
+      dlg.close(); dlg.remove();
+      resolve(true);
+    });
+    dlg.appendChild(fortsaet);
+
+    const annuller = document.createElement("button");
+    annuller.type = "button";
+    annuller.className = "tilfoej";
+    annuller.textContent = "Annullér";
+    annuller.addEventListener("click", () => { dlg.close(); dlg.remove(); resolve(false); });
+    dlg.appendChild(annuller);
+
+    dlg.addEventListener("close", () => resolve(false));
+    dlg.addEventListener("close", () => dlg.remove());
+    document.body.appendChild(dlg);
+    dlg.showModal();
+  });
 }
 
 export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
@@ -133,8 +210,70 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     kanvas.appendChild(tegnPladser());
   }
 
+  function feltMedLabel(label, under, kontrol) {
+    const wrap = el("div", "felt centrum-felt");
+    wrap.appendChild(el("span", "felt-label", label));
+    if (under) wrap.appendChild(el("span", "under", under));
+    wrap.appendChild(kontrol);
+    return wrap;
+  }
+
+  function tegnCentrum() {
+    // Skema-fund A: eksemplarisk centrum var kun forfatterbart i wizarden.
+    // Kanvas gør det til det første, forfatteren ser — også over importeret stof.
+    f.eksemplarisk_centrum ??= { konkret: "", alment: "" };
+    const c = f.eksemplarisk_centrum;
+    const wrap = el("div", "centrum-felter");
+    wrap.appendChild(feltMedLabel(
+      "Det konkrete: hvilket stof, værk eller fænomen står i centrum?",
+      "ét nedslag, ikke et pensum — det konkrete valg der bærer forløbet",
+      tekstFelt("tekstfelt", c.konkret,
+        "fx \"Tove Ditlevsens 'Barndommens gade'\" eller \"gær der hæver dej\"",
+        (v) => (c.konkret = v)),
+    ));
+    wrap.appendChild(feltMedLabel(
+      "Det almene: hvilken større indsigt er stoffet et eksempel på?",
+      "hvad åbner det konkrete for — det eleverne har med sig, når stoffet er glemt",
+      tekstFelt("tekstfelt", c.alment,
+        "fx \"hvordan litteratur giver sprog til klasse og opvækst\" eller \"at mikroorganismer omsætter stof\"",
+        (v) => (c.alment = v)),
+    ));
+    return wrap;
+  }
+
+  function tegnOmfang() {
+    f.omfang ??= { type: "forloeb" };
+    const seg = el("div", "segment");
+    seg.setAttribute("role", "group");
+    const lektionerWrap = el("div");
+    const tegnLektioner = () => {
+      lektionerWrap.innerHTML = "";
+      if (f.omfang.type !== "forloeb") return;
+      lektionerWrap.appendChild(inputFelt(null, f.omfang.lektioner, "Antal lektioner (valgfrit)",
+        (v) => (f.omfang.lektioner = v || undefined)));
+    };
+    [["lektion", "Enkelt lektion"], ["forloeb", "Forløb"]].forEach(([v, navn]) => {
+      const b = el("button", null, navn);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(f.omfang.type === v));
+      b.addEventListener("click", () => {
+        f.omfang.type = v;
+        seg.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.textContent === navn)));
+        tegnLektioner(); gem();
+      });
+      seg.appendChild(b);
+    });
+    tegnLektioner();
+    const wrap = el("div");
+    wrap.appendChild(seg);
+    wrap.appendChild(lektionerWrap);
+    return feltMedLabel("Omfang",
+      "en enkelt lektion springer dramaturgi-apparatet over — et forløb får det hele", wrap);
+  }
+
   function tegnGrundinfo() {
     const kort = el("section", "blok-kort grundinfo");
+    kort.appendChild(tegnCentrum());
     kort.appendChild(inputFelt("grund-titel", f.titel, "Forløbets titel", (v) => (f.titel = v)));
 
     const raekke = el("div", "grund-raekke");
@@ -182,6 +321,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     raekke.appendChild(trinWrap);
 
     kort.appendChild(raekke);
+    kort.appendChild(tegnOmfang());
     kort.appendChild(tekstFelt("tekstfelt", f.beskrivelse,
       "Kort beskrivelse: hvad gør forløbet, og hvad er det stærkt på?",
       (v) => (f.beskrivelse = v)));
@@ -325,8 +465,6 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     f.materialer.forEach((m, j) => {
       const raekke = el("div", "materiale-raekke");
       raekke.appendChild(inputFelt(null, m.titel, "Titel", (v) => (m.titel = v)));
-      raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
-      raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
       raekke.appendChild(inputFelt(null, m.url, "URL", (v) => (m.url = v)));
       // Gissel-type + didaktisering (schema 6.2) — typerne fra destillatet
       if (gisselTyper.length) {
@@ -339,6 +477,9 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       }
       raekke.appendChild(inputFelt(null, m.didaktisering,
         "Didaktisering: hvad har du gjort ved materialet?", (v) => (m.didaktisering = v)));
+      // Legacy-felter (fund C): vises kun når allerede udfyldt — nye materialer får dem ikke tilbudt
+      if (m.type) raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
+      if (m.faust) raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
       raekke.appendChild(sletKnap("Fjern materialet", () => {
         f.materialer.splice(j, 1);
         gem(); tegnKanvas();
@@ -524,6 +665,119 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     return wrap;
   }
 
+  // Fund A: fravalg/position og fagplan-kobling kunne kun forfattes i wizarden.
+  // Panelet er "opslagsværk"-fladen for samme felter (arkitektur 1.1) —
+  // genbruger wizardens rækker/chips-mønstre, ikke wizardens interne state.
+
+  function tegnValgOgFravalg() {
+    const grp = document.createElement("details");
+    grp.open = true;
+    grp.appendChild(el("summary", null, "Valg og fravalg"));
+    grp.appendChild(el("p", "under",
+      "Et fravalg er ikke en mangel — det er mod til fordybelse. Den næste lærer kan forke forløbet og træffe det modsatte valg."));
+
+    const liste = el("div", "raekke-liste");
+    const tegnRaekker = () => {
+      liste.innerHTML = "";
+      f.fravalg.forEach((fv, i) => {
+        const raekke = el("div", "raekke");
+        raekke.appendChild(inputFelt(null, fv.hvad, "Hvad er valgt fra? fx \"forfatterens øvrige værker\"", (v) => (fv.hvad = v)));
+        raekke.appendChild(tekstFelt(null, fv.hvorfor, "Hvorfor? Begrundelsen vises til den næste lærer.", (v) => (fv.hvorfor = v)));
+        const slet = sletKnap("Fjern fravalget", () => { f.fravalg.splice(i, 1); gem(); tegnRaekker(); });
+        slet.className = "raekke-slet";
+        raekke.appendChild(slet);
+        liste.appendChild(raekke);
+      });
+    };
+    tegnRaekker();
+    grp.appendChild(liste);
+    grp.appendChild(tilfoejKnap("+ Fravalg", () => { f.fravalg.push({ hvad: "", hvorfor: "" }); gem(); tegnRaekker(); }));
+
+    f.didaktisk_position ??= { fagsyn: "", laeringssyn: "" };
+    const dp = f.didaktisk_position;
+    grp.appendChild(feltMedLabel("Dit fagsyn (valgfrit)",
+      "hvad er faget til for, som dette forløb ser det?",
+      tekstFelt(null, dp.fagsyn, "", (v) => (dp.fagsyn = v))));
+    grp.appendChild(feltMedLabel("Dit læringssyn (valgfrit)",
+      "hvordan lærer elever noget, som dette forløb ser det?",
+      tekstFelt(null, dp.laeringssyn, "", (v) => (dp.laeringssyn = v))));
+
+    return grp;
+  }
+
+  async function tegnKobling() {
+    const grp = document.createElement("details");
+    grp.open = true;
+    grp.appendChild(el("summary", null, "Kobling"));
+    grp.appendChild(el("p", "under",
+      "Alt her er valgfrit. Kobler du forløbet til fagplanen, optræder det på fagets dækningskort."));
+
+    let fagFil = null;
+    try { fagFil = await hentFag(f.fag); } catch { /* ukendt fag-id: sektionen udelades */ }
+    if (fagFil?.indholdsomraader?.length) {
+      f.fagplan_ref ??= { version: fagFil.fagplan_version, indholdsomraader: [], maal: [] };
+      const omraader = new Set(f.fagplan_ref.indholdsomraader);
+      const c = el("div", "chips");
+      c.setAttribute("role", "group");
+      fagFil.indholdsomraader.forEach((omr) => {
+        const b = el("button", "chip", omr.navn);
+        b.type = "button";
+        if (omr.sigte) b.title = omr.sigte;
+        b.setAttribute("aria-pressed", String(omraader.has(omr.id)));
+        b.addEventListener("click", () => {
+          omraader.has(omr.id) ? omraader.delete(omr.id) : omraader.add(omr.id);
+          b.setAttribute("aria-pressed", String(omraader.has(omr.id)));
+          f.fagplan_ref.indholdsomraader = [...omraader];
+          f.fagplan_ref.version = fagFil.fagplan_version;
+          gem();
+        });
+        c.appendChild(b);
+      });
+      grp.appendChild(feltMedLabel(
+        `Hvilke indholdsområder i ${fagFil.navn} åbner forløbet?`,
+        `fagplan ${fagFil.fagplan_version} — koblingen pinnes til denne version`, c));
+    }
+
+    const samSel = document.createElement("select");
+    samSel.appendChild(new Option("Nej — forløbet står alene", "", false, !f.samspil?.form));
+    SAMSPIL_FORMER.forEach((form) =>
+      samSel.appendChild(new Option(`${form.navn} — ${form.under}`, form.id, false, f.samspil?.form === form.id)));
+    const samFagZone = el("div");
+    const tegnSamFag = () => {
+      samFagZone.innerHTML = "";
+      if (!f.samspil?.form) return;
+      const c = el("div", "chips");
+      c.setAttribute("role", "group");
+      c.style.marginTop = "0.6rem";
+      const valgte = new Set(f.samspil.fag || []);
+      fagIndex.filter((fag) => fag.id !== f.fag).forEach((fag) => {
+        const b = el("button", "chip", fag.navn);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(valgte.has(fag.id)));
+        b.addEventListener("click", () => {
+          valgte.has(fag.id) ? valgte.delete(fag.id) : valgte.add(fag.id);
+          b.setAttribute("aria-pressed", String(valgte.has(fag.id)));
+          f.samspil.fag = [...valgte];
+          gem();
+        });
+        c.appendChild(b);
+      });
+      samFagZone.appendChild(c);
+    };
+    samSel.addEventListener("change", () => {
+      f.samspil = samSel.value ? { form: samSel.value, fag: f.samspil?.fag || [] } : null;
+      tegnSamFag(); gem();
+    });
+    tegnSamFag();
+    const samWrap = el("div");
+    samWrap.appendChild(samSel);
+    samWrap.appendChild(samFagZone);
+    grp.appendChild(feltMedLabel("Indgår forløbet i fagligt samspil?",
+      "Bilag 1's tre former — vælg kun hvis forløbet reelt arbejder sammen med andre fag", samWrap));
+
+    return grp;
+  }
+
   async function tegnPanel() {
     panel.innerHTML = "";
     panel.appendChild(el("h2", null, "Didaktisk profil"));
@@ -551,6 +805,9 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       }
       panel.appendChild(grp);
     }
+
+    panel.appendChild(tegnValgOgFravalg());
+    panel.appendChild(await tegnKobling());
   }
 
   // ---------- start ----------
