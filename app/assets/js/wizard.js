@@ -8,6 +8,7 @@
 import {
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde,
   gisselMaterialetyper, SAMSPIL_FORMER, DIMENSIONER, DIM_NAVNE, familieFor,
+  tegnFagOptions,
 } from "./data.js";
 
 // Enum-batteriet: destillaternes strukturerede spørgsmål. Alt her er VALGFRIT
@@ -58,12 +59,23 @@ export const TRIN = [
   { navn: "Kobling (valgfri)", felter: "kobling" },
 ];
 
-// Fagets egne trinforløbs-udtryk ("1.-3. klasse" for idræt, "klasse" for
-// børnehaveklassen = tom liste → fritekst). Deles med blok-editoren.
-export async function trinUdtrykFor(fagId) {
+// Taksonomi-shape D2 (R1): forfatteren vælger ÉN klasse direkte — fagplanens
+// trinforløb udledes, gemmes ikke. Trinforløbenes udtryk er uensartede
+// tekst ("7.-9. klassetrin", "7.-8. eller 8.-9. klassetrin", "Børnehaveklassen-
+// 3. klasse") — parseren tager pragmatisk min/max af alle tal i udtrykkene
+// frem for at forsøge fuld grammatik. Fag uden numeriske trinforløb (ren
+// børnehaveklasse-tekst) giver tom liste → fritekst, som i dag.
+export async function klasseValgFor(fagId) {
   try {
     const fag = await hentFag(fagId);
-    return (fag.trinforloeb || []).map((t) => t.udtryk);
+    const tal = (fag.trinforloeb || [])
+      .flatMap((t) => [...t.udtryk.matchAll(/(\d+)\./g)].map((m) => Number(m[1])));
+    if (!tal.length) return [];
+    const min = Math.min(...tal), max = Math.max(...tal);
+    const valg = [];
+    for (let k = min; k <= max; k++) valg.push(`${k}. klasse`);
+    if (max === 9) valg.push("10. klasse"); // arkitektur D2: udskoling rækker til 10.
+    return valg;
   } catch {
     return []; // ukendt fag-id (gamle kladder): fald tilbage til fritekst
   }
@@ -71,7 +83,9 @@ export async function trinUdtrykFor(fagId) {
 
 // original/startDimension er fjernet (fund C — døde parametre, ingen kalder
 // dem; fork-med-dimension ejes af editor-vejen rediger.html?fork=&dimension=).
-export async function startWizard({ rod }) {
+// prefill (arkitektur 2.1 + taksonomi-shape D3): { fag?, omraade? } — aldrig
+// en lås, ugyldige værdier droppes stumt. omraade uden gyldigt fag droppes altid.
+export async function startWizard({ rod, prefill = {} }) {
   const state = {
     trin: 0,
     kerne: {
@@ -82,6 +96,7 @@ export async function startWizard({ rod }) {
     tags: {},
     fritekst: {},
     pladser: {},
+    prefillOmraadeNavn: null, // sat efter validering nedenfor, driver chippen i trin ①
     fravalg: [],
     position: { fagsyn: "", laeringssyn: "" },
     kobling: {
@@ -92,6 +107,19 @@ export async function startWizard({ rod }) {
   DIMENSIONER.forEach((dim) => { state.pladser[dim] = { aaben: false, besked: "" }; });
 
   const fagIndex = await hentFagIndex();
+
+  if (prefill.fag && fagIndex.some((f) => f.id === prefill.fag)) {
+    state.kerne.fag = prefill.fag;
+  }
+  if (prefill.omraade && state.kerne.fag) {
+    const fagFil = await hentFag(state.kerne.fag).catch(() => null);
+    const omr = fagFil?.indholdsomraader?.find((o) => o.id === prefill.omraade);
+    if (omr) {
+      state.kobling.omraader.add(omr.id);
+      state.prefillOmraadeNavn = omr.navn;
+    }
+  }
+
   const manifest = await hentManifest();
   const kilder = {};
   const kildeIder = PROFIL_GRUPPER.flatMap((g) => [g.destillat, g.destillat2])
@@ -252,11 +280,77 @@ export async function startWizard({ rod }) {
   }
 
   // ---------- trin ①: Kernen ----------
-  // Eksemplarisk centrum FØR grundinfo: det første spørgsmål er hvad forløbet
-  // er et eksempel på (Klafki) — titel og fag følger efter, ikke omvendt.
+  // Taksonomi-shape D3 (R1): rækkefølgen er stilladsering — fag/klassetrin/
+  // titel er lette, faktuelle svar der giver momentum FØR det dybe
+  // Klafki-spørgsmål. §2-princippet (kun centrum er obligatorisk) berører
+  // ikke skærmrækkefølgen, kun gaten i visNav.
 
   async function visKerne() {
     const g = state.kerne;
+
+    if (state.prefillOmraadeNavn) {
+      const chip = document.createElement("p");
+      chip.className = "under prefill-chip";
+      chip.textContent = `Bygger ind i: ${state.prefillOmraadeNavn} · kan ændres i trin ⑤`;
+      rod.appendChild(chip);
+    }
+
+    const fagFelt = feltRamme({ label: "Fag" });
+    const fagSel = document.createElement("select");
+    tegnFagOptions(fagSel, fagIndex, g.fag);
+    fagFelt.appendChild(fagSel);
+    rod.appendChild(fagFelt);
+
+    // Klassetrin: fagets egne klasser (udledt af trinforløb, D2 R1) — ét
+    // direkte valg, intet trinforløb-spørgsmål. Tom liste (børnehaveklassen
+    // o.l.) → fritekst, jf. arkitektur 6.2.
+    const trinFelt = feltRamme({ label: "Klassetrin" });
+    const trinZone = document.createElement("div");
+    trinFelt.appendChild(trinZone);
+    rod.appendChild(trinFelt);
+
+    async function tegnTrinValg() {
+      const klasser = await klasseValgFor(g.fag);
+      trinZone.innerHTML = "";
+      if (!klasser.length) {
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.value = g.klassetrin;
+        inp.placeholder = "fx Børnehaveklassen — faget har intet trinforløb";
+        inp.addEventListener("input", () => (g.klassetrin = inp.value));
+        trinZone.appendChild(inp);
+        return;
+      }
+      const sel = document.createElement("select");
+      const tomt = document.createElement("option");
+      tomt.value = ""; tomt.textContent = "Vælg ...";
+      sel.appendChild(tomt);
+      const alle = klasser.includes(g.klassetrin) || !g.klassetrin ? klasser : [g.klassetrin, ...klasser];
+      alle.forEach((v) => {
+        const o = document.createElement("option");
+        o.value = v; o.textContent = v;
+        if (v === g.klassetrin) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change", () => (g.klassetrin = sel.value));
+      trinZone.appendChild(sel);
+    }
+    fagSel.addEventListener("change", () => {
+      g.fag = fagSel.value;
+      g.klassetrin = ""; // den gamle klasse hører til det gamle fag
+      rod.dataset.fag = familieFor(g.fag);
+      tegnTrinValg();
+    });
+    await tegnTrinValg();
+
+    const titelFelt = feltRamme({ label: "Forløbets titel" });
+    const titelInput = document.createElement("input");
+    titelInput.type = "text";
+    titelInput.value = g.titel;
+    titelInput.addEventListener("input", () => (g.titel = titelInput.value));
+    titelFelt.appendChild(titelInput);
+    rod.appendChild(titelFelt);
+
     const klafkiKilde = await kildeTekstFor("kap8-indhold-eksemplarisk");
 
     rod.appendChild(tekstFelt({
@@ -270,66 +364,6 @@ export async function startWizard({ rod }) {
       under: "hvad åbner det konkrete for — det eleverne har med sig, når stoffet er glemt",
       placeholder: "fx \"hvordan litteratur giver sprog til klasse og opvækst\" eller \"at mikroorganismer omsætter stof\"",
     }, g.alment, (v) => (g.alment = v)));
-
-    const titelFelt = feltRamme({ label: "Forløbets titel" });
-    const titelInput = document.createElement("input");
-    titelInput.type = "text";
-    titelInput.value = g.titel;
-    titelInput.addEventListener("input", () => (g.titel = titelInput.value));
-    titelFelt.appendChild(titelInput);
-    rod.appendChild(titelFelt);
-
-    const fagFelt = feltRamme({ label: "Fag" });
-    const fagSel = document.createElement("select");
-    fagIndex.forEach((fag) => {
-      const o = document.createElement("option");
-      o.value = fag.id; o.textContent = fag.navn;
-      if (fag.id === g.fag) o.selected = true;
-      fagSel.appendChild(o);
-    });
-    fagFelt.appendChild(fagSel);
-    rod.appendChild(fagFelt);
-
-    // Klassetrin: fagets egne trinforløbs-udtryk, ikke faste buckets.
-    // Tom liste (børnehaveklassen o.l.) → fritekst, jf. arkitektur 6.2.
-    const trinFelt = feltRamme({ label: "Klassetrin", under: "fagets egne trinforløb — skifter med faget" });
-    const trinZone = document.createElement("div");
-    trinFelt.appendChild(trinZone);
-    rod.appendChild(trinFelt);
-
-    async function tegnTrinValg() {
-      const udtryk = await trinUdtrykFor(g.fag);
-      trinZone.innerHTML = "";
-      if (!udtryk.length) {
-        const inp = document.createElement("input");
-        inp.type = "text";
-        inp.value = g.klassetrin;
-        inp.placeholder = "fx Børnehaveklassen — faget har intet trinforløb";
-        inp.addEventListener("input", () => (g.klassetrin = inp.value));
-        trinZone.appendChild(inp);
-        return;
-      }
-      const sel = document.createElement("select");
-      const tomt = document.createElement("option");
-      tomt.value = ""; tomt.textContent = "Vælg ...";
-      sel.appendChild(tomt);
-      const alle = udtryk.includes(g.klassetrin) || !g.klassetrin ? udtryk : [g.klassetrin, ...udtryk];
-      alle.forEach((v) => {
-        const o = document.createElement("option");
-        o.value = v; o.textContent = v;
-        if (v === g.klassetrin) o.selected = true;
-        sel.appendChild(o);
-      });
-      sel.addEventListener("change", () => (g.klassetrin = sel.value));
-      trinZone.appendChild(sel);
-    }
-    fagSel.addEventListener("change", () => {
-      g.fag = fagSel.value;
-      g.klassetrin = ""; // det gamle udtryk hører til det gamle fag
-      rod.dataset.fag = familieFor(g.fag);
-      tegnTrinValg();
-    });
-    await tegnTrinValg();
 
     const omfangFelt = feltRamme({
       label: "Omfang",

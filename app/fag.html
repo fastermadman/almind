@@ -22,6 +22,7 @@
   </div>
 
   <div class="filterraekke" id="trin-filtre" role="group" aria-label="Filtrér på trinforløb"></div>
+  <p class="metadata" id="statuslinje" aria-live="polite" style="scroll-margin-top: 96px;"></p>
 
   <section aria-labelledby="dk-titel">
     <h2 class="sektionstitel" id="dk-titel">Dækningskort</h2>
@@ -38,8 +39,9 @@
   </section>
 
   <section aria-labelledby="fl-titel">
-    <h2 class="sektionstitel" id="fl-titel">Forløb</h2>
+    <h2 class="sektionstitel" id="fl-titel" style="scroll-margin-top: 96px;">Forløb</h2>
     <div class="kortgrid" id="forloebsliste"></div>
+    <p class="metadata" id="ukoblet-linje" style="margin-top:1rem;" hidden></p>
     <p class="metadata" style="margin-top:1.5rem;">
       <a href="graph.html">Se forløbenes slægtskab og delte indholdsområder på tværs af fag i konstellationen →</a>
     </p>
@@ -103,20 +105,33 @@
       fag.noegleideer.map((n) => `<span class="noegleide">${n}</span>`).join("");
   }
 
-  // ---------- trinforløb-filter ----------
-  // Ét filter styrer både dækningskort og forløbsliste. Fagets EGNE udtryk
-  // (arkitektur 7.1) — børnehaveklassen har ingen og får ingen knapper.
-  let valgtTrin = null; // trinforloeb-id, fx "idr-4-6"
+  // ---------- trinforløb + indholdsområde-filter (F1/F6/2b) ----------
+  // Begge filtre synces til URL i én fælles funktion; frit kombinerbare.
+  const startParams = new URLSearchParams(location.search);
+  let valgtTrin = fag.trinforloeb?.some((t) => t.id === startParams.get("trin"))
+    ? startParams.get("trin") : null;
+  let valgtOmraade = fag.indholdsomraader?.some((o) => o.id === startParams.get("omraade"))
+    ? startParams.get("omraade") : null;
+
+  function synkUrl() {
+    const p = new URLSearchParams();
+    p.set("id", fagId);
+    if (valgtTrin) p.set("trin", valgtTrin);
+    if (valgtOmraade) p.set("omraade", valgtOmraade);
+    history.replaceState(null, "", "?" + p.toString());
+  }
+
   const trinWrap = document.getElementById("trin-filtre");
   (fag.trinforloeb || []).forEach((t) => {
     const b = document.createElement("button");
     b.className = "filter-pill";
     b.textContent = t.udtryk;
-    b.setAttribute("aria-pressed", "false");
+    b.setAttribute("aria-pressed", String(valgtTrin === t.id));
     b.addEventListener("click", () => {
       valgtTrin = valgtTrin === t.id ? null : t.id;
       trinWrap.querySelectorAll(".filter-pill").forEach((x) =>
         x.setAttribute("aria-pressed", String(x === b && valgtTrin === t.id)));
+      synkUrl();
       tegn();
     });
     trinWrap.appendChild(b);
@@ -150,12 +165,25 @@
     return liste;
   }
 
+  // Adaptiv vægtning (F3): fagets samlede tilstand afgør A/B, ikke det
+  // filtrerede udsnit — ellers skifter hele kortet genre ved et trin-klik.
+  const fagHarKoblinger = fagForloeb.some((f) => f.fagplan_ref?.indholdsomraader?.length);
+
+  function prefillLink(fagId, omraadeId) {
+    return `upload.html?wizard=1&fag=${fagId}` + (omraadeId ? `&omraade=${omraadeId}` : "");
+  }
+
   function omraadeKort(omr) {
     const kort = document.createElement("div");
     const rel = omr.relation || "sideordnet";
+    const forloeb = koblede(omr);
+    const daekket = fagHarKoblinger && forloeb.length;
+    const kompakt = fagHarKoblinger && !forloeb.length;
     kort.className = "omraade-kort"
       + (ORDEN[rel] !== 1 ? " fuldbredde" : "")
-      + (rel === "gennemgaaende" ? " gennemgaaende" : "");
+      + (rel === "gennemgaaende" ? " gennemgaaende" : "")
+      + (daekket ? " daekket" : "") + (kompakt ? " kompakt" : "")
+      + (valgtOmraade === omr.id ? " valgt" : "");
 
     // Områder scoped til bestemte trinforløb dæmpes (forsvinder ikke) når
     // et andet trin er valgt — kortet viser altid fagets fulde struktur.
@@ -175,13 +203,31 @@
         `</ul></details>`
       : "";
 
-    const forloeb = koblede(omr);
-    const daekning = forloeb.length
-      ? `<div class="daekning-status"><span class="antal-badge">${forloeb.length}</span>${forloeb.length === 1 ? "forløb åbner" : "forløb åbner"} dette område<ul>` +
+    let daekning;
+    if (kompakt) {
+      daekning = `<div class="omraade-invitation">0 forløb ·
+        <a href="${prefillLink(fag.id, omr.id)}" aria-label="Vær den første til at åbne ${omr.navn}">vær den første →</a></div>`;
+    } else if (forloeb.length) {
+      daekning = `<div class="daekning-status"><span class="antal-badge">${forloeb.length}</span>forløb åbner dette område<ul>` +
         forloeb.map((f) => `<li><a href="sequence.html?id=${f.id}">${f.titel}</a></li>`).join("") +
-        `</ul></div>`
-      : `<div class="omraade-invitation">Ingen forløb åbner dette område endnu —
-         <a href="upload.html?wizard=1">vær den første</a>.</div>`;
+        `</ul></div>`;
+    } else {
+      daekning = `<div class="omraade-invitation">Ingen forløb åbner dette område endnu.
+        <a href="${prefillLink(fag.id, omr.id)}">Byg det første, guidet fra kernen →</a></div>`;
+    }
+
+    const vaelgKnap = document.createElement("button");
+    vaelgKnap.type = "button";
+    vaelgKnap.className = "omraade-vaelg";
+    vaelgKnap.setAttribute("aria-pressed", String(valgtOmraade === omr.id));
+    vaelgKnap.textContent = forloeb.length ? `Se forløb (${forloeb.length}) ↓` : "Vælg område ↓";
+    vaelgKnap.addEventListener("click", () => {
+      valgtOmraade = valgtOmraade === omr.id ? null : omr.id;
+      synkUrl();
+      tegn();
+      const reduceret = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("fl-titel").scrollIntoView({ behavior: reduceret ? "auto" : "smooth", block: "start" });
+    });
 
     kort.innerHTML = `
       <div class="omraade-hoved"><h3>${omr.navn}</h3>${badge}</div>
@@ -190,6 +236,7 @@
       ${maalFold}
       ${udenforTrin ? `<span class="udenfor-trin-note">ikke i ${udtrykFor(valgtTrin)}</span>` : daekning}
     `;
+    kort.querySelector(".omraade-hoved").appendChild(vaelgKnap);
     return kort;
   }
 
@@ -205,6 +252,13 @@
   // ---------- render ----------
   const dkWrap = document.getElementById("daekningskort");
   const flWrap = document.getElementById("forloebsliste");
+  const flTitel = document.getElementById("fl-titel");
+  const statuslinje = document.getElementById("statuslinje");
+  const ukobletLinje = document.getElementById("ukoblet-linje");
+
+  function trinFiltreret(liste) {
+    return valgtTrin ? liste.filter((f) => trinMatch(f.klassetrin, udtrykFor(valgtTrin))) : liste;
+  }
 
   function tegn() {
     dkWrap.innerHTML = "";
@@ -212,14 +266,59 @@
       .sort((a, b) => (ORDEN[a.relation || "sideordnet"] ?? 1) - (ORDEN[b.relation || "sideordnet"] ?? 1))
       .forEach((omr) => dkWrap.appendChild(omraadeKort(omr)));
 
-    let liste = fagForloeb;
-    if (valgtTrin) liste = liste.filter((f) => trinMatch(f.klassetrin, udtrykFor(valgtTrin)));
+    const omrObjekt = valgtOmraade ? fag.indholdsomraader.find((o) => o.id === valgtOmraade) : null;
+    const trinFag = trinFiltreret(fagForloeb);
+    let liste = omrObjekt ? koblede(omrObjekt) : trinFag;
+
+    // F2/2b.3: statuslinjen — én live-region for hele siden.
+    if (omrObjekt) {
+      statuslinje.textContent = `Viser ${omrObjekt.navn}${valgtTrin ? ` · ${udtrykFor(valgtTrin)}` : ""} · ${liste.length} forløb`;
+    } else {
+      const dækkede = fag.indholdsomraader.filter((o) => koblede(o).length).length;
+      statuslinje.textContent = (valgtTrin ? `Viser ${udtrykFor(valgtTrin)} · ` : "") +
+        `${trinFag.length} forløb · ${dækkede} af ${fag.indholdsomraader.length} områder har forløb`;
+    }
+
+    // F4: dynamisk overskrift + fravælg-link når et område er valgt.
+    flTitel.innerHTML = omrObjekt ? `Forløb i ${omrObjekt.navn}` : `Alle forløb i ${fag.navn}`;
+    if (omrObjekt) {
+      const fravaelg = document.createElement("a");
+      fravaelg.href = "#";
+      fravaelg.className = "fravaelg-omraade";
+      fravaelg.textContent = `Vis alle ${fag.navn}-forløb ×`;
+      fravaelg.addEventListener("click", (e) => {
+        e.preventDefault();
+        valgtOmraade = null;
+        synkUrl();
+        tegn();
+      });
+      flTitel.appendChild(document.createTextNode(" "));
+      flTitel.appendChild(fravaelg);
+    }
+
+    // 2b.5: ukoblede forløb må ikke forsvinde stumt.
+    if (omrObjekt) {
+      const ukoblet = trinFag.filter((f) => !f.fagplan_ref?.indholdsomraader?.includes(omrObjekt.id));
+      ukobletLinje.hidden = !ukoblet.length;
+      if (ukoblet.length) {
+        ukobletLinje.innerHTML = "";
+        ukobletLinje.append(`+ ${ukoblet.length} forløb i ${fag.navn} uden områdekobling · `);
+        const a = document.createElement("a");
+        a.href = "#";
+        a.textContent = "vis alle";
+        a.addEventListener("click", (e) => { e.preventDefault(); valgtOmraade = null; synkUrl(); tegn(); });
+        ukobletLinje.appendChild(a);
+      }
+    } else {
+      ukobletLinje.hidden = true;
+    }
+
     flWrap.innerHTML = "";
     if (!liste.length) {
       flWrap.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">
         Ingen ${fag.navn}-forløb${valgtTrin ? ` i ${udtrykFor(valgtTrin)}` : ""} endnu.
         Det er ikke en mangel. Det er en åben plads.<br><br>
-        <a class="knap" href="upload.html?wizard=1">Bliv den første: byg et forløb</a></div>`;
+        <a class="knap" href="${prefillLink(fag.id, valgtOmraade)}">Bliv den første: byg et forløb</a></div>`;
     } else {
       liste.forEach((f) => flWrap.appendChild(forloebKort(f, alle)));
       stagger([...flWrap.children], 35);

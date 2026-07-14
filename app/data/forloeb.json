@@ -1,1762 +1,1768 @@
 [
- {
-  "id": "dss-v0",
-  "schema_version": 2,
-  "titel": "Den Svære Samtale",
-  "undertitel": "Dilemmaspil om demokratisk samtale",
-  "forfatter": "Demokrati Under Udvikling",
-  "institution": "EMU",
-  "aar": 2024,
-  "fag": "dansk",
-  "klassetrin": "7.-9. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "mundtlighed",
-   "demokratisk samtale",
-   "dilemmaspil"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2024-09-12",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [
-   "dss-v1"
-  ],
-  "beskrivelse": "Et dilemmaspil hvor eleverne træner demokratisk samtale gennem cases uden facit. Originalforløbet fra EMU: stærkt på indhold og metode, åbent på resten.",
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "delvis",
-   "differentiering": "tom",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Forløbet er ikke differentieret. Læreren tilpasser selv til elevgruppens behov."
-   },
-   {
-    "dimension": "evaluering",
-    "besked": "Ingen evalueringsform angivet. Vælg den der passer din praksis."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Dilemmaerne præsenteres",
-    "beskrivelse": "Klassen møder dilemmaer uden facit og vælger det de vil arbejde med.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Fælles læsning af dilemmakort"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Første uformelle afstemning"
-     }
-    ]
-   },
-   {
-    "titel": "Spillet",
-    "beskrivelse": "Eleverne argumenterer for og imod i skiftende positioner.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Dilemmaspil i grupper"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Skift af standpunkt på signal"
-     }
-    ]
-   },
-   {
-    "titel": "Opsamling",
-    "beskrivelse": "Klassen samler op på hvad en god uenighed kræver.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Fælles samtale"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Individuel refleksion"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "dss-v1",
-  "schema_version": 2,
-  "titel": "Den Svære Samtale",
-  "undertitel": "Redidaktiseret til 8.D",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "mundtlighed",
-   "demokratisk samtale",
-   "dilemmaspil",
-   "redidaktisering",
-   "etisk subjekt"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-04-22",
-  "generation": 1,
-  "fork_af": {
-   "id": "dss-v0",
-   "opdateret": "2024-09-12"
-  },
-  "forks": [
-   "dss-v2"
-  ],
-  "diff": "EMU-originalen stiller ingen krav til kontekst — dilemmaerne fungerer i enhver klasse, og det er både styrken og begrænsningen. Valdemar omskrev dem så de trækker på romanuniverset klassen allerede kender fra Tema 1's første to faser: eleverne ytrer sig nu i eget navn med et fælles etisk referencepunkt bag sig. Spillet er fase 3 i en dramaturgisk sekvens, ikke et løst indsatselement. Sproget forblev bevidst akademisk — det er en åben plads, ikke en fejl. Differentiering ladt åben: 'Jeg kender ikke din klasse. Det gør du.'",
-  "citat": {
-   "tekst": "Dilemmaspillet inviterer eleven til at træde frem som etisk subjekt. Det kan ikke garanteres. Men rummet kan bygges.",
-   "hvem": "Valdemar, V1"
-  },
-  "beskrivelse": "EMU-originalen redidaktiseret til en konkret 8. klasse som fase 3 i Tema 1 Mundtlighed: dilemmaerne trækker på romanviden, eleverne ytrer sig i eget navn (1.+2. person), og spillet er et rum hvor elevens etiske intuitioner har faglig gyldighed.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Redskabslæremiddel"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Kommunikativ",
-    "Analytisk"
-   ],
-   "dewey": [
-    "Kontinuitet",
-    "Spænding"
-   ],
-   "evalueringsform": "Exitspørgsmål"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "tom",
-   "evaluering": "delvis"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Bevidst åben. Jeg kender ikke din klasse. Det gør du."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Dilemmaerne forankres",
-    "beskrivelse": "Dilemmaerne er omskrevet så de trækker på det fælles romanunivers og elevernes egen hverdag. Forforståelsen er allerede bygget i Tema 1's tidligere faser; spillet henter den frem som etisk referencepunkt.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Dilemmakort læses i makkerpar"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Første positionering: hvor står du, og hvorfor?"
-     }
+  {
+    "id": "dss-v0",
+    "schema_version": 2,
+    "titel": "Den Svære Samtale",
+    "undertitel": "Dilemmaspil om demokratisk samtale",
+    "forfatter": "Demokrati Under Udvikling",
+    "institution": "EMU",
+    "aar": 2024,
+    "fag": "dansk",
+    "klassetrin": "7.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "mundtlighed",
+      "demokratisk samtale",
+      "dilemmaspil"
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Hvorfor romanforankring?",
-      "tekst": "Fase 3's ytring i eget navn virker kun fordi romanuniverset er gjort levende og tilgængeligt som etisk referencepunkt. Dilemmaer uden fælles forankring bliver meningsudveksling uden fagligt gods."
-     },
-     {
-      "type": "gissel",
-      "titel": "Materialetyper i forløbet",
-      "tekst": "Dilemmakortene er didaktisk læremiddel med indlejret didaktik. Rollekortene er redskabslæremiddel. Romanen bag er semantisk ressource, didaktiseret i Tema 1."
-     }
-    ]
-   },
-   {
-    "titel": "Spillet: ytring i eget navn",
-    "beskrivelse": "Kommunikativ-produktiv virksomhed i 1. og 2. person. Eleverne forsvarer standpunkter over for hinanden i situationer der angår dem. Der er ikke et rigtigt svar; der er et rum hvor elevens etiske intuitioner har faglig gyldighed.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Spilrunder i grupper med faste positioner"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Standpunktskift på signal"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Lytterens noter deles"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2024-09-12",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [
+      "dss-v1"
     ],
-    "callouts": [
-     {
-      "type": "obs",
-      "titel": "Når dilemmaet rammer for tæt",
-      "tekst": "Elevnære dilemmaer kan ramme virkelige konflikter i klassen. Hav en neutral reserve-case klar, og skift uden kommentar hvis stemningen kræver det."
-     },
-     {
-      "type": "dramaturgi",
-      "titel": "Deweys kontinuitet",
-      "tekst": "Dilemmaerne trækker på den opbyggede romanviden. Spændingen fra forløbets anslag bæres ind i spillet og holdes åben, ikke løst op."
-     }
-    ]
-   },
-   {
-    "titel": "Afslutning: exitspørgsmål",
-    "beskrivelse": "Spillet lukkes med exitspørgsmål, og begreberne fremkaldes igen i næste uges undervisning. Den dybe opsamling sker i Tema 1's metafase, ad omveje: via filosofi og fiktion, aldrig direkte tilbage til det der skete i spillet.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Exitspørgsmål besvares individuelt"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Aftale om genbesøg næste uge"
-     }
+    "beskrivelse": "Et dilemmaspil hvor eleverne træner demokratisk samtale gennem cases uden facit. Originalforløbet fra EMU: stærkt på indhold og metode, åbent på resten.",
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "tom",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Forløbet er ikke differentieret. Læreren tilpasser selv til elevgruppens behov."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Ingen evalueringsform angivet. Vælg den der passer din praksis."
+      }
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "3. person via omvej",
-      "tekst": "Metafasen navngiver strukturen via Arendt og fiktion i stedet for at evaluere eleverne direkte på deres ytringer. Det beskytter spillets rum: ingen skal stå til regnskab for at have ytret sig."
-     },
-     {
-      "type": "almind",
-      "titel": "Tag spillet, skift forankringen",
-      "tekst": "Spilstrukturen fungerer i enhver klasse. Dilemmakortenes forankring bør du derimod omskrive til din klasses fælles univers. Det tager et kvarter og er hele forskellen."
-     }
+    "faser": [
+      {
+        "titel": "Dilemmaerne præsenteres",
+        "beskrivelse": "Klassen møder dilemmaer uden facit og vælger det de vil arbejde med.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Fælles læsning af dilemmakort"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Første uformelle afstemning"
+          }
+        ]
+      },
+      {
+        "titel": "Spillet",
+        "beskrivelse": "Eleverne argumenterer for og imod i skiftende positioner.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Dilemmaspil i grupper"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Skift af standpunkt på signal"
+          }
+        ]
+      },
+      {
+        "titel": "Opsamling",
+        "beskrivelse": "Klassen samler op på hvad en god uenighed kræver.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Fælles samtale"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Individuel refleksion"
+          }
+        ]
+      }
     ]
-   }
-  ]
- },
- {
-  "id": "dss-v2",
-  "schema_version": 2,
-  "titel": "Den Svære Samtale",
-  "undertitel": "Sprogligt bearbejdet version",
-  "forfatter": "Lukas Brandt",
-  "institution": "Lærerstuderende, VIA Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "7.-9. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "mundtlighed",
-   "demokratisk samtale",
-   "deltagelsestærskel",
-   "elevsprog"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-06-01",
-  "generation": 2,
-  "fork_af": {
-   "id": "dss-v1",
-   "opdateret": "2026-04-22"
   },
-  "forks": [],
-  "diff": "Lukas spiller V1 igen i 8.D — samme forløb, samme klasse, men dilemmakortenes sprog bearbejdet fra akademisk til hverdagsagtigt elevniveau. Resultatet er empirisk: deltagelsestærsklen faldt, flere kom i spil, autentiske samtaler spirede frem uden konstant lærerintervention. Men autonomitærsklen holdt. Dominerende elever argumenterede fortsat strategisk; perifere elever fortsat etisk. Sproglig bearbejdning er ikke nok. Den didaktik der forskyver det mønster, er stadig en åben plads — og den plads er Lukas' gave til den næste.",
-  "citat": {
-   "tekst": "Sproget var tærsklen. Da den faldt, kom flere i spil. Men sproglig bearbejdning løser ikke alt: mønstret i hvem der argumenterer strategisk, holdt.",
-   "hvem": "Lukas, V2"
-  },
-  "beskrivelse": "V1 spillet igen i 8.D med sproget bearbejdet til elevniveau. Forløbets empiriske nerve: deltagelse er en sproglig tærskel, autonomi er ikke. Dominerende elever argumenterede fortsat strategisk, perifere elever fortsat etisk. Den næste plads er åben.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Redskabslæremiddel"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Kommunikativ",
-    "Analytisk"
-   ],
-   "dewey": [
-    "Kontinuitet",
-    "Spænding"
-   ],
-   "evalueringsform": "Exitspørgsmål"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Sproget er løst, men autonomitærsklen holdt: dominerende elever argumenterer fortsat strategisk, ikke etisk. Den didaktik der flytter dét mønster, er stadig en åben plads."
-   },
-   {
-    "dimension": "evaluering",
-    "besked": "Hvordan evaluerer man etisk mod uden at dræbe det? Åben plads."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Dilemmaerne forankres",
-    "beskrivelse": "Som V1, men dilemmakortene findes nu i hverdagssprog.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Dilemmakort i to sprogversioner"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Første positionering"
-     }
-    ]
-   },
-   {
-    "titel": "Spillet: lavere tærskel",
-    "beskrivelse": "Samme spilstruktur. Det bearbejdede sprog sænker deltagelsestærsklen mærkbart.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Spilrunder i grupper"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Standpunktskift på signal"
-     }
-    ]
-   },
-   {
-    "titel": "Afslutning",
-    "beskrivelse": "Exitspørgsmål i elevsprog.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Exitspørgsmål"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fælles opsamling"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "tema1-mundtlighed",
-  "schema_version": 2,
-  "titel": "Mundtlighed: fra stemthed til etisk samtale",
-  "undertitel": "Tema 1 · 8.D Silkeborg",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "mundtlighed",
-   "stemthed",
-   "dilemmaspil",
-   "Høgh",
-   "Biesta",
-   "OSMT"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-06-01",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Forløbet bevæger sig fra sanselig stemthed over kropslig erfaring til refleksiv bevidsthed: anslag uden ord, romanunivers bygget lag på lag, dilemmaspil i eget navn, og en metafase der navngiver strukturen via Arendt og fiktion. Rækkefølgen kan ikke inverteres.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Semantisk læringsressource",
-    "Redskabslæremiddel"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Håndværksmæssig",
-    "Kommunikativ"
-   ],
-   "dewey": [
-    "Spænding",
-    "Ophobning",
-    "Kontinuitet",
-    "Fastholdelse"
-   ],
-   "evalueringsform": "Samtale"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Hvordan evaluerer man mundtlighed uden at gøre samtalen til performance? Jeg brugte observation og samtale. En systematisk form er åben."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Stemthed",
-    "beskrivelse": "Anslaget: intet som sanselig begivenhed. Det etiske felt åbnes æstetisk-receptivt, inden et eneste begreb introduceres. Deweys spænding aktiveres og holdes åben, ikke løst op.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Sanseligt møde uden forklaring"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Stille notat: hvad mærkede du?"
-     }
+  {
+    "id": "dss-v1",
+    "schema_version": 2,
+    "titel": "Den Svære Samtale",
+    "undertitel": "Redidaktiseret til 8.D",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "mundtlighed",
+      "demokratisk samtale",
+      "dilemmaspil",
+      "redidaktisering",
+      "etisk subjekt"
     ],
-    "callouts": [
-     {
-      "type": "dramaturgi",
-      "titel": "Anslagets dobbelte kvalitet",
-      "tekst": "Begivenhed (dramaturgisk) og bro til indholdet (didaktisk) på samme tid. Forforståelsen aktiveres før begreberne."
-     }
-    ]
-   },
-   {
-    "titel": "Tekståbner",
-    "beskrivelse": "Romanuniverset bygges lag på lag i en håndværksmæssig til analytisk progression. Deweys ophobning: realplanet frigiver kapacitet til billedplanet.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Begrebsprogression i makkerpar"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Universkort over romanens verden"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-04-22",
+    "generation": 1,
+    "fork_af": {
+      "id": "dss-v0",
+      "opdateret": "2024-09-12"
+    },
+    "forks": [
+      "dss-v2"
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Hvorfor håndværk før analyse?",
-      "tekst": "Eleverne skal kende universet før de kan bruge det som etisk referencepunkt. Fase 3 virker kun fordi fase 2 har gjort romanens verden levende."
-     }
-    ]
-   },
-   {
-    "titel": "Dilemmaspil",
-    "beskrivelse": "Kommunikativ-produktiv virksomhed: 1. og 2. person, ytring i eget navn. Eleven inviteres til at træde frem som etisk subjekt. Spillet findes som selvstændigt forløb med egen genealogi.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Den Svære Samtale spilles"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Standpunktskift"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Lytternoter"
-     }
+    "diff": "EMU-originalen stiller ingen krav til kontekst — dilemmaerne fungerer i enhver klasse, og det er både styrken og begrænsningen. Valdemar omskrev dem så de trækker på romanuniverset klassen allerede kender fra Tema 1's første to faser: eleverne ytrer sig nu i eget navn med et fælles etisk referencepunkt bag sig. Spillet er fase 3 i en dramaturgisk sekvens, ikke et løst indsatselement. Sproget forblev bevidst akademisk — det er en åben plads, ikke en fejl. Differentiering ladt åben: 'Jeg kender ikke din klasse. Det gør du.'",
+    "citat": {
+      "tekst": "Dilemmaspillet inviterer eleven til at træde frem som etisk subjekt. Det kan ikke garanteres. Men rummet kan bygges.",
+      "hvem": "Valdemar, V1"
+    },
+    "beskrivelse": "EMU-originalen redidaktiseret til en konkret 8. klasse som fase 3 i Tema 1 Mundtlighed: dilemmaerne trækker på romanviden, eleverne ytrer sig i eget navn (1.+2. person), og spillet er et rum hvor elevens etiske intuitioner har faglig gyldighed.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Kommunikativ",
+        "Analytisk"
+      ],
+      "dewey": [
+        "Kontinuitet",
+        "Spænding"
+      ],
+      "evalueringsform": "Exitspørgsmål"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "tom",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Bevidst åben. Jeg kender ikke din klasse. Det gør du."
+      }
     ],
-    "callouts": [
-     {
-      "type": "almind",
-      "titel": "Spillet har sit eget liv",
-      "tekst": "Dilemmaspillet er udskilt som selvstændigt forløb: Den Svære Samtale, med tre versioner og et empirisk V1-til-V2-fund om deltagelsestærskler. Fork det derfra."
-     }
+    "faser": [
+      {
+        "titel": "Dilemmaerne forankres",
+        "beskrivelse": "Dilemmaerne er omskrevet så de trækker på det fælles romanunivers og elevernes egen hverdag. Forforståelsen er allerede bygget i Tema 1's tidligere faser; spillet henter den frem som etisk referencepunkt.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Dilemmakort læses i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Første positionering: hvor står du, og hvorfor?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Hvorfor romanforankring?",
+            "tekst": "Fase 3's ytring i eget navn virker kun fordi romanuniverset er gjort levende og tilgængeligt som etisk referencepunkt. Dilemmaer uden fælles forankring bliver meningsudveksling uden fagligt gods."
+          },
+          {
+            "type": "gissel",
+            "titel": "Materialetyper i forløbet",
+            "tekst": "Dilemmakortene er didaktisk læremiddel med indlejret didaktik. Rollekortene er redskabslæremiddel. Romanen bag er semantisk ressource, didaktiseret i Tema 1."
+          }
+        ]
+      },
+      {
+        "titel": "Spillet: ytring i eget navn",
+        "beskrivelse": "Kommunikativ-produktiv virksomhed i 1. og 2. person. Eleverne forsvarer standpunkter over for hinanden i situationer der angår dem. Der er ikke et rigtigt svar; der er et rum hvor elevens etiske intuitioner har faglig gyldighed.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Spilrunder i grupper med faste positioner"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Standpunktskift på signal"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Lytterens noter deles"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "obs",
+            "titel": "Når dilemmaet rammer for tæt",
+            "tekst": "Elevnære dilemmaer kan ramme virkelige konflikter i klassen. Hav en neutral reserve-case klar, og skift uden kommentar hvis stemningen kræver det."
+          },
+          {
+            "type": "dramaturgi",
+            "titel": "Deweys kontinuitet",
+            "tekst": "Dilemmaerne trækker på den opbyggede romanviden. Spændingen fra forløbets anslag bæres ind i spillet og holdes åben, ikke løst op."
+          }
+        ]
+      },
+      {
+        "titel": "Afslutning: exitspørgsmål",
+        "beskrivelse": "Spillet lukkes med exitspørgsmål, og begreberne fremkaldes igen i næste uges undervisning. Den dybe opsamling sker i Tema 1's metafase, ad omveje: via filosofi og fiktion, aldrig direkte tilbage til det der skete i spillet.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Exitspørgsmål besvares individuelt"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Aftale om genbesøg næste uge"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "3. person via omvej",
+            "tekst": "Metafasen navngiver strukturen via Arendt og fiktion i stedet for at evaluere eleverne direkte på deres ytringer. Det beskytter spillets rum: ingen skal stå til regnskab for at have ytret sig."
+          },
+          {
+            "type": "almind",
+            "titel": "Tag spillet, skift forankringen",
+            "tekst": "Spilstrukturen fungerer i enhver klasse. Dilemmakortenes forankring bør du derimod omskrive til din klasses fælles univers. Det tager et kvarter og er hele forskellen."
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Metafase",
-    "beskrivelse": "Balance-punktet: 3. person via omvej. Arendt og troværdig undskyldning navngiver strukturen via filosofi og fiktion, aldrig direkte tilbage til det der skete i spillet. Deweys fastholdelse: forløbets etiske vokabular konsolideres produktivt.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Arendt-tekst i uddrag"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Troværdig undskyldning skrives in-character"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fælles kort: hvad gør en uenighed god?"
-     }
+  },
+  {
+    "id": "dss-v2",
+    "schema_version": 2,
+    "titel": "Den Svære Samtale",
+    "undertitel": "Sprogligt bearbejdet version",
+    "forfatter": "Lukas Brandt",
+    "institution": "Lærerstuderende, VIA Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "7.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "mundtlighed",
+      "demokratisk samtale",
+      "deltagelsestærskel",
+      "elevsprog"
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Hvorfor aldrig direkte tilbage?",
-      "tekst": "3. personsrefleksionen virker kun fordi den ikke vender tilbage til spillets konkrete ytringer. Ingen skal stå til regnskab for at have ytret sig i eget navn."
-     },
-     {
-      "type": "obs",
-      "titel": "Subjektifikation kan ikke garanteres",
-      "tekst": "V1-til-V2-fundet viser det præcist: sproglig bearbejdning sænker deltagelsestærsklen, men autonomitærsklen holdt. Forvent ikke at alle når dertil. Byg rummet alligevel."
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "tema2-laesning",
-  "schema_version": 2,
-  "titel": "Læsning: Djævelens Lærling og fortolkningsfællesskabet",
-  "undertitel": "Tema 2 · 8.D Silkeborg",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "læsning",
-   "fantasy",
-   "fordobling",
-   "modellering",
-   "Hayles",
-   "polyfoni",
-   "Kenneth Bøgh Andersen"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-06-01",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Fra modtagelse til fortolkning til kritisk stillingtagen. Modellering er ikke et trick for svage læsere men et svar på en kulturel diagnose: hyper attention konkurrerer med den deep attention fordybet læsning kræver. Forløbet genopbygger kapaciteten gennem et polyfonisk fortolkningsfællesskab.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Semantisk læringsressource",
-    "Redskabslæremiddel"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Kommunikativ"
-   ],
-   "dewey": [
-    "Spænding",
-    "Ophobning",
-    "Anticipation",
-    "Fastholdelse"
-   ],
-   "evalueringsform": "Samtale"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Tekstkritikerfasen producerer materiale der kunne bære en evaluering, men formen er ikke bygget. Åben plads."
-   }
-  ],
-  "materialer": [
-   {
-    "titel": "Djævelens lærling (e-bog)",
-    "type": "E-bog",
-    "faust": "CFUEBOG1100877",
-    "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFUEBOG1100877",
-    "note": "Kenneth Bøgh Andersen. Med pædagogisk note af Trine Ferdinand.",
-    "materialetype": null,
-    "didaktisering": null
-   },
-   {
-    "titel": "Djævelens lærling (lydbog)",
-    "type": "Lydbog",
-    "faust": "CFULYD1128318",
-    "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFULYD1128318",
-    "note": "Til elever der har gavn af at høre romanen læst højt.",
-    "materialetype": null,
-    "didaktisering": null
-   },
-   {
-    "titel": "Litteraturguide (Gyldendal)",
-    "type": "Vejledning",
-    "faust": "26886120",
-    "url": "https://mitcfu.dk/pv/26886120_1.pdf",
-    "note": "Forlagets pædagogiske vejledning, 7.-9. klasse.",
-    "materialetype": null,
-    "didaktisering": null
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Anslag",
-    "beskrivelse": "Forestillingsevnen genaktiveres. Fortolkningsfællesskabets spilleregler demonstreres i praksis inden de forklares. Æstetisk-receptiv virksomhed; Deweys spænding aktiveres og holdes åben.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Mødet med romanens univers som begivenhed"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Indre billeder deles uden begreber"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-06-01",
+    "generation": 2,
+    "fork_af": {
+      "id": "dss-v1",
+      "opdateret": "2026-04-22"
+    },
+    "forks": [],
+    "diff": "Lukas spiller V1 igen i 8.D — samme forløb, samme klasse, men dilemmakortenes sprog bearbejdet fra akademisk til hverdagsagtigt elevniveau. Resultatet er empirisk: deltagelsestærsklen faldt, flere kom i spil, autentiske samtaler spirede frem uden konstant lærerintervention. Men autonomitærsklen holdt. Dominerende elever argumenterede fortsat strategisk; perifere elever fortsat etisk. Sproglig bearbejdning er ikke nok. Den didaktik der forskyver det mønster, er stadig en åben plads — og den plads er Lukas' gave til den næste.",
+    "citat": {
+      "tekst": "Sproget var tærsklen. Da den faldt, kom flere i spil. Men sproglig bearbejdning løser ikke alt: mønstret i hvem der argumenterer strategisk, holdt.",
+      "hvem": "Lukas, V2"
+    },
+    "beskrivelse": "V1 spillet igen i 8.D med sproget bearbejdet til elevniveau. Forløbets empiriske nerve: deltagelse er en sproglig tærskel, autonomi er ikke. Dominerende elever argumenterede fortsat strategisk, perifere elever fortsat etisk. Den næste plads er åben.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Kommunikativ",
+        "Analytisk"
+      ],
+      "dewey": [
+        "Kontinuitet",
+        "Spænding"
+      ],
+      "evalueringsform": "Exitspørgsmål"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Sproget er løst, men autonomitærsklen holdt: dominerende elever argumenterer fortsat strategisk, ikke etisk. Den didaktik der flytter dét mønster, er stadig en åben plads."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Hvordan evaluerer man etisk mod uden at dræbe det? Åben plads."
+      }
     ],
-    "callouts": [
-     {
-      "type": "gissel",
-      "titel": "Romanen er semantisk ressource",
-      "tekst": "Djævelens Lærling er ikke produceret til undervisning. Forløbet didaktiserer den. Dækningsgradsprofilen gælder forløbets eget didaktiske lag, ikke romanen."
-     }
+    "faser": [
+      {
+        "titel": "Dilemmaerne forankres",
+        "beskrivelse": "Som V1, men dilemmakortene findes nu i hverdagssprog.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Dilemmakort i to sprogversioner"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Første positionering"
+          }
+        ]
+      },
+      {
+        "titel": "Spillet: lavere tærskel",
+        "beskrivelse": "Samme spilstruktur. Det bearbejdede sprog sænker deltagelsestærsklen mærkbart.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Spilrunder i grupper"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Standpunktskift på signal"
+          }
+        ]
+      },
+      {
+        "titel": "Afslutning",
+        "beskrivelse": "Exitspørgsmål i elevsprog.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Exitspørgsmål"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles opsamling"
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Modellering",
-    "beskrivelse": "Læreren demonstrerer det indre overbevisende ord. Realplan og billedplan gøres til synlig tænkepraksis, ikke en instruktion der følges. Zigzag mellem analytisk-receptiv og analytisk-produktiv virksomhed.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Læreren tænker højt over en nøglescene"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Eleverne prøver samme bevægelse på næste scene"
-     }
+  },
+  {
+    "id": "tema1-mundtlighed",
+    "schema_version": 2,
+    "titel": "Mundtlighed: fra stemthed til etisk samtale",
+    "undertitel": "Tema 1 · 8.D Silkeborg",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "mundtlighed",
+      "stemthed",
+      "dilemmaspil",
+      "Høgh",
+      "Biesta",
+      "OSMT"
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Svar på en kulturel diagnose",
-      "tekst": "Hayles dokumenterer at digitale medier træner hyper attention. Modellering genopbygger den deep attention fordybet læsning kræver. Det er ikke støtte til svage elever; det er kulturarbejde for alle."
-     }
-    ]
-   },
-   {
-    "titel": "De Fantastiske 4",
-    "beskrivelse": "Eleverne overtager fortolkningsfællesskabet. Jazz med stillads: rollerne skaber divergente diskurstråde uden at lukke polyfonien. Deweys anticipation og kontinuitet bærer begreberne frem.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Rollebaseret gruppelæsning"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Diskurstråde krydses i plenum"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-06-01",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Forløbet bevæger sig fra sanselig stemthed over kropslig erfaring til refleksiv bevidsthed: anslag uden ord, romanunivers bygget lag på lag, dilemmaspil i eget navn, og en metafase der navngiver strukturen via Arendt og fiktion. Rækkefølgen kan ikke inverteres.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Ophobning",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Samtale"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Hvordan evaluerer man mundtlighed uden at gøre samtalen til performance? Jeg brugte observation og samtale. En systematisk form er åben."
+      }
     ],
-    "callouts": [
-     {
-      "type": "dramaturgi",
-      "titel": "Polyfoni frem for IRE",
-      "tekst": "Elevernes bidrag optages og bygges videre på; de evalueres ikke som rigtige eller forkerte. Korrekthedsfeedback ville bryde den dialogiske kontrakt netop her."
-     }
+    "faser": [
+      {
+        "titel": "Stemthed",
+        "beskrivelse": "Anslaget: intet som sanselig begivenhed. Det etiske felt åbnes æstetisk-receptivt, inden et eneste begreb introduceres. Deweys spænding aktiveres og holdes åben, ikke løst op.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Sanseligt møde uden forklaring"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Stille notat: hvad mærkede du?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Anslagets dobbelte kvalitet",
+            "tekst": "Begivenhed (dramaturgisk) og bro til indholdet (didaktisk) på samme tid. Forforståelsen aktiveres før begreberne."
+          }
+        ]
+      },
+      {
+        "titel": "Tekståbner",
+        "beskrivelse": "Romanuniverset bygges lag på lag i en håndværksmæssig til analytisk progression. Deweys ophobning: realplanet frigiver kapacitet til billedplanet.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Begrebsprogression i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Universkort over romanens verden"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Hvorfor håndværk før analyse?",
+            "tekst": "Eleverne skal kende universet før de kan bruge det som etisk referencepunkt. Fase 3 virker kun fordi fase 2 har gjort romanens verden levende."
+          }
+        ]
+      },
+      {
+        "titel": "Dilemmaspil",
+        "beskrivelse": "Kommunikativ-produktiv virksomhed: 1. og 2. person, ytring i eget navn. Eleven inviteres til at træde frem som etisk subjekt. Spillet findes som selvstændigt forløb med egen genealogi.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Den Svære Samtale spilles"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Standpunktskift"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Lytternoter"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Spillet har sit eget liv",
+            "tekst": "Dilemmaspillet er udskilt som selvstændigt forløb: Den Svære Samtale, med tre versioner og et empirisk V1-til-V2-fund om deltagelsestærskler. Fork det derfra."
+          }
+        ]
+      },
+      {
+        "titel": "Metafase",
+        "beskrivelse": "Balance-punktet: 3. person via omvej. Arendt og troværdig undskyldning navngiver strukturen via filosofi og fiktion, aldrig direkte tilbage til det der skete i spillet. Deweys fastholdelse: forløbets etiske vokabular konsolideres produktivt.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Arendt-tekst i uddrag"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Troværdig undskyldning skrives in-character"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles kort: hvad gør en uenighed god?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Hvorfor aldrig direkte tilbage?",
+            "tekst": "3. personsrefleksionen virker kun fordi den ikke vender tilbage til spillets konkrete ytringer. Ingen skal stå til regnskab for at have ytret sig i eget navn."
+          },
+          {
+            "type": "obs",
+            "titel": "Subjektifikation kan ikke garanteres",
+            "tekst": "V1-til-V2-fundet viser det præcist: sproglig bearbejdning sænker deltagelsestærsklen, men autonomitærsklen holdt. Forvent ikke at alle når dertil. Byg rummet alligevel."
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Tekstkritikeren",
-    "beskrivelse": "Bevidst skift fra æstetisk til efferent læsning. Eleven bevæger sig fra tekstdeltager til tekstkritiker, og ved at det er et skift. Billedplanet aktiveres tredje gang i ny kontekst: fastholdelse.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Kritikerspørgsmål: hvad udelader teksten?"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Skriftlig kritikerkommentar"
-     }
+  },
+  {
+    "id": "tema2-laesning",
+    "schema_version": 2,
+    "titel": "Læsning: Djævelens Lærling og fortolkningsfællesskabet",
+    "undertitel": "Tema 2 · 8.D Silkeborg",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "læsning",
+      "fantasy",
+      "fordobling",
+      "modellering",
+      "Hayles",
+      "polyfoni",
+      "Kenneth Bøgh Andersen"
     ],
-    "callouts": [
-     {
-      "type": "almind",
-      "titel": "Skift romanen, behold bevægelsen",
-      "tekst": "Modellering, De Fantastiske 4 og tekstkritikeren er én sammenhængende bevægelse der virker på enhver roman med et stærkt billedplan. Lydbogen via mitCFU sænker læsetærsklen uden at ændre forløbet."
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "tema3-skrivning",
-  "schema_version": 2,
-  "titel": "Skrivning: dagbog, undskyldning og breve",
-  "undertitel": "Tema 3 · Troldenes tid · 8.D Silkeborg",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "skrivning",
-   "tænkeskrivning",
-   "retorik",
-   "dialogisk skrivning",
-   "Grib Litteraturen",
-   "Tufte",
-   "Troldenes tid"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-06-01",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Tre skrivesituationer med stigende retorisk kompleksitet og faldende fiktionsbeskyttelse: Jonas' rå dagbog efter raseriet, det modige undskyldningsbrev til Liv, og brevkorrespondancen hvor Liv svarer og ingen ved hvad hun siger. Skoven er ikke kulisse; den er forudsætningen for forestillingsevnen.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Semantisk læringsressource"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Kommunikativ"
-   ],
-   "dewey": [
-    "Spænding",
-    "Kontinuitet",
-    "Ophobning"
-   ],
-   "evalueringsform": "Peer feedback"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "tom",
-   "differentiering": "delvis",
-   "evaluering": "delvis"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "organisering",
-    "besked": "Skoven dag 1, klassen dag 2, skoven dag 3. Men det skal være JERES sted. Logistikken kan kun du planlægge, og uden et sanseligt sted falder fase 1 fra hinanden."
-   }
-  ],
-  "materialer": [
-   {
-    "titel": "Troldenes tid: vejen til Ur",
-    "type": "Bog",
-    "faust": "140451339",
-    "url": "https://mitcfu.dk/MaterialeInfo/?faust=140451339",
-    "note": "Adam O., 2025. Jonas' lillesøster Liv er forsvundet, og ingen andre end ham kan huske hende. Forløbets fælles fiktion.",
-    "materialetype": null,
-    "didaktisering": null
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Dagbog",
-    "beskrivelse": "Tænkeskrivning i skoven: privat, ukontrolleret, rå. Jonas lige efter raseriet. Ingen modtager, ingen der ser. Højeste fiktionsbeskyttelse, laveste retoriske krav. Deweys spænding bæres ind i pennen i stedet for at blive løst op.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Højtlæsning på stedet"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Dagbogsskrivning i Jonas' stemme"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Ingen deler, ingen læser"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-06-01",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Fra modtagelse til fortolkning til kritisk stillingtagen. Modellering er ikke et trick for svage læsere men et svar på en kulturel diagnose: hyper attention konkurrerer med den deep attention fordybet læsning kræver. Forløbet genopbygger kapaciteten gennem et polyfonisk fortolkningsfællesskab.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Ophobning",
+        "Anticipation",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Samtale"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Tekstkritikerfasen producerer materiale der kunne bære en evaluering, men formen er ikke bygget. Åben plads."
+      }
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Dagbogen er råmaterialet",
-      "tekst": "Eleverne ved ikke at dagbogen er råmaterialet til brevet i fase 2. Men det er det. Deweys kontinuitet er aktiv fra første sætning."
-     },
-     {
-      "type": "obs",
-      "titel": "Privat betyder privat",
-      "tekst": "Dagbogen læses ikke af nogen, heller ikke af dig. Bryder du det, mister fase 3's eksponering sin trygge bund."
-     }
-    ]
-   },
-   {
-    "titel": "Undskyldning",
-    "beskrivelse": "Præsentationsskrivning i klassen: modig, retorisk, struktureret. Jonas forsøger at reparere. Modtageren er klar (Liv) men kan ikke svare. Analytisk-produktiv virksomhed med Tuftes zigzag: analyse, produktion, analyse, revision.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Modeltekster analyseres"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Undskyldningsbrevet skrives"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Zigzag-revision i makkerpar"
-     }
+    "materialer": [
+      {
+        "titel": "Djævelens lærling (e-bog)",
+        "type": "E-bog",
+        "faust": "CFUEBOG1100877",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFUEBOG1100877",
+        "note": "Kenneth Bøgh Andersen. Med pædagogisk note af Trine Ferdinand.",
+        "materialetype": null,
+        "didaktisering": null
+      },
+      {
+        "titel": "Djævelens lærling (lydbog)",
+        "type": "Lydbog",
+        "faust": "CFULYD1128318",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFULYD1128318",
+        "note": "Til elever der har gavn af at høre romanen læst højt.",
+        "materialetype": null,
+        "didaktisering": null
+      },
+      {
+        "titel": "Litteraturguide (Gyldendal)",
+        "type": "Vejledning",
+        "faust": "26886120",
+        "url": "https://mitcfu.dk/pv/26886120_1.pdf",
+        "note": "Forlagets pædagogiske vejledning, 7.-9. klasse.",
+        "materialetype": null,
+        "didaktisering": null
+      }
     ],
-    "callouts": [
-     {
-      "type": "dramaturgi",
-      "titel": "Fra det private til det retoriske",
-      "tekst": "Skoven dag 1, klasselokalet dag 2, skoven dag 3 er ikke tilfældig vekslen. Det er en dramaturgisk bevægelse fra det private over det retoriske til det dialogiske."
-     }
+    "faser": [
+      {
+        "titel": "Anslag",
+        "beskrivelse": "Forestillingsevnen genaktiveres. Fortolkningsfællesskabets spilleregler demonstreres i praksis inden de forklares. Æstetisk-receptiv virksomhed; Deweys spænding aktiveres og holdes åben.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Mødet med romanens univers som begivenhed"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Indre billeder deles uden begreber"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "gissel",
+            "titel": "Romanen er semantisk ressource",
+            "tekst": "Djævelens Lærling er ikke produceret til undervisning. Forløbet didaktiserer den. Dækningsgradsprofilen gælder forløbets eget didaktiske lag, ikke romanen."
+          }
+        ]
+      },
+      {
+        "titel": "Modellering",
+        "beskrivelse": "Læreren demonstrerer det indre overbevisende ord. Realplan og billedplan gøres til synlig tænkepraksis, ikke en instruktion der følges. Zigzag mellem analytisk-receptiv og analytisk-produktiv virksomhed.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Læreren tænker højt over en nøglescene"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Eleverne prøver samme bevægelse på næste scene"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Svar på en kulturel diagnose",
+            "tekst": "Hayles dokumenterer at digitale medier træner hyper attention. Modellering genopbygger den deep attention fordybet læsning kræver. Det er ikke støtte til svage elever; det er kulturarbejde for alle."
+          }
+        ]
+      },
+      {
+        "titel": "De Fantastiske 4",
+        "beskrivelse": "Eleverne overtager fortolkningsfællesskabet. Jazz med stillads: rollerne skaber divergente diskurstråde uden at lukke polyfonien. Deweys anticipation og kontinuitet bærer begreberne frem.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Rollebaseret gruppelæsning"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Diskurstråde krydses i plenum"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Polyfoni frem for IRE",
+            "tekst": "Elevernes bidrag optages og bygges videre på; de evalueres ikke som rigtige eller forkerte. Korrekthedsfeedback ville bryde den dialogiske kontrakt netop her."
+          }
+        ]
+      },
+      {
+        "titel": "Tekstkritikeren",
+        "beskrivelse": "Bevidst skift fra æstetisk til efferent læsning. Eleven bevæger sig fra tekstdeltager til tekstkritiker, og ved at det er et skift. Billedplanet aktiveres tredje gang i ny kontekst: fastholdelse.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Kritikerspørgsmål: hvad udelader teksten?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Skriftlig kritikerkommentar"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Skift romanen, behold bevægelsen",
+            "tekst": "Modellering, De Fantastiske 4 og tekstkritikeren er én sammenhængende bevægelse der virker på enhver roman med et stærkt billedplan. Lydbogen via mitCFU sænker læsetærsklen uden at ændre forløbet."
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Breve",
-    "beskrivelse": "Dialogisk skrivning i skoven: uforudsigelig, gensidig, åben. Liv svarer, og Jonas ved ikke hvad hun siger. En makker læser og svarer i karakter. Laveste fiktionsbeskyttelse, højeste retoriske kompleksitet.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Brevveksling i karakter"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Makkeren svarer som Liv"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Metasamtale: hvad gjorde svaret ved dit næste brev?"
-     }
+  },
+  {
+    "id": "tema3-skrivning",
+    "schema_version": 2,
+    "titel": "Skrivning: dagbog, undskyldning og breve",
+    "undertitel": "Tema 3 · Troldenes tid · 8.D Silkeborg",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "skrivning",
+      "tænkeskrivning",
+      "retorik",
+      "dialogisk skrivning",
+      "Grib Litteraturen",
+      "Tufte",
+      "Troldenes tid"
     ],
-    "callouts": [
-     {
-      "type": "almind",
-      "titel": "Skift fiktionen, behold progressionen",
-      "tekst": "Dagbog, undskyldning, breve virker med enhver fortælling hvor nogen mister nogen. Det afgørende er progressionen i modtagerforhold: ingen, en der ikke svarer, en der svarer."
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "tema4-kortfilm",
-  "schema_version": 2,
-  "titel": "Kortfilm og multimodalitet: din skolegang som kortfilm",
-  "undertitel": "Tema 4 · 8.D Silkeborg",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "kortfilm",
-   "multimodalitet",
-   "Raskin",
-   "filmanalyse",
-   "produktion"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-05-31",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Fra sanselig oplevelse til faglig begrebsliggørelse til personlig produktion, og tilbage til faglig refleksion. Raskins parametre bruges i begge retninger: til at analysere andres film og designe sin egen. Eleven opdager at analyse og produktion er den samme tænkning med forskellige retninger.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Semantisk læringsressource",
-    "Redskabslæremiddel"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Håndværksmæssig"
-   ],
-   "dewey": [
-    "Spænding",
-    "Anticipation",
-    "Ophobning",
-    "Fastholdelse"
-   ],
-   "evalueringsform": "Peer feedback"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Peer feedback bærer processen, men en form der gør den personlige fortælling retfærdig at bedømme, fandt jeg ikke. Tag den plads."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Anslag",
-    "beskrivelse": "Filmen ses som begivenhed. Ingen begreber endnu. Æstetisk-receptiv virksomhed; Deweys spænding og anticipation aktiveres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Visning uden introduktion"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Filmsamtale: hvad mærkede du, og hvor?"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-06-01",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Tre skrivesituationer med stigende retorisk kompleksitet og faldende fiktionsbeskyttelse: Jonas' rå dagbog efter raseriet, det modige undskyldningsbrev til Liv, og brevkorrespondancen hvor Liv svarer og ingen ved hvad hun siger. Skoven er ikke kulisse; den er forudsætningen for forestillingsevnen.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Kontinuitet",
+        "Ophobning"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "tom",
+      "differentiering": "delvis",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Skoven dag 1, klassen dag 2, skoven dag 3. Men det skal være JERES sted. Logistikken kan kun du planlægge, og uden et sanseligt sted falder fase 1 fra hinanden."
+      }
     ],
-    "callouts": [
-     {
-      "type": "dramaturgi",
-      "titel": "Begivenhed, ikke introduktion",
-      "tekst": "Fase 2's begrebsliggørelse virker kun fordi fase 1 har produceret en sanselig erfaring at sætte begreberne på."
-     }
-    ]
-   },
-   {
-    "titel": "Begrebsliggørelse",
-    "beskrivelse": "Raskins syv parametre sættes på det eleverne allerede har mærket. Begreberne kommer bagfra, ikke forfra. Deweys ophobning: begreber bygges lag på lag.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Parameterjagt i grupper"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fælles kort over filmens virkemidler"
-     }
-    ]
-   },
-   {
-    "titel": "Vendingen",
-    "beskrivelse": "Parametrene vendes om og bliver generative designredskaber. Forproduktionsarket eksternaliserer designbeslutningerne. Analytisk-produktiv plus håndværksmæssig virksomhed; fastholdelsen begynder.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Forproduktionsark udfyldes"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Storyboard til egen åbningsscene"
-     }
+    "materialer": [
+      {
+        "titel": "Troldenes tid: vejen til Ur",
+        "type": "Bog",
+        "faust": "140451339",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=140451339",
+        "note": "Adam O., 2025. Jonas' lillesøster Liv er forsvundet, og ingen andre end ham kan huske hende. Forløbets fælles fiktion.",
+        "materialetype": null,
+        "didaktisering": null
+      }
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Raskins dobbeltfunktion",
-      "tekst": "Samme redskab til analyse af andres tekster og produktion af egne. Den der har analyseret en overraskelse med parameter 3, ved hvad det koster at skabe én. Den erkendelse kræver at eleven selv forsøger."
-     }
+    "faser": [
+      {
+        "titel": "Dagbog",
+        "beskrivelse": "Tænkeskrivning i skoven: privat, ukontrolleret, rå. Jonas lige efter raseriet. Ingen modtager, ingen der ser. Højeste fiktionsbeskyttelse, laveste retoriske krav. Deweys spænding bæres ind i pennen i stedet for at blive løst op.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Højtlæsning på stedet"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Dagbogsskrivning i Jonas' stemme"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Ingen deler, ingen læser"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Dagbogen er råmaterialet",
+            "tekst": "Eleverne ved ikke at dagbogen er råmaterialet til brevet i fase 2. Men det er det. Deweys kontinuitet er aktiv fra første sætning."
+          },
+          {
+            "type": "obs",
+            "titel": "Privat betyder privat",
+            "tekst": "Dagbogen læses ikke af nogen, heller ikke af dig. Bryder du det, mister fase 3's eksponering sin trygge bund."
+          }
+        ]
+      },
+      {
+        "titel": "Undskyldning",
+        "beskrivelse": "Præsentationsskrivning i klassen: modig, retorisk, struktureret. Jonas forsøger at reparere. Modtageren er klar (Liv) men kan ikke svare. Analytisk-produktiv virksomhed med Tuftes zigzag: analyse, produktion, analyse, revision.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Modeltekster analyseres"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Undskyldningsbrevet skrives"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Zigzag-revision i makkerpar"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Fra det private til det retoriske",
+            "tekst": "Skoven dag 1, klasselokalet dag 2, skoven dag 3 er ikke tilfældig vekslen. Det er en dramaturgisk bevægelse fra det private over det retoriske til det dialogiske."
+          }
+        ]
+      },
+      {
+        "titel": "Breve",
+        "beskrivelse": "Dialogisk skrivning i skoven: uforudsigelig, gensidig, åben. Liv svarer, og Jonas ved ikke hvad hun siger. En makker læser og svarer i karakter. Laveste fiktionsbeskyttelse, højeste retoriske kompleksitet.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Brevveksling i karakter"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Makkeren svarer som Liv"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Metasamtale: hvad gjorde svaret ved dit næste brev?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Skift fiktionen, behold progressionen",
+            "tekst": "Dagbog, undskyldning, breve virker med enhver fortælling hvor nogen mister nogen. Det afgørende er progressionen i modtagerforhold: ingen, en der ikke svarer, en der svarer."
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Produktion",
-    "beskrivelse": "Råoptagelse og peer feedback. Begreberne er nu kropslig erfaring. Eleven træder frem med en personlig fortælling om hvad skolegang gør ved et menneske: subjektifikation, ikke aflevering.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Råoptagelse af åbningsscene"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Peer feedback med parametrene som sprog"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Metarefleksion"
-     }
+  },
+  {
+    "id": "tema4-kortfilm",
+    "schema_version": 2,
+    "titel": "Kortfilm og multimodalitet: din skolegang som kortfilm",
+    "undertitel": "Tema 4 · 8.D Silkeborg",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "kortfilm",
+      "multimodalitet",
+      "Raskin",
+      "filmanalyse",
+      "produktion"
     ],
-    "callouts": [
-     {
-      "type": "almind",
-      "titel": "Forproduktionsarket er guldet",
-      "tekst": "Tag arket direkte: det fungerer til enhver filmopgave. Emnet 'din skolegang' kan skiftes ud, men behold at emnet er personligt; det er dér subjektifikationen bor."
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "tema5-journalistik",
-  "schema_version": 2,
-  "titel": "Journalistiske tekster og argumentation: framing og diskurs",
-  "undertitel": "Tema 5 · 8.D Silkeborg",
-  "forfatter": "Valdemar Silverstein Markussen",
-  "institution": "8.D, Silkeborg",
-  "aar": 2026,
-  "fag": "dansk",
-  "klassetrin": "8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "journalistik",
-   "framing",
-   "Entman",
-   "diskursanalyse",
-   "Fairclough",
-   "kildekritik"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-06-01",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Kritisk diskursanalyse som demokratisk kompetence. Fra historisk distance (krystalnatslederen 1938) over nutidigt eksempel (Reuters mod Ritzau, 22. juli 2024) til eget redskab og egen produktion. Ét velvalgt eksempel, fremmed nok til at ingen forsvarer det, nær nok til at metoden kan læres.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "stemme": "Idékatalog",
-   "materialetyper": [
-    "Didaktisk læremiddel",
-    "Semantisk læringsressource"
-   ],
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Håndværksmæssig",
-    "Kommunikativ"
-   ],
-   "dewey": [
-    "Spænding",
-    "Ophobning",
-    "Anticipation",
-    "Fastholdelse"
-   ],
-   "evalueringsform": "Peer feedback"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "delvis",
-   "differentiering": "tom",
-   "evaluering": "delvis"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Nærlæsning af 1938-lederen stiller høje læsekrav. Stilladsering til læsesvage elever er en åben plads; teksten kan ikke forenkles uden at miste sit kildemateriale."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Anslag: krystalnatslederen",
-    "beskrivelse": "Historisk distance som beskyttelse: 1938-lederen er fremmed nok til at ingen kan forsvare den, nær nok til at metoden kan læres. Passiv og nominalisering opdages af eleverne, ikke forklares af læreren.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Nærlæsning i makkerpar"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fundene samles uden facit"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-05-31",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Fra sanselig oplevelse til faglig begrebsliggørelse til personlig produktion, og tilbage til faglig refleksion. Raskins parametre bruges i begge retninger: til at analysere andres film og designe sin egen. Eleven opdager at analyse og produktion er den samme tænkning med forskellige retninger.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig"
+      ],
+      "dewey": [
+        "Spænding",
+        "Anticipation",
+        "Ophobning",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Peer feedback bærer processen, men en form der gør den personlige fortælling retfærdig at bedømme, fandt jeg ikke. Tag den plads."
+      }
     ],
-    "callouts": [
-     {
-      "type": "valg",
-      "titel": "Wagenscheins eksemplariske princip",
-      "tekst": "Ét koncentreret eksempel åbner det generelle fænomen. Eleverne behøver ikke 30 artikler; de behøver ét eksempel der er historisk sikkert nok til at metoden kan læres uden at konflikten om emnet overtager rummet."
-     }
+    "faser": [
+      {
+        "titel": "Anslag",
+        "beskrivelse": "Filmen ses som begivenhed. Ingen begreber endnu. Æstetisk-receptiv virksomhed; Deweys spænding og anticipation aktiveres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Visning uden introduktion"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Filmsamtale: hvad mærkede du, og hvor?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Begivenhed, ikke introduktion",
+            "tekst": "Fase 2's begrebsliggørelse virker kun fordi fase 1 har produceret en sanselig erfaring at sætte begreberne på."
+          }
+        ]
+      },
+      {
+        "titel": "Begrebsliggørelse",
+        "beskrivelse": "Raskins syv parametre sættes på det eleverne allerede har mærket. Begreberne kommer bagfra, ikke forfra. Deweys ophobning: begreber bygges lag på lag.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Parameterjagt i grupper"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles kort over filmens virkemidler"
+          }
+        ]
+      },
+      {
+        "titel": "Vendingen",
+        "beskrivelse": "Parametrene vendes om og bliver generative designredskaber. Forproduktionsarket eksternaliserer designbeslutningerne. Analytisk-produktiv plus håndværksmæssig virksomhed; fastholdelsen begynder.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Forproduktionsark udfyldes"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Storyboard til egen åbningsscene"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Raskins dobbeltfunktion",
+            "tekst": "Samme redskab til analyse af andres tekster og produktion af egne. Den der har analyseret en overraskelse med parameter 3, ved hvad det koster at skabe én. Den erkendelse kræver at eleven selv forsøger."
+          }
+        ]
+      },
+      {
+        "titel": "Produktion",
+        "beskrivelse": "Råoptagelse og peer feedback. Begreberne er nu kropslig erfaring. Eleven træder frem med en personlig fortælling om hvad skolegang gør ved et menneske: subjektifikation, ikke aflevering.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Råoptagelse af åbningsscene"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback med parametrene som sprog"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Metarefleksion"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Forproduktionsarket er guldet",
+            "tekst": "Tag arket direkte: det fungerer til enhver filmopgave. Emnet 'din skolegang' kan skiftes ud, men behold at emnet er personligt; det er dér subjektifikationen bor."
+          }
+        ]
+      }
     ]
-   },
-   {
-    "titel": "Begrebsliggørelse: Entman",
-    "beskrivelse": "Læreren modellerer Entmans fire framingspørgsmål på den tekst eleverne kender. Begrebet sættes på erfaringen bagfra. Deweys ophobning: tekstmøde plus redskab bliver til analyse.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Modellering af spørgsmål 1-3"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Eleverne prøver spørgsmål 4 selv"
-     }
-    ]
-   },
-   {
-    "titel": "Spørgsmålstrappen",
-    "beskrivelse": "Eleverne analyserer selv: Reuters mod Ritzau, samme hændelse, 22. juli 2024. Det historiske eksempel genkendes i nutiden. Og biasdetektor-momentet: redskabet der afslører andres diskurser, er selv en diskurs.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Gruppeanalyse af to telegrammer"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Spørgsmålstrappen bestiges"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Stillingtagen i plenum"
-     }
+  },
+  {
+    "id": "tema5-journalistik",
+    "schema_version": 2,
+    "titel": "Journalistiske tekster og argumentation: framing og diskurs",
+    "undertitel": "Tema 5 · 8.D Silkeborg",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "journalistik",
+      "framing",
+      "Entman",
+      "diskursanalyse",
+      "Fairclough",
+      "kildekritik"
     ],
-    "callouts": [
-     {
-      "type": "obs",
-      "titel": "Biasdetektoren er selv en diskurs",
-      "tekst": "Lad ikke redskabet blive en facitliste. Det øjeblik eleverne vender Entman mod selve undervisningen, er ikke en afsporing; det er målet."
-     }
-    ]
-   },
-   {
-    "titel": "Produktion: de 5 F'er",
-    "beskrivelse": "Diskursbevidstheden vendes om: eleven er nu afsender. Fregerslevs 5 F'er som scaffolding, valg ikke opskrift. Zigzag: produktion, peer feedback, revision plus metakognitiv begrundelse.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Egen nyhedstekst skrives"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Peer feedback på framingvalg"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Revision med begrundelse"
-     }
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-06-01",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Kritisk diskursanalyse som demokratisk kompetence. Fra historisk distance (krystalnatslederen 1938) over nutidigt eksempel (Reuters mod Ritzau, 22. juli 2024) til eget redskab og egen produktion. Ét velvalgt eksempel, fremmed nok til at ingen forsvarer det, nær nok til at metoden kan læres.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Ophobning",
+        "Anticipation",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "tom",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Nærlæsning af 1938-lederen stiller høje læsekrav. Stilladsering til læsesvage elever er en åben plads; teksten kan ikke forenkles uden at miste sit kildemateriale."
+      }
     ],
-    "callouts": [
-     {
-      "type": "almind",
-      "titel": "Skift telegrammerne ud",
-      "tekst": "Reuters mod Ritzau ældes. Strukturen gør ikke: find to telegrammer om samme hændelse fra denne måned, og forløbet er dagsaktuelt igen. Det er den letteste fork i hele forløbet."
-     }
+    "faser": [
+      {
+        "titel": "Anslag: krystalnatslederen",
+        "beskrivelse": "Historisk distance som beskyttelse: 1938-lederen er fremmed nok til at ingen kan forsvare den, nær nok til at metoden kan læres. Passiv og nominalisering opdages af eleverne, ikke forklares af læreren.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Nærlæsning i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fundene samles uden facit"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Wagenscheins eksemplariske princip",
+            "tekst": "Ét koncentreret eksempel åbner det generelle fænomen. Eleverne behøver ikke 30 artikler; de behøver ét eksempel der er historisk sikkert nok til at metoden kan læres uden at konflikten om emnet overtager rummet."
+          }
+        ]
+      },
+      {
+        "titel": "Begrebsliggørelse: Entman",
+        "beskrivelse": "Læreren modellerer Entmans fire framingspørgsmål på den tekst eleverne kender. Begrebet sættes på erfaringen bagfra. Deweys ophobning: tekstmøde plus redskab bliver til analyse.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Modellering af spørgsmål 1-3"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Eleverne prøver spørgsmål 4 selv"
+          }
+        ]
+      },
+      {
+        "titel": "Spørgsmålstrappen",
+        "beskrivelse": "Eleverne analyserer selv: Reuters mod Ritzau, samme hændelse, 22. juli 2024. Det historiske eksempel genkendes i nutiden. Og biasdetektor-momentet: redskabet der afslører andres diskurser, er selv en diskurs.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Gruppeanalyse af to telegrammer"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Spørgsmålstrappen bestiges"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Stillingtagen i plenum"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "obs",
+            "titel": "Biasdetektoren er selv en diskurs",
+            "tekst": "Lad ikke redskabet blive en facitliste. Det øjeblik eleverne vender Entman mod selve undervisningen, er ikke en afsporing; det er målet."
+          }
+        ]
+      },
+      {
+        "titel": "Produktion: de 5 F'er",
+        "beskrivelse": "Diskursbevidstheden vendes om: eleven er nu afsender. Fregerslevs 5 F'er som scaffolding, valg ikke opskrift. Zigzag: produktion, peer feedback, revision plus metakognitiv begrundelse.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Egen nyhedstekst skrives"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback på framingvalg"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Revision med begrundelse"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Skift telegrammerne ud",
+            "tekst": "Reuters mod Ritzau ældes. Strukturen gør ikke: find to telegrammer om samme hændelse fra denne måned, og forløbet er dagsaktuelt igen. Det er den letteste fork i hele forløbet."
+          }
+        ]
+      }
     ]
-   }
-  ]
- },
- {
-  "id": "broekvaerkstedet",
-  "schema_version": 2,
-  "titel": "Brøkværkstedet: fra pizzadeling til talinje",
-  "forfatter": "Mette Holm Sørensen",
-  "institution": "Risskov Skole, Aarhus",
-  "aar": 2026,
-  "fag": "matematik",
-  "klassetrin": "4.-5. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "brøker",
-   "konkret-abstrakt",
-   "manipulativer",
-   "talforståelse"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-05-25",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Konkret-abstrakt progression med fysiske brøkbrikker: fra pizzadeling over brøkstave til placering på talinjen. Hver station har et kontrolspørgsmål eleverne stiller hinanden.",
-  "tags": {
-   "strategi": "Læremiddelstyret",
-   "virksomhedsformer": [
-    "Håndværksmæssig",
-    "Analytisk"
-   ],
-   "evalueringsform": "Ingen (åben plads)"
   },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
+  {
+    "id": "broekvaerkstedet",
+    "schema_version": 2,
+    "titel": "Brøkværkstedet: fra pizzadeling til talinje",
+    "forfatter": "Mette Holm Sørensen",
+    "institution": "Risskov Skole, Aarhus",
+    "aar": 2026,
+    "fag": "matematik",
+    "klassetrin": "4.-5. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "brøker",
+      "konkret-abstrakt",
+      "manipulativer",
+      "talforståelse"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-05-25",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Konkret-abstrakt progression med fysiske brøkbrikker: fra pizzadeling over brøkstave til placering på talinjen. Hver station har et kontrolspørgsmål eleverne stiller hinanden.",
+    "tags": {
+      "strategi": "Læremiddelstyret",
+      "virksomhedsformer": [
+        "Håndværksmæssig",
+        "Analytisk"
+      ],
+      "evalueringsform": "Ingen (åben plads)"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Jeg evaluerer med min egen portfolio-model som ikke er med her. Sæt din egen form ind."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Pizzadeling",
+        "beskrivelse": "Brøker som retfærdig deling af noget man kan røre ved.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Deleopgaver med brikker"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Makkertjek"
+          }
+        ]
+      },
+      {
+        "titel": "Brøkstave",
+        "beskrivelse": "Sammenligning og ækvivalens med brøkstave.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Stationsarbejde"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Kontrolspørgsmål"
+          }
+        ]
+      },
+      {
+        "titel": "Talinjen",
+        "beskrivelse": "Brøkerne placeres på talinjen og forbindes til decimaltal.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Talinje på gulvet"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Individuel opgaveserie"
+          }
+        ]
+      }
+    ],
+    "demo": true
   },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Jeg evaluerer med min egen portfolio-model som ikke er med her. Sæt din egen form ind."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Pizzadeling",
-    "beskrivelse": "Brøker som retfærdig deling af noget man kan røre ved.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Deleopgaver med brikker"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Makkertjek"
-     }
-    ]
-   },
-   {
-    "titel": "Brøkstave",
-    "beskrivelse": "Sammenligning og ækvivalens med brøkstave.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Stationsarbejde"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Kontrolspørgsmål"
-     }
-    ]
-   },
-   {
-    "titel": "Talinjen",
-    "beskrivelse": "Brøkerne placeres på talinjen og forbindes til decimaltal.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Talinje på gulvet"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Individuel opgaveserie"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "stroem-i-huset",
-  "schema_version": 2,
-  "titel": "Strøm i huset: kredsløb, fejlfinding og el-sikkerhed",
-  "forfatter": "Anders Vestergaard",
-  "institution": "Brændgårdskolen, Herning",
-  "aar": 2026,
-  "fag": "fysik-kemi",
-  "klassetrin": "7.-8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "elektricitet",
-   "kredsløb",
-   "fejlfinding",
-   "el-sikkerhed"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-04-30",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Eleverne bygger husets elsystem i miniature og fejlfinder på hinandens kredsløb. Sikkerhedsdelen er bygget op om rigtige cases fra Sikkerhedsstyrelsen.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "virksomhedsformer": [
-    "Håndværksmæssig",
-    "Analytisk"
-   ],
-   "evalueringsform": "Fremlæggelse"
+  {
+    "id": "stroem-i-huset",
+    "schema_version": 2,
+    "titel": "Strøm i huset: kredsløb, fejlfinding og el-sikkerhed",
+    "forfatter": "Anders Vestergaard",
+    "institution": "Brændgårdskolen, Herning",
+    "aar": 2026,
+    "fag": "fysik-kemi",
+    "klassetrin": "7.-8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "elektricitet",
+      "kredsløb",
+      "fejlfinding",
+      "el-sikkerhed"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-04-30",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Eleverne bygger husets elsystem i miniature og fejlfinder på hinandens kredsløb. Sikkerhedsdelen er bygget op om rigtige cases fra Sikkerhedsstyrelsen.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "virksomhedsformer": [
+        "Håndværksmæssig",
+        "Analytisk"
+      ],
+      "evalueringsform": "Fremlæggelse"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "tom",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Fejlfindingsopgaverne findes kun i én sværhedsgrad. Flere niveauer ville gøre forløbet stærkere."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Kredsløbet åbnes",
+        "beskrivelse": "Serieforbindelse og parallelforbindelse bygges og måles.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Byggeopgaver"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Måling med multimeter"
+          }
+        ]
+      },
+      {
+        "titel": "Fejlfinding",
+        "beskrivelse": "Grupperne saboterer hinandens kredsløb kontrolleret og fejlfinder.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Sabotage efter regler"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Systematisk fejlfinding"
+          }
+        ]
+      },
+      {
+        "titel": "El-sikkerhed",
+        "beskrivelse": "Rigtige ulykkescases analyseres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Caseanalyse"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Sikkerhedsplakat"
+          }
+        ]
+      }
+    ],
+    "demo": true
   },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "delvis",
-   "differentiering": "tom",
-   "evaluering": "delvis"
+  {
+    "id": "aaen-bag-skolen",
+    "schema_version": 2,
+    "titel": "Åen bag skolen: feltundersøgelse af vandløbets tilstand",
+    "forfatter": "Jonas Krogh Pedersen",
+    "institution": "Sejs Skole, Silkeborg",
+    "aar": 2026,
+    "fag": "natur-teknologi",
+    "klassetrin": "5.-6. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "vandløb",
+      "feltarbejde",
+      "smådyr",
+      "vandkvalitet"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-05-12",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Klassen undersøger det nærmeste vandløb med ketsjer, smådyrsnøgle og simple målinger, og vurderer vandkvaliteten ud fra hvad der faktisk lever i åen.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "anslag_type": "Projekt",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Håndværksmæssig",
+        "Analytisk"
+      ],
+      "evalueringsform": "Fremlæggelse"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "tom",
+      "differentiering": "delvis",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Logistikken afhænger helt af jeres lokale vandløb og transportmuligheder. Den plads kan kun du udfylde."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Før felten",
+        "beskrivelse": "Smådyrsnøglen læres og hypoteser formuleres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Nøgletræning"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Hypoteser på klassen"
+          }
+        ]
+      },
+      {
+        "titel": "Feltdagen",
+        "beskrivelse": "Indsamling, bestemmelse og måling ved åen.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Ketsjerfangst"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Bestemmelse"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Temperatur og strømmåling"
+          }
+        ]
+      },
+      {
+        "titel": "Dommen",
+        "beskrivelse": "Vandkvaliteten vurderes ud fra fundene.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Dataopsamling"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles vurdering"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Brev til kommunen"
+          }
+        ]
+      }
+    ],
+    "demo": true
   },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Fejlfindingsopgaverne findes kun i én sværhedsgrad. Flere niveauer ville gøre forløbet stærkere."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Kredsløbet åbnes",
-    "beskrivelse": "Serieforbindelse og parallelforbindelse bygges og måles.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Byggeopgaver"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Måling med multimeter"
-     }
-    ]
-   },
-   {
-    "titel": "Fejlfinding",
-    "beskrivelse": "Grupperne saboterer hinandens kredsløb kontrolleret og fejlfinder.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Sabotage efter regler"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Systematisk fejlfinding"
-     }
-    ]
-   },
-   {
-    "titel": "El-sikkerhed",
-    "beskrivelse": "Rigtige ulykkescases analyseres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Caseanalyse"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Sikkerhedsplakat"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "aaen-bag-skolen",
-  "schema_version": 2,
-  "titel": "Åen bag skolen: feltundersøgelse af vandløbets tilstand",
-  "forfatter": "Jonas Krogh Pedersen",
-  "institution": "Sejs Skole, Silkeborg",
-  "aar": 2026,
-  "fag": "natur-teknologi",
-  "klassetrin": "5.-6. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "vandløb",
-   "feltarbejde",
-   "smådyr",
-   "vandkvalitet"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-05-12",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Klassen undersøger det nærmeste vandløb med ketsjer, smådyrsnøgle og simple målinger, og vurderer vandkvaliteten ud fra hvad der faktisk lever i åen.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "anslag_type": "Projekt",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Håndværksmæssig",
-    "Analytisk"
-   ],
-   "evalueringsform": "Fremlæggelse"
+  {
+    "id": "vejret-over-danmark",
+    "schema_version": 2,
+    "titel": "Vejret over Danmark: målinger, data og prognoser",
+    "forfatter": "Frederik Lindholm",
+    "institution": "Balleskolen, Silkeborg",
+    "aar": 2026,
+    "fag": "geografi",
+    "klassetrin": "7.-8. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "vejr",
+      "data",
+      "målinger",
+      "prognoser"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-03-08",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Klassen driver sin egen vejrstation i tre uger, sammenligner med DMI's data og forsøger til sidst at lave deres egen prognose for i morgen.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "anslag_type": "Projekt",
+      "virksomhedsformer": [
+        "Håndværksmæssig",
+        "Analytisk"
+      ],
+      "evalueringsform": "Ingen (åben plads)"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "delvis",
+      "organisering": "fuld",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Prognosens kvalitet kan måles mod virkeligheden, men jeg mangler en form for elevens egen læring. Åben plads."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Stationen bygges",
+        "beskrivelse": "Måleudstyr opsættes og målerutiner aftales.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Opsætning"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Måleplan"
+          }
+        ]
+      },
+      {
+        "titel": "Tre ugers data",
+        "beskrivelse": "Daglige målinger og sammenligning med DMI.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Målerutine"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Datalog"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Afvigelsessamtaler"
+          }
+        ]
+      },
+      {
+        "titel": "Prognosen",
+        "beskrivelse": "Klassen forudsiger morgendagens vejr og tjekker efter.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Prognoseværksted"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Eftertjek"
+          }
+        ]
+      }
+    ],
+    "demo": true
   },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "tom",
-   "differentiering": "delvis",
-   "evaluering": "delvis"
+  {
+    "id": "stomp-skolegaarden",
+    "schema_version": 2,
+    "titel": "Stomp og polyrytmik: skolegårdens percussion-orkester",
+    "forfatter": "Camilla Østergaard",
+    "institution": "Vestre Skole, Aarhus",
+    "aar": 2026,
+    "fag": "musik",
+    "klassetrin": "6.-7. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "stomp",
+      "polyrytmik",
+      "komposition",
+      "samspil"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-04-15",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Spande, koste og håndflader: klassen bygger et percussion-orkester af skolegårdens ting og komponerer en fælles polyrytmisk suite.",
+    "tags": {
+      "strategi": "Åbent",
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Håndværksmæssig",
+        "Kommunikativ"
+      ],
+      "evalueringsform": "Fremlæggelse"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "fuld",
+      "differentiering": "tom",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "differentiering",
+        "besked": "Rytmisk niveau spænder vildt i enhver klasse. Differentieringen er bevidst ikke udfyldt. Byg den til din gruppe."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Lyden af skolegården",
+        "beskrivelse": "Instrumenter findes og grundrytmer læres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Lydjagt"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Grundrytmer i rundkreds"
+          }
+        ]
+      },
+      {
+        "titel": "Polyrytmikken",
+        "beskrivelse": "To og tre samtidige rytmer lægges sammen.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Lagdeling i grupper"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Dirigentrolle"
+          }
+        ]
+      },
+      {
+        "titel": "Suiten",
+        "beskrivelse": "En fælles komposition sættes sammen og opføres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Komposition"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Opførelse i skolegården"
+          }
+        ]
+      }
+    ],
+    "demo": true
   },
-  "tomme_pladser": [
-   {
-    "dimension": "organisering",
-    "besked": "Logistikken afhænger helt af jeres lokale vandløb og transportmuligheder. Den plads kan kun du udfylde."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Før felten",
-    "beskrivelse": "Smådyrsnøglen læres og hypoteser formuleres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Nøgletræning"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Hypoteser på klassen"
-     }
-    ]
-   },
-   {
-    "titel": "Feltdagen",
-    "beskrivelse": "Indsamling, bestemmelse og måling ved åen.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Ketsjerfangst"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Bestemmelse"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Temperatur og strømmåling"
-     }
-    ]
-   },
-   {
-    "titel": "Dommen",
-    "beskrivelse": "Vandkvaliteten vurderes ud fra fundene.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Dataopsamling"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fælles vurdering"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Brev til kommunen"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "vejret-over-danmark",
-  "schema_version": 2,
-  "titel": "Vejret over Danmark: målinger, data og prognoser",
-  "forfatter": "Frederik Lindholm",
-  "institution": "Balleskolen, Silkeborg",
-  "aar": 2026,
-  "fag": "geografi",
-  "klassetrin": "7.-8. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "vejr",
-   "data",
-   "målinger",
-   "prognoser"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-03-08",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Klassen driver sin egen vejrstation i tre uger, sammenligner med DMI's data og forsøger til sidst at lave deres egen prognose for i morgen.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "anslag_type": "Projekt",
-   "virksomhedsformer": [
-    "Håndværksmæssig",
-    "Analytisk"
-   ],
-   "evalueringsform": "Ingen (åben plads)"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "delvis",
-   "organisering": "fuld",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Prognosens kvalitet kan måles mod virkeligheden, men jeg mangler en form for elevens egen læring. Åben plads."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Stationen bygges",
-    "beskrivelse": "Måleudstyr opsættes og målerutiner aftales.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Opsætning"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Måleplan"
-     }
-    ]
-   },
-   {
-    "titel": "Tre ugers data",
-    "beskrivelse": "Daglige målinger og sammenligning med DMI.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Målerutine"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Datalog"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Afvigelsessamtaler"
-     }
-    ]
-   },
-   {
-    "titel": "Prognosen",
-    "beskrivelse": "Klassen forudsiger morgendagens vejr og tjekker efter.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Prognoseværksted"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Eftertjek"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "stomp-skolegaarden",
-  "schema_version": 2,
-  "titel": "Stomp og polyrytmik: skolegårdens percussion-orkester",
-  "forfatter": "Camilla Østergaard",
-  "institution": "Vestre Skole, Aarhus",
-  "aar": 2026,
-  "fag": "musik",
-  "klassetrin": "6.-7. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "stomp",
-   "polyrytmik",
-   "komposition",
-   "samspil"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-04-15",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Spande, koste og håndflader: klassen bygger et percussion-orkester af skolegårdens ting og komponerer en fælles polyrytmisk suite.",
-  "tags": {
-   "strategi": "Åbent",
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Håndværksmæssig",
-    "Kommunikativ"
-   ],
-   "evalueringsform": "Fremlæggelse"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "fuld",
-   "differentiering": "tom",
-   "evaluering": "delvis"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "differentiering",
-    "besked": "Rytmisk niveau spænder vildt i enhver klasse. Differentieringen er bevidst ikke udfyldt. Byg den til din gruppe."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Lyden af skolegården",
-    "beskrivelse": "Instrumenter findes og grundrytmer læres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Lydjagt"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Grundrytmer i rundkreds"
-     }
-    ]
-   },
-   {
-    "titel": "Polyrytmikken",
-    "beskrivelse": "To og tre samtidige rytmer lægges sammen.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Lagdeling i grupper"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Dirigentrolle"
-     }
-    ]
-   },
-   {
-    "titel": "Suiten",
-    "beskrivelse": "En fælles komposition sættes sammen og opføres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Komposition"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Opførelse i skolegården"
-     }
-    ]
-   }
-  ]
- },
- {
-  "id": "plakaten-der-raaber",
-  "schema_version": 2,
-  "titel": "Plakaten der råber: protestkunst og blikfang",
-  "forfatter": "Sofie Munk Jeppesen",
-  "institution": "Langsøskolen, Silkeborg",
-  "aar": 2026,
-  "fag": "billedkunst",
-  "klassetrin": "8.-9. klasse",
-  "omfang": null,
-  "eksemplarisk_centrum": null,
-  "fravalg": [],
-  "didaktisk_position": null,
-  "fagplan_ref": null,
-  "samspil": null,
-  "tema": [
-   "plakatkunst",
-   "protest",
-   "komposition",
-   "blikfang"
-  ],
-  "licens": "CC BY-SA 4.0",
-  "opdateret": "2026-05-30",
-  "generation": 0,
-  "fork_af": null,
-  "forks": [],
-  "beskrivelse": "Fra historiske protestplakater til elevernes egne: hvad får et budskab til at råbe fra en væg? Komposition, kontrast og typografi som virkemidler.",
-  "tags": {
-   "strategi": "Læremiddelstøttet",
-   "anslag_type": "Begivenhed",
-   "virksomhedsformer": [
-    "Æstetisk",
-    "Analytisk",
-    "Håndværksmæssig"
-   ],
-   "evalueringsform": "Ingen (åben plads)"
-  },
-  "daekningsgrad": {
-   "maal": "fuld",
-   "indhold": "fuld",
-   "metode": "fuld",
-   "organisering": "delvis",
-   "differentiering": "delvis",
-   "evaluering": "tom"
-  },
-  "tomme_pladser": [
-   {
-    "dimension": "evaluering",
-    "besked": "Kunst skal ikke karaktergives, men den skal ses. Jeg mangler en god fernisering-som-evaluering-form. Tag pladsen."
-   }
-  ],
-  "faser": [
-   {
-    "titel": "Plakater der ændrede noget",
-    "beskrivelse": "Historiske protestplakater analyseres.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Billedanalyse"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Virkemiddeljagt"
-     }
-    ]
-   },
-   {
-    "titel": "Skitser og valg",
-    "beskrivelse": "Eleverne vælger deres sag og skitserer.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Skitsearbejde"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Makkerrespons"
-     }
-    ]
-   },
-   {
-    "titel": "Plakaten trykkes",
-    "beskrivelse": "Færdiggørelse og ophængning på skolen.",
-    "aktiviteter": [
-     {
-      "titel": "",
-      "beskrivelse": "Produktion"
-     },
-     {
-      "titel": "",
-      "beskrivelse": "Fernisering"
-     }
-    ]
-   }
-  ]
- }
+  {
+    "id": "plakaten-der-raaber",
+    "schema_version": 2,
+    "titel": "Plakaten der råber: protestkunst og blikfang",
+    "forfatter": "Sofie Munk Jeppesen",
+    "institution": "Langsøskolen, Silkeborg",
+    "aar": 2026,
+    "fag": "billedkunst",
+    "klassetrin": "8.-9. klasse",
+    "omfang": null,
+    "eksemplarisk_centrum": null,
+    "fravalg": [],
+    "didaktisk_position": null,
+    "fagplan_ref": null,
+    "samspil": null,
+    "tema": [
+      "plakatkunst",
+      "protest",
+      "komposition",
+      "blikfang"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-05-30",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Fra historiske protestplakater til elevernes egne: hvad får et budskab til at råbe fra en væg? Komposition, kontrast og typografi som virkemidler.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig"
+      ],
+      "evalueringsform": "Ingen (åben plads)"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "evaluering",
+        "besked": "Kunst skal ikke karaktergives, men den skal ses. Jeg mangler en god fernisering-som-evaluering-form. Tag pladsen."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Plakater der ændrede noget",
+        "beskrivelse": "Historiske protestplakater analyseres.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Billedanalyse"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Virkemiddeljagt"
+          }
+        ]
+      },
+      {
+        "titel": "Skitser og valg",
+        "beskrivelse": "Eleverne vælger deres sag og skitserer.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Skitsearbejde"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Makkerrespons"
+          }
+        ]
+      },
+      {
+        "titel": "Plakaten trykkes",
+        "beskrivelse": "Færdiggørelse og ophængning på skolen.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Produktion"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fernisering"
+          }
+        ]
+      }
+    ],
+    "demo": true
+  }
 ]

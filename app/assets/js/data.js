@@ -31,6 +31,13 @@ export async function hentFagIndex() {
 }
 const _familieIndlaesning = _fetchFagIndex(); // starter fetchet straks ved modul-indlæsning
 
+// Synkront opslag til forloebKort m.fl. — sikkert at kalde overalt hvor
+// hentForloeb()/hentFagIndex() allerede er awaited (kortene tegnes altid
+// efter det). Ukendt/endnu-ikke-hentet id → falder tilbage til selve id'et.
+export function fagNavn(id) {
+  return _fagIndex?.find((f) => f.id === id)?.navn || id;
+}
+
 // Fuld fag-fil (trinforloeb, indholdsomraader, mål — Fase D-kontrakten, 6.1).
 // Hentes kun hvor der er brug for den: wizard'ens trin-valg og kobling, fag-sider.
 const _fagCache = {};
@@ -60,6 +67,37 @@ export function familieFor(fag) {
     if (fam.fag.includes(fag)) return noegle;
   }
   return "hum";
+}
+
+// Taksonomi-shape D1: native <optgroup> pr. fagblok, én kilde til alle tre
+// fag-selects (browse-facet, wizard trin ①, editor-grundinfo). FAMILIER's
+// insertion-rækkefølge (hum → naturfag → aes) styrer gruppe-rækkefølgen.
+// taelFn (valgfri, browse-planens facet-counts): fagId → antal, vist som "(N)".
+export function tegnFagOptions(select, fagIndex, valgtId, taelFn) {
+  select.querySelectorAll("optgroup").forEach((g) => g.remove());
+  for (const [, fam] of Object.entries(FAMILIER)) {
+    const gruppe = document.createElement("optgroup");
+    gruppe.label = fam.navn;
+    fagIndex.filter((f) => fam.fag.includes(f.id)).forEach((fag) => {
+      const antal = taelFn ? taelFn(fag.id) : null;
+      const navn = antal != null ? `${fag.navn} (${antal})` : fag.navn;
+      gruppe.appendChild(new Option(navn, fag.id, false, fag.id === valgtId));
+    });
+    select.appendChild(gruppe);
+  }
+}
+
+// Taksonomi-shape D2 (R1): klassetrin-strenge ("8. klasse", "6.-7. klasse")
+// til [min,max]-interval, samme pragmatiske min/max-parser som klasseValgFor.
+// Bruges til overlap-matching i browse (facet) og fag.html.
+export function klassetrinTilInterval(streng) {
+  if (!streng) return null;
+  const tal = [...streng.matchAll(/(\d+)\./g)].map((m) => Number(m[1]));
+  if (!tal.length) return null;
+  return [Math.min(...tal), Math.max(...tal)];
+}
+export function intervallerOverlapper(a, b) {
+  return !!a && !!b && a[0] <= b[1] && b[0] <= a[1];
 }
 
 let _forloeb = null;

@@ -6,10 +6,10 @@
 // Drag-to-reorder: SortableJS (loades som script-tag af rediger.html).
 
 import {
-  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav, SAMSPIL_FORMER,
+  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav, SAMSPIL_FORMER, tegnFagOptions,
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
 } from "./data.js";
-import { PROFIL_GRUPPER, trinUdtrykFor } from "./wizard.js";
+import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 
 export const CALLOUT_TYPER = {
@@ -281,10 +281,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const fagWrap = el("label", "mini-felt");
     fagWrap.appendChild(el("span", "mini-label", "Fag"));
     const fagSel = document.createElement("select");
-    fagIndex.forEach((fag) => {
-      const o = new Option(fag.navn, fag.id, false, fag.id === f.fag);
-      fagSel.appendChild(o);
-    });
+    tegnFagOptions(fagSel, fagIndex, f.fag);
     fagSel.addEventListener("change", () => {
       f.fag = fagSel.value;
       f.klassetrin = ""; // det gamle udtryk hører til det gamle fag
@@ -295,24 +292,24 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     fagWrap.appendChild(fagSel);
     raekke.appendChild(fagWrap);
 
-    // Klassetrin: fagets egne trinforløbs-udtryk, ikke faste buckets.
-    // Tom liste (børnehaveklassen o.l.) → fritekst, jf. arkitektur 6.2.
+    // Klassetrin: fagets egne klasser (udledt af trinforløb, D2 R1) — ét
+    // direkte valg. Tom liste (børnehaveklassen o.l.) → fritekst, jf. arkitektur 6.2.
     const trinWrap = el("label", "mini-felt");
     trinWrap.appendChild(el("span", "mini-label", "Klassetrin"));
     const trinZone = el("span");
     trinWrap.appendChild(trinZone);
     async function tegnTrinValg() {
-      const udtryk = await trinUdtrykFor(f.fag);
+      const klasser = await klasseValgFor(f.fag);
       trinZone.innerHTML = "";
-      if (!udtryk.length) {
+      if (!klasser.length) {
         const inp = inputFelt(null, f.klassetrin, "fx Børnehaveklassen", (v) => (f.klassetrin = v));
         trinZone.appendChild(inp);
         return;
       }
       const trinSel = document.createElement("select");
       trinSel.appendChild(new Option("Vælg ...", "", false, !f.klassetrin));
-      const valg = udtryk.includes(f.klassetrin) || !f.klassetrin
-        ? udtryk : [f.klassetrin, ...udtryk];
+      const valg = klasser.includes(f.klassetrin) || !f.klassetrin
+        ? klasser : [f.klassetrin, ...klasser];
       valg.forEach((v) => trinSel.appendChild(new Option(v, v, false, v === f.klassetrin)));
       trinSel.addEventListener("change", () => { f.klassetrin = trinSel.value; gem(); });
       trinZone.appendChild(trinSel);

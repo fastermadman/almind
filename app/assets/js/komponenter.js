@@ -1,6 +1,14 @@
 // Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
 
-import { familieFor, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
+import { familieFor, fagNavn, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
+
+// "8 lektioner" / "Enkelt lektion" / "Forløb" (uspecificeret længde) —
+// browse-planens §3: at filtrere på omfang uden at vise det er en synlig selvmodsigelse.
+function omfangTekst(omfang) {
+  if (!omfang) return "";
+  if (omfang.type === "lektion") return "Enkelt lektion";
+  return omfang.lektioner ? `${omfang.lektioner} lektioner` : "Forløb";
+}
 
 export function forloebKort(f, alle) {
   const fam = familieFor(f.fag);
@@ -21,15 +29,17 @@ export function forloebKort(f, alle) {
       : "";
 
   const pladser = antalAabnePladser(f);
+  const omfang = omfangTekst(f.omfang);
 
   a.innerHTML = `
     <div class="kort-tags">
-      <span class="tag">${f.fag}</span>
+      <span class="tag">${fagNavn(f.fag)}</span>
       <span class="tag neutral">${f.klassetrin}</span>
+      ${f.demo ? `<span class="tag neutral">Eksempel</span>` : ""}
     </div>
     <h3>${f.titel}</h3>
     <p class="kort-beskrivelse">${f.beskrivelse}</p>
-    <div class="metadata">${f.forfatter} · ${datoTekst(f.opdateret)}</div>
+    <div class="metadata">${f.forfatter} · ${datoTekst(f.opdateret)}${omfang ? ` · ${omfang}` : ""}</div>
     <div class="kort-bund">
       ${miniGenealogi || `<span class="metadata">1 version</span>`}
       ${pladser ? `<span class="plads-badge">${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}</span>` : ""}
@@ -102,10 +112,9 @@ export function fagBaand(alle) {
     const a = document.createElement("a");
     a.className = "fagfelt";
     a.dataset.fag = fam;
-    // Familie er ikke længere en browse.html-facet (arkitektur 7.2: familie
-    // degraderes til farvetema, ikke filter) — linker til den ufiltrerede
-    // liste i stedet for et fam-parameter browse.html ikke længere forstår.
-    a.href = "browse.html";
+    // Familie er igen en browse.html-facet (taksonomi-shape D4.2, dateret
+    // genåbning af arkitektur 7.2 — søgeintentionen er nu dokumenteret).
+    a.href = `browse.html?familie=${fam}`;
     // Den fulde fagliste (11+ navne pr. familie) er støj, ikke information —
     // familien selv + antal er nok til at orientere (Valdemar, 2026-07-14).
     a.innerHTML = `

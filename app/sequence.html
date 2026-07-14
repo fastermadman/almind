@@ -19,6 +19,7 @@
     <h1 id="titel"></h1>
     <div class="undertitel" id="undertitel"></div>
     <div class="metadata" id="meta"></div>
+    <p class="metadata" id="demo-note" hidden></p>
     <div class="hero-handlinger">
       <a class="knap fag" id="fork-knap" href="#">Fork dette forløb</a>
       <a class="knap sekundaer" id="preview-knap" href="#">Se som dokument</a>
@@ -97,6 +98,7 @@
   const forladetFagplan = f.fagplan_ref && fagPost && f.fagplan_ref.version !== fagPost.fagplan_version;
   document.getElementById("tags").innerHTML =
     `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a><span class="tag neutral">${f.klassetrin}</span>` +
+    (f.demo ? `<span class="tag neutral">Eksempel</span>` : "") +
     (forladetFagplan
       ? `<span class="tag forladet" title="Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}">Fagplan opdateret siden kobling</span>`
       : "") +
@@ -106,6 +108,11 @@
   document.getElementById("undertitel").textContent = f.undertitel || "";
   document.getElementById("meta").textContent =
     `${f.forfatter} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
+  if (f.demo) {
+    const note = document.getElementById("demo-note");
+    note.hidden = false;
+    note.textContent = "Eksempelforløb: skrevet til demoen for at vise formatet. Forfatter og institution er fiktive.";
+  }
   document.getElementById("fork-knap").href = `fork.html?id=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
 

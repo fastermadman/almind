@@ -15,6 +15,7 @@
   <header class="site-header" data-aktiv="browse"></header>
 
   <h1 style="font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin-top:1rem;">Alle forløb</h1>
+  <p class="resultat-taeller" id="taeller" aria-live="polite" tabindex="-1"></p>
 
   <div class="facetraekke" role="group" aria-label="Facetter">
     <label class="mini-felt">
@@ -39,6 +40,8 @@
     <button class="filter-pill" id="filter-forks" aria-pressed="false">Har versionshistorik</button>
   </div>
 
+  <div class="aktive-filtre" id="aktive-filtre" hidden></div>
+  <div id="fag-kontekst"></div>
   <div id="fag-genvej"></div>
   <div class="kortgrid" id="grid"></div>
 
@@ -50,7 +53,10 @@
 
 <script type="module">
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, hentFagIndex, antalAabnePladser, kaede } from "./assets/js/data.js";
+  import {
+    hentForloeb, hentFagIndex, antalAabnePladser, kaede, tegnFagOptions,
+    familieFor, FAMILIER, klassetrinTilInterval, intervallerOverlapper,
+  } from "./assets/js/data.js";
   import { forloebKort } from "./assets/js/komponenter.js";
   import { stagger } from "./assets/js/motion.js";
 
@@ -59,59 +65,93 @@
   const alle = await hentForloeb();
   const fagIndex = await hentFagIndex();
   const grid = document.getElementById("grid");
+  const taeller = document.getElementById("taeller");
   const fagNavn = (id) => fagIndex.find((f) => f.id === id)?.navn || id;
+
+  // Taksonomi-shape D2 (R1): tre faser + enkeltklasser i samme select.
+  // Fase-værdier koder intervallet direkte ("7-10"), enkeltklasser er tal.
+  const FASER = [
+    ["0-3", "Indskoling · 0.–3."], ["4-6", "Mellemtrin · 4.–6."], ["7-10", "Udskoling · 7.–10."],
+  ];
+  function intervalForFacet(v) {
+    const fase = FASER.find(([val]) => val === v);
+    if (fase) return fase[0].split("-").map(Number);
+    const n = Number(v);
+    return Number.isFinite(n) ? [n, n] : null;
+  }
 
   // State fra URL (delbare filtre). 0.1-reglen: kun facetter med en reel
   // søgeintention (fag/trin/omfang, jf. arkitektur 7.2) — teorivokabular
   // (dewey/anslag/strategi m.fl.) forbliver bevidst UDEN for denne liste,
-  // kun søgbart via fritekst nedenfor.
+  // kun søgbart via fritekst nedenfor. familie (D4.2, dateret genåbning af
+  // 7.2): ingen fjerde dropdown — kun læst fra URL, sat af fagbånd-kortene.
   const params = new URLSearchParams(location.search);
   const state = {
     fag: params.get("fag") || "",
+    familie: params.get("familie") || "",
     klassetrin: params.get("klassetrin") || "",
     omfang: params.get("omfang") || "",
     pladser: params.get("pladser") === "1",
     forks: params.get("forks") === "1",
     q: params.get("q") || "",
   };
+  if (state.familie && !FAMILIER[state.familie]) state.familie = ""; // ugyldigt id droppes stumt
 
-  // Fag-facet: alle 26 fag fra fag-index, ikke kun de familier der har forløb i dag.
+  // ---------- facet-count-mønster: filtrér mod alle AKTIVE filtre UNDTAGEN den ene ----------
+  function matcherUdenFilter(f, undtagen) {
+    if (state.fag && undtagen !== "fag" && f.fag !== state.fag) return false;
+    if (state.familie && undtagen !== "familie" && familieFor(f.fag) !== state.familie) return false;
+    if (state.klassetrin && undtagen !== "klassetrin") {
+      const iv = intervalForFacet(state.klassetrin);
+      if (!intervallerOverlapper(klassetrinTilInterval(f.klassetrin), iv)) return false;
+    }
+    if (state.omfang && undtagen !== "omfang" && f.omfang?.type !== state.omfang) return false;
+    if (state.pladser && undtagen !== "pladser" && !(antalAabnePladser(f) > 0)) return false;
+    if (state.forks && undtagen !== "forks" && kaede(alle, f.id).length <= 1) return false;
+    if (state.q && undtagen !== "q") {
+      const q = state.q.toLowerCase();
+      const tekst = [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
+        ...(f.tema || []), ...Object.values(f.tags || {}).flat()].join(" ").toLowerCase();
+      if (!tekst.includes(q)) return false;
+    }
+    return true;
+  }
+
+  // Fag-facet: alle 26 fag, grupperet i optgroups (D1), med counts mod de
+  // øvrige aktive filtre.
   const fagSel = document.getElementById("facet-fag");
-  fagIndex.forEach((fag) => {
-    const o = document.createElement("option");
-    o.value = fag.id; o.textContent = fag.navn;
-    if (fag.id === state.fag) o.selected = true;
-    fagSel.appendChild(o);
-  });
+  function tegnFagFacet() {
+    tegnFagOptions(fagSel, fagIndex, state.fag, (fagId) =>
+      alle.filter((f) => f.fag === fagId && matcherUdenFilter(f, "fag")).length);
+  }
 
-  // Klassetrin-facet: udledt af de faktiske forløbs egne klassetrin-værdier
-  // (ikke fagets trinforløb-skema — ældre forløb bruger fritekst der ikke
-  // nødvendigvis matcher et fags nuværende udtryk). Fagafhængig når et fag
-  // er valgt; ellers en flad, tværgående liste (arkitektur 7.1).
+  // Klassetrin-facet: tre faser (bredt fork-net) + enkeltklasser udledt af
+  // de forløb, der matcher øvrige filtre (fag-afhængig når et fag er valgt).
   const trinSel = document.getElementById("facet-klassetrin");
   function tegnTrinValg() {
-    const kilde = state.fag ? alle.filter((f) => f.fag === state.fag) : alle;
-    const trin = [...new Set(kilde.map((f) => f.klassetrin).filter(Boolean))].sort();
-    trinSel.innerHTML = '<option value="">Alle klassetrin</option>';
-    trin.forEach((t) => {
-      const o = document.createElement("option");
-      o.value = t; o.textContent = t;
-      if (t === state.klassetrin) o.selected = true;
-      trinSel.appendChild(o);
+    const kilde = alle.filter((f) => matcherUdenFilter(f, "klassetrin"));
+    const klasser = new Set();
+    kilde.forEach((f) => {
+      const iv = klassetrinTilInterval(f.klassetrin);
+      if (iv) for (let k = iv[0]; k <= iv[1]; k++) klasser.add(k);
     });
+    trinSel.innerHTML = '<option value="">Alle klassetrin</option>';
+    const faseGruppe = document.createElement("optgroup");
+    faseGruppe.label = "Skolefase";
+    FASER.forEach(([v, navn]) => faseGruppe.appendChild(new Option(navn, v, false, v === state.klassetrin)));
+    trinSel.appendChild(faseGruppe);
+    if (klasser.size) {
+      const klasseGruppe = document.createElement("optgroup");
+      klasseGruppe.label = "Klassetrin";
+      [...klasser].sort((a, b) => a - b).forEach((k) =>
+        klasseGruppe.appendChild(new Option(`${k}. klasse`, String(k), false, String(k) === state.klassetrin)));
+      trinSel.appendChild(klasseGruppe);
+    }
   }
-  tegnTrinValg();
 
   document.getElementById("facet-omfang").value = state.omfang;
 
-  fagSel.addEventListener("change", () => {
-    state.fag = fagSel.value;
-    if (state.klassetrin && !alle.some((f) => f.fag === state.fag && f.klassetrin === state.klassetrin)) {
-      state.klassetrin = ""; // det gamle klassetrin findes måske ikke i det nye fag
-    }
-    tegnTrinValg();
-    opdater();
-  });
+  fagSel.addEventListener("change", () => { state.fag = fagSel.value; opdater(); });
   trinSel.addEventListener("change", () => { state.klassetrin = trinSel.value; opdater(); });
   document.getElementById("facet-omfang").addEventListener("change", (e) => { state.omfang = e.target.value; opdater(); });
 
@@ -122,10 +162,73 @@
   let tid;
   soeg.addEventListener("input", () => { clearTimeout(tid); tid = setTimeout(() => { state.q = soeg.value.trim(); opdater(); }, 150); });
 
+  // ---------- aktive filtre-chips (B4) ----------
+  function nulstil(felt) {
+    if (felt === "alle") {
+      state.fag = ""; state.familie = ""; state.klassetrin = ""; state.omfang = "";
+      state.pladser = false; state.forks = false; state.q = ""; soeg.value = "";
+    } else if (felt === "pladser" || felt === "forks") {
+      state[felt] = false;
+    } else {
+      state[felt] = "";
+      if (felt === "q") soeg.value = "";
+    }
+    opdater();
+    taeller.focus();
+  }
+
+  function klassetrinLabel(v) {
+    const fase = FASER.find(([val]) => val === v);
+    return fase ? fase[1] : `${v}. klasse`;
+  }
+
+  function tegnAktiveFiltre() {
+    const zone = document.getElementById("aktive-filtre");
+    const chips = [];
+    if (state.fag) chips.push(["fag", fagNavn(state.fag)]);
+    if (state.familie) chips.push(["familie", FAMILIER[state.familie].navn]);
+    if (state.klassetrin) chips.push(["klassetrin", klassetrinLabel(state.klassetrin)]);
+    if (state.omfang) chips.push(["omfang", state.omfang === "lektion" ? "Enkelt lektion" : "Forløb"]);
+    if (state.pladser) chips.push(["pladser", "Har åbne pladser"]);
+    if (state.forks) chips.push(["forks", "Har versionshistorik"]);
+    if (state.q) chips.push(["q", `"${state.q}"`]);
+
+    zone.innerHTML = "";
+    zone.hidden = !chips.length;
+    if (!chips.length) return;
+    chips.forEach(([felt, label]) => {
+      const b = document.createElement("button");
+      b.className = "filter-pill";
+      b.setAttribute("aria-pressed", "true");
+      b.setAttribute("aria-label", `Fjern filter: ${label}`);
+      b.textContent = label + " ×";
+      b.addEventListener("click", () => nulstil(felt));
+      zone.appendChild(b);
+    });
+    const ryd = document.createElement("button");
+    ryd.className = "ryd-alle";
+    ryd.textContent = "Ryd alle";
+    ryd.addEventListener("click", () => nulstil("alle"));
+    zone.appendChild(ryd);
+  }
+
+  // ---------- fag-kontekstlink (D4.1): fagsiden ejer indholdsområde-rejsen ----------
+  function tegnFagKontekst() {
+    const zone = document.getElementById("fag-kontekst");
+    zone.innerHTML = "";
+    if (!state.fag) return;
+    const a = document.createElement("a");
+    a.className = "fag-kontekstlink";
+    a.href = `fag.html?id=${state.fag}`;
+    a.textContent = `Se ${fagNavn(state.fag)}s indholdsområder og dækningskort →`;
+    zone.appendChild(a);
+  }
+
   function opdater() {
     // URL-sync
     const p = new URLSearchParams();
     if (state.fag) p.set("fag", state.fag);
+    if (state.familie) p.set("familie", state.familie);
     if (state.klassetrin) p.set("klassetrin", state.klassetrin);
     if (state.omfang) p.set("omfang", state.omfang);
     if (state.pladser) p.set("pladser", "1");
@@ -135,6 +238,10 @@
 
     document.getElementById("filter-pladser").setAttribute("aria-pressed", String(state.pladser));
     document.getElementById("filter-forks").setAttribute("aria-pressed", String(state.forks));
+    tegnFagFacet();
+    tegnTrinValg();
+    tegnAktiveFiltre();
+    tegnFagKontekst();
 
     // Fag-genvej (navigation-plan §4.3): "idræt" i søgefeltet betyder næsten
     // altid "vis mig faget" — banner over resultaterne, ikke en dropdown.
@@ -158,26 +265,22 @@
       }
     }
 
-    let liste = alle;
-    if (state.fag) liste = liste.filter((f) => f.fag === state.fag);
-    if (state.klassetrin) liste = liste.filter((f) => f.klassetrin === state.klassetrin);
-    if (state.omfang) liste = liste.filter((f) => f.omfang?.type === state.omfang);
-    if (state.pladser) liste = liste.filter((f) => antalAabnePladser(f) > 0);
-    if (state.forks) liste = liste.filter((f) => kaede(alle, f.id).length > 1);
-    if (state.q) {
-      const q = state.q.toLowerCase();
-      liste = liste.filter((f) =>
-        [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
-         ...(f.tema || []), ...Object.values(f.tags || {}).flat()]
-          .join(" ").toLowerCase().includes(q));
-    }
+    const liste = alle.filter((f) => matcherUdenFilter(f, null));
+
+    taeller.textContent = liste.length === alle.length
+      ? `${alle.length} forløb`
+      : `${liste.length} af ${alle.length} forløb`;
 
     grid.innerHTML = "";
     if (!liste.length) {
+      const rydLink = (state.fag || state.familie || state.klassetrin || state.omfang || state.pladser || state.forks || state.q)
+        ? `<br><a href="#" id="ryd-tom">Ryd filtre og se alle ${alle.length} forløb</a>`
+        : "";
       grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">
         ${state.fag ? `Ingen ${fagNavn(state.fag)}-forløb matcher endnu.` : "Ingen forløb matcher endnu."}
         Det er ikke en mangel. Det er en åben plads.<br><br>
-        <a class="knap" href="upload.html?wizard=1">Bliv den første: del et forløb</a></div>`;
+        <a class="knap" href="upload.html?wizard=1">Bliv den første: del et forløb</a>${rydLink}</div>`;
+      document.getElementById("ryd-tom")?.addEventListener("click", (e) => { e.preventDefault(); nulstil("alle"); });
       return;
     }
     liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));

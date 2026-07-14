@@ -98,7 +98,10 @@
     const rod = document.getElementById("wizard-rod");
     rod.hidden = false;
     const { startWizard } = await import("./assets/js/wizard.js");
-    startWizard({ rod });
+    // fag.html's dækningskort/tom-tilstand-invitationer bærer &fag=&omraade=
+    // med (fag-plan 2b.6) — startWizard validerer selv og dropper stumt.
+    const p = new URLSearchParams(location.search);
+    startWizard({ rod, prefill: { fag: p.get("fag") || undefined, omraade: p.get("omraade") || undefined } });
   }
 
   // Ligger der en kladde, tilbydes den først (ikke oven på wizard-flowet)
