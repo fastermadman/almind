@@ -4,7 +4,7 @@ import { familieFor, fagNavn, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladse
 
 // "8 lektioner" / "Enkelt lektion" / "Forløb" (uspecificeret længde) —
 // browse-planens §3: at filtrere på omfang uden at vise det er en synlig selvmodsigelse.
-function omfangTekst(omfang) {
+export function omfangTekst(omfang) {
   if (!omfang) return "";
   if (omfang.type === "lektion") return "Enkelt lektion";
   return omfang.lektioner ? `${omfang.lektioner} lektioner` : "Forløb";

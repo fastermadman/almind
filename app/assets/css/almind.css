@@ -428,6 +428,31 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Sequence: detalje ---------- */
 .detalje-hoved { margin: 1.5rem 0 2rem; max-width: 760px; }
+.hero-mikroforklaring { margin-top: 0.6rem; }
+.panel-mb { margin-bottom: 1.5rem; }
+.panel-mt { margin-top: 1.5rem; }
+
+/* S3: overbliksstribe — brugsdeklaration + indholdsfortegnelse i én rolig linje */
+.overbliksstribe {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem;
+  font-family: var(--font-ui); font-size: 0.85rem; color: var(--muted);
+  padding: 0.9rem 0; margin-bottom: 2rem;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.overbliksstribe a { color: var(--ink); text-decoration: none; }
+.overbliksstribe a:hover { text-decoration: underline; }
+.overbliksstribe .stribe-sep { color: var(--border); }
+#faser, #deklaration, #genealogi-panel { scroll-margin-top: 110px; }
+
+/* Panel-underlinje: forklarer panelets rolle for førstegangslæseren, uden nyt visuelt sprog */
+.panel-underlinje { font-size: 0.85rem; color: var(--muted); margin: -0.6rem 0 1.1rem; line-height: 1.4; }
+
+/* S7: fork-afslutning — lav variant af .tom-tilstand, samme invitationssprog som genealogiens tomme-tilstand */
+.fork-afslutning {
+  border: 2px dashed var(--border); border-radius: var(--r-kort);
+  padding: 1.5rem; margin-bottom: 2rem; text-align: center;
+}
+.fork-afslutning p { font-family: var(--font-ui); color: var(--muted); margin-bottom: 0.9rem; }
 .detalje-hoved h1 {
   font-family: var(--font-display); font-weight: 600;
   font-size: clamp(1.7rem, 3.5vw, 2.3rem); line-height: 1.2;
@@ -559,7 +584,7 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst);
   display: block; margin-bottom: 0.2rem;
 }
-.fase ul { margin: 0.6rem 0 0 1.2rem; }
+.fase ol, .fase ul { margin: 0.6rem 0 0 1.2rem; padding-left: 1.2rem; }
 .fase li { margin-bottom: 0.25rem; font-size: 0.95rem; }
 
 /* ---------- Wizard ---------- */
@@ -608,7 +633,7 @@ img, svg { display: block; max-width: 100%; }
 .chip[aria-pressed="true"] {
   background: var(--accent); color: var(--bg); border-color: var(--accent);
 }
-.segment { display: inline-flex; border: 1px solid var(--border); border-radius: var(--r-pill); overflow: hidden; background: var(--surface); }
+.segment { display: inline-flex; flex-wrap: wrap; max-width: 100%; border: 1px solid var(--border); border-radius: var(--r-pill); overflow: hidden; background: var(--surface); }
 .segment button {
   font-family: var(--font-ui); font-weight: 500; font-size: 0.9rem;
   padding: 0.42rem 1.05rem; border: none; background: transparent;

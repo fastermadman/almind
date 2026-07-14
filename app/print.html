@@ -41,7 +41,21 @@
     document.fonts.load('400 16px "Noto Serif"'),
   ]);
   await document.fonts.ready;
+
+  // P4: minimal loading-tekst mens Paged.js paginerer (kan tage sekunder på
+  // lange forløb/svage enheder) — uden den ser læreren en blank hvid side.
+  // Paged.js tømmer body.innerHTML som sit første skridt (og bruger under
+  // pagineringen bodyens rendering til at måle sidehøjde) — et element INDE
+  // i body forsvinder derfor, og et ::before-pseudoelement på body forvirrer
+  // selve pagineringsmålingen (afprøvet: paginering hænger uendeligt). Derfor
+  // sidder teksten som en sibling til body, uden for det Paged.js rører.
+  const loading = document.createElement("p");
+  loading.className = "print-klargoer";
+  loading.textContent = "Sætter siderne op …";
+  document.documentElement.appendChild(loading);
+
   await window.PagedPolyfill.preview();
+  loading.remove();
 
   // Værktøjslinjen indsættes EFTER paginering: Paged.js flytter alt body-indhold ind i siderne
   const bar = document.createElement("div");

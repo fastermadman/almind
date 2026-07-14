@@ -24,30 +24,43 @@
       <a class="knap fag" id="fork-knap" href="#">Fork dette forløb</a>
       <a class="knap sekundaer" id="preview-knap" href="#">Se som dokument</a>
     </div>
+    <p class="metadata hero-mikroforklaring">At forke betyder: lav din egen version af forløbet, med automatisk kredit til originalen.</p>
   </div>
 
   <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
 
+  <nav class="overbliksstribe" id="overbliksstribe" aria-label="Forløbets indhold"></nav>
+
   <div class="to-kolonner">
     <div>
-      <section class="panel" id="dg-panel" style="margin-bottom:1.5rem;">
-        <h2>Didaktisk dækningsgrad</h2>
-        <div id="dg"></div>
-        <div id="pladser" style="margin-top:1.25rem;"></div>
-      </section>
-
-      <section class="panel" id="fravalg-panel" hidden style="margin-bottom:1.5rem;">
-        <h2>Bevidste fravalg</h2>
-        <ul class="fravalg-liste" id="fravalg"></ul>
-      </section>
-
       <section id="faser" aria-label="Forløbets faser"></section>
+
+      <div id="deklaration">
+        <section class="panel panel-mb" id="dg-panel">
+          <h2>Didaktisk dækningsgrad</h2>
+          <p class="panel-underlinje">Forfatterens egen deklaration: hvad forløbet dækker, og hvad du selv skal didaktisere. Tomme pladser er invitationer, ikke mangler.</p>
+          <div id="dg"></div>
+          <div id="pladser" style="margin-top:1.25rem;"></div>
+        </section>
+
+        <section class="panel" id="fravalg-panel" hidden>
+          <h2>Bevidste fravalg</h2>
+          <p class="panel-underlinje">Bevidst udeladt af forfatteren, med begrundelse. Ruller du et fravalg tilbage i din fork, så forhold dig til hvorfor det blev truffet.</p>
+          <ul class="fravalg-liste" id="fravalg"></ul>
+        </section>
+      </div>
+
+      <div class="fork-afslutning">
+        <p>Dette forløb er ikke færdigt. Det venter på din version.</p>
+        <a class="knap fag" id="fork-knap-2" href="#">Fork dette forløb</a>
+      </div>
     </div>
 
     <aside>
-      <section class="panel" id="position-panel" hidden style="margin-bottom:1.5rem;">
+      <section class="panel panel-mb" id="position-panel" hidden>
         <h2>Forfatterens position</h2>
         <div id="position"></div>
+        <div id="didaktisk-profil" class="kort-tags" hidden></div>
       </section>
 
       <section class="panel" id="genealogi-panel">
@@ -55,7 +68,7 @@
         <div id="vtrae"></div>
         <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
       </section>
-      <section class="panel" id="materialer-panel" hidden style="margin-top:1.5rem;">
+      <section class="panel panel-mt" id="materialer-panel" hidden>
         <h2>Materialer via mitCFU</h2>
         <ul class="materiale-liste" id="materialer"></ul>
         <p class="materiale-note">Ophavsretsbeskyttede materialer bor hos CFU. Almind deler det didaktiske lag; materialet låner du som altid.</p>
@@ -71,9 +84,9 @@
 
 <script type="module">
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, DIMENSIONER, antalAabnePladser } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
-  import { dgProfil, pladsFold } from "./assets/js/komponenter.js";
+  import { dgProfil, pladsFold, omfangTekst } from "./assets/js/komponenter.js";
   import { renderFaseIndhold } from "./assets/js/dokument.js";
   import { observe } from "./assets/js/motion.js";
 
@@ -86,9 +99,16 @@
   document.getElementById("side").dataset.fag = fam;
   document.title = `${f.titel} · Almind`;
 
+  // Maskintags (teorivokabular) vises IKKE i S1 — det er forfatter-/reviewersprog,
+  // ikke førstegangslæserens indgang. Flyttet til S6's "Didaktisk profil" (positionspanelet).
+  // {visning, søgeord}: "Anslag: X" er visningsteksten, men søgeordet skal være
+  // den rå værdi (Object.values(f.tags) er det browse.html's fritekst matcher mod).
   const maskintags = f.tags
-    ? [f.tags.strategi, f.tags.anslag_type ? "Anslag: " + f.tags.anslag_type : null, f.tags.evalueringsform]
-        .filter((t) => t && t !== "Ingen (åben plads)")
+    ? [
+        f.tags.strategi ? { visning: f.tags.strategi, soegeord: f.tags.strategi } : null,
+        f.tags.anslag_type ? { visning: "Anslag: " + f.tags.anslag_type, soegeord: f.tags.anslag_type } : null,
+        f.tags.evalueringsform ? { visning: f.tags.evalueringsform, soegeord: f.tags.evalueringsform } : null,
+      ].filter((t) => t && t.visning !== "Ingen (åben plads)")
     : [];
   // Fag-tagget linker til fag-forsiden (E.3a) og viser fagets navn, ikke id'et
   const fagPost = (await hentFagIndex()).find((x) => x.id === f.fag);
@@ -96,14 +116,17 @@
   // valg) vs. fagets nuværende version i fag-index.json. Diskret, ikke en
   // fejl: fagplanen er stadig et udkast, koblingen var gyldig da den blev lavet.
   const forladetFagplan = f.fagplan_ref && fagPost && f.fagplan_ref.version !== fagPost.fagplan_version;
+  const omfang = omfangTekst(f.omfang);
   document.getElementById("tags").innerHTML =
     `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a><span class="tag neutral">${f.klassetrin}</span>` +
+    (omfang ? `<span class="tag neutral">${omfang}</span>` : "") +
     (f.demo ? `<span class="tag neutral">Eksempel</span>` : "") +
     (forladetFagplan
       ? `<span class="tag forladet" title="Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}">Fagplan opdateret siden kobling</span>`
       : "") +
-    (f.tema || []).slice(0, 3).map((t) => `<span class="tag neutral">${t}</span>`).join("") +
-    maskintags.map((t) => `<span class="tag neutral" title="Fra wizard-profilen">${t}</span>`).join("");
+    // Issue #65: tema er søgbart fritekst i browse.html (matcher f.tema) —
+    // klikbart giver "søg inspiration ved dette tema" uden ny facet-infrastruktur.
+    (f.tema || []).slice(0, 3).map((t) => `<a class="tag neutral" href="browse.html?q=${encodeURIComponent(t)}">${t}</a>`).join("");
   document.getElementById("titel").textContent = f.titel;
   document.getElementById("undertitel").textContent = f.undertitel || "";
   document.getElementById("meta").textContent =
@@ -114,7 +137,24 @@
     note.textContent = "Eksempelforløb: skrevet til demoen for at vise formatet. Forfatter og institution er fiktive.";
   }
   document.getElementById("fork-knap").href = `rediger.html?fork=${f.id}`;
+  document.getElementById("fork-knap-2").href = `rediger.html?fork=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
+
+  // Overbliksstribe (S3): brugsdeklaration + indholdsfortegnelse i én linje.
+  const k = kaede(alle, f.id);
+  const dgTaellinger = DIMENSIONER.filter((d) => (f.daekningsgrad?.[d] || "tom") !== "tom").length;
+  const aabnePladser = antalAabnePladser(f);
+  const faserAntal = (f.faser || []).length;
+  const stribeLeds = [
+    omfang ? { tekst: omfang, href: null } : null,
+    { tekst: `${faserAntal} ${faserAntal === 1 ? "fase" : "faser"}`, href: "#faser" },
+    { tekst: `dækker ${dgTaellinger} af ${DIMENSIONER.length} dimensioner`, href: "#deklaration" },
+    aabnePladser ? { tekst: `${aabnePladser} ${aabnePladser === 1 ? "åben plads" : "åbne pladser"}`, href: "#deklaration" } : null,
+    { tekst: `${k.length} ${k.length === 1 ? "version" : "versioner"}`, href: "#genealogi-panel" },
+  ].filter(Boolean);
+  document.getElementById("overbliksstribe").innerHTML = stribeLeds
+    .map((l) => (l.href ? `<a href="${l.href}">${l.tekst}</a>` : `<span>${l.tekst}</span>`))
+    .join('<span class="stribe-sep">·</span>');
 
   // Dækningsgrad + tomme pladser som folder
   const dgEl = dgProfil(f);
@@ -148,7 +188,7 @@
     });
   }
 
-  if (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn || f.samspil) {
+  if (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn || f.samspil || maskintags.length) {
     const panel = document.getElementById("position-panel");
     panel.hidden = false;
     const pos = document.getElementById("position");
@@ -162,10 +202,17 @@
         innerHTML: `<span class="ek-label">Samspil</span>${SAMSPIL_NAVN[f.samspil.form] || f.samspil.form}${fagnavne ? " med " + fagnavne : ""}`,
       }));
     }
+    if (maskintags.length) {
+      const profil = document.getElementById("didaktisk-profil");
+      profil.hidden = false;
+      // Issue #65: samme søgbare-tag-mønster som tema (S1) — profil-svar
+      // matcher allerede Object.values(f.tags).flat() i browse.html's fritekst.
+      profil.innerHTML = `<span class="ek-label" style="flex-basis:100%;">Didaktisk profil</span>` +
+        maskintags.map((t) => `<a class="tag neutral" href="browse.html?q=${encodeURIComponent(t.soegeord)}" title="Fra wizard-profilen">${t.visning}</a>`).join("");
+    }
   }
 
   // Genealogi
-  const k = kaede(alle, f.id);
   if (k.length > 1) {
     document.getElementById("vtrae").appendChild(vertikaltTrae(k, f.id));
     document.getElementById("genealogi-note").textContent =

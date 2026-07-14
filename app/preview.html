@@ -25,13 +25,6 @@
       <button class="fane" role="tab" id="fane-elev" aria-selected="false">Elevmateriale</button>
     </div>
     <span class="mellemrum"></span>
-    <label class="metadata" for="fag-skifter">Designsystemet på tværs af fag:</label>
-    <select id="fag-skifter" class="filter-pill" aria-label="Skift fagfarve">
-      <option value="">Forløbets eget fag</option>
-      <option value="hum">Humaniora</option>
-      <option value="natur">Natur</option>
-      <option value="aes">Æstetik</option>
-    </select>
     <button class="knap sekundaer" id="print-knap">Print</button>
   </div>
 
@@ -66,15 +59,15 @@
   const egetFag = familieFor(forloeb.fag);
   side.dataset.fag = egetFag;
 
-  let tilstand = "laerer";
+  // P1: tilstand læses fra URL'en ved load, så et delt link
+  // (?tilstand=elev) åbner direkte på elevmaterialet.
+  let tilstand = params.get("tilstand") === "elev" ? "elev" : "laerer";
   const rod = document.getElementById("dokument-rod");
 
   function tegn() {
     rod.innerHTML = "";
     const ark = renderDokument(forloeb, tilstand);
-    // Fag-skifter demonstrerer at designsystemet baerer alle tre familier
-    const valgt = document.getElementById("fag-skifter").value;
-    ark.dataset.fag = valgt || egetFag;
+    ark.dataset.fag = egetFag;
     rod.appendChild(ark);
   }
 
@@ -84,17 +77,17 @@
     tilstand = ny;
     fLaerer.setAttribute("aria-selected", String(ny === "laerer"));
     fElev.setAttribute("aria-selected", String(ny === "elev"));
+    params.set("tilstand", ny);
+    history.replaceState(null, "", `${location.pathname}?${params}`);
     tegn();
   }
+  vaelgFane(tilstand);
   fLaerer.addEventListener("click", () => vaelgFane("laerer"));
   fElev.addEventListener("click", () => vaelgFane("elev"));
-  document.getElementById("fag-skifter").addEventListener("change", tegn);
   document.getElementById("print-knap").addEventListener("click", () => {
     const q = params.get("kladde") === "1" ? "kladde=1" : `id=${forloeb.id}`;
     location.href = `print.html?${q}&tilstand=${tilstand}`;
   });
-
-  tegn();
 </script>
 </body>
 </html>

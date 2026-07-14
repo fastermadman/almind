@@ -94,6 +94,14 @@ body { margin: 0; background: #fff; }
   }
   .print-bar .mellemrum { flex: 1; }
   .print-bar a { color: var(--ink); }
+
+  /* P4: loading-tekst mens Paged.js paginerer — se print.html for hvorfor
+     elementet sidder uden for <body> (Paged.js overtager body under målingen) */
+  .print-klargoer {
+    display: block;
+    font-family: var(--font-ui); color: var(--muted); text-align: center;
+    padding: 4rem 1rem;
+  }
 }
 
 @media print {
