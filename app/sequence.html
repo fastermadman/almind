@@ -113,7 +113,7 @@
     note.hidden = false;
     note.textContent = "Eksempelforløb: skrevet til demoen for at vise formatet. Forfatter og institution er fiktive.";
   }
-  document.getElementById("fork-knap").href = `fork.html?id=${f.id}`;
+  document.getElementById("fork-knap").href = `rediger.html?fork=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
 
   // Dækningsgrad + tomme pladser som folder
@@ -173,7 +173,7 @@
   } else {
     document.getElementById("vtrae").innerHTML =
       `<p style="font-size:0.92rem; color:var(--muted);">Første version. Endnu ingen forgreninger.</p>
-       <p style="font-size:0.92rem; margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="fork.html?id=${f.id}">Måske dig?</a></p>`;
+       <p style="font-size:0.92rem; margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="rediger.html?fork=${f.id}">Måske dig?</a></p>`;
   }
 
   // Materialer via mitCFU

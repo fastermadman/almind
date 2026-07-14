@@ -88,7 +88,7 @@ export function pladsFold(f, plads) {
     <div class="plads-krop">
       <blockquote>${plads.besked}<br><span class="metadata">${f.forfatter}</span></blockquote>
       <p class="gissel-def" data-dim="${plads.dimension}"></p>
-      <a class="knap fag" href="fork.html?id=${f.id}&dimension=${plads.dimension}">Fork herfra</a>
+      <a class="knap fag" href="rediger.html?fork=${f.id}&dimension=${plads.dimension}">Fork herfra</a>
     </div>
   `;
   // Gissel-definition hentes lazy ved første åbning.

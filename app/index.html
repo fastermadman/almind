@@ -68,7 +68,7 @@
   document.getElementById("hero-titel").textContent = heroForloeb.titel;
   document.getElementById("hero-undertitel").textContent = heroForloeb.undertitel || "";
   document.getElementById("hero-aabn").href = `sequence.html?id=${heroForloeb.id}`;
-  document.getElementById("hero-fork").href = `fork.html?id=${heroForloeb.id}`;
+  document.getElementById("hero-fork").href = `rediger.html?fork=${heroForloeb.id}`;
   if (heroForloeb.citat) {
     document.getElementById("hero-citat").hidden = false;
     document.getElementById("hero-citat-tekst").textContent = `"${heroForloeb.citat.tekst}"`;
