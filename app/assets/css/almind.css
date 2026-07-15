@@ -301,13 +301,14 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 3rem;
 }
 .kort {
+  position: relative;
   display: flex; flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-top: 4px solid var(--fagfarve);
   border-radius: var(--r-kort);
   padding: 1.4rem 1.5rem 1.25rem;
-  text-decoration: none; color: var(--ink);
+  color: var(--ink);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s;
 }
 .kort:hover {
@@ -315,6 +316,14 @@ img, svg { display: block; max-width: 100%; }
   box-shadow: 0 10px 24px rgba(44, 36, 32, 0.07);
   border-color: color-mix(in srgb, var(--fagfarve) 40%, var(--border));
 }
+/* Kortets titel er det rigtige link — ::after strækker dets klikflade til hele
+   kortet ("stretched link"), så resten af kortet forbliver klikbart uden at
+   pakke det hele ind i ét <a> (som ville forhindre fag/klassetrin i at være
+   selvstændige links, jf. issue #65-opfølgningen). */
+.kort-titel-link { color: inherit; text-decoration: none; }
+.kort-titel-link::after { content: ""; position: absolute; inset: 0; }
+/* Tags skal ligge OVEN PÅ titlens strakte link for stadig at kunne klikkes selv */
+.kort-tags a { position: relative; z-index: 1; }
 .kort-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
 .kort h3 {
   font-family: var(--font-display);

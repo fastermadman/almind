@@ -1,6 +1,6 @@
 // Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
 
-import { familieFor, fagNavn, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition } from "./data.js";
+import { familieFor, fagNavn, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition, klassetrinTilInterval } from "./data.js";
 
 // "8 lektioner" / "Enkelt lektion" / "Forløb" (uspecificeret længde) —
 // browse-planens §3: at filtrere på omfang uden at vise det er en synlig selvmodsigelse.
@@ -10,11 +10,16 @@ export function omfangTekst(omfang) {
   return omfang.lektioner ? `${omfang.lektioner} lektioner` : "Forløb";
 }
 
+// Kortet er en <article>, ikke ét stort <a> — fag/klassetrin skal være rigtige,
+// selvstændige links (samme facet-mønster som sequence.html, issue #65-familien),
+// og nestede <a>-i-<a> er ugyldig HTML (browseren lukker den yderste for tidligt,
+// halve kortet mister sit klik). Løsningen er det gængse "stretched link"-greb:
+// titlen er kortets rigtige, semantiske link; dens ::after strækkes til at dække
+// hele kortet (CSS), og de andre links får z-index for stadig at kunne klikkes.
 export function forloebKort(f, alle) {
   const fam = familieFor(f.fag);
-  const a = document.createElement("a");
+  const a = document.createElement("article");
   a.className = "kort";
-  a.href = `sequence.html?id=${f.id}`;
   a.dataset.fag = fam;
 
   const k = alle ? kaede(alle, f.id) : [f];
@@ -30,14 +35,17 @@ export function forloebKort(f, alle) {
 
   const pladser = antalAabnePladser(f);
   const omfang = omfangTekst(f.omfang);
+  const klassetrinInterval = klassetrinTilInterval(f.klassetrin);
 
   a.innerHTML = `
     <div class="kort-tags">
-      <span class="tag">${fagNavn(f.fag)}</span>
-      <span class="tag neutral">${f.klassetrin}</span>
+      <a class="tag" href="fag.html?id=${f.fag}">${fagNavn(f.fag)}</a>
+      ${klassetrinInterval
+        ? `<a class="tag neutral" href="browse.html?klassetrin=${klassetrinInterval[0]}">${f.klassetrin}</a>`
+        : `<span class="tag neutral">${f.klassetrin}</span>`}
       ${f.demo ? `<span class="tag neutral">Eksempel</span>` : ""}
     </div>
-    <h3>${f.titel}</h3>
+    <h3><a class="kort-titel-link" href="sequence.html?id=${f.id}">${f.titel}</a></h3>
     <p class="kort-beskrivelse">${f.beskrivelse}</p>
     <div class="metadata">${f.forfatter} · ${datoTekst(f.opdateret)}${omfang ? ` · ${omfang}` : ""}</div>
     <div class="kort-bund">
