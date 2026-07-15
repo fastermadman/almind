@@ -84,7 +84,7 @@
   const fagForloeb = alle.filter((f) => f.fag === fag.id);
   const tags = document.getElementById("tags");
   tags.innerHTML = `
-    <span class="tag">${FAMILIER[fam]?.navn || fag.familie}</span>
+    <a class="tag" href="browse.html?familie=${fam}">${FAMILIER[fam]?.navn || fag.familie}</a>
     <span class="tag neutral">fagplan ${fag.fagplan_version} · ${fag.fagplan_status}</span>
   `;
   if (fag.valgfag_af) {

@@ -28,6 +28,24 @@ function soegeform(medId) {
   return form;
 }
 
+// Læsefremskridt: erstatter headerens statiske border-bottom med en linje,
+// der vokser med scroll — fagfarvet når siden har én fagkontekst (data-fag på
+// en ancestor, jf. tokens.css), ellers Alminds egen --accent via CSS-fallback.
+// Delt i sitehoved.js så den virker på alle sider uden separat opsætning pr. side.
+function laesefremskridt() {
+  const bar = document.createElement("div");
+  bar.className = "laesefremskridt";
+  const opdater = () => {
+    const scrollbart = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const andel = scrollbart > 0 ? window.scrollY / scrollbart : 1;
+    bar.style.width = `${Math.min(1, Math.max(0, andel)) * 100}%`;
+  };
+  document.addEventListener("scroll", opdater, { passive: true });
+  window.addEventListener("resize", opdater);
+  opdater();
+  return bar;
+}
+
 function navLinks(aktiv, luk) {
   const links = NAV_LINKS.map((l) => {
     const a = document.createElement("a");
@@ -80,4 +98,6 @@ export function sitehoved(el) {
   navLinks(aktiv, luk).forEach((a) => mobilNav.appendChild(a));
   detaljer.appendChild(mobilNav);
   el.appendChild(detaljer);
+
+  el.appendChild(laesefremskridt());
 }

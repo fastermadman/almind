@@ -36,6 +36,11 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--border);
   min-height: 96px; /* reserverer højde: sitehoved.js renderer først når JS kører (navigation-plan §1) */
 }
+/* Læsefremskridt: vokser over samme linje som border-bottom ovenfor */
+.laesefremskridt {
+  position: absolute; left: 0; bottom: 0; height: 2px; width: 0%;
+  background: var(--fagfarve, var(--accent));
+}
 /* Søgeformen er en usynlig wrapper på desktop — .soegefelt opfører sig som
    før (raw <input>), formens funktion (submit til browse.html) består */
 .site-header > .soegeform { display: contents; }
@@ -432,18 +437,6 @@ img, svg { display: block; max-width: 100%; }
 .panel-mb { margin-bottom: 1.5rem; }
 .panel-mt { margin-top: 1.5rem; }
 
-/* S3: overbliksstribe — brugsdeklaration + indholdsfortegnelse i én rolig linje */
-.overbliksstribe {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem;
-  font-family: var(--font-ui); font-size: 0.85rem; color: var(--muted);
-  padding: 0.9rem 0; margin-bottom: 2rem;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.overbliksstribe a { color: var(--ink); text-decoration: none; }
-.overbliksstribe a:hover { text-decoration: underline; }
-.overbliksstribe .stribe-sep { color: var(--border); }
-#faser, #deklaration, #genealogi-panel { scroll-margin-top: 110px; }
-
 /* Panel-underlinje: forklarer panelets rolle for førstegangslæseren, uden nyt visuelt sprog */
 .panel-underlinje { font-size: 0.85rem; color: var(--muted); margin: -0.6rem 0 1.1rem; line-height: 1.4; }
 
@@ -489,6 +482,15 @@ img, svg { display: block; max-width: 100%; }
 .to-kolonner {
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
   gap: 2.5rem; align-items: start; margin-bottom: 3rem;
+}
+
+/* Højre kolonne forbliver synlig ved siden af faserne i stedet for at scrolle
+   væk — kun over 900px, hvor kolonnerne rent faktisk sidder side om side
+   (under det stakker to-kolonner, og sticky ville føles i vejen). max-height +
+   overflow-y sikrer at et usædvanligt langt panel-indhold får sin egen scroll
+   i stedet for at blive skåret af mod vinduets kant. */
+@media (min-width: 901px) {
+  #aside-sticky { position: sticky; top: 96px; max-height: calc(100vh - 96px - 2rem); overflow-y: auto; }
 }
 
 .panel {

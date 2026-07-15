@@ -29,12 +29,17 @@
 
   <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
 
-  <nav class="overbliksstribe" id="overbliksstribe" aria-label="Forløbets indhold"></nav>
-
   <div class="to-kolonner">
     <div>
       <section id="faser" aria-label="Forløbets faser"></section>
 
+      <div class="fork-afslutning">
+        <p>Dette forløb er ikke færdigt. Det venter på din version.</p>
+        <a class="knap fag" id="fork-knap-2" href="#">Fork dette forløb</a>
+      </div>
+    </div>
+
+    <aside id="aside-sticky">
       <div id="deklaration">
         <section class="panel panel-mb" id="dg-panel">
           <h2>Didaktisk dækningsgrad</h2>
@@ -43,38 +48,34 @@
           <div id="pladser" style="margin-top:1.25rem;"></div>
         </section>
 
-        <section class="panel" id="fravalg-panel" hidden>
+        <section class="panel panel-mb" id="fravalg-panel" hidden>
           <h2>Bevidste fravalg</h2>
           <p class="panel-underlinje">Bevidst udeladt af forfatteren, med begrundelse. Ruller du et fravalg tilbage i din fork, så forhold dig til hvorfor det blev truffet.</p>
           <ul class="fravalg-liste" id="fravalg"></ul>
         </section>
       </div>
 
-      <div class="fork-afslutning">
-        <p>Dette forløb er ikke færdigt. Det venter på din version.</p>
-        <a class="knap fag" id="fork-knap-2" href="#">Fork dette forløb</a>
-      </div>
-    </div>
-
-    <aside>
       <section class="panel panel-mb" id="position-panel" hidden>
         <h2>Forfatterens position</h2>
         <div id="position"></div>
         <div id="didaktisk-profil" class="kort-tags" hidden></div>
       </section>
 
-      <section class="panel" id="genealogi-panel">
-        <h2>Forløbets liv</h2>
-        <div id="vtrae"></div>
-        <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
-      </section>
-      <section class="panel panel-mt" id="materialer-panel" hidden>
+      <section class="panel" id="materialer-panel" hidden>
         <h2>Materialer via mitCFU</h2>
         <ul class="materiale-liste" id="materialer"></ul>
         <p class="materiale-note">Ophavsretsbeskyttede materialer bor hos CFU. Almind deler det didaktiske lag; materialet låner du som altid.</p>
       </section>
     </aside>
   </div>
+
+  <!-- Genealogien hører til "efter"-øjeblikket, samme genre som fork-afslutningen
+       ovenfor — begge handler om at forløbet har/kan få et liv videre. -->
+  <section class="panel panel-mb" id="genealogi-panel">
+    <h2>Forløbets liv</h2>
+    <div id="vtrae"></div>
+    <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
+  </section>
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
@@ -84,7 +85,7 @@
 
 <script type="module">
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, DIMENSIONER, antalAabnePladser } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
   import { dgProfil, pladsFold, omfangTekst } from "./assets/js/komponenter.js";
   import { renderFaseIndhold } from "./assets/js/dokument.js";
@@ -117,9 +118,18 @@
   // fejl: fagplanen er stadig et udkast, koblingen var gyldig da den blev lavet.
   const forladetFagplan = f.fagplan_ref && fagPost && f.fagplan_ref.version !== fagPost.fagplan_version;
   const omfang = omfangTekst(f.omfang);
+  // Issue #65-familien: klassetrin/omfang er samme "browse.html-facet"-mønster
+  // som allerede bruges af browse.html's dropdowns — genbruger deres param-navne.
+  // Interval-min bruges som facetværdi: browse.html's egen overlap-matching
+  // (intervallerOverlapper) finder så alt der dækker/overlapper det klassetrin,
+  // uanset om DENNE tags klassetrin er ét trin eller et spænd.
+  const klassetrinInterval = klassetrinTilInterval(f.klassetrin);
   document.getElementById("tags").innerHTML =
-    `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a><span class="tag neutral">${f.klassetrin}</span>` +
-    (omfang ? `<span class="tag neutral">${omfang}</span>` : "") +
+    `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a>` +
+    (klassetrinInterval
+      ? `<a class="tag neutral" href="browse.html?klassetrin=${klassetrinInterval[0]}">${f.klassetrin}</a>`
+      : `<span class="tag neutral">${f.klassetrin}</span>`) +
+    (omfang ? `<a class="tag neutral" href="browse.html?omfang=${f.omfang.type}">${omfang}</a>` : "") +
     (f.demo ? `<span class="tag neutral">Eksempel</span>` : "") +
     (forladetFagplan
       ? `<span class="tag forladet" title="Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}">Fagplan opdateret siden kobling</span>`
@@ -140,21 +150,7 @@
   document.getElementById("fork-knap-2").href = `rediger.html?fork=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
 
-  // Overbliksstribe (S3): brugsdeklaration + indholdsfortegnelse i én linje.
   const k = kaede(alle, f.id);
-  const dgTaellinger = DIMENSIONER.filter((d) => (f.daekningsgrad?.[d] || "tom") !== "tom").length;
-  const aabnePladser = antalAabnePladser(f);
-  const faserAntal = (f.faser || []).length;
-  const stribeLeds = [
-    omfang ? { tekst: omfang, href: null } : null,
-    { tekst: `${faserAntal} ${faserAntal === 1 ? "fase" : "faser"}`, href: "#faser" },
-    { tekst: `dækker ${dgTaellinger} af ${DIMENSIONER.length} dimensioner`, href: "#deklaration" },
-    aabnePladser ? { tekst: `${aabnePladser} ${aabnePladser === 1 ? "åben plads" : "åbne pladser"}`, href: "#deklaration" } : null,
-    { tekst: `${k.length} ${k.length === 1 ? "version" : "versioner"}`, href: "#genealogi-panel" },
-  ].filter(Boolean);
-  document.getElementById("overbliksstribe").innerHTML = stribeLeds
-    .map((l) => (l.href ? `<a href="${l.href}">${l.tekst}</a>` : `<span>${l.tekst}</span>`))
-    .join('<span class="stribe-sep">·</span>');
 
   // Dækningsgrad + tomme pladser som folder
   const dgEl = dgProfil(f);

@@ -57,7 +57,7 @@
   }
 
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor, fagNavn } from "./assets/js/data.js";
   import { startEditor, nytForloeb, forkAf, centrumOK, aabnCentrumDialog } from "./assets/js/blokke.js";
 
   sitehoved(document.querySelector(".site-header"));
@@ -82,7 +82,7 @@
       const linje = document.getElementById("arvelinje");
       linje.hidden = false;
       linje.innerHTML = `
-        <span class="tag">${original.fag}</span>
+        <span class="tag">${fagNavn(original.fag)}</span>
         <span>Du bygger videre på <strong></strong></span>
         <span class="metadata">${original.forfatter} · ${original.institution} · ${original.aar} · ${original.licens}</span>
       `;
