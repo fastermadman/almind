@@ -131,6 +131,7 @@ export async function hentBruger() {
 // eget repo), bruges en gren i samme repo — samme mønster som git-værter selv.
 export async function delTilAlmind(forloeb) {
   const mig = await hentBruger();
+  forloeb.forfatter_codeberg = mig; // #53: attribution-link — klienten kender jo det indloggede login
 
   let ejer = mig, repo = OPHAV.repo;
   if (mig !== OPHAV.ejer) {

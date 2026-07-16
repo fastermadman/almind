@@ -170,8 +170,13 @@
     (f.tema || []).slice(0, 3).map((t) => `<a class="tag neutral" href="browse.html?q=${encodeURIComponent(t)}">${t}</a>`).join("");
   document.getElementById("titel").textContent = f.titel;
   document.getElementById("undertitel").textContent = f.undertitel || "";
-  document.getElementById("meta").textContent =
-    `${f.forfatter} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
+  // #53: forfatternavnet linker til profilen når forfatter_codeberg er sat
+  // (delTilAlmind sætter feltet automatisk) — uden feltet forbliver navnet ren tekst.
+  const forfatterHtml = f.forfatter_codeberg
+    ? `<a href="profil.html?bruger=${encodeURIComponent(f.forfatter_codeberg)}">${f.forfatter}</a>`
+    : f.forfatter;
+  document.getElementById("meta").innerHTML =
+    `${forfatterHtml} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
   if (f.demo) {
     const note = document.getElementById("demo-note");
     note.hidden = false;

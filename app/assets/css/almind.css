@@ -444,6 +444,15 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-ui);
 }
 
+/* ---------- Profil (D-6) ---------- */
+.profil-avatar {
+  width: 4rem; height: 4rem; border-radius: 50%;
+  background: var(--accent, var(--muted)); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-ui); font-weight: 600; font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
 /* ---------- Sequence: detalje ---------- */
 .detalje-hoved { margin: 1.5rem 0 2rem; max-width: 760px; }
 .hero-mikroforklaring { margin-top: 0.6rem; }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container">
+
+  <header class="site-header"></header>
+
+  <div id="side"></div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
+  </footer>
+</div>
+
+<script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
+  import { hentForloeb } from "./assets/js/data.js";
+  import { forloebKort } from "./assets/js/komponenter.js";
+  import { stagger } from "./assets/js/motion.js";
+
+  sitehoved(document.querySelector(".site-header"));
+
+  const login = new URLSearchParams(location.search).get("bruger") || "";
+  const side = document.getElementById("side");
+
+  // ponytail: statisk demo-katalog — GET /users/{login} mod Codeberg er
+  // pilot-horisont (jf. brugerlag-arkitektur.md §3.1), ikke bygget her.
+  const [brugere, alle] = await Promise.all([
+    fetch("data/brugere.json").then((r) => r.json()),
+    hentForloeb(),
+  ]);
+  const bruger = brugere.find((b) => b.login === login);
+
+  document.title = (bruger ? `${bruger.navn} · Profil` : "Profil") + " · Almind";
+
+  if (!bruger) {
+    side.innerHTML = `
+      <div class="tom-tilstand" style="margin-top:2rem;">
+        ${login ? `Ingen bruger fundet med login "${login}".` : "Angiv en bruger: profil.html?bruger=&lt;login&gt;"}
+        Det er ikke en fejl — kontoen findes måske bare ikke endnu.<br><br>
+        <a href="browse.html">Se alle forløb i stedet →</a>
+      </div>`;
+  } else {
+    const initialer = bruger.navn.split(" ").map((d) => d[0]).join("").slice(0, 2).toUpperCase();
+    const bidrag = alle.filter((f) => f.forfatter === bruger.navn);
+
+    side.innerHTML = `
+      <div class="detalje-hoved profil-hoved">
+        <div class="profil-avatar" aria-hidden="true">${initialer}</div>
+        <h1>${bruger.navn}</h1>
+        ${bruger.institution ? `<div class="metadata">${bruger.institution}</div>` : ""}
+        ${bruger.bio ? `<p class="undertitel">${bruger.bio}</p>` : ""}
+      </div>
+      <section aria-labelledby="bidrag-titel">
+        <h2 class="sektionstitel" id="bidrag-titel">Bidrag</h2>
+        <div class="kortgrid" id="bidrag-grid"></div>
+      </section>`;
+
+    const grid = document.getElementById("bidrag-grid");
+    if (!bidrag.length) {
+      grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">Ingen publicerede forløb endnu.</div>`;
+    } else {
+      bidrag.forEach((f) => grid.appendChild(forloebKort(f, alle)));
+      stagger([...grid.children], 35);
+    }
+  }
+</script>
+</body>
+</html>
