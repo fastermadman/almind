@@ -20,14 +20,14 @@
       "demokratisk samtale",
       "dilemmaspil"
     ],
-    "licens": "CC BY-SA 4.0",
+    "licens": "CC BY-NC-SA 4.0",
     "opdateret": "2024-09-12",
     "generation": 0,
     "fork_af": null,
     "forks": [
       "dss-v1"
     ],
-    "beskrivelse": "Et dilemmaspil hvor eleverne træner demokratisk samtale gennem cases uden facit. Originalforløbet fra EMU: stærkt på indhold og metode, åbent på resten.",
+    "beskrivelse": "EMU's brætspil om at føre svære samtaler respektfuldt: hold rykker rundt på en spilleplade og tager stilling til dilemmaer om religion, seksualitet og familiekonflikter — uden facit, men med træning i at lytte, spørge nysgerrigt og genkende frihedsrettigheder i hverdagssituationer.",
     "daekningsgrad": {
       "maal": "fuld",
       "indhold": "fuld",
@@ -48,46 +48,84 @@
     ],
     "faser": [
       {
-        "titel": "Dilemmaerne præsenteres",
-        "beskrivelse": "Klassen møder dilemmaer uden facit og vælger det de vil arbejde med.",
+        "titel": "Forberedelse og introduktion",
+        "beskrivelse": "Spillepladerne printes (op til 4 spillere pr. plade), casekort og wildcards klippes ud, og spillereglerne læses igennem sammen. Hver spiller får to brikker i samme farve, hvert bord én terning.",
         "aktiviteter": [
           {
             "titel": "",
-            "beskrivelse": "Fælles læsning af dilemmakort"
+            "beskrivelse": "Klargøring af spilleplader, kort og brikker"
           },
           {
             "titel": "",
-            "beskrivelse": "Første uformelle afstemning"
+            "beskrivelse": "Fælles gennemgang af spillereglerne"
           }
         ]
       },
       {
         "titel": "Spillet",
-        "beskrivelse": "Eleverne argumenterer for og imod i skiftende positioner.",
+        "beskrivelse": "Ca. 40 minutter: spillerne rykker rundt om pladens kant og markerer undervejs deres holdning til cases om religion, seksualitet, familiekonflikter og andre hverdagsdilemmaer eleverne kan spejle sig i.",
         "aktiviteter": [
           {
             "titel": "",
-            "beskrivelse": "Dilemmaspil i grupper"
+            "beskrivelse": "Cases trækkes og drøftes ved bordet"
           },
           {
             "titel": "",
-            "beskrivelse": "Skift af standpunkt på signal"
+            "beskrivelse": "Holdning markeres og kan justeres undervejs"
           }
         ]
       },
       {
         "titel": "Opsamling",
-        "beskrivelse": "Klassen samler op på hvad en god uenighed kræver.",
+        "beskrivelse": "Klassen samler op på om nogen skiftede holdning undervejs, hvad der gjorde samtalen god, og hvilke frihedsrettigheder de blev klogere på.",
         "aktiviteter": [
           {
             "titel": "",
-            "beskrivelse": "Fælles samtale"
+            "beskrivelse": "Fælles samtale om holdningsskift"
           },
           {
             "titel": "",
-            "beskrivelse": "Individuel refleksion"
+            "beskrivelse": "Individuel refleksion over frihedsrettigheder"
           }
         ]
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Den svære samtale (originalside, EMU)",
+        "type": "Kilde",
+        "faust": null,
+        "url": "https://emu.dk/grundskole/demokrati-og-faellesskaber/kontroversielle-emner/den-svaere-samtale",
+        "note": "CC BY-NC-SA 4.0 — Kreditering · Ikke-kommerciel · Deling på samme vilkår.",
+        "materialetype": null,
+        "didaktisering": null
+      },
+      {
+        "titel": "Spilleplade",
+        "type": "PDF",
+        "faust": null,
+        "url": "https://emu.dk/sites/default/files/2023-08/grund_kontroversielle%20emner_Den%20sv%C3%A6re%20samtale_Spilleplade_final.pdf",
+        "note": null,
+        "materialetype": null,
+        "didaktisering": null
+      },
+      {
+        "titel": "Spilleregler",
+        "type": "PDF",
+        "faust": null,
+        "url": "https://emu.dk/sites/default/files/2023-08/grund_kontroversielle%20emner_Den%20sv%C3%A6re%20samtale%20-%20spilleregler.pdf",
+        "note": null,
+        "materialetype": null,
+        "didaktisering": null
+      },
+      {
+        "titel": "Casekort og wildcards",
+        "type": "PDF",
+        "faust": null,
+        "url": "https://emu.dk/sites/default/files/2023-08/grund_kontroversielle%20emner_den%20sv%C3%A6re%20samtale_Den%20sv%C3%A6re%20samtale%20casekort%20og%20wildcards.pdf",
+        "note": null,
+        "materialetype": null,
+        "didaktisering": null
       }
     ]
   },
@@ -114,7 +152,7 @@
       "redidaktisering",
       "etisk subjekt"
     ],
-    "licens": "CC BY-SA 4.0",
+    "licens": "CC BY-NC-SA 4.0",
     "opdateret": "2026-04-22",
     "generation": 1,
     "fork_af": {
@@ -269,7 +307,7 @@
       "deltagelsestærskel",
       "elevsprog"
     ],
-    "licens": "CC BY-SA 4.0",
+    "licens": "CC BY-NC-SA 4.0",
     "opdateret": "2026-06-01",
     "generation": 2,
     "fork_af": {

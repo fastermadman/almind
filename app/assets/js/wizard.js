@@ -68,8 +68,11 @@ export const TRIN = [
 export async function klasseValgFor(fagId) {
   try {
     const fag = await hentFag(fagId);
-    const tal = (fag.trinforloeb || [])
-      .flatMap((t) => [...t.udtryk.matchAll(/(\d+)\./g)].map((m) => Number(m[1])));
+    const trinforloeb = fag.trinforloeb || [];
+    const tal = trinforloeb.flatMap((t) => [...t.udtryk.matchAll(/(\d+)\./g)].map((m) => Number(m[1])));
+    // #68: "Børnehaveklassen" i udtrykket (§11, intet numerisk trinforløb-tal
+    // for den) tæller som klassetrin 0 — ellers falder 0. klasse ud af intervallet.
+    if (trinforloeb.some((t) => /børnehaveklassen/i.test(t.udtryk))) tal.push(0);
     if (!tal.length) return [];
     const min = Math.min(...tal), max = Math.max(...tal);
     const valg = [];

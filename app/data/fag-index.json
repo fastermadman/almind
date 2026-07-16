@@ -2,7 +2,7 @@
   {
     "id": "boernehaveklassen",
     "navn": "Børnehaveklassen",
-    "familie": "humaniora",
+    "familie": "oevrige",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
@@ -16,14 +16,14 @@
   {
     "id": "dsa-basis",
     "navn": "Dansk som andetsprog, basis",
-    "familie": "humaniora",
+    "familie": "oevrige",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
   {
     "id": "dsa-supplerende",
     "navn": "Dansk som andetsprog, supplerende",
-    "familie": "humaniora",
+    "familie": "oevrige",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },

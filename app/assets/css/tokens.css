@@ -25,6 +25,8 @@
   --fag-natur-text: #16233a;
   --fag-aes:        #731702;
   --fag-aes-text:   #731702;
+  --fag-ovr:        #4a2b5c;
+  --fag-ovr-text:   #4a2b5c;
 
   /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
@@ -82,3 +84,4 @@
 [data-fag="hum"]   { --fagfarve: var(--fag-hum);   --fagtekst: var(--fag-hum-text); }
 [data-fag="natur"] { --fagfarve: var(--fag-natur); --fagtekst: var(--fag-natur-text); }
 [data-fag="aes"]   { --fagfarve: var(--fag-aes);   --fagtekst: var(--fag-aes-text); }
+[data-fag="ovr"]   { --fagfarve: var(--fag-ovr);   --fagtekst: var(--fag-ovr-text); }

@@ -13,8 +13,11 @@
 // rettede 2026-07-16: "musiske" underordner reelt musik/billedkunst/håndværk
 // under en "praktisk"-ramme. Almind er ikke en statslig side og følger her
 // sin egen stemme, samme begrundelse som Kristendomskundskab → Religionskundskab.
-const FAMILIE_NAVN = { hum: "Humanistiske fag", natur: "Naturfag", aes: "Praktiske og æstetiske fag" };
-const FAMILIE_NOEGLE = { humaniora: "hum", naturfag: "natur", "praktisk-musisk": "aes" };
+// oevrige/ovr dækker fag uden fagblok efter Folkeskolelovens §5, stk. 2 (dsa,
+// børnehaveklassen) — se #67. familieFor()s fallback ("hum") rammer ikke
+// disse, kun reelt ukendte fag-id'er.
+const FAMILIE_NAVN = { hum: "Humanistiske fag", natur: "Naturfag", aes: "Praktiske og æstetiske fag", ovr: "Øvrige fag" };
+const FAMILIE_NOEGLE = { humaniora: "hum", naturfag: "natur", "praktisk-musisk": "aes", oevrige: "ovr" };
 
 export const FAMILIER = {};
 let _fagIndex = null;

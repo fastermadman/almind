@@ -62,9 +62,9 @@
       </section>
 
       <section class="panel" id="materialer-panel" hidden>
-        <h2>Materialer via mitCFU</h2>
+        <h2>Materialer</h2>
         <ul class="materiale-liste" id="materialer"></ul>
-        <p class="materiale-note">Ophavsretsbeskyttede materialer bor hos CFU. Almind deler det didaktiske lag; materialet låner du som altid.</p>
+        <p class="materiale-note">Ophavsretsbeskyttede materialer bor hos deres respektive udgiver. Almind deler det didaktiske lag; materialet låner du som altid, licens og kilde fremgår ovenfor.</p>
       </section>
     </aside>
   </div>
@@ -219,7 +219,7 @@
        <p style="font-size:0.92rem; margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="rediger.html?fork=${f.id}">Måske dig?</a></p>`;
   }
 
-  // Materialer via mitCFU
+  // Materialer
   if (f.materialer?.length) {
     document.getElementById("materialer-panel").hidden = false;
     const ul = document.getElementById("materialer");
