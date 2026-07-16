@@ -43,6 +43,7 @@
 
   <div class="aktive-filtre" id="aktive-filtre" hidden></div>
   <div id="fag-kontekst"></div>
+  <div id="graf-kontekst"></div>
   <div id="fag-genvej"></div>
   <div class="kortgrid" id="grid"></div>
 
@@ -232,6 +233,23 @@
     zone.appendChild(a);
   }
 
+  // E-G1 §8: betinget link til grafen, med aktive facetter som params — kun
+  // vist når mindst ét filter er aktivt (ufiltreret besøg har footer-linket).
+  function tegnGrafKontekst() {
+    const zone = document.getElementById("graf-kontekst");
+    zone.innerHTML = "";
+    if (!state.fag && !state.familie && !state.klassetrin) return;
+    const p = new URLSearchParams();
+    if (state.fag) p.set("fag", state.fag);
+    if (state.familie) p.set("familie", state.familie);
+    if (state.klassetrin && /^\d+$/.test(state.klassetrin)) p.set("trin", state.klassetrin);
+    const a = document.createElement("a");
+    a.className = "fag-kontekstlink";
+    a.href = `graph.html?${p}`;
+    a.textContent = "Se disse forløbs relationer i konstellationen →";
+    zone.appendChild(a);
+  }
+
   function opdater() {
     // URL-sync
     const p = new URLSearchParams();
@@ -252,6 +270,7 @@
     tegnTrinValg();
     tegnAktiveFiltre();
     tegnFagKontekst();
+    tegnGrafKontekst();
 
     // Fag-genvej (navigation-plan §4.3): "idræt" i søgefeltet betyder næsten
     // altid "vis mig faget" — banner over resultaterne, ikke en dropdown.

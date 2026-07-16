@@ -42,9 +42,11 @@
     .graf-ingress strong { color: var(--ink); font-weight: 500; }
 
     /* Stage */
-    #scene { position: relative; margin: 1rem 0 0; }
+    /* Panelet ved siden af scenen, ikke ovenpå den (Valdemar 2026-07-16:
+       panelet dækkede for meget af kortet som flydende overlay). */
+    #scene { display: flex; align-items: flex-start; gap: 1rem; margin: 1rem 0 0; }
     #stage {
-      position: relative; width: 100%;
+      position: relative; flex: 1; min-width: 0;
       height: min(72vh, 800px); min-height: 520px;
       overflow: hidden;
       border-radius: var(--r-kort); border: 1px solid var(--linje);
@@ -65,11 +67,23 @@
     }
     .node circle.aaben { pointer-events: none; }
 
+    /* E-G1: begrebs-noder — små, hule, muted (slutarkitekturens §2 bipartitte model) */
+    .node circle.begreb-kerne {
+      fill: none; stroke: var(--blaek-svag); stroke-width: 1.2; stroke-dasharray: 1.5 3;
+    }
+    .node:hover circle.begreb-kerne { stroke: var(--navy); }
+    .node text.begreb-navn {
+      font-family: var(--font-ui); font-size: 10px; font-style: italic;
+      fill: var(--blaek-svag); pointer-events: none;
+    }
+    .link.link-begreb line.synlig { stroke-width: 0.75px; }
+
     .link line.synlig { transition: stroke-opacity .25s ease; }
     .link line.hit { stroke: transparent; stroke-width: 14px; cursor: pointer; }
 
     .dim   { opacity: .10; transition: opacity .45s ease; }
     .ghost { opacity: .05; transition: opacity .45s ease; }
+    .filterdim { opacity: .12; transition: opacity .45s ease; }
     .node, .link { transition: opacity .45s ease; }
 
     .link.lit line.synlig {
@@ -87,8 +101,8 @@
 
     /* Info-panel */
     #panel {
-      position: absolute; top: 18px; right: 24px; width: 320px;
-      max-height: calc(100% - 36px); overflow-y: auto;
+      flex-shrink: 0; width: 320px;
+      height: min(72vh, 800px); min-height: 520px; overflow-y: auto;
       background: var(--kort); border: 1px solid var(--linje);
       border-radius: var(--r-modal); padding: 20px 22px 18px;
       box-shadow: 0 8px 28px rgba(44,36,32,.07);
@@ -153,6 +167,29 @@
     }
     .par em { font-style: normal; color: var(--blaek-svag); font-family: var(--font-ui); font-weight: 400; font-size: 13px; }
 
+    /* E-G1: lag-vælgere — fuldbredde bar over scenen (ikke i den lille flydende
+       legende-boks, som forbliver den kompakte farve-nøgle). Genbruger
+       .filter-pill/aria-pressed fra browse.html — samme sprog, ny flade. */
+    #filterbar { margin: 1rem 0 0; }
+    #filterstatus {
+      font-family: var(--font-ui); font-size: 13px; color: var(--blaek-svag); margin-bottom: 0.5rem;
+    }
+    #filterstatus .ryd { margin-left: 0.6rem; color: var(--navy); cursor: pointer; background: none; border: none; font: inherit; text-decoration: underline; padding: 0; }
+    .filterbar-raekke { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; align-items: center; }
+    .filterbar-raekke .raekke-label {
+      font-family: var(--font-ui); font-size: 10.5px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blaek-svag);
+      min-width: 90px; /* label→pil-gap = samme gap som pil→pil (rækkens egen .4rem, ingen ekstra margin) */
+    }
+    #fallback-detalje { margin-top: 0.4rem; }
+    #fallback-detalje summary { cursor: pointer; font-family: var(--font-ui); font-size: 13px; color: var(--navy); }
+    #fallback-indhold { margin-top: 0.6rem; }
+    #fallback-indhold h3 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--blaek-svag); margin: 0.8rem 0 0.3rem; }
+    #fallback-indhold ul { list-style: none; margin: 0; padding: 0; }
+    #fallback-indhold li { margin-bottom: 0.3rem; font-size: 13.5px; }
+    #fallback-indhold a { color: var(--ink); }
+    #fallback-indhold .fallback-uden-for { opacity: .6; }
+
     /* Legende */
     #legende {
       position: absolute; left: 18px; bottom: 18px;
@@ -203,8 +240,9 @@
     .graf-fodnote p { margin: 0 0 4px; }
 
     @media (max-width: 860px) {
-      #stage { height: 58vh; min-height: 440px; }
-      #panel { position: static; width: auto; max-height: none; margin: 12px 0 0; }
+      #scene { flex-direction: column; }
+      #stage { width: 100%; height: 58vh; min-height: 440px; }
+      #panel { width: 100%; height: auto; max-height: 50vh; margin: 0; }
       #legende { position: static; display: inline-block; margin-top: 10px; }
       #nogetandet { position: static; display: block; margin: 12px 0 0; }
     }
@@ -224,10 +262,21 @@
     <p class="graf-ingress">Det er en node med tyngdekraft. <strong>Klik på et forløb</strong> og se hvad det trækker til sig — slægten inderst, det nære i midten, det uventede yderst. Det er dér, i den yderste ring, det interessante sker.</p>
   </div>
 
+  <div id="filterbar" role="group" aria-label="Filtrér grafen">
+    <p id="filterstatus"></p>
+    <div class="filterbar-raekke" id="lag-fag"><span class="raekke-label">Fag</span></div>
+    <div class="filterbar-raekke" id="lag-trin"><span class="raekke-label">Klassetrin</span></div>
+    <div class="filterbar-raekke" id="lag-familie"><span class="raekke-label">Familie</span></div>
+    <div class="filterbar-raekke" id="lag-kanttype"><span class="raekke-label">Kanttype</span></div>
+    <details id="fallback-detalje">
+      <summary>Se som liste</summary>
+      <div id="fallback-indhold"></div>
+    </details>
+  </div>
+
   <div id="scene">
     <div id="stage">
       <svg aria-label="Graf over undervisningsforløb og deres relationer"></svg>
-      <aside id="panel" aria-live="polite"></aside>
       <div id="legende">
         <span class="sw"></span>fork — slægtskab med arv<br>
         <span class="sw tynd"></span>nær relation<br>
@@ -239,6 +288,7 @@
       </div>
       <button id="nogetandet" type="button">Noget andet →</button>
     </div>
+    <aside id="panel" aria-live="polite"></aside>
   </div>
 
   <div class="graf-fodnote">
@@ -256,7 +306,8 @@
 
 <script type="module">
 import { sitehoved } from "./assets/js/sitehoved.js";
-import { hentForloeb, hentFagIndex, hentFag, FAMILIER } from "./assets/js/data.js";
+import { hentForloeb, hentFagIndex, FAMILIER, klassetrinTilInterval, intervallerOverlapper } from "./assets/js/data.js";
+import { bygGraf } from "./assets/js/graf-data.js";
 
 sitehoved(document.querySelector(".site-header"));
 
@@ -276,17 +327,22 @@ const FAG_NAVN = {};
 for (const [fam, def] of Object.entries(FAMILIER)) {
   for (const fag of def.fag) {
     FAG_FARVE[fag] = FAMILIE_FARVE[fam];
-    FAG_NAVN[fag] = fag[0].toUpperCase() + fag.slice(1);
+    FAG_NAVN[fag] = fagIndex.find((f) => f.id === fag)?.navn || fag;
   }
 }
-const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed", omraade: "#0f766e" };
-const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament", omraade: "Delt indholdsområde (fagplan)" };
+const TYPEFARVE = { plads: "#dc9848", metode: "#4a6b58", empiri: "#7c3aed", fagplan: "#0f766e" };
+const TYPENAVN  = { plads: "Delt åben plads", metode: "Delt didaktisk greb", empiri: "Delt empirisk fundament", fagplan: "Delt indholdsområde (fagplan)" };
 
-/* ---------- Data fra forloeb.json ---------- */
+/* ---------- Data: E-G0-kontrakten (graf-data.js) + forloeb.json til rendering-detaljer ----------
+   bygGraf() leverer STRUKTUREN (hvilke noder/kanter findes) — samme kontrakt en
+   fremtidig CI-bygget graph.json skal levere (E-G5). Rendering-specifikke felter
+   (radius, forfatter, citat …) er graph.html's eget lag, hentet fra forloeb.json,
+   så selve kontrakten ikke bærer visningsdetaljer der ikke er dens ansvar. */
 const alle = await hentForloeb();
+const graf = await bygGraf();
 
-/* NODER: auto-bygget */
-const NODER = alle.map(f => {
+function berigForloeb(node) {
+  const f = alle.find((x) => x.id === node.id);
   const hasForks = (f.forks || []).length > 0;
   const isForked = !!f.fork_af;
   let r = 11;
@@ -295,94 +351,23 @@ const NODER = alle.map(f => {
   else if (isForked)             r = 13;
   if (f.fag === "dansk" && !isForked) r += 1;
   return {
-    id:         f.id,
-    navn:       f.titel,
+    ...node, r,
     gen:        f.generation > 0 ? `V${f.generation}` : null,
-    fag:        f.fag,
-    r,
     forfatter:  f.forfatter,
     aar:        f.aar,
     om:         f.beskrivelse,
     diff:       f.diff  || null,
     citat:      f.citat || null,
-    tomme:      (f.tomme_pladser || []).map(p => ({ dim: p.dimension, tekst: p.besked })),
+    tomme:      (f.tomme_pladser || []).map((p) => ({ dim: p.dimension, tekst: p.besked })),
     forloebUrl: `sequence.html?id=${f.id}`,
+    klassetrinInterval: klassetrinTilInterval(f.klassetrin),
   };
-});
-
-/* Fork-KANTER: auto-udledt fra fork_af */
-const FORK_KANTER = alle
-  .filter(f => f.fork_af)
-  .map(f => ({
-    source: f.fork_af.id,
-    target: f.id,
-    type:   "fork",
-    af:     f.forfatter,
-    dato:   String(f.aar),
-    diff:   f.diff  || null,
-    citat:  f.citat || null,
-  }));
-
-/* Nære relationer: redaktionelt kurateret */
-const NAER_KANTER = [
-  { source: "tema1-mundtlighed",  target: "dss-v1",            type: "naer", note: "Dilemmaspillet er fase 3 i temaet — udskilt som selvstændigt forløb med egen genealogi." },
-  { source: "tema1-mundtlighed",  target: "tema2-laesning",    type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
-  { source: "tema2-laesning",     target: "tema3-skrivning",   type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
-  { source: "tema3-skrivning",    target: "tema4-kortfilm",    type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
-  { source: "tema4-kortfilm",     target: "tema5-journalistik", type: "naer", note: "Samme klasse, samme forår: 8.D, Silkeborg." },
-];
-
-/* Svage tværfaglige forbindelser: redaktionelt kurateret */
-const SVAGE_KANTER = [
-  { source: "dss-v2",             target: "stroem-i-huset",      type: "plads",  deler: "differentiering",
-    forklaring: "To fag der aldrig mødes i et fagteam — og begge forløb lader præcis samme dør stå åben. Lukas: »den didaktik der flytter mønstret, er stadig en åben plads.« Anders: »fejlfindingsopgaverne findes kun i én sværhedsgrad.« Ingen af dem kender din klasse. Det gør du." },
-  { source: "tema2-laesning",     target: "broekvaerkstedet",    type: "plads",  deler: "evaluering",
-    forklaring: "Et fortolkningsfællesskab i dansk og et brøkværksted i matematik — begge slutter med materiale der kunne bære en evaluering, og begge overlader formen til den næste lærer. Den der bygger formen ét sted, har sandsynligvis bygget den begge steder." },
-  { source: "tema3-skrivning",    target: "aaen-bag-skolen",     type: "plads",  deler: "organisering — stedet",
-    forklaring: "Begge forløb står og falder med et konkret sted: skoven bag fiktionen, åen bag skolen. Og begge nægter at planlægge stedet for dig — fordi det ikke kan planlægges på afstand. Stedet er din plads." },
-  { source: "dss-v1",             target: "stomp-skolegaarden",  type: "metode", deler: "kollektiv form uden facit",
-    forklaring: "Standpunktskift på signal og polyrytmisk lagdeling er samme didaktiske greb: en fælles struktur hvor turtagningen selv er indholdet, og hvor ingen enkelt stemme har facit. Den der har styret det ene rum, kan styre det andet." },
-  { source: "tema4-kortfilm",     target: "plakaten-der-raaber", type: "metode", deler: "analysens vending til produktion",
-    forklaring: "Raskins parametre og virkemiddeljagten vendes begge om: det redskab der afslørede andres valg, bliver elevens eget designværktøj. Den der har analyseret en overraskelse, ved hvad det koster at skabe én." },
-  { source: "tema5-journalistik", target: "vejret-over-danmark", type: "empiri", deler: "to kilder, samme virkelighed",
-    forklaring: "Reuters mod Ritzau. Klassens målinger mod DMI. Samme empiriske fundament: hold to fremstillinger af samme virkelighed op mod hinanden, og lad afvigelsen være det der undervises i." },
-];
-
-/* Delte indholdsområder: UDLEDT af fag-filernes faelles_med, ikke redaktionelt
-   kurateret (E.3b/arkitektur 7.1 — "fagets pluralitetsvisning": fork-slægtskab
-   + delte indholdsområder som graf). Kun fag med mindst ét forløb i dag deltager. */
-const unikkeFag = [...new Set(alle.map((f) => f.fag))];
-const fagFiler = {};
-for (const fagId of unikkeFag) {
-  try { fagFiler[fagId] = await hentFag(fagId); } catch { /* ukendt/opfundet fag-id uden fag-fil */ }
 }
-const fagParOmraader = new Map(); // "fagA|fagB" (sorteret) → Set af delte omraadenavne
-for (const [fagId, fagFil] of Object.entries(fagFiler)) {
-  for (const omr of fagFil?.indholdsomraader || []) {
-    for (const delerMed of omr.faelles_med || []) {
-      if (!fagFiler[delerMed]) continue; // intet forløb i det fag endnu — ingen node at forbinde til
-      const noeg = [fagId, delerMed].sort().join("|");
-      if (!fagParOmraader.has(noeg)) fagParOmraader.set(noeg, new Set());
-      fagParOmraader.get(noeg).add(omr.navn);
-    }
-  }
-}
-const fagNavnRigtigt = (id) => fagIndex.find((f) => f.id === id)?.navn || id;
-const OMRAADE_KANTER = [...fagParOmraader].map(([noeg, omraader]) => {
-  const [fagA, fagB] = noeg.split("|");
-  const a = alle.find((f) => f.fag === fagA);
-  const b = alle.find((f) => f.fag === fagB);
-  if (!a || !b) return null;
-  const navne = [...omraader].join('", "');
-  return {
-    source: a.id, target: b.id, type: "omraade", deler: [...omraader].join(", "),
-    forklaring: `${fagNavnRigtigt(fagA)} og ${fagNavnRigtigt(fagB)} deler indholdsområdet "${navne}" i fagplanen — en strukturel kobling fra fag-filerne, ikke en redaktionel kuratering.`,
-  };
-}).filter(Boolean);
+const NODER = graf.nodes.map((n) => (n.type === "forloeb" ? berigForloeb(n) : { ...n, r: 6 }));
+const KANTER = graf.edges.map((e) => ({ ...e }));
 
-const KANTER = [...FORK_KANTER, ...NAER_KANTER, ...SVAGE_KANTER, ...OMRAADE_KANTER];
-
-/* Start-positioner (bevaret fra original-grafen) */
+/* Start-positioner (bevaret fra original-grafen — kun forløb har håndplacerede
+   seeds; begrebs-noder finder deres plads via simulationens link-kraft) */
 const SEED = {
   "dss-v0":              [.30, .26],
   "dss-v1":              [.36, .46],
@@ -419,9 +404,13 @@ defs.append("marker").attr("id", "pil")
 const bg      = svg.append("rect").attr("x", 0).attr("y", 0)
   .attr("width", "100%").attr("height", "100%")
   .attr("fill", "transparent").style("cursor", "default");
-const gRinge  = svg.append("g");
-const gKanter = svg.append("g");
-const gNoder  = svg.append("g");
+// E-G1 §5: d3.zoom() — de tre lag flyttes ind i én transformerbar <g>.
+const zoomG   = svg.append("g").attr("class", "zoomg");
+const gRinge  = zoomG.append("g");
+const gKanter = zoomG.append("g");
+const gNoder  = zoomG.append("g");
+const zoom = d3.zoom().scaleExtent([0.4, 4]).on("zoom", (ev) => zoomG.attr("transform", ev.transform));
+svg.call(zoom).on("dblclick.zoom", null); // dobbeltklik kolliderer med fokus-klik, slået fra
 
 NODER.forEach(n => {
   const s = SEED[n.id] || [.5 + (Math.random() - .5) * .5, .5 + (Math.random() - .5) * .5];
@@ -432,57 +421,70 @@ NODER.forEach(n => {
 /* ---------- Kanter ---------- */
 function kantFarve(d) {
   if (d.type === "fork" || d.type === "naer") return "#1f3b2c";
+  if (d.type === "begreb") return "#8a7e74";
   return TYPEFARVE[d.type];
 }
-const kantSel = gKanter.selectAll("g.link").data(KANTER).join("g").attr("class", "link");
+const kantSel = gKanter.selectAll("g.link").data(KANTER).join("g")
+  .attr("class", d => "link" + (d.type === "begreb" ? " link-begreb" : ""));
 kantSel.append("line").attr("class", "synlig")
   .attr("stroke",        kantFarve)
-  .attr("stroke-width",  d => d.type === "fork" ? 2 : d.type === "naer" ? 1 : 1.4)
-  .attr("stroke-opacity",d => d.type === "fork" ? .85 : d.type === "naer" ? .28 : .55)
-  .attr("stroke-dasharray", d => (d.type === "fork" || d.type === "naer") ? null : "5 7")
+  .attr("stroke-width",  d => d.type === "fork" ? 2 : d.type === "naer" ? 1 : d.type === "begreb" ? 0.75 : 1.4)
+  .attr("stroke-opacity",d => d.type === "fork" ? .85 : d.type === "naer" ? .28 : d.type === "begreb" ? .25 : .55)
+  .attr("stroke-dasharray", d => (d.type === "fork" || d.type === "naer") ? null : d.type === "begreb" ? "2 4" : "5 7")
   .attr("stroke-linecap","round")
   .attr("marker-end",    d => d.type === "fork" ? "url(#pil)" : null);
 kantSel.append("line").attr("class", "hit");
 
 /* ---------- Noder ---------- */
 const nodeSel = gNoder.selectAll("g.node").data(NODER).join("g")
-  .attr("class", "node").style("cursor", "pointer");
+  .attr("class", d => "node" + (d.type === "begreb" ? " node-begreb" : ""))
+  .style("cursor", "pointer");
+const forloebSel = nodeSel.filter(d => d.type === "forloeb");
+const begrebSel  = nodeSel.filter(d => d.type === "begreb");
 
-nodeSel.filter(d => d.tomme && d.tomme.length)
+forloebSel.filter(d => d.tomme && d.tomme.length)
   .append("circle").attr("class", "aaben")
   .attr("r", d => d.r + 5.5).attr("fill", "none")
   .attr("stroke", "#dc9848").attr("stroke-width", 1.5)
   .attr("stroke-dasharray", "1.5 5").attr("stroke-linecap", "round").attr("opacity", .9);
 
-nodeSel.append("circle").attr("class", "kerne")
+forloebSel.append("circle").attr("class", "kerne")
   .attr("r",            d => d.r)
   .attr("fill",         d => FAG_FARVE[d.fag] || "#8a7e74")
   .attr("fill-opacity", .16)
   .attr("stroke",       d => FAG_FARVE[d.fag] || "#8a7e74")
   .attr("stroke-width", 1.6);
 
-nodeSel.filter(d => d.gen).append("text").attr("class", "gen")
+forloebSel.filter(d => d.gen).append("text").attr("class", "gen")
   .attr("text-anchor", "middle").attr("dy", "0.34em")
   .attr("fill", d => FAG_FARVE[d.fag] || "#8a7e74")
   .text(d => d.gen);
 
-nodeSel.append("text").attr("class", "navn")
+forloebSel.append("text").attr("class", "navn")
   .attr("text-anchor", "middle")
   .attr("dy", d => d.r + 18)
   .text(d => d.gen ? `${d.navn} ${d.gen}` : d.navn);
 
+// E-G1 §2 (slutarkitektur §2): begrebs-noder — små, hule, muted, med label.
+begrebSel.append("circle").attr("class", "begreb-kerne").attr("r", d => d.r);
+begrebSel.append("text").attr("class", "begreb-navn")
+  .attr("text-anchor", "middle").attr("dy", d => d.r + 13)
+  .text(d => d.navn);
+
 if (!REDUCERET) {
-  nodeSel.attr("opacity", 0).transition().delay((d, i) => 120 + i * 55).duration(450).attr("opacity", 1);
-  kantSel.attr("opacity", 0).transition().delay((d, i) => 420 + i * 45).duration(450).attr("opacity", 1);
+  // Entrance-staggeren var tunet til 14 noder; ~73 noder (14 forløb + begreber)
+  // ville give sekunders ventetid ved uændret multiplikator — kappet i stedet.
+  nodeSel.attr("opacity", 0).transition().delay((d, i) => 80 + Math.min(i, 40) * 12).duration(450).attr("opacity", 1);
+  kantSel.attr("opacity", 0).transition().delay((d, i) => 320 + Math.min(i, 40) * 10).duration(450).attr("opacity", 1);
 }
 
 /* ---------- Simulation ---------- */
 const sim = d3.forceSimulation(NODER)
   .force("link", d3.forceLink(KANTER).id(d => d.id)
-    .distance(d => d.type === "fork" ? 95 : d.type === "naer" ? 115 : 185)
-    .strength(d => d.type === "fork" ? 0.85 : d.type === "naer" ? 0.30 : 0.04))
-  .force("charge", d3.forceManyBody().strength(-380))
-  .force("collide", d3.forceCollide().radius(d => d.r + 30))
+    .distance(d => d.type === "fork" ? 95 : d.type === "naer" ? 115 : d.type === "begreb" ? 70 : 185)
+    .strength(d => d.type === "fork" ? 0.85 : d.type === "naer" ? 0.30 : d.type === "begreb" ? 0.15 : 0.04))
+  .force("charge", d3.forceManyBody().strength(d => d.type === "begreb" ? -60 : -380))
+  .force("collide", d3.forceCollide().radius(d => d.r + (d.type === "begreb" ? 12 : 30)))
   .force("fx", d3.forceX(d => d.tx).strength(d => d.sx))
   .force("fy", d3.forceY(d => d.ty).strength(d => d.sy))
   .on("tick", tegn);
@@ -535,22 +537,33 @@ function slaegt(id) {
   return fam;
 }
 
+// E-G1 (slutarkitektur §4): ring 2 er nu "delte begreber" — ægte data i stedet
+// for det gamle "samme fag"-gæt — plus nære relationer (redaktionelt "nært" er
+// samme betydningskategori). Ring 3 forbliver de øvrige svage kanttyper.
 function ringeFor(d) {
   const r1 = slaegt(d.id);
+  const begreberAfD = new Set(
+    naboKanter(d.id).filter(k => k.type === "begreb").map(k => (k.source.id === d.id ? k.target.id : k.source.id))
+  );
+  const r2 = new Set();
+  naboKanter(d.id).forEach(k => {
+    if (k.type !== "naer") return;
+    const andet = k.source.id === d.id ? k.target.id : k.source.id;
+    if (!r1.has(andet)) r2.add(andet);
+  });
+  NODER.forEach(n => {
+    if (n.type !== "forloeb" || n.id === d.id || r1.has(n.id) || r2.has(n.id)) return;
+    const delerBegreb = naboKanter(n.id).some(k =>
+      k.type === "begreb" && begreberAfD.has(k.source.id === n.id ? k.target.id : k.source.id));
+    if (delerBegreb) r2.add(n.id);
+  });
   const r3 = new Set();
   naboKanter(d.id).forEach(k => {
-    if (k.type === "plads" || k.type === "metode" || k.type === "empiri") {
-      r3.add(k.source.id === d.id ? k.target.id : k.source.id);
-    }
+    if (!["plads", "metode", "empiri", "fagplan"].includes(k.type)) return;
+    const andet = k.source.id === d.id ? k.target.id : k.source.id;
+    if (!r1.has(andet) && !r2.has(andet)) r3.add(andet);
   });
-  const r2 = new Set();
-  NODER.forEach(n => {
-    if (n.id === d.id || r1.has(n.id) || r3.has(n.id)) return;
-    const naerKant = naboKanter(d.id).some(k => k.type === "naer" &&
-      (k.source.id === n.id || k.target.id === n.id));
-    if (naerKant || n.fag === d.fag) r2.add(n.id);
-  });
-  return { r1, r2, r3 };
+  return { r1, r2, r3, begreberAfD };
 }
 
 function visFokus(d) {
@@ -558,11 +571,13 @@ function visFokus(d) {
   const cx = W * 0.42, cy = H * 0.52;
   const rMax = Math.min(W * 0.78, H) / 2 - 64;
   const R = [rMax * 0.40, rMax * 0.70, rMax];
-  const { r1, r2, r3 } = ringeFor(d);
+  const { r1, r2, r3, begreberAfD } = ringeFor(d);
   const ringe = [[...r1], [...r2], [...r3]];
 
   d.fx = cx; d.fy = cy;
-  const vist = new Set([d.id, ...r1, ...r2, ...r3]);
+  // Begrebs-noder, der forklarer HVORFOR ring 2 ser sådan ud, forbliver synlige
+  // (ikke ringmedlemmer selv, men holdes udenfor "dim" så forbindelsen ses).
+  const vist = new Set([d.id, ...r1, ...r2, ...r3, ...begreberAfD]);
 
   NODER.forEach(n => {
     if (n.id === d.id) return;
@@ -671,7 +686,7 @@ function visNodePanel(d) {
     <p>${d.om}</p>
     ${pladser}
     <a class="panel-aabn" href="${d.forloebUrl}">Åbn forløbet →</a>
-    <p class="hint">Ringene viser hvad forløbet trækker til sig: slægten inderst, det nære fag i midten, de svage forbindelser yderst. Klik på baggrunden for at slippe.</p>`;
+    <p class="hint">Ringene viser hvad forløbet trækker til sig: slægten inderst, det nære og de delte begreber i midten, de svage forbindelser yderst. Klik på baggrunden for at slippe.</p>`;
 }
 
 function visForkPanel(k) {
@@ -695,6 +710,31 @@ function visNaerPanel(k) {
     <p>${k.note}</p>`;
 }
 
+// Slutarkitektur §2: begrebs-nodens panel er et mini-dashboard — fagspredning,
+// hvor det bruges, og hvor hullerne er (gap-invitationen linker til wizardens
+// begreb-prefill, som E-G2 kobler til; ukendt param i dag, harmløst indtil da).
+let aktivBegreb = null;
+function visBegrebPanel(d) {
+  aktivBegreb = d;
+  const forbundne = naboKanter(d.id).filter(k => k.type === "begreb")
+    .map(k => NODER.find(n => n.id === (k.source.id === d.id ? k.target.id : k.source.id)))
+    .filter(Boolean);
+  const fagSet = new Set(forbundne.map(f => f.fag));
+  const alleFag = [...new Set(alle.map(f => f.fag))];
+  const manglerFag = alleFag.filter(f => !fagSet.has(f)).map(f => FAG_NAVN[f] || f);
+  panelEl.innerHTML = `
+    <p class="pkicker">Begreb${d.ung ? " · ungt" : ""}</p>
+    <h2>${d.navn}</h2>
+    <p class="meta">${forbundne.length} forløb · ${fagSet.size} fag</p>
+    <p><strong>Findes i:</strong> ${[...fagSet].map(f => FAG_NAVN[f] || f).join(", ") || "—"}</p>
+    ${manglerFag.length ? `<p><strong>Ingen forløb endnu i:</strong> ${manglerFag.slice(0, 4).join(", ")}${manglerFag.length > 4 ? " m.fl." : ""}</p>` : ""}
+    <ul style="margin:8px 0 0 1.1rem; padding:0;">
+      ${forbundne.map(f => `<li style="font-size:13px; margin-bottom:4px;"><a href="${f.forloebUrl}" style="color:var(--ink);">${f.navn}</a></li>`).join("")}
+    </ul>
+    <p class="hint">Et begreb er et tænkeobjekt: hvor rører det, og hvor er hullerne? <a class="panel-aabn" href="upload.html?wizard=1&amp;begreb=${encodeURIComponent(d.id)}">Byg det første, guidet fra kernen →</a></p>`;
+  opdaterURL();
+}
+
 function visHvorforPanel(k) {
   const a = NODER.find(n => n.id === k.source.id);
   const b = NODER.find(n => n.id === k.target.id);
@@ -713,7 +753,7 @@ function visHvorforPanel(k) {
 }
 
 /* ---------- Noget andet ---------- */
-const svage = KANTER.filter(k => k.type === "plads" || k.type === "metode" || k.type === "empiri" || k.type === "omraade");
+const svage = KANTER.filter(k => k.type === "plads" || k.type === "metode" || k.type === "empiri" || k.type === "fagplan");
 
 function spotlight(k) {
   kantSel.classed("lit",   kk => kk === k)
@@ -743,21 +783,24 @@ document.getElementById("nogetandet").addEventListener("click", nogetAndet);
 /* ---------- Interaktion ---------- */
 nodeSel.on("click", (ev, d) => {
   ev.stopPropagation();
+  if (d.type === "begreb") { visBegrebPanel(d); return; }
   if (fokus === d) { slip(); visIntro(); } else visFokus(d);
 });
 kantSel.on("click", (ev, k) => {
   ev.stopPropagation();
-  if (k.type === "fork")      visForkPanel(k);
-  else if (k.type === "naer") visNaerPanel(k);
-  else                        spotlight(k);
+  if (k.type === "fork")        visForkPanel(k);
+  else if (k.type === "naer")   visNaerPanel(k);
+  else if (k.type === "begreb") visBegrebPanel(k.source.type === "begreb" ? k.source : k.target);
+  else                          spotlight(k);
 });
-bg.on("click", () => { slip(); visIntro(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { slip(); visIntro(); } });
+bg.on("click", () => { slip(); aktivBegreb = null; visIntro(); opdaterURL(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { slip(); aktivBegreb = null; visIntro(); opdaterURL(); } });
 
 /* ---------- Tooltips ---------- */
 kantSel.on("mousemove", (ev, d) => {
   tip.textContent = d.type === "fork" ? `Forket af ${d.af} · ${d.dato} — klik for historikken`
     : d.type === "naer" ? d.note
+    : d.type === "begreb" ? "Delt begreb — klik for at udforske"
     : `${TYPENAVN[d.type]}: ${d.deler} — klik for hvorfor`;
   tip.style.left = (ev.clientX + 14) + "px";
   tip.style.top  = (ev.clientY + 10) + "px";
@@ -765,13 +808,166 @@ kantSel.on("mousemove", (ev, d) => {
 }).on("mouseleave", () => { tip.style.opacity = 0; });
 
 nodeSel.on("mousemove", (ev, d) => {
-  tip.textContent = (d.tomme && d.tomme.length)
+  tip.textContent = d.type === "begreb" ? d.navn
+    : (d.tomme && d.tomme.length)
     ? `${d.navn}${d.gen ? " " + d.gen : ""} — lader ${d.tomme.length} plads${d.tomme.length > 1 ? "er" : ""} stå åben`
     : `${d.navn}${d.gen ? " " + d.gen : ""}`;
   tip.style.left = (ev.clientX + 14) + "px";
   tip.style.top  = (ev.clientY + 10) + "px";
   tip.style.opacity = 1;
 }).on("mouseleave", () => { tip.style.opacity = 0; });
+
+/* ---------- E-G1 §2/§4/§6: lag-vælgere, URL-kontrakt, a11y-fallback ---------- */
+const filterState = { fag: new Set(), trin: new Set(), familie: new Set(), kanttype: new Set() };
+const params0 = new URLSearchParams(location.search);
+(params0.get("fag") || "").split(",").filter(Boolean).forEach(v => filterState.fag.add(v));
+(params0.get("trin") || "").split(",").filter(Boolean).forEach(v => filterState.trin.add(v));
+(params0.get("familie") || "").split(",").filter(Boolean).forEach(v => filterState.familie.add(v));
+const fokusIdFraUrl = params0.get("fokus");
+const begrebIdFraUrl = params0.get("begreb");
+
+function nodeMatcherFilter(n) {
+  if (n.type === "begreb") {
+    if (!filterState.fag.size && !filterState.trin.size && !filterState.familie.size) return true;
+    return naboKanter(n.id).some(k => {
+      const forloebId = k.source.id === n.id ? k.target.id : k.source.id;
+      const f = NODER.find(x => x.id === forloebId);
+      return f && nodeMatcherFilter(f);
+    });
+  }
+  if (filterState.fag.size && !filterState.fag.has(n.fag)) return false;
+  if (filterState.familie.size && !filterState.familie.has(n.familie)) return false;
+  if (filterState.trin.size) {
+    const traeffer = [...filterState.trin].some(t => intervallerOverlapper(n.klassetrinInterval, [Number(t), Number(t)]));
+    if (!traeffer) return false;
+  }
+  return true;
+}
+function kantMatcherFilter(k) {
+  if (filterState.kanttype.size && !filterState.kanttype.has(k.type)) return false;
+  return nodeMatcherFilter(k.source) && nodeMatcherFilter(k.target);
+}
+
+function opdaterURL() {
+  const p = new URLSearchParams();
+  if (fokus) p.set("fokus", fokus.id);
+  if (filterState.fag.size) p.set("fag", [...filterState.fag].join(","));
+  if (filterState.trin.size) p.set("trin", [...filterState.trin].join(","));
+  if (filterState.familie.size) p.set("familie", [...filterState.familie].join(","));
+  if (aktivBegreb) p.set("begreb", aktivBegreb.id);
+  history.replaceState(null, "", p.toString() ? `?${p}` : "graph.html");
+}
+
+function opdaterStatuslinje() {
+  const el = document.getElementById("filterstatus");
+  const synlige = NODER.filter(n => n.type === "forloeb" && nodeMatcherFilter(n));
+  const aktive = [];
+  if (filterState.fag.size) aktive.push([...filterState.fag].map(f => FAG_NAVN[f] || f).join(", "));
+  if (filterState.trin.size) aktive.push([...filterState.trin].sort((a, b) => a - b).map(t => `${t}. klasse`).join(", "));
+  if (filterState.familie.size) aktive.push([...filterState.familie].map(f => FAMILIER[f]?.navn || f).join(", "));
+  if (filterState.kanttype.size) aktive.push([...filterState.kanttype].map(t => TYPENAVN[t] || t).join(", "));
+  el.innerHTML = "";
+  if (!aktive.length) return;
+  el.append(`Viser ${synlige.length} af ${alle.length} forløb · ${aktive.join(" · ")}`);
+  const ryd = document.createElement("button");
+  ryd.type = "button"; ryd.className = "ryd"; ryd.textContent = "Ryd alle";
+  ryd.addEventListener("click", rydAlleFiltre);
+  el.appendChild(ryd);
+}
+
+function opdaterFallbackListe() {
+  const container = document.getElementById("fallback-indhold");
+  container.innerHTML = "";
+  const forloebNoder = NODER.filter(n => n.type === "forloeb");
+  const grupperPrFag = (liste) => {
+    const grupper = new Map();
+    liste.forEach(n => {
+      const navn = FAG_NAVN[n.fag] || n.fag;
+      if (!grupper.has(navn)) grupper.set(navn, []);
+      grupper.get(navn).push(n);
+    });
+    return grupper;
+  };
+  const tegnGruppe = (grupper, klasse) => {
+    const ul = document.createElement("ul");
+    [...grupper.entries()].sort(([a], [b]) => a.localeCompare(b, "da")).forEach(([fagNavn, noder]) => {
+      const li0 = document.createElement("li");
+      li0.innerHTML = `<strong>${fagNavn}</strong>`;
+      ul.appendChild(li0);
+      noder.forEach(n => {
+        const li = document.createElement("li");
+        if (klasse) li.className = klasse;
+        li.innerHTML = `<a href="${n.forloebUrl}">${n.navn}</a>`;
+        ul.appendChild(li);
+      });
+    });
+    return ul;
+  };
+  const matcher = forloebNoder.filter(nodeMatcherFilter);
+  const udenFor = forloebNoder.filter(n => !nodeMatcherFilter(n));
+  container.appendChild(tegnGruppe(grupperPrFag(matcher)));
+  if (udenFor.length) {
+    const h3 = document.createElement("h3");
+    h3.textContent = "Uden for filteret";
+    container.appendChild(h3);
+    container.appendChild(tegnGruppe(grupperPrFag(udenFor), "fallback-uden-for"));
+  }
+}
+
+function anvendFilter() {
+  nodeSel.classed("filterdim", d => !nodeMatcherFilter(d));
+  kantSel.classed("filterdim", d => !kantMatcherFilter(d));
+  opdaterStatuslinje();
+  opdaterFallbackListe();
+  opdaterURL();
+}
+
+function rydAlleFiltre() {
+  filterState.fag.clear(); filterState.trin.clear(); filterState.familie.clear(); filterState.kanttype.clear();
+  document.querySelectorAll("#filterbar .filter-pill").forEach(b => b.setAttribute("aria-pressed", "false"));
+  anvendFilter();
+}
+
+function lagKnap(raekkeEl, felt, vaerdi, label) {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "filter-pill";
+  b.setAttribute("aria-pressed", String(felt.has(vaerdi)));
+  b.textContent = label;
+  b.addEventListener("click", () => {
+    felt.has(vaerdi) ? felt.delete(vaerdi) : felt.add(vaerdi);
+    b.setAttribute("aria-pressed", String(felt.has(vaerdi)));
+    anvendFilter();
+  });
+  raekkeEl.appendChild(b);
+}
+
+// Fag-toggles: kun fag der faktisk har forløb i grafen (§2.2)
+const fagIdsIGraf = [...new Set(alle.map(f => f.fag))];
+const fagRaekke = document.getElementById("lag-fag");
+fagIdsIGraf.forEach(fagId => lagKnap(fagRaekke, filterState.fag, fagId, FAG_NAVN[fagId] || fagId));
+
+// Trin-toggles: distinkte klassetrin-tal på tværs af forløbene
+const trinTal = new Set();
+alle.forEach(f => { const iv = klassetrinTilInterval(f.klassetrin); if (iv) for (let k = iv[0]; k <= iv[1]; k++) trinTal.add(k); });
+const trinRaekke = document.getElementById("lag-trin");
+[...trinTal].sort((a, b) => a - b).forEach(t => lagKnap(trinRaekke, filterState.trin, String(t), `${t}. klasse`));
+
+// Familie-toggles: familien ER farven (§2.1 — lag-vælger i grafen, ikke en browse-facet)
+const familieRaekke = document.getElementById("lag-familie");
+Object.entries(FAMILIER).forEach(([noegle, def]) => {
+  if (!def.fag.some(fagId => fagIdsIGraf.includes(fagId))) return;
+  lagKnap(familieRaekke, filterState.familie, noegle, def.navn);
+});
+
+// Kanttype-toggles, inkl. begrebs-lag (§4's "NYT begrebs-lag-toggle")
+const KANTTYPE_LISTE = [
+  ["fork", "Fork"], ["naer", "Nær"], ["begreb", "Delt begreb"],
+  ["plads", "Delt åben plads"], ["metode", "Delt greb"], ["empiri", "Delt empiri"], ["fagplan", "Delt indholdsområde"],
+];
+const kanttypeRaekke = document.getElementById("lag-kanttype");
+KANTTYPE_LISTE.forEach(([type, navn]) => {
+  if (KANTER.some(k => k.type === type)) lagKnap(kanttypeRaekke, filterState.kanttype, type, navn);
+});
 
 /* ---------- Resize ---------- */
 let rto;
@@ -784,7 +980,17 @@ window.addEventListener("resize", () => {
   }, 180);
 });
 
-visIntro();
+/* ---------- Indgang: URL-kontrakten afgør start-tilstanden ---------- */
+anvendFilter();
+if (fokusIdFraUrl) {
+  const n = NODER.find(x => x.id === fokusIdFraUrl && x.type === "forloeb");
+  if (n) visFokus(n); else visIntro();
+} else if (begrebIdFraUrl) {
+  const n = NODER.find(x => x.id === begrebIdFraUrl && x.type === "begreb");
+  if (n) visBegrebPanel(n); else visIntro();
+} else {
+  visIntro();
+}
 </script>
 </body>
 </html>

@@ -103,6 +103,7 @@
     <h2>Forløbets liv</h2>
     <div id="vtrae"></div>
     <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
+    <p class="metadata" style="margin-top:0.5rem;"><a id="graf-link" href="graph.html">Se forløbet i konstellationen →</a></p>
   </section>
 
   <footer class="site-footer">
@@ -179,6 +180,7 @@
   // #54: "gem til senere" — sidste knap i hero-rækken, samme mønster som kortenes star.
   document.querySelector(".hero-handlinger").appendChild(gemKnap(f.id));
 
+  document.getElementById("graf-link").href = `graph.html?fokus=${f.id}`;
   document.getElementById("fork-knap").href = `rediger.html?fork=${f.id}`;
   document.getElementById("fork-knap-2").href = `rediger.html?fork=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
