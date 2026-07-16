@@ -8,8 +8,12 @@
 // FAMILIER internt, så de ti forbrugere der allerede "await hentForloeb()"
 // får den gratis; graph.html (som læser FAMILIER FØR den kalder hentForloeb())
 // venter selv via et lokalt "await hentFagIndex()" i sit eget script.
-// Ordret fra Folkeskoleloven §5, stk. 2 (Valdemar, 2026-07-14) — ikke egne betegnelser
-const FAMILIE_NAVN = { hum: "Humanistiske fag", natur: "Naturfag", aes: "Praktiske/musiske fag" };
+// hum/natur er ordret fra Folkeskoleloven §5, stk. 2 (Valdemar, 2026-07-14).
+// aes er bevidst IKKE ordret ("praktiske/musiske fag" i loven) — Valdemar
+// rettede 2026-07-16: "musiske" underordner reelt musik/billedkunst/håndværk
+// under en "praktisk"-ramme. Almind er ikke en statslig side og følger her
+// sin egen stemme, samme begrundelse som Kristendomskundskab → Religionskundskab.
+const FAMILIE_NAVN = { hum: "Humanistiske fag", natur: "Naturfag", aes: "Praktiske og æstetiske fag" };
 const FAMILIE_NOEGLE = { humaniora: "hum", naturfag: "natur", "praktisk-musisk": "aes" };
 
 export const FAMILIER = {};

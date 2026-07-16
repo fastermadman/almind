@@ -1,12 +1,20 @@
 {
   "id": "haandvaerk-og-design",
-  "navn": "Håndværk og design",
+  "navn": "Håndværk & design",
   "familie": "praktisk-musisk",
   "fagplan_version": "2026-06-udkast2",
   "fagplan_status": "udkast",
   "trinforloeb": [
-    { "id": "hod-3-4", "udtryk": "3.-4. klassetrin", "type": "spaend" },
-    { "id": "hod-5-6", "udtryk": "5.-6. klassetrin", "type": "spaend" }
+    {
+      "id": "hod-3-4",
+      "udtryk": "3.-4. klassetrin",
+      "type": "spaend"
+    },
+    {
+      "id": "hod-5-6",
+      "udtryk": "5.-6. klassetrin",
+      "type": "spaend"
+    }
   ],
   "indholdsomraader": [
     {
@@ -17,8 +25,16 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hod-3-4-m1", "trinforloeb": "hod-3-4", "sigte": "Arbejder med grundlæggende håndværksteknikker i skabende processer og enkle designopgaver." },
-        { "id": "hod-5-6-m1", "trinforloeb": "hod-5-6", "sigte": "Udvikler og skaber ting til et formål gennem kreativ formgivning." }
+        {
+          "id": "hod-3-4-m1",
+          "trinforloeb": "hod-3-4",
+          "sigte": "Arbejder med grundlæggende håndværksteknikker i skabende processer og enkle designopgaver."
+        },
+        {
+          "id": "hod-5-6-m1",
+          "trinforloeb": "hod-5-6",
+          "sigte": "Udvikler og skaber ting til et formål gennem kreativ formgivning."
+        }
       ]
     },
     {
@@ -29,8 +45,16 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hod-3-4-m2", "trinforloeb": "hod-3-4", "sigte": "Undersøger materialer gennem håndværksmæssig bearbejdning med omtanke for holdbarhed og spild." },
-        { "id": "hod-5-6-m2", "trinforloeb": "hod-5-6", "sigte": "Formgiver ting med fokus på materialers egenskaber og holdbarhed." }
+        {
+          "id": "hod-3-4-m2",
+          "trinforloeb": "hod-3-4",
+          "sigte": "Undersøger materialer gennem håndværksmæssig bearbejdning med omtanke for holdbarhed og spild."
+        },
+        {
+          "id": "hod-5-6-m2",
+          "trinforloeb": "hod-5-6",
+          "sigte": "Formgiver ting med fokus på materialers egenskaber og holdbarhed."
+        }
       ]
     },
     {
@@ -41,8 +65,16 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hod-3-4-m3", "trinforloeb": "hod-3-4", "sigte": "Undersøger håndværksmæssige kulturteknikker og fremstiller ting med en bestemt funktion." },
-        { "id": "hod-5-6-m3", "trinforloeb": "hod-5-6", "sigte": "Afprøver håndværksteknikker fra forskellige kulturer og udvikler ting ud fra egne designs." }
+        {
+          "id": "hod-3-4-m3",
+          "trinforloeb": "hod-3-4",
+          "sigte": "Undersøger håndværksmæssige kulturteknikker og fremstiller ting med en bestemt funktion."
+        },
+        {
+          "id": "hod-5-6-m3",
+          "trinforloeb": "hod-5-6",
+          "sigte": "Afprøver håndværksteknikker fra forskellige kulturer og udvikler ting ud fra egne designs."
+        }
       ]
     }
   ],

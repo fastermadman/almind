@@ -8,7 +8,7 @@
   display: flex; justify-content: space-between; align-items: flex-end;
   gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0;
 }
-.editor-hoved h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.4rem; }
+.editor-hoved h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.4rem; }
 .editor-hoved .intro { color: var(--muted); max-width: 56ch; }
 .editor-knapper { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 

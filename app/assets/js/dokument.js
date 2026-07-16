@@ -2,7 +2,7 @@
 // renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, faseBogstav, materialetypeNavn } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn } from "./data.js";
 
 const CALLOUT_TITLER = {
   valg: "Didaktisk valg",
@@ -146,10 +146,11 @@ export function renderDokument(f, tilstand = "laerer") {
 
   // Faser
   (f.faser || []).forEach((fase, i) => {
-    // "Fase A" alene hvis fasen ikke har fået sin egen titel endnu —
-    // ingen tomt ": " efter bogstavet.
+    // "Fase 1" alene hvis fasen ikke har fået sin egen titel endnu —
+    // ingen tomt ": " efter tallet. Numerisk (Valdemar, 2026-07-16) — matcher
+    // nu sequence.html, som allerede viste "Fase 1 af N" i stedet for bogstaver.
     ark.appendChild(tekstEl("h2", null,
-      fase.titel ? `Fase ${faseBogstav(i)}: ${fase.titel}` : `Fase ${faseBogstav(i)}`));
+      fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
 

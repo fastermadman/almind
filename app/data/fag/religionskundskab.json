@@ -1,0 +1,121 @@
+{
+  "id": "religionskundskab",
+  "navn": "Religionskundskab",
+  "familie": "humaniora",
+  "fagplan_version": "2026-06-udkast2",
+  "fagplan_status": "udkast",
+  "trinforloeb": [
+    {
+      "id": "kri-1-3",
+      "udtryk": "1.-3. klassetrin",
+      "type": "spaend"
+    },
+    {
+      "id": "kri-4-6",
+      "udtryk": "4.-6. klassetrin",
+      "type": "spaend"
+    },
+    {
+      "id": "kri-7-9",
+      "udtryk": "7.-9. klassetrin",
+      "type": "spaend"
+    }
+  ],
+  "indholdsomraader": [
+    {
+      "id": "kri-eksistens-etik-og-livsfilosofi",
+      "navn": "Eksistens, etik og livsfilosofi",
+      "sigte": "Eksistentielle spørgsmål, etisk argumentation og livsfilosofiens åbne spørgsmål om menneskelivet.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        {
+          "id": "kri-1-3-m1",
+          "trinforloeb": "kri-1-3",
+          "sigte": "Deltager i filosofiske samtaler om hverdagsnære eksistentielle spørgsmål og etiske valg."
+        },
+        {
+          "id": "kri-4-6-m1",
+          "trinforloeb": "kri-4-6",
+          "sigte": "Deltager i filosofiske samtaler og bruger faglige begreber om etiske dilemmaer."
+        },
+        {
+          "id": "kri-7-9-m1",
+          "trinforloeb": "kri-7-9",
+          "sigte": "Forholder sig til etiske og eksistentielle problemstillinger ud fra forskellige positioner."
+        }
+      ]
+    },
+    {
+      "id": "kri-kristendom",
+      "navn": "Kristendom",
+      "sigte": "Kristendommens oprindelse og betydning for det sociale, kulturelle og politiske liv i Danmark og Europa.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        {
+          "id": "kri-1-3-m2",
+          "trinforloeb": "kri-1-3",
+          "sigte": "Taler om kristendommens grundtanker og udtrykker sig kreativt om symboler og hovedpersoner."
+        },
+        {
+          "id": "kri-4-6-m2",
+          "trinforloeb": "kri-4-6",
+          "sigte": "Undersøger brudflader og udvikling i kristendommens historie."
+        },
+        {
+          "id": "kri-7-9-m2",
+          "trinforloeb": "kri-7-9",
+          "sigte": "Analyserer kristendommens historiske udvikling og nutidige betydning gennem dens aftryk i kultur og samfund."
+        }
+      ]
+    },
+    {
+      "id": "kri-bibelske-fortaellinger-og-deres-spor",
+      "navn": "Bibelske fortællinger og deres spor",
+      "sigte": "Fortolkning af centrale bibelske fortællinger og deres spor i kultur og samfund før og nu.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [],
+      "maal": [
+        {
+          "id": "kri-1-3-m3",
+          "trinforloeb": "kri-1-3",
+          "sigte": "Deltager i samtaler om grundtemaer i bibelske fortællinger og udtrykker sig kreativt om deres spor."
+        },
+        {
+          "id": "kri-4-6-m3",
+          "trinforloeb": "kri-4-6",
+          "sigte": "Går på opdagelse i bibelske fortællingers aftryk i kunst, sprog og kultur."
+        },
+        {
+          "id": "kri-7-9-m3",
+          "trinforloeb": "kri-7-9",
+          "sigte": "Analyserer og fortolker bibelske fortællinger og deres spor i kultur, etik og samfund."
+        }
+      ]
+    },
+    {
+      "id": "kri-andre-religioner-og-livsopfattelser",
+      "navn": "Andre religioner og livsopfattelser",
+      "sigte": "Fortolkning og forståelse af tekster, ritualer og materielle udtryk fra forskellige religioner og livsopfattelser — gælder kun 7.-9. klassetrin.",
+      "relation": "sideordnet",
+      "faelles_med": [],
+      "trinforloeb": [
+        "kri-7-9"
+      ],
+      "maal": [
+        {
+          "id": "kri-7-9-m4",
+          "trinforloeb": "kri-7-9",
+          "sigte": "Analyserer og fortolker udtryk fra verdensreligioner og livsopfattelser gennem komparative undersøgelser."
+        }
+      ]
+    }
+  ],
+  "noegleideer": [],
+  "kanon": null,
+  "valgfag_af": null
+}

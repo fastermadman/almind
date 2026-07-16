@@ -12,6 +12,7 @@ body {
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.6;
+  overflow-wrap: break-word; /* lange enkeltord (fagnavne m.m.) bryder frem for at stikke ud af kort/bokse */
 }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
@@ -54,12 +55,13 @@ img, svg { display: block; max-width: 100%; }
   color: var(--accent);
   text-decoration: none;
   line-height: 1;
+  text-align: center;
 }
 .logo small {
   display: block;
   font-family: var(--font-marauder);
   font-variation-settings: 'opsz' 6, 'wght' 400;
-  font-size: 0.29em;   /* em relativt til .logo — matcher wm-navn/wm-linje-ratioen */
+  font-size: 0.336em;   /* em relativt til .logo — justeret (ikke kerning) så bredden matcher "almind"-ordmærket */
   letter-spacing: 0.01em;
   text-transform: lowercase;
   color: var(--ink);
@@ -201,7 +203,7 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 0.8rem;
 }
 .hero h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz);
   font-weight: 600;
   font-size: clamp(1.9rem, 4vw, 2.7rem);
   line-height: 1.15;
@@ -209,7 +211,7 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 0.35rem;
 }
 .hero .undertitel {
-  font-family: var(--font-display); font-weight: 500;
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 500;
   font-size: 1.15rem; color: var(--muted); margin-bottom: 1rem;
 }
 .hero p.beskrivelse { margin-bottom: 1.5rem; max-width: 46ch; }
@@ -325,9 +327,12 @@ img, svg { display: block; max-width: 100%; }
 /* Tags skal ligge OVEN PÅ titlens strakte link for stadig at kunne klikkes selv */
 .kort-tags a { position: relative; z-index: 1; }
 .kort-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+/* PRØVE (2026-07-16): Bricolage i stedet for Marauder Text — "forløb som egen
+   kategori", samme skrift som .ark-titel (print) og kommende sequence.html-titel,
+   til sammenligning før Valdemar beslutter sig. */
 .kort h3 {
-  font-family: var(--font-display);
-  font-weight: 600; font-size: 1.18rem; line-height: 1.3;
+  font-family: var(--font-logo);
+  font-weight: 500; font-size: 1.18rem; line-height: 1.3;
   margin-bottom: 0.45rem;
 }
 .kort .kort-beskrivelse {
@@ -355,26 +360,6 @@ img, svg { display: block; max-width: 100%; }
   padding: 0.14rem 0.6rem;
   background: color-mix(in srgb, var(--fagfarve) 6%, transparent);
 }
-
-/* ---------- Fagfamilie-bånd ---------- */
-.fagbaand {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: var(--r-modal);
-  overflow: hidden;
-  margin: 0 0 2.5rem;
-}
-.fagfelt {
-  background: var(--surface);
-  padding: 1.1rem 1.3rem;
-  text-decoration: none; color: var(--ink);
-  border-top: 4px solid var(--fagfarve);
-  transition: background 0.15s;
-}
-.fagfelt:hover { background: color-mix(in srgb, var(--fagfarve) 5%, var(--surface)); }
-.fagfelt .fagnavn { font-family: var(--font-display); font-weight: 600; font-size: 1.18rem; line-height: 1.3; }
-.fagfelt .fagantal { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst); margin-top: 0.5rem; }
 
 /* ---------- Facetter (browse) — fag/klassetrin/omfang, E.3b ---------- */
 .facetraekke { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.25rem 0 1rem; }
@@ -455,12 +440,16 @@ img, svg { display: block; max-width: 100%; }
   padding: 1.5rem; margin-bottom: 2rem; text-align: center;
 }
 .fork-afslutning p { font-family: var(--font-ui); color: var(--muted); margin-bottom: 0.9rem; }
+/* Bricolage, ikke Marauder — forløbets EGEN titel er del af "forløb som
+   kategori"-registret (matcher .kort h3 og print .ark-titel), ikke platformens
+   fortællestemme. Undertitlen beholder Marauder bevidst: en sekundær linje,
+   der "kommenterer" titlen i platformens stemme. */
 .detalje-hoved h1 {
-  font-family: var(--font-display); font-weight: 600;
+  font-family: var(--font-logo); font-weight: 600;
   font-size: clamp(1.7rem, 3.5vw, 2.3rem); line-height: 1.2;
   margin: 0.6rem 0 0.4rem;
 }
-.detalje-hoved .undertitel { font-family: var(--font-display); color: var(--muted); font-size: 1.1rem; margin-bottom: 0.9rem; }
+.detalje-hoved .undertitel { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); color: var(--muted); font-size: 1.1rem; margin-bottom: 0.9rem; }
 .detalje-hoved .metadata { margin-bottom: 1.4rem; }
 
 /* E.6: eksemplarisk_centrum — obligatorisk Klafki-felt, fik ingen læser-side
@@ -588,7 +577,7 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- Faser ---------- */
 .fase { margin-bottom: 2rem; }
 .fase h3 {
-  font-family: var(--font-display); font-weight: 600; font-size: 1.25rem;
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 .fase .fase-nr {
@@ -613,7 +602,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
   margin-bottom: 0.4rem;
 }
-.wizard h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.5rem; }
+.wizard h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.5rem; }
 .wizard .intro { color: var(--muted); margin-bottom: 2rem; max-width: 56ch; }
 
 .felt { margin-bottom: 2.3rem; }
@@ -885,13 +874,12 @@ img, svg { display: block; max-width: 100%; }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding: 1.75rem 1.5rem; gap: 1.75rem; }
   .to-kolonner { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-  .fagbaand { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
   body { font-size: 1rem; }
+  .container { padding: 0 1.75rem; }
   .site-header { gap: 0.75rem; }
   .soegefelt { max-width: none; }
-  .fagbaand { grid-template-columns: 1fr; }
   .ark { padding: 1.5rem 1.25rem; }
   .ark-kolofon { flex-direction: column; }
   .ark-dg { text-align: left; }
@@ -1014,4 +1002,175 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
   .daekningskort { grid-template-columns: 1fr; }
   .facetraekke .mini-felt { min-width: 0; width: 100%; }
   .facetraekke select { width: 100%; }
+}
+
+/* ---------- Forsiden som bogomslag (landingpage-redesign, issue #40) ---------- */
+/* .omslag er en full-bleed sektion udenfor .container — den bærer selv baggrund
+   og farve, en indre .container centrerer indholdet i normal sidebredde. */
+.omslag { background: var(--accent); color: var(--bg); }
+.omslag-forside { border-bottom: 1px solid color-mix(in srgb, var(--bg) 15%, var(--accent)); }
+.omslag-bagside { border-top: 1px solid color-mix(in srgb, var(--bg) 15%, var(--accent)); padding: 3.5rem 0; }
+
+/* Knapper på mørk bund: samme .knap/.knap.sekundaer-markup, farverne vendes om */
+.omslag .knap { background: var(--bg); color: var(--accent); border-color: var(--bg); }
+.omslag .knap:hover { background: transparent; color: var(--bg); }
+.omslag .knap.sekundaer { background: transparent; color: var(--bg); border-color: var(--bg); }
+.omslag .knap.sekundaer:hover { background: var(--bg); color: var(--accent); }
+
+.omslag-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 2.5rem;
+  align-items: center;
+  padding: 4rem 0 3rem;
+}
+.omslag-eyebrow {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--bg) 75%, var(--accent));
+  margin-bottom: 0.8rem;
+}
+.omslag-hero h1 {
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.12; letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+.omslag-lead { max-width: 46ch; color: color-mix(in srgb, var(--bg) 90%, var(--accent)); margin-bottom: 1.75rem; }
+.omslag-hero .hero-handlinger { margin-bottom: 0; }
+.trae-billedtekst {
+  margin-top: 0.75rem;
+  font-family: var(--font-ui); font-size: 0.85rem;
+  color: color-mix(in srgb, var(--bg) 75%, var(--accent));
+}
+
+/* Genealogi-træet på omslaget: lyse streger (prægning), fagfarve kun på aktiv node */
+.omslag .trae-gren { stroke: color-mix(in srgb, var(--bg) 45%, var(--accent)); }
+.omslag .trae-node circle, .omslag .trae-node rect { stroke: var(--bg); }
+.omslag .trae-node.aktiv circle { fill: var(--fagfarve, var(--bg)); }
+.omslag .trae-node.aktiv rect { fill: color-mix(in srgb, var(--fagfarve, var(--bg)) 20%, var(--accent)); stroke-width: 3; }
+.omslag .trae-node:hover circle, .omslag .trae-node:focus circle { fill: var(--fagfarve, var(--bg)); }
+.omslag .trae-node text { fill: var(--bg); }
+.omslag .trae-node .node-navn, .omslag .trae-node .node-meta { fill: color-mix(in srgb, var(--bg) 75%, var(--accent)); }
+.omslag .trae-badge-ramme { fill: color-mix(in srgb, var(--bg) 14%, var(--accent)); stroke: var(--bg); }
+.omslag .trae-badge { fill: var(--bg); }
+
+.omslag-hvorfor { max-width: 640px; padding: 1rem 0 4rem; }
+.omslag-hvorfor h2 {
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  margin-bottom: 1.25rem;
+}
+.omslag-hvorfor p { max-width: 56ch; color: color-mix(in srgb, var(--bg) 90%, var(--accent)); margin-bottom: 1rem; }
+.omslag-hvorfor p:last-child { margin-bottom: 0; }
+
+.omslag-anker { max-width: 640px; text-align: center; margin: 0 auto; }
+.omslag-anker h2 { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.9rem; }
+.omslag-anker p { color: color-mix(in srgb, var(--bg) 90%, var(--accent)); }
+.fakta-raekke {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.8rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--bg) 78%, var(--accent));
+  margin-top: 1rem;
+}
+.omslag-status { max-width: 60ch; text-align: center; margin: 3rem auto 0; }
+.omslag-status p { color: color-mix(in srgb, var(--bg) 90%, var(--accent)); margin-bottom: 1.25rem; }
+
+/* Sektionsintro-afsnit (papir-delen) */
+.sektion-intro { max-width: 60ch; color: var(--muted); margin: -0.4rem 0 1.5rem; }
+
+/* S3: principkort — bevidst ikke klikbare, ingen hover-løft (adskiller dem fra forløbskort) */
+.princip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.princip-kort {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-kort);
+  padding: 1.5rem 1.6rem;
+}
+.princip-kort .label {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.6rem;
+}
+.princip-kort h3 {
+  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.1rem;
+  line-height: 1.3; margin-bottom: 0.5rem;
+}
+.princip-kort p { font-size: 0.92rem; }
+
+/* S4: fag-oversigt — 2 rækker × 3 kolonner, hver kolonne en vertikal
+   kort-stak (Valdemar, 2026-07-16). Kolonnebredden matcher .kortgrid
+   (samme minmax(290px,1fr)) med vilje, jf. komponenter.js's kommentar. */
+.fag-oversigt { margin-bottom: 2.5rem; }
+.fag-raekke {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(290px, 1fr));
+  gap: 1.5rem;
+}
+.fag-raekke + .fag-raekke { margin-top: 1.5rem; }
+.fag-gruppe-titel {
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+.fag-stak { display: flex; flex-direction: column; gap: 0.9rem; }
+/* Fagfarven fylder hele kortet (Valdemar, 2026-07-16) — "papir-midtens" eget
+   farvemoment, jf. landingpage-planens §5b ("her ejer indholdet farven").
+   Hvid skrift på fagfarve består AA på alle tre farver (verificeret: hum
+   5.3:1, natur 15.7:1, aes 11.3:1 — svageste stadig over 4.5:1-kravet). */
+.fag-felt {
+  display: block;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--r-knap);
+  background: var(--fagfarve);
+  text-decoration: none; color: var(--bg);
+  transition: background 0.15s;
+}
+.fag-felt:hover { background: color-mix(in srgb, var(--fagfarve) 85%, white); }
+/* Bricolage Grotesque bold (--font-logo — samme font som .ark-titel/.ark h2,
+   forløbenes eget dokument-titel-register), ikke Jost: de farvefyldte kort
+   skal have samme sprælske vægt som resten af sitets titler, ikke UI-labels
+   register. Størrelse tunet (ikke gættet) til at holde "modersmålsundervisning"
+   på én linje ved kolonnens smalleste bredde (290px) — se verifikation i browser. */
+.fag-felt .navn { font-family: var(--font-logo); font-weight: 600; font-size: 1rem; text-transform: lowercase; }
+.fag-felt .antal { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: color-mix(in srgb, var(--bg) 78%, var(--fagfarve)); margin-top: 0.4rem; }
+.fag-felt .antal.tom { color: var(--bg); }
+/* Øvrige/særlige fag: neutral fyld, ikke den (i dag forkerte) humaniora-farve
+   — se almind-dev#67. --muted alene er for lys til hvid skrift (kun 3.9:1,
+   den er kalibreret som tekstfarve mod --bg, ikke som baggrund) — mørknet
+   med --ink for at bestå AA (verificeret 7.7:1). */
+.fag-felt--neutral { background: color-mix(in srgb, var(--ink) 55%, var(--muted)); }
+.fag-felt--neutral:hover { background: color-mix(in srgb, var(--ink) 45%, var(--muted)); }
+.fag-felt--neutral .antal { color: color-mix(in srgb, var(--bg) 78%, var(--ink)); }
+.fag-felt--neutral .antal.tom { color: var(--bg); }
+@media (max-width: 975px) {
+  .fag-raekke { grid-template-columns: 1fr; }
+  /* margin-top holdes på 1.5rem (samme værdi som gap) — hver .fag-raekke er
+     sit eget grid, så gap'et fra ovenfor IKKE fortsætter automatisk hertil;
+     uden denne ville sømmen mellem to rækker mangle luft (fundet 2026-07-16). */
+}
+
+/* S5: tre-trins-rækken */
+.trin-raekke {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+.trin { border-top: 1px solid var(--border); padding-top: 1.25rem; }
+.trin .trin-tal { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 2rem; color: var(--muted); margin-bottom: 0.5rem; }
+.trin h3 { font-family: var(--font-ui); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.4rem; }
+.trin p { font-size: 0.92rem; margin-bottom: 0.6rem; }
+.trin a { font-family: var(--font-ui); font-weight: 600; font-size: 0.88rem; text-decoration: none; color: var(--accent); }
+.trin a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .omslag-hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
+  .trin-raekke { grid-template-columns: 1fr; gap: 1.75rem; }
 }

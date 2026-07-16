@@ -1,184 +1,184 @@
 [
- {
-  "id": "boernehaveklassen",
-  "navn": "Børnehaveklassen",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "dansk",
-  "navn": "Dansk",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "dsa-basis",
-  "navn": "Dansk som andetsprog, basis",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "dsa-supplerende",
-  "navn": "Dansk som andetsprog, supplerende",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "engelsk",
-  "navn": "Engelsk",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "historie",
-  "navn": "Historie",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "kristendomskundskab",
-  "navn": "Kristendomskundskab",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "modersmaalsundervisning",
-  "navn": "Modersmålsundervisning",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "samfundsfag",
-  "navn": "Samfundsfag",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "biologi",
-  "navn": "Biologi",
-  "familie": "naturfag",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "fysik-kemi",
-  "navn": "Fysik/kemi",
-  "familie": "naturfag",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "geografi",
-  "navn": "Geografi",
-  "familie": "naturfag",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "matematik",
-  "navn": "Matematik",
-  "familie": "naturfag",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "natur-teknologi",
-  "navn": "Natur/teknologi",
-  "familie": "naturfag",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "billedkunst",
-  "navn": "Billedkunst",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "billedkunst-valgfag",
-  "navn": "Billedkunst (valgfag)",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "fransk",
-  "navn": "Fransk",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "haandvaerk-og-design",
-  "navn": "Håndværk og design",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "haandvaerk-og-design-valgfag",
-  "navn": "Håndværk og design (valgfag)",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "idraet",
-  "navn": "Idræt",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "madkundskab",
-  "navn": "Madkundskab",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "madkundskab-valgfag",
-  "navn": "Madkundskab (valgfag)",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "musik",
-  "navn": "Musik",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "musik-valgfag",
-  "navn": "Musik (valgfag)",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "teknologiforstaaelse-valgfag",
-  "navn": "Teknologiforståelse (valgfag)",
-  "familie": "praktisk-musisk",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- },
- {
-  "id": "tysk",
-  "navn": "Tysk",
-  "familie": "humaniora",
-  "fagplan_version": "2026-06-udkast2",
-  "har_fagplan": true
- }
+  {
+    "id": "boernehaveklassen",
+    "navn": "Børnehaveklassen",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "dansk",
+    "navn": "Dansk",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "dsa-basis",
+    "navn": "Dansk som andetsprog, basis",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "dsa-supplerende",
+    "navn": "Dansk som andetsprog, supplerende",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "engelsk",
+    "navn": "Engelsk",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "historie",
+    "navn": "Historie",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "religionskundskab",
+    "navn": "Religionskundskab",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "modersmaalsundervisning",
+    "navn": "Modersmålsundervisning",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "samfundsfag",
+    "navn": "Samfundsfag",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "biologi",
+    "navn": "Biologi",
+    "familie": "naturfag",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "fysik-kemi",
+    "navn": "Fysik & kemi",
+    "familie": "naturfag",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "geografi",
+    "navn": "Geografi",
+    "familie": "naturfag",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "matematik",
+    "navn": "Matematik",
+    "familie": "naturfag",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "natur-teknologi",
+    "navn": "Natur & teknologi",
+    "familie": "naturfag",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "billedkunst",
+    "navn": "Billedkunst",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "billedkunst-valgfag",
+    "navn": "Billedkunst (valgfag)",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "fransk",
+    "navn": "Fransk",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "haandvaerk-og-design",
+    "navn": "Håndværk & design",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "haandvaerk-og-design-valgfag",
+    "navn": "Håndværk & design (valgfag)",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "idraet",
+    "navn": "Idræt",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "madkundskab",
+    "navn": "Madkundskab",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "madkundskab-valgfag",
+    "navn": "Madkundskab (valgfag)",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "musik",
+    "navn": "Musik",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "musik-valgfag",
+    "navn": "Musik (valgfag)",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "teknologiforstaaelse-valgfag",
+    "navn": "Teknologiforståelse (valgfag)",
+    "familie": "praktisk-musisk",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  },
+  {
+    "id": "tysk",
+    "navn": "Tysk",
+    "familie": "humaniora",
+    "fagplan_version": "2026-06-udkast2",
+    "har_fagplan": true
+  }
 ]

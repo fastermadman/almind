@@ -1,6 +1,6 @@
 // Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
 
-import { familieFor, fagNavn, FAMILIER, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition, klassetrinTilInterval } from "./data.js";
+import { familieFor, fagNavn, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition, klassetrinTilInterval } from "./data.js";
 
 // "8 lektioner" / "Enkelt lektion" / "Forløb" (uspecificeret længde) —
 // browse-planens §3: at filtrere på omfang uden at vise det er en synlig selvmodsigelse.
@@ -110,26 +110,82 @@ export function pladsFold(f, plads) {
   return d;
 }
 
-export function fagBaand(alle) {
-  const wrap = document.createElement("div");
-  wrap.className = "fagbaand";
-  const taellinger = {};
-  for (const fam of Object.keys(FAMILIER)) taellinger[fam] = 0;
-  alle.forEach((f) => taellinger[familieFor(f.fag)]++);
-  for (const [fam, def] of Object.entries(FAMILIER)) {
-    const a = document.createElement("a");
-    a.className = "fagfelt";
-    a.dataset.fag = fam;
-    // Familie er igen en browse.html-facet (taksonomi-shape D4.2, dateret
-    // genåbning af arkitektur 7.2 — søgeintentionen er nu dokumenteret).
-    a.href = `browse.html?familie=${fam}`;
-    // Den fulde fagliste (11+ navne pr. familie) er støj, ikke information —
-    // familien selv + antal er nok til at orientere (Valdemar, 2026-07-14).
-    a.innerHTML = `
-      <div class="fagnavn">${def.navn}</div>
-      <div class="fagantal">${taellinger[fam]} forløb &rarr;</div>
-    `;
-    wrap.appendChild(a);
-  }
-  return wrap;
+// Forsidens fag-oversigt: 2 rækker × 3 kolonner, hver kolonne en vertikal
+// liste (Valdemar, 2026-07-16 — erstatter en tidligere kort-grid-udgave, som
+// gav uens kortbredde mellem grupper og fik lange fagnavne til at knække
+// grimt midt i ordet). Redaktionel inddeling til forsiden alene — ikke
+// fagfamilie-feltet (arkitektur 7.2: familie er kun farve). Praktiske og
+// Kreative er slået sammen til "Praktiske & æstetiske fag" (samme navnevalg
+// som FAMILIE_NAVN.aes i data.js, kun med "&" for konsekvens med sidens andre
+// fagnavne) — giver desuden en pæn 5/5/3-symmetri i begge rækker.
+const FAG_RAEKKER = [
+  [
+    { navn: "Sprogfag", fag: ["dansk", "engelsk", "tysk", "fransk", "modersmaalsundervisning"] },
+    { navn: "Naturfag", fag: ["matematik", "fysik-kemi", "natur-teknologi", "geografi", "biologi"] },
+    { navn: "Kulturfag", fag: ["historie", "samfundsfag", "religionskundskab"] },
+  ],
+  [
+    // Praktiske & æstetiske fag / Valgfag deler rækkefølge for de fire fag,
+    // der findes i begge udgaver (musik, billedkunst, håndværk & design,
+    // madkundskab) — en lærer der underviser i den obligatoriske udgave,
+    // underviser ofte også i valgfagsudgaven, så samme række = samme fag.
+    // idræt og teknologiforståelse har ingen modpart i den anden kolonne og
+    // deler bevidst den øverste, umatchede række (Valdemar, 2026-07-16).
+    { navn: "Praktiske & æstetiske fag", fag: ["idraet", "musik", "billedkunst", "haandvaerk-og-design", "madkundskab"] },
+    {
+      navn: "Valgfag",
+      fag: ["teknologiforstaaelse-valgfag", "musik-valgfag", "billedkunst-valgfag", "haandvaerk-og-design-valgfag", "madkundskab-valgfag"],
+      valgfag: true,
+    },
+    { navn: "Øvrige / særlige fag", fag: ["dsa-basis", "dsa-supplerende", "boernehaveklassen"], neutral: true },
+  ],
+];
+
+// "(valgfag)"-suffikset er nødvendigt i fag-index.json (adskiller fra den
+// obligatoriske udgave i flade lister som wizard/browse-facetten), men
+// redundant her, hvor kolonnens egen overskrift "Valgfag" allerede siger det.
+// Kun et visningstrick — selve navn-feltet i data røres ikke.
+function stripValgfagSuffiks(navn) {
+  return navn.replace(/\s*\(valgfag\)$/, "");
+}
+
+function fagFeltKort(fag, alle, kolonne) {
+  const antal = alle.filter((f) => f.fag === fag.id).length;
+  const a = document.createElement("a");
+  a.className = "fag-felt" + (kolonne.neutral ? " fag-felt--neutral" : "");
+  a.dataset.fag = familieFor(fag.id);
+  a.href = `fag.html?id=${fag.id}`;
+  const visningsnavn = kolonne.valgfag ? stripValgfagSuffiks(fag.navn) : fag.navn;
+  a.innerHTML = `
+    <span class="navn">${visningsnavn}</span>
+    <span class="antal${antal ? "" : " tom"}">${antal ? `${antal} forløb` : "Vær den første"}</span>
+  `;
+  return a;
+}
+
+// Kolonnebredden matcher .kortgrid (samme minmax(290px,1fr)-logik som
+// forløbskortene i S6) — fagkort og forløbskort skal læses som samme
+// slags objekt. Skriftstørrelsen på .fag-felt .navn er tunet i CSS til
+// præcis at holde "modersmålsundervisning" på én linje ved kolonnens
+// smalleste bredde (290px); alle andre fagnavne bruger samme størrelse.
+export function fagGrid(fagIndex, alle) {
+  const oversigt = document.createElement("div");
+  oversigt.className = "fag-oversigt";
+  FAG_RAEKKER.forEach((raekke) => {
+    const raekkeEl = document.createElement("div");
+    raekkeEl.className = "fag-raekke";
+    raekke.forEach((kolonne) => {
+      const fagListe = kolonne.fag.map((id) => fagIndex.find((f) => f.id === id)).filter(Boolean);
+      const kolonneEl = document.createElement("div");
+      kolonneEl.className = "fag-kolonne";
+      kolonneEl.innerHTML = `<h3 class="fag-gruppe-titel">${kolonne.navn}</h3>`;
+      const stak = document.createElement("div");
+      stak.className = "fag-stak";
+      fagListe.forEach((fag) => stak.appendChild(fagFeltKort(fag, alle, kolonne)));
+      kolonneEl.appendChild(stak);
+      raekkeEl.appendChild(kolonneEl);
+    });
+    oversigt.appendChild(raekkeEl);
+  });
+  return oversigt;
 }

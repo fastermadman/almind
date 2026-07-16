@@ -36,12 +36,12 @@ assets/css + assets/js     tokens, komponenter, 6 små ES-moduler, ingen framewo
 
 ## Designbeslutninger implementeret
 
-Neutral base + fire fagfarver (bordeaux #8a2e3e for æstetik), neutralt logo, ingen femte platformfarve. Bricolage Grotesque (logo), Jost (UI), Atkinson Hyperlegible Next (al brødtekst), Noto Serif (udskolingsoverskrifter), mono-fallback for Drafting Mono. Ingen em-tankestreger i UI. Motion: moderat, fork-træet tegner sig selv, prefers-reduced-motion respekteret overalt. Preview-callouts er tro mod Typst-systemets egne farver.
+Neutral base + fire fagfarver (bordeaux #8a2e3e for æstetik), neutralt logo, ingen femte platformfarve. **Typografi revideret 2026-07-16, se DESIGN.md's Typography-afsnit for den fulde regel:** Marauder (selvhostet, to snit via `opsz`-variabel-akse — Caption kun til logoet, Text til alle narrative overskrifter, afløste Noto Serif sitewide), Bricolage Grotesque ("forløb som egen kategori" + fag-kort-labels — IKKE logoet, trods `--font-logo`-tokennavnet), Jost (UI), Atkinson Hyperlegible Next (al brødtekst), mono-fallback for Drafting Mono. Ingen em-tankestreger i UI. Motion: moderat, fork-træet tegner sig selv, prefers-reduced-motion respekteret overalt. Preview-callouts er tro mod Typst-systemets egne farver.
 
 ## Kendte begrænsninger
 
 1. Drafting Mono loades ikke (woff2 skal selvhostes); ui-monospace som fallback.
-2. Marauder og No Tears er ikke i brug: alle seed-forløb er udskoling. Indskolings-preview er fase 2.
+2. **Forældet (rettet 2026-07-16):** Marauder er nu i brug sitewide (logo + alle narrative overskrifter, se DESIGN.md). No Tears er stadig ikke i brug: alle seed-forløb er udskoling. Indskolings-preview er fase 2.
 3. Alle 23 destillater medfølger nu (E.2, 2026-07-11) — kopieret fra `50_Almind/Almind-Wizard/destillater/`, manifest.json udvidet tilsvarende.
 4. Wizard-kladden bor i sessionStorage: den overlever genindlæsning men ikke lukket fane. Demo-vilkår.
 5. Bordeaux-tekstvarianten #5a1e2a er ikke formelt kontrasttjekket endnu.

@@ -3,44 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Almind · Forløb der lever videre</title>
+  <title>Almind · Her bliver Fagfornyelsen til undervisning</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/almind.css">
 </head>
 <body>
+
+<div class="container">
+  <header class="site-header" data-aktiv="forside"></header>
+</div>
+
+<section class="omslag omslag-forside" id="omslag-forside">
+  <div class="container omslag-hero">
+    <div class="hero-tekst">
+      <div class="omslag-eyebrow">Bygget til Fagfornyelsen · skoleåret 2027/28</div>
+      <h1>Her bliver Fagfornyelsen til undervisning</h1>
+      <p class="omslag-lead">De nye fagplaner giver lærerne friheden til selv at udfylde det didaktiske rum. Almind er den fælles jord, hvor lærere og lærerstuderende gør friheden til konkrete forløb: åbne, forgrenede og ejet af fællesskabet.</p>
+      <div class="hero-handlinger">
+        <a class="knap" href="#fag">Find forløb til dit fag</a>
+        <a class="knap sekundaer" href="sequence.html?id=dss-v1">Se et forløb der lever</a>
+      </div>
+    </div>
+    <div>
+      <div class="trae-ramme" id="hero-trae"></div>
+      <p class="trae-billedtekst">Den Svære Samtale · ét forløb, tre versioner, fire forfattere. Klik på en version.</p>
+    </div>
+  </div>
+
+  <div class="container omslag-hvorfor">
+    <h2>Frihed uden fælles jord er en byrde</h2>
+    <p>De nye fagplaner erstatter detaljerede mål med få og giver rummet tilbage til læreren.</p>
+    <p>Men hvert år forsvinder gennemtænkte, afprøvede forløb, når læreren skifter job, og der findes intet fælles sted at lade dem leve videre.</p>
+    <p>Almind er det sted. Ikke et arkiv man downloader fra, men et fællesskab der bygger videre. Almind erstatter hverken mitCFU, UC Viden eller skolens læringsplatform. Det er laget ovenpå, hvor materialerne bearbejdes, forgrenes og lever videre.</p>
+  </div>
+</section>
+
 <div class="container">
 
-  <header class="site-header" data-aktiv="forside"></header>
-
-  <section class="hero" id="hero" data-fag="hum" aria-label="Fremhævet forløb">
-    <div class="hero-tekst">
-      <div class="hero-eyebrow" id="hero-eyebrow"></div>
-      <h1 id="hero-titel"></h1>
-      <div class="undertitel" id="hero-undertitel"></div>
-      <p class="beskrivelse" id="hero-beskrivelse">
-        Et forløb der har levet tre liv: skabt på EMU, redidaktiseret til en konkret 8. klasse,
-        gjort tilgængeligt for alle læsere. Klik på en version og se hvad der ændrede sig.
-      </p>
-      <div class="hero-handlinger">
-        <a class="knap fag" id="hero-aabn" href="#">Åbn forløbet</a>
-        <a class="knap sekundaer" id="hero-fork" href="#">Fork</a>
-      </div>
-      <blockquote class="hero-citat" id="hero-citat" hidden>
-        <span id="hero-citat-tekst"></span>
-        <cite id="hero-citat-hvem"></cite>
-      </blockquote>
+  <section aria-labelledby="s3-titel">
+    <h2 class="sektionstitel" id="s3-titel">Ikke et delesite. Fagfornyelsens værksted.</h2>
+    <p class="sektion-intro">Fagplanerne hviler på kundskaber, engagement og myndighed. Almind stiller de samme krav til hvert forløb, som fagplanerne stiller til fagene.</p>
+    <div class="princip-grid">
+      <article class="princip-kort">
+        <div class="label">Eksemplaritet</div>
+        <h3>Hvert forløb starter med ét spørgsmål</h3>
+        <p>Hvad fordyber eleverne sig i, og hvad åbner det? Det konkrete og det almene. Samme indholdsvalgskriterium som fagplanerne selv bruger.</p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Dømmekraft</div>
+        <h3>Begrundelser vises, ikke gemmes</h3>
+        <p>Forfatteren deklarerer fagsyn, fravalg og dækning. Du får ikke en facitliste, du får en kollegas tænkning at forholde dig til.</p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Pluralitet</div>
+        <h3>Ét område, flere bud</h3>
+        <p>Du redidaktiserer i forvejen altid andres materiale, før det møder din klasse. Almind gør det usynlige arbejde fælles: fork et forløb, tilpas det og publicér din version. Originalen krediteres automatisk.</p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Invitation</div>
+        <h3>Tomme pladser er ikke mangler</h3>
+        <p>Et forløb er aldrig færdigt. Forfatteren markerer selv de åbne pladser, og den næste lærer tager over.</p>
+      </article>
     </div>
-    <div class="trae-ramme" id="hero-trae"></div>
   </section>
 
-  <h2 class="sektionstitel" id="fag">Fagene</h2>
-  <div id="fagbaand"></div>
+  <section id="fag" aria-labelledby="s4-titel">
+    <h2 class="sektionstitel" id="s4-titel">Find dit fag</h2>
+    <p class="sektion-intro">26 fag. Dækningskort over fagplanens indholdsområder. Fagets egne trinforløb som filtre.</p>
+    <div id="fag-grid"></div>
+  </section>
+
+  <section aria-labelledby="s5-titel">
+    <h2 class="sektionstitel" id="s5-titel">Sådan virker det</h2>
+    <div class="trin-raekke">
+      <div class="trin">
+        <div class="trin-tal">1</div>
+        <h3>Find</h3>
+        <p>Vælg fag og trin, se dækningskortet, læs forfatterens valg.</p>
+        <a href="#fag">Find →</a>
+      </div>
+      <div class="trin">
+        <div class="trin-tal">2</div>
+        <h3>Brug</h3>
+        <p>Hvert forløb kan printes som et færdigt dokument, med materialer og begrundelser.</p>
+        <a href="preview.html?id=dss-v1">Se et printklart dokument →</a>
+      </div>
+      <div class="trin">
+        <div class="trin-tal">3</div>
+        <h3>Byg</h3>
+        <p>Fork et forløb, udfyld en tom plads, tag det med i undervisningen. Eller byg dit eget fra kernen: guidede didaktiske spørgsmål hjælper dig med at gennemtænke det. Del det tilbage.</p>
+        <a href="upload.html">Del et forløb →</a>
+      </div>
+    </div>
+  </section>
 
   <h2 class="sektionstitel">Forløb fra fællesskabet</h2>
   <div class="kortgrid" id="grid" style="margin-top:1.25rem;"></div>
+  <p style="text-align:center; margin-top:-1.5rem; margin-bottom:3rem;">
+    <a class="knap sekundaer" href="browse.html">Se alle forløb</a>
+  </p>
 
+</div>
+
+<section class="omslag omslag-bagside" aria-labelledby="s7-titel">
+  <div class="container omslag-anker">
+    <h2 id="s7-titel">Ingen ejer Almind. Alle ejer Almind.</h2>
+    <p>Almind organiseres som non-profit forening: åben kildekode, alt indhold under Creative Commons, ingen enkeltaktør kan eje mere end ti procent. Den slags troværdighed kan ikke købes, kun bygges.</p>
+    <p class="fakta-raekke">Non-profit forening · CC BY-SA 4.0 · Åben kildekode · Demokratisk styring · Max 10 % ejerandel</p>
+  </div>
+  <div class="container omslag-status">
+    <p>Almind er under opbygning. Det, du ser her, er en levende prototype. Vi søger skoler, undervisere og studerende, der vil være med til at forme piloten.</p>
+    <a class="knap" href="mailto:354702@via.dk">Skriv til Valdemar</a>
+  </div>
+</section>
+
+<div class="container">
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
     <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
@@ -49,63 +128,38 @@
 
 <script type="module">
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, kaede, familieFor } from "./assets/js/data.js";
+  import { hentForloeb, hentFagIndex, findForloeb, kaede, familieFor } from "./assets/js/data.js";
   import { horisontaltTrae } from "./assets/js/genealogi.js";
-  import { forloebKort, fagBaand } from "./assets/js/komponenter.js";
+  import { forloebKort, fagGrid } from "./assets/js/komponenter.js";
   import { stagger, tegnTrae } from "./assets/js/motion.js";
 
   sitehoved(document.querySelector(".site-header"));
 
-  const alle = await hentForloeb();
+  const [alle, fagIndex] = await Promise.all([hentForloeb(), hentFagIndex()]);
 
-  // Hero: forløbet med dybest genealogi (Den Svære Samtale V1 som aktivt punkt).
+  // Hero-træ: Den Svære Samtale-kæden, på omslagets mørke bund. data-fag sættes
+  // kun på omslaget (ikke knapperne) så den aktive node kan bruge fagfarven
+  // med AA-kontrast, uden at knapfarverne arves med.
   const heroForloeb = findForloeb(alle, "dss-v1");
   const heroKaede = kaede(alle, heroForloeb.id);
-  const hero = document.getElementById("hero");
-  hero.dataset.fag = familieFor(heroForloeb.fag);
-  document.getElementById("hero-eyebrow").textContent =
-    `${heroForloeb.fag} · ${heroForloeb.klassetrin} · ${heroKaede.length} versioner, ${new Set(heroKaede.map(f => f.forfatter)).size} forfattere`;
-  document.getElementById("hero-titel").textContent = heroForloeb.titel;
-  document.getElementById("hero-undertitel").textContent = heroForloeb.undertitel || "";
-  document.getElementById("hero-aabn").href = `sequence.html?id=${heroForloeb.id}`;
-  document.getElementById("hero-fork").href = `rediger.html?fork=${heroForloeb.id}`;
-  if (heroForloeb.citat) {
-    document.getElementById("hero-citat").hidden = false;
-    document.getElementById("hero-citat-tekst").textContent = `"${heroForloeb.citat.tekst}"`;
-    document.getElementById("hero-citat-hvem").textContent = heroForloeb.citat.hvem;
-  }
+  document.getElementById("omslag-forside").dataset.fag = familieFor(heroForloeb.fag);
   const svg = horisontaltTrae(heroKaede, heroForloeb.id);
   document.getElementById("hero-trae").appendChild(svg);
   tegnTrae(svg);
 
-  // Fagbånd
-  document.getElementById("fagbaand").appendChild(fagBaand(alle));
+  // Fag-grid: alle 26 fag, alfabetisk, forløbstal fra forloeb.json.
+  document.getElementById("fag-grid").appendChild(fagGrid(fagIndex, alle));
 
-  // Kortgrid: alt undtagen hero-kædens midterpunkt vises; kæden repræsenteres af V1-kortet.
+  // Kurateret grid: 6 håndplukkede forløb, spredt over fagfamilierne.
+  // dss-v1 ejer allerede hero'en og optræder ikke igen her.
+  const KURATERET = [
+    "tema2-laesning", "tema4-kortfilm",
+    "broekvaerkstedet", "vejret-over-danmark",
+    "stomp-skolegaarden", "plakaten-der-raaber",
+  ];
   const grid = document.getElementById("grid");
-  const iGrid = alle.filter((f) => !["dss-v0", "dss-v2"].includes(f.id));
-  function tegnGrid(liste) {
-    grid.innerHTML = "";
-    if (!liste.length) {
-      grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">Ingen forløb matcher endnu. Måske er det din åbne plads at udfylde? <a href="upload.html">Del et forløb</a>.</div>`;
-      return;
-    }
-    liste.forEach((f) => grid.appendChild(forloebKort(f, alle)));
-    stagger([...grid.children], 45);
-  }
-  tegnGrid(iGrid);
-
-  // Søgning
-  document.getElementById("soeg").addEventListener("input", (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    tegnGrid(
-      !q ? iGrid : iGrid.filter((f) =>
-        [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
-         ...(f.tema || []), ...Object.values(f.tags || {}).flat()]
-          .join(" ").toLowerCase().includes(q)
-      )
-    );
-  });
+  KURATERET.map((id) => findForloeb(alle, id)).filter(Boolean).forEach((f) => grid.appendChild(forloebKort(f, alle)));
+  stagger([...grid.children], 45);
 </script>
 </body>
 </html>

@@ -31,7 +31,10 @@
   --font-marauder: "Marauder", Georgia, serif;
   --font-ui: "Jost", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Georgia, serif;
-  --font-display: "Noto Serif", Georgia, serif;
+  /* Marauder "Text"-snit (Valdemar, 2026-07-16, afløser Noto Serif — mere liv,
+     samme ro). --font-display bruges sammen med --font-display-opsz overalt. */
+  --font-display: "Marauder", Georgia, serif;
+  --font-display-opsz: 'opsz' 24;
   --font-mono: "Drafting Mono", ui-monospace, "JetBrains Mono", "SF Mono", monospace;
 
   /* Radius */

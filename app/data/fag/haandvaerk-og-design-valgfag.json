@@ -1,11 +1,15 @@
 {
   "id": "haandvaerk-og-design-valgfag",
-  "navn": "Håndværk og design (valgfag)",
+  "navn": "Håndværk & design (valgfag)",
   "familie": "praktisk-musisk",
   "fagplan_version": "2026-06-udkast2",
   "fagplan_status": "udkast",
   "trinforloeb": [
-    { "id": "hodv-7-9", "udtryk": "7.-8. klassetrin eller 8.-9. klassetrin", "type": "enten-eller" }
+    {
+      "id": "hodv-7-9",
+      "udtryk": "7.-8. klassetrin eller 8.-9. klassetrin",
+      "type": "enten-eller"
+    }
   ],
   "indholdsomraader": [
     {
@@ -16,7 +20,11 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hodv-m1", "trinforloeb": "hodv-7-9", "sigte": "Skaber ting med bevidst intention og begrunder selvstændigt valg af teknikker og formsprog." }
+        {
+          "id": "hodv-m1",
+          "trinforloeb": "hodv-7-9",
+          "sigte": "Skaber ting med bevidst intention og begrunder selvstændigt valg af teknikker og formsprog."
+        }
       ]
     },
     {
@@ -27,7 +35,11 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hodv-m2", "trinforloeb": "hodv-7-9", "sigte": "Bearbejder materialer ud fra kvalitet, holdbarhed og ressourceforbrug med begrundede valg." }
+        {
+          "id": "hodv-m2",
+          "trinforloeb": "hodv-7-9",
+          "sigte": "Bearbejder materialer ud fra kvalitet, holdbarhed og ressourceforbrug med begrundede valg."
+        }
       ]
     },
     {
@@ -38,7 +50,11 @@
       "faelles_med": [],
       "trinforloeb": [],
       "maal": [
-        { "id": "hodv-m3", "trinforloeb": "hodv-7-9", "sigte": "Afprøver og udvikler ting gennem designprojekter inspireret af håndværkskulturer gennem tid." }
+        {
+          "id": "hodv-m3",
+          "trinforloeb": "hodv-7-9",
+          "sigte": "Afprøver og udvikler ting gennem designprojekter inspireret af håndværkskulturer gennem tid."
+        }
       ]
     }
   ],
