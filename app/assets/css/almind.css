@@ -303,7 +303,12 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 3rem;
 }
 .kort {
-  position: relative;
+  /* z-index:0 gør .kort til en RIGTIG stacking-context-rod (#71-fix, fundet
+     for sent første gang): uden det escaper børnenes z-index-værdier (h3:0,
+     .kort-beskrivelse:-1) forbi .kort, og negativ z-index kan så male
+     brødteksten BAGVED selve kortets egen hvide baggrund — usynlig tekst,
+     ikke kun et klik-problem. */
+  position: relative; z-index: 0;
   display: flex; flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
