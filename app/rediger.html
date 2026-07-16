@@ -27,6 +27,7 @@
     <div class="editor-knapper">
       <button class="knap sekundaer" id="download-knap" title="Forløbet som JSON-fil — den form det deles og forkes i">Download JSON</button>
       <button class="knap sekundaer" id="print-knap">Print</button>
+      <button class="knap sekundaer" id="elev-knap" title="Sådan ser eleverne forløbet — kun elevtekst og elev-markerede materialer">Se som elev</button>
       <button class="knap" id="dokument-knap">Se som dokument</button>
       <button class="knap" id="cb-knap" hidden></button>
     </div>
@@ -101,6 +102,7 @@
   const gemOgGaa = (url) => { gemKladde(f); location.href = url; };
   document.getElementById("dokument-knap").addEventListener("click", () => gemOgGaa("preview.html?kladde=1"));
   document.getElementById("print-knap").addEventListener("click", () => gemOgGaa("print.html?kladde=1"));
+  document.getElementById("elev-knap").addEventListener("click", () => gemOgGaa("elev.html?kladde=1"));
 
   // Codeberg: login → del som ægte fork/gren + PR. Download-JSON består som
   // fallback uden login — filen er stadig persistensformen.

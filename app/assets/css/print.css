@@ -47,6 +47,10 @@
 .ark .ark-titel { string-set: dokumenttitel content(text); }
 .ark h2         { string-set: fase content(text); }
 
+/* #52: et stykke papir kan ikke afspille — lyd/video/YouTube-indlejring og
+   facaden skjules, materialets link+titel (allerede i DOM'en) bærer alene. */
+.ark .medie-lyd, .ark .medie-video, .ark .medie-youtube, .ark .medie-facade { display: none; }
+
 /* Arket er ikke længere et kort på en skærmside — siden ER arket */
 .ark {
   max-width: none;

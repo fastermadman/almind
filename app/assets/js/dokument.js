@@ -3,6 +3,7 @@
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn } from "./data.js";
+import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
 
 const CALLOUT_TITLER = {
   valg: "Didaktisk valg",
@@ -40,11 +41,20 @@ function aktivitetLi(a) {
 export function renderFaseIndhold(fase, tilstand = "laerer") {
   const frag = document.createDocumentFragment();
   if (tilstand === "elev") {
-    const maal = document.createElement("div");
-    maal.className = "maal-boks";
-    maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
-    maal.appendChild(document.createTextNode(fase.beskrivelse));
-    frag.appendChild(maal);
+    // #50: elevtekst er forfatterens elevvendte oversættelse af beskrivelsen
+    // (skrevet i editoren, samme fase-kort). Uden den falder vi tilbage til
+    // "Efter denne fase kan du ..."-rammen om den almindelige beskrivelse —
+    // samme register-kompromis som editorens hint-linje beskriver.
+    if (fase.elevtekst) {
+      fase.elevtekst.split(/\n\n+/).filter((s) => s.trim())
+        .forEach((afsnit) => frag.appendChild(tekstEl("p", null, afsnit)));
+    } else {
+      const maal = document.createElement("div");
+      maal.className = "maal-boks";
+      maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
+      maal.appendChild(document.createTextNode(fase.beskrivelse));
+      frag.appendChild(maal);
+    }
     if (fase.aktiviteter?.length) {
       frag.appendChild(tekstEl("h3", null, "Det skal du"));
       const ol = document.createElement("ol");
@@ -78,6 +88,35 @@ function dgPrikker(status) {
   return `<span class="p-delvis">&#9679;</span><span class="p-tom">&#9675;&#9675;</span>`;
 }
 
+// #52: rendering udledes af URL'en (medietype()), intet nyt felt. Lærerflade
+// (sequence/preview/print) indlæser direkte; elevflade viser en click-to-load-
+// facade — intet tredjeparts-kald før eleven selv klikker (arkitektur 1.4/2.2).
+function materialeListe(materialer, tilstand) {
+  const ul = document.createElement("ul");
+  materialer.forEach((m) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = renseUrl(m.url); a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.textContent = m.titel;
+    li.appendChild(a);
+    const meta = [];
+    if (m.type) meta.push(m.type);
+    if (m.faust) meta.push(`mitCFU faust ${m.faust}`);
+    if (m.materialetype) meta.push(materialetypeNavn(m.materialetype));
+    if (meta.length) li.appendChild(document.createTextNode(` (${meta.join(", ")})`));
+    if (m.didaktisering) li.appendChild(tekstEl("div", "under", "Didaktisering: " + m.didaktisering));
+    const type = medietype(m.url);
+    if (type !== "link") {
+      const wrap = document.createElement("div");
+      wrap.className = "medie-indlejring";
+      wrap.appendChild(tilstand === "elev" ? medieFacade(m, type) : medieElement(m, type));
+      li.appendChild(wrap);
+    }
+    ul.appendChild(li);
+  });
+  return ul;
+}
+
 export function renderDokument(f, tilstand = "laerer") {
   const ark = document.createElement("article");
   ark.className = "ark" + (tilstand === "elev" ? " elev" : "");
@@ -93,13 +132,17 @@ export function renderDokument(f, tilstand = "laerer") {
     [f.fag, f.klassetrin, f.forfatter, f.institution, f.aar].filter(Boolean).join(" · ")));
   kolofon.appendChild(venstre);
 
-  const dg = document.createElement("div");
-  dg.className = "ark-dg";
-  dg.innerHTML = DIMENSIONER.map((dim) =>
-    `<div class="dg-linje">${DIM_NAVNE[dim]} <span class="prikker">${dgPrikker(f.daekningsgrad?.[dim] || "tom")}</span></div>`
-  ).join("");
-  dg.setAttribute("aria-label", "Didaktisk dækningsgradsprofil");
-  kolofon.appendChild(dg);
+  // #50: dækningsgraden er forfatterens selvevaluering, ikke elevrettet indhold —
+  // vises kun i lærertilstanden (whitelist-filteret i elev.html/elev-fanen).
+  if (tilstand === "laerer") {
+    const dg = document.createElement("div");
+    dg.className = "ark-dg";
+    dg.innerHTML = DIMENSIONER.map((dim) =>
+      `<div class="dg-linje">${DIM_NAVNE[dim]} <span class="prikker">${dgPrikker(f.daekningsgrad?.[dim] || "tom")}</span></div>`
+    ).join("");
+    dg.setAttribute("aria-label", "Didaktisk dækningsgradsprofil");
+    kolofon.appendChild(dg);
+  }
   ark.appendChild(kolofon);
 
   if (f.beskrivelse) ark.appendChild(tekstEl("p", null, f.beskrivelse));
@@ -121,36 +164,28 @@ export function renderDokument(f, tilstand = "laerer") {
     }
   }
 
-  // Materialer via mitCFU (printes med: links følger dokumentet)
+  // Materialer via mitCFU (printes med: links følger dokumentet). Elevtilstand
+  // viser kun de materialer forfatteren har markeret "Vises for elever" (#50).
   if (tilstand === "laerer" && f.materialer?.length) {
     ark.appendChild(tekstEl("h3", null, "Materialer"));
-    const ul = document.createElement("ul");
-    f.materialer.forEach((m) => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = m.url; a.target = "_blank"; a.rel = "noopener";
-      a.textContent = m.titel;
-      li.appendChild(a);
-      // Metadata varierer med kilden: gamle materialer har type/faust,
-      // schema 2-materialer har Gissel-type + evt. didaktiserings-note.
-      const meta = [];
-      if (m.type) meta.push(m.type);
-      if (m.faust) meta.push(`mitCFU faust ${m.faust}`);
-      if (m.materialetype) meta.push(materialetypeNavn(m.materialetype));
-      if (meta.length) li.appendChild(document.createTextNode(` (${meta.join(", ")})`));
-      if (m.didaktisering) li.appendChild(tekstEl("div", "under", "Didaktisering: " + m.didaktisering));
-      ul.appendChild(li);
-    });
-    ark.appendChild(ul);
+    ark.appendChild(materialeListe(f.materialer, tilstand));
+  } else if (tilstand === "elev" && f.materialer?.some((m) => m.elev)) {
+    ark.appendChild(tekstEl("h3", null, "Materialer"));
+    ark.appendChild(materialeListe(f.materialer.filter((m) => m.elev), tilstand));
   }
 
-  // Faser
+  // Faser. #51: id på overskriften giver et deep-link-anker (elev.html#fase-1)
+  // — scroll-margin-top under den sticky header sættes i CSS (.ark h2).
   (f.faser || []).forEach((fase, i) => {
     // "Fase 1" alene hvis fasen ikke har fået sin egen titel endnu —
     // ingen tomt ": " efter tallet. Numerisk (Valdemar, 2026-07-16) — matcher
     // nu sequence.html, som allerede viste "Fase 1 af N" i stedet for bogstaver.
-    ark.appendChild(tekstEl("h2", null,
-      fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`));
+    const h2 = tekstEl("h2", null, fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`);
+    h2.id = `fase-${i + 1}`;
+    ark.appendChild(h2);
+    // #52-opfølgning: varighed uden for h2'en med vilje — den fanges ellers med
+    // i print's string-set (løbende sidehoved), som kun skal bære faseTITLEN.
+    if (fase.varighed) ark.appendChild(tekstEl("div", "fase-varighed-badge", fase.varighed));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
 

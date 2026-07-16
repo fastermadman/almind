@@ -359,6 +359,10 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     hoved.appendChild(haandtag());
     hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
+    // #52-opfølgning: varighed er fasens tidsafgrænsning, fritekst (ikke minutter
+    // som tal) — "10 min", "ca. 40 min", "en lektion" er alle gyldige. Vil man
+    // have flere tidsafgrænsede dele, laver man flere faser, ikke felter herinde.
+    hoved.appendChild(inputFelt("fase-varighed", fase.varighed, "Varighed (fx \"10 min\")", (v) => (fase.varighed = v)));
     hoved.appendChild(sletKnap("Slet fasen", () => {
       if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
       f.faser.splice(i, 1);
@@ -424,6 +428,16 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       },
     });
 
+    // #50: elevtekst er en sammenfoldet oversættelse af beskrivelsen ovenfor —
+    // ikke en visnings-toggle, forfatteren skal kunne se lærerteksten imens.
+    const elevFold = el("details", "elevtekst-fold");
+    elevFold.appendChild(el("summary", null, "Elevtekst (valgfrit)"));
+    elevFold.appendChild(el("p", "under",
+      "Uden elevtekst ser eleverne fasens beskrivelse ovenfor — skrevet til lærere."));
+    elevFold.appendChild(tekstFelt("tekstfelt", fase.elevtekst,
+      "Omskriv fasen til eleverne, med dit eget register", (v) => (fase.elevtekst = v)));
+    kort.appendChild(elevFold);
+
     return kort;
   }
 
@@ -474,6 +488,16 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       }
       raekke.appendChild(inputFelt(null, m.didaktisering,
         "Didaktisering: hvad har du gjort ved materialet?", (v) => (m.didaktisering = v)));
+      // #50: elev-flag styrer om materialet vises på elev.html — default fra,
+      // så et link kun deles med elever når forfatteren aktivt vælger det.
+      const elevLabel = el("label", "materiale-elev-label");
+      const elevCheckbox = document.createElement("input");
+      elevCheckbox.type = "checkbox";
+      elevCheckbox.checked = !!m.elev;
+      elevCheckbox.addEventListener("change", () => { m.elev = elevCheckbox.checked; gem(); });
+      elevLabel.appendChild(elevCheckbox);
+      elevLabel.appendChild(document.createTextNode("Vises for elever"));
+      raekke.appendChild(elevLabel);
       // Legacy-felter (fund C): vises kun når allerede udfyldt — nye materialer får dem ikke tilbudt
       if (m.type) raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
       if (m.faust) raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
@@ -485,7 +509,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     });
     sek.appendChild(liste);
     sek.appendChild(tilfoejKnap("+ Materiale", () => {
-      f.materialer.push({ titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "" });
+      f.materialer.push({ titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "", elev: false });
       gem(); tegnKanvas();
     }));
     return sek;

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elevmateriale · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container" id="side">
+
+  <header class="site-header"></header>
+
+  <p class="intro" id="kladde-note" hidden style="font-family:var(--font-ui); background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--fagfarve, var(--ink)); border-radius:12px; padding:0.8rem 1.1rem; margin-top:1rem;">
+    Sådan ser eleverne dette forløb. Intet er sendt nogen steder hen: dette er en lokal forhåndsvisning.
+    <a href="rediger.html?kladde=1">&larr; Tilbage til editoren</a>
+  </p>
+
+  <div id="dokument-rod"></div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0</span>
+  </footer>
+</div>
+
+<script type="module">
+  // #50: elevens flade — kun whitelist-felter (titel, faser, elevtekst,
+  // elev-markerede materialer, forfatter+licens). Ingen konti, ingen
+  // skrivning, ingen tredjeparts-kald ud over selve forløbsdataen (§1.4).
+  // ?kladde=1 læser forfatterens LOKALE kladde (samme mekanisme som
+  // preview.html) til editorens "Se som elev"-knap — ingen ny lagring.
+  import { sitehoved } from "./assets/js/sitehoved.js";
+  import { hentForloeb, findForloeb, hentKladde, familieFor } from "./assets/js/data.js";
+  import { renderDokument } from "./assets/js/dokument.js";
+
+  sitehoved(document.querySelector(".site-header"));
+
+  const params = new URLSearchParams(location.search);
+  let forloeb;
+  if (params.get("kladde") === "1") {
+    forloeb = hentKladde();
+    if (forloeb) document.getElementById("kladde-note").hidden = false;
+  }
+  if (!forloeb) {
+    const alle = await hentForloeb();
+    forloeb = findForloeb(alle, params.get("id"));
+  }
+
+  const rod = document.getElementById("dokument-rod");
+  if (!forloeb) {
+    rod.innerHTML = `<p class="tom-tilstand">Forløbet blev ikke fundet.</p>`;
+  } else {
+    document.title = `${forloeb.titel} · Elevmateriale · Almind`;
+    document.getElementById("side").dataset.fag = familieFor(forloeb.fag);
+    rod.appendChild(renderDokument(forloeb, "elev"));
+    // #51: indholdet bygges async, så browserens native fragment-scroll (som
+    // kun kører ved første parsing) rammer ikke — hent selv, når ankeret findes.
+    if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+  }
+</script>
+</body>
+</html>

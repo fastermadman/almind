@@ -1,6 +1,7 @@
 // Delte DOM-komponenter: kort, dækningsgradsprofil, tomme pladser (fold), fagbånd.
 
 import { familieFor, fagNavn, DIMENSIONER, DIM_NAVNE, antalAabnePladser, datoTekst, kaede, gisselDefinition, klassetrinTilInterval } from "./data.js";
+import { gemKnap } from "./samling.js";
 
 // "8 lektioner" / "Enkelt lektion" / "Forløb" (uspecificeret længde) —
 // browse-planens §3: at filtrere på omfang uden at vise det er en synlig selvmodsigelse.
@@ -53,6 +54,7 @@ export function forloebKort(f, alle) {
       ${pladser ? `<span class="plads-badge">${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}</span>` : ""}
     </div>
   `;
+  a.appendChild(gemKnap(f.id));
   return a;
 }
 

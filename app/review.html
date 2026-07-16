@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skriv et review · Almind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+<div class="container" id="side">
+
+  <header class="site-header"></header>
+
+  <div class="wizard">
+    <h1>Skriv et review</h1>
+    <p class="intro" id="review-intro">Reviews skrives af andre end forfatteren. Vil du bare give en kort kommentar? Opret i stedet en issue uden <code>review</code>-label på Codeberg.</p>
+
+    <form id="review-form">
+      <fieldset class="felt-gruppe">
+        <legend class="wizard-trin-navn">① Læsningen</legend>
+
+        <div class="felt">
+          <label for="rev-navn">Dit navn</label>
+          <input type="text" id="rev-navn" name="reviewer" required>
+        </div>
+
+        <div class="felt">
+          <span class="felt-label">Din relation til forløbet</span>
+          <div class="relation-valg">
+            <label class="relation-kort">
+              <input type="radio" name="relation" value="brugt" required>
+              <span class="relation-titel">Jeg har brugt forløbet i undervisning</span>
+            </label>
+            <label class="relation-kort">
+              <input type="radio" name="relation" value="laest" required>
+              <span class="relation-titel">Jeg har læst det</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="felt">
+          <label for="rev-samlet">Din samlede læsning</label>
+          <textarea id="rev-samlet" name="samlet" required></textarea>
+        </div>
+
+        <div class="felt" id="erfaringer-felt" hidden>
+          <span class="felt-label">Erfaringer fra undervisningen</span>
+          <span class="under">Praksiserfaring er den viden, der ellers aldrig bliver skrevet ned ★ (LT-9). Hvor bar det? Hvor faldt det?</span>
+          <div id="erfaringer-liste"></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="felt-gruppe">
+        <legend class="wizard-trin-navn">② Dækningen</legend>
+        <p class="under">Forfatterens egen deklaration vises IKKE her — vurdér selv først, så bliver din læsning ikke farvet af hans.</p>
+        <div id="dg-vaelgere"></div>
+
+        <div class="felt">
+          <span class="felt-label">Udeklarerede åbne pladser (valgfrit)</span>
+          <span class="under">Tomme pladser du selv fandt, som forfatteren ikke deklarerede.</span>
+          <div class="raekke-liste" id="udekl-liste"></div>
+          <button type="button" class="tilfoej" id="udekl-tilfoej">+ Udeklareret plads</button>
+        </div>
+      </fieldset>
+
+      <details class="uddyb">
+        <summary>Udfold fagdidaktisk analyse (valgfrit)</summary>
+        <div class="felt">
+          <label for="rev-typologi">Typologi</label>
+          <span class="under">Klassificeringen er perspektivafhængig — din vurdering fra din praksis, ikke en facitliste ★ (affordance, Gibson). Er det skabt TIL undervisning eller inddraget I undervisning? ★ (EdTech/TechEd-skellet)</span>
+          <textarea id="rev-typologi"></textarea>
+        </div>
+        <div class="felt">
+          <label for="rev-trekant">Læremiddeltrekant</label>
+          <textarea id="rev-trekant"></textarea>
+        </div>
+        <div class="felt">
+          <label for="rev-fremstillingsformer">Fremstillingsformer</label>
+          <textarea id="rev-fremstillingsformer"></textarea>
+        </div>
+        <div class="felt">
+          <label for="rev-taksonomi">Taksonomi</label>
+          <span class="under">Guidens trin 1-4-tabel. Omvendt progression kan være bevidst.</span>
+          <textarea id="rev-taksonomi"></textarea>
+        </div>
+        <div class="felt">
+          <label for="rev-laeremiddeltjek">Læremiddeltjek</label>
+          <textarea id="rev-laeremiddeltjek"></textarea>
+        </div>
+      </details>
+
+      <details class="uddyb">
+        <summary>Udfold stemmen (valgfrit)</summary>
+        <p class="under">To UAFHÆNGIGE spørgsmål ★ (LT-12/Bakhtin + Remillard): (1) Inviterer forfatteren til samtale om sine valg, eller docerer han? En tydelig stemme kan godt være lukket. (2) Taler forløbet TIL dig som kollega, eller styrer det IGENNEM dig med instrukser? En vag stemme kan godt invitere.</p>
+        <div class="felt">
+          <span class="felt-label">Dialog</span>
+          <span class="segment" id="stemme-dialog" role="group">
+            <button type="button" data-v="dialogisk">Dialogisk</button>
+            <button type="button" data-v="monologisk">Monologisk</button>
+            <button type="button" data-v="blandet">Blandet</button>
+          </span>
+        </div>
+        <div class="felt">
+          <span class="felt-label">Retning</span>
+          <span class="segment" id="stemme-retning" role="group">
+            <button type="button" data-v="to">Til</button>
+            <button type="button" data-v="through">Igennem</button>
+            <button type="button" data-v="blandet">Blandet</button>
+          </span>
+        </div>
+      </details>
+
+      <fieldset class="felt-gruppe">
+        <legend class="wizard-trin-navn">⑤ Videre herfra</legend>
+        <p class="under">Redidaktisering sker empirisk næsten aldrig af sig selv — formulér invitationen eksplicit, så bliver dit fund den næste forkers opgave ★ (LT-9). Kontrapunktisk brug = at bruge forløbet MOD dets hensigt med vilje; også det er et legitimt forslag ★</p>
+        <div class="raekke-liste" id="forslag-liste"></div>
+        <button type="button" class="tilfoej" id="forslag-tilfoej">+ Fork-forslag</button>
+      </fieldset>
+
+      <div class="wizard-nav">
+        <button type="submit" class="knap fag">Generér review</button>
+      </div>
+    </form>
+
+    <section class="panel panel-mt" id="preview-panel" hidden>
+      <h2>Preview</h2>
+      <p class="under">Kopiér teksten, eller åbn en forudfyldt ny-issue på Codeberg.</p>
+      <textarea id="preview-tekst" readonly rows="16"></textarea>
+      <div class="wizard-nav">
+        <button type="button" class="knap sekundaer" id="kopier-knap">Kopiér issue-tekst</button>
+        <a class="knap fag" id="issue-knap" href="#" target="_blank" rel="noopener">Opret issue på Codeberg →</a>
+      </div>
+      <p role="status" aria-live="polite" id="kopier-status" class="under"></p>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
+  </footer>
+</div>
+
+<script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
+  import { hentForloeb, findForloeb, familieFor, datoTekst, DIMENSIONER, DIM_NAVNE } from "./assets/js/data.js";
+
+  sitehoved(document.querySelector(".site-header"));
+
+  const alle = await hentForloeb();
+  const id = new URLSearchParams(location.search).get("id");
+  const f = findForloeb(alle, id) || alle[0];
+  document.getElementById("side").dataset.fag = familieFor(f.fag);
+  document.title = `Review: ${f.titel} · Almind`;
+  document.getElementById("review-intro").textContent =
+    `Du reviewer "${f.titel}", versionen fra ${datoTekst(f.opdateret)}. Reviews skrives af andre end forfatteren. Vil du bare give en kort kommentar? Opret i stedet en issue uden review-label på Codeberg.`;
+
+  // ---------- kladde (localStorage, samme mønster som forfatter-kladden) ----------
+  const KLADDE_NOEGLE = `review-kladde-${f.id}`;
+  const tomKladde = () => ({
+    reviewer: "", relation: "", samlet: "", erfaringer: [],
+    daekningsgrad_vurderet: {}, udeklarerede_pladser: [],
+    typologi: "", trekant: "", fremstillingsformer: "", taksonomi: "", laeremiddeltjek: "",
+    stemme: { dialog: "", retning: "" },
+    fork_forslag: [],
+  });
+  let k;
+  try {
+    k = { ...tomKladde(), ...JSON.parse(localStorage.getItem(KLADDE_NOEGLE) || "null") };
+  } catch { k = tomKladde(); }
+  const gem = () => localStorage.setItem(KLADDE_NOEGLE, JSON.stringify(k));
+
+  function el(tag, klasse, tekst) {
+    const e = document.createElement(tag);
+    if (klasse) e.className = klasse;
+    if (tekst != null) e.textContent = tekst;
+    return e;
+  }
+
+  // ---------- trin ①: navn, relation, samlet, erfaringer ----------
+  document.getElementById("rev-navn").value = k.reviewer;
+  document.getElementById("rev-navn").addEventListener("input", (e) => { k.reviewer = e.target.value; gem(); });
+  document.getElementById("rev-samlet").value = k.samlet;
+  document.getElementById("rev-samlet").addEventListener("input", (e) => { k.samlet = e.target.value; gem(); });
+
+  const erfaringerFelt = document.getElementById("erfaringer-felt");
+  const erfaringerListe = document.getElementById("erfaringer-liste");
+  function tegnErfaringer() {
+    erfaringerListe.innerHTML = "";
+    (f.faser || []).forEach((fase, i) => {
+      const rk = el("div", "raekke");
+      rk.appendChild(el("span", "felt-label", fase.titel));
+      const t = el("textarea", null);
+      t.value = k.erfaringer.find((e) => e.fase === i)?.note || "";
+      t.addEventListener("input", () => {
+        k.erfaringer = k.erfaringer.filter((e) => e.fase !== i);
+        if (t.value.trim()) k.erfaringer.push({ fase: i, note: t.value });
+        gem();
+      });
+      rk.appendChild(t);
+      erfaringerListe.appendChild(rk);
+    });
+  }
+  document.querySelectorAll('input[name="relation"]').forEach((r) => {
+    r.checked = k.relation === r.value;
+    r.addEventListener("change", () => {
+      k.relation = r.value;
+      erfaringerFelt.hidden = k.relation !== "brugt";
+      if (k.relation === "brugt" && !erfaringerListe.children.length) tegnErfaringer();
+      gem();
+    });
+  });
+  if (k.relation === "brugt") { erfaringerFelt.hidden = false; tegnErfaringer(); }
+
+  // ---------- trin ②: dækningsgrad-vælgere (genbruger editorens dim-vaelger/segment) ----------
+  const dgWrap = document.getElementById("dg-vaelgere");
+  DIMENSIONER.forEach((dim) => {
+    const status = k.daekningsgrad_vurderet[dim] || "";
+    const boks = el("div", "dim-vaelger" + (status === "tom" ? " aaben" : ""));
+    const hoved = el("div", "dim-hoved");
+    hoved.appendChild(el("span", "dim-navn", DIM_NAVNE[dim]));
+    const seg = el("span", "segment");
+    seg.setAttribute("role", "group");
+    [["fuld", "Fuld"], ["delvis", "Delvis"], ["tom", "Åben plads"]].forEach(([v, navn]) => {
+      const b = el("button", null, navn);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(status === v));
+      b.addEventListener("click", () => {
+        k.daekningsgrad_vurderet[dim] = v;
+        boks.classList.toggle("aaben", v === "tom");
+        seg.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        gem();
+      });
+      seg.appendChild(b);
+    });
+    hoved.appendChild(seg);
+    boks.appendChild(hoved);
+    dgWrap.appendChild(boks);
+  });
+
+  const udeklListe = document.getElementById("udekl-liste");
+  function tegnUdekl() {
+    udeklListe.innerHTML = "";
+    k.udeklarerede_pladser.forEach((tekst, i) => {
+      const rk = el("div", "raekke");
+      const inp = el("input", null);
+      inp.type = "text";
+      inp.value = tekst;
+      inp.addEventListener("input", () => { k.udeklarerede_pladser[i] = inp.value; gem(); });
+      rk.appendChild(inp);
+      const slet = el("button", "raekke-slet", "×");
+      slet.type = "button";
+      slet.title = "Fjern";
+      slet.addEventListener("click", () => { k.udeklarerede_pladser.splice(i, 1); gem(); tegnUdekl(); });
+      rk.appendChild(slet);
+      udeklListe.appendChild(rk);
+    });
+  }
+  tegnUdekl();
+  document.getElementById("udekl-tilfoej").addEventListener("click", () => {
+    k.udeklarerede_pladser.push(""); gem(); tegnUdekl();
+  });
+
+  // ---------- trin ③: analysen (fold) ----------
+  [["rev-typologi", "typologi"], ["rev-trekant", "trekant"], ["rev-fremstillingsformer", "fremstillingsformer"],
+   ["rev-taksonomi", "taksonomi"], ["rev-laeremiddeltjek", "laeremiddeltjek"]].forEach(([elId, felt]) => {
+    const t = document.getElementById(elId);
+    t.value = k[felt];
+    t.addEventListener("input", () => { k[felt] = t.value; gem(); });
+  });
+
+  // ---------- trin ④: stemmen (fold) ----------
+  [["stemme-dialog", "dialog"], ["stemme-retning", "retning"]].forEach(([elId, akse]) => {
+    const gruppe = document.getElementById(elId);
+    gruppe.querySelectorAll("button").forEach((b) => {
+      b.setAttribute("aria-pressed", String(k.stemme[akse] === b.dataset.v));
+      b.addEventListener("click", () => {
+        k.stemme[akse] = b.dataset.v;
+        gruppe.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        gem();
+      });
+    });
+  });
+
+  // ---------- trin ⑤: fork-forslag ----------
+  const FORSLAG_DIM = [...DIMENSIONER.map((d) => [d, DIM_NAVNE[d]]), ["andet", "Andet"], ["kontrapunktisk", "Kontrapunktisk brug"]];
+  const forslagListe = document.getElementById("forslag-liste");
+  function tegnForslag() {
+    forslagListe.innerHTML = "";
+    k.fork_forslag.forEach((fs, i) => {
+      const rk = el("div", "raekke");
+      const sel = el("select", null);
+      FORSLAG_DIM.forEach(([v, navn]) => {
+        const opt = el("option", null, navn);
+        opt.value = v;
+        opt.selected = fs.dimension === v;
+        sel.appendChild(opt);
+      });
+      sel.addEventListener("change", () => { fs.dimension = sel.value; gem(); });
+      rk.appendChild(sel);
+      const t = el("textarea", null);
+      t.value = fs.besked;
+      t.placeholder = "Beskriv fork-invitationen";
+      t.addEventListener("input", () => { fs.besked = t.value; gem(); });
+      rk.appendChild(t);
+      const slet = el("button", "raekke-slet", "×");
+      slet.type = "button";
+      slet.title = "Fjern forslaget";
+      slet.addEventListener("click", () => { k.fork_forslag.splice(i, 1); gem(); tegnForslag(); });
+      rk.appendChild(slet);
+      forslagListe.appendChild(rk);
+    });
+  }
+  tegnForslag();
+  document.getElementById("forslag-tilfoej").addEventListener("click", () => {
+    k.fork_forslag.push({ dimension: FORSLAG_DIM[0][0], besked: "" }); gem(); tegnForslag();
+  });
+
+  // ---------- afslutning: preview + kopiér + forudfyldt Codeberg-issue ----------
+  function reviewObjekt() {
+    return {
+      id: `rev-${f.id}-${Date.now()}`,
+      forloeb: { id: f.id, opdateret: f.opdateret },
+      reviewer: k.reviewer, dato: new Date().toISOString().slice(0, 10),
+      relation: k.relation, samlet: k.samlet,
+      erfaringer: k.relation === "brugt" ? k.erfaringer : [],
+      daekningsgrad_vurderet: k.daekningsgrad_vurderet,
+      udeklarerede_pladser: k.udeklarerede_pladser.filter((t) => t.trim()),
+      typologi: k.typologi, trekant: k.trekant, fremstillingsformer: k.fremstillingsformer,
+      taksonomi: k.taksonomi, laeremiddeltjek: k.laeremiddeltjek,
+      stemme: k.stemme,
+      fork_forslag: k.fork_forslag.filter((fs) => fs.besked.trim()),
+    };
+  }
+
+  function prosaVersion(r) {
+    const RELATION_TEKST = { brugt: "Har brugt forløbet i undervisning", laest: "Har læst forløbet" };
+    const dele = [
+      `${r.reviewer} · ${RELATION_TEKST[r.relation] || r.relation} · ${r.dato}`,
+      "",
+      r.samlet,
+    ];
+    if (r.erfaringer.length) {
+      dele.push("", "Erfaringer fra undervisningen:");
+      r.erfaringer.forEach((e) => dele.push(`- ${f.faser[e.fase]?.titel || `Fase ${e.fase + 1}`}: ${e.note}`));
+    }
+    if (r.udeklarerede_pladser.length) {
+      dele.push("", "Udeklarerede åbne pladser:");
+      r.udeklarerede_pladser.forEach((p) => dele.push(`- ${p}`));
+    }
+    if (r.fork_forslag.length) {
+      dele.push("", "Forslag til videre forgrening:");
+      r.fork_forslag.forEach((fs) => dele.push(`- ${DIM_NAVNE[fs.dimension] || fs.dimension}: ${fs.besked}`));
+    }
+    return dele.join("\n");
+  }
+
+  document.getElementById("review-form").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    if (DIMENSIONER.some((d) => !k.daekningsgrad_vurderet[d])) {
+      alert("Vurdér venligst alle seks dimensioner i trin ②, før du genererer reviewet.");
+      return;
+    }
+    const r = reviewObjekt();
+    const body = "```json\n" + JSON.stringify(r, null, 2) + "\n```\n\n" + prosaVersion(r);
+    const titel = `Review: ${f.titel} (${f.id})`;
+    document.getElementById("preview-tekst").value = `${titel}\n\n${body}`;
+    // OPHAV: samme seed-repo som forgejo.js's delTilAlmind() peger på.
+    document.getElementById("issue-knap").href =
+      `https://codeberg.org/almind/dss-v1/issues/new?title=${encodeURIComponent(titel)}&body=${encodeURIComponent(body)}`;
+    document.getElementById("preview-panel").hidden = false;
+    document.getElementById("preview-panel").scrollIntoView({ behavior: "smooth" });
+  });
+
+  document.getElementById("kopier-knap").addEventListener("click", async () => {
+    await navigator.clipboard.writeText(document.getElementById("preview-tekst").value);
+    document.getElementById("kopier-status").textContent = "Kopieret.";
+  });
+</script>
+</body>
+</html>

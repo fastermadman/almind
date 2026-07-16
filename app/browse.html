@@ -38,6 +38,7 @@
   <div class="filterraekke" style="margin-top:-0.9rem;">
     <button class="filter-pill" id="filter-pladser" aria-pressed="false">Har åbne pladser</button>
     <button class="filter-pill" id="filter-forks" aria-pressed="false">Har versionshistorik</button>
+    <button class="filter-pill" id="filter-gemte" aria-pressed="false">Gemte</button>
   </div>
 
   <div class="aktive-filtre" id="aktive-filtre" hidden></div>
@@ -59,6 +60,7 @@
   } from "./assets/js/data.js";
   import { forloebKort } from "./assets/js/komponenter.js";
   import { stagger } from "./assets/js/motion.js";
+  import { erGemt } from "./assets/js/samling.js";
 
   sitehoved(document.querySelector(".site-header"));
 
@@ -93,6 +95,7 @@
     omfang: params.get("omfang") || "",
     pladser: params.get("pladser") === "1",
     forks: params.get("forks") === "1",
+    gemte: params.get("gemte") === "1",
     q: params.get("q") || "",
   };
   if (state.familie && !FAMILIER[state.familie]) state.familie = ""; // ugyldigt id droppes stumt
@@ -108,6 +111,7 @@
     if (state.omfang && undtagen !== "omfang" && f.omfang?.type !== state.omfang) return false;
     if (state.pladser && undtagen !== "pladser" && !(antalAabnePladser(f) > 0)) return false;
     if (state.forks && undtagen !== "forks" && kaede(alle, f.id).length <= 1) return false;
+    if (state.gemte && undtagen !== "gemte" && !erGemt(f.id)) return false;
     if (state.q && undtagen !== "q") {
       const q = state.q.toLowerCase();
       const tekst = [f.titel, f.beskrivelse, f.fag, f.klassetrin, f.forfatter,
@@ -157,6 +161,9 @@
 
   document.getElementById("filter-pladser").addEventListener("click", () => { state.pladser = !state.pladser; opdater(); });
   document.getElementById("filter-forks").addEventListener("click", () => { state.forks = !state.forks; opdater(); });
+  document.getElementById("filter-gemte").addEventListener("click", () => { state.gemte = !state.gemte; opdater(); });
+  // #54: en stjerne skiftet på selve kortet skal opdatere "Gemte"-filtret med det samme
+  grid.addEventListener("samling-aendret", () => opdater());
   const soeg = document.getElementById("soeg");
   soeg.value = state.q;
   let tid;
@@ -166,8 +173,8 @@
   function nulstil(felt) {
     if (felt === "alle") {
       state.fag = ""; state.familie = ""; state.klassetrin = ""; state.omfang = "";
-      state.pladser = false; state.forks = false; state.q = ""; soeg.value = "";
-    } else if (felt === "pladser" || felt === "forks") {
+      state.pladser = false; state.forks = false; state.gemte = false; state.q = ""; soeg.value = "";
+    } else if (felt === "pladser" || felt === "forks" || felt === "gemte") {
       state[felt] = false;
     } else {
       state[felt] = "";
@@ -191,6 +198,7 @@
     if (state.omfang) chips.push(["omfang", state.omfang === "lektion" ? "Enkelt lektion" : "Forløb"]);
     if (state.pladser) chips.push(["pladser", "Har åbne pladser"]);
     if (state.forks) chips.push(["forks", "Har versionshistorik"]);
+    if (state.gemte) chips.push(["gemte", "Gemte"]);
     if (state.q) chips.push(["q", `"${state.q}"`]);
 
     zone.innerHTML = "";
@@ -233,11 +241,13 @@
     if (state.omfang) p.set("omfang", state.omfang);
     if (state.pladser) p.set("pladser", "1");
     if (state.forks) p.set("forks", "1");
+    if (state.gemte) p.set("gemte", "1");
     if (state.q) p.set("q", state.q);
     history.replaceState(null, "", p.toString() ? "?" + p.toString() : "browse.html");
 
     document.getElementById("filter-pladser").setAttribute("aria-pressed", String(state.pladser));
     document.getElementById("filter-forks").setAttribute("aria-pressed", String(state.forks));
+    document.getElementById("filter-gemte").setAttribute("aria-pressed", String(state.gemte));
     tegnFagFacet();
     tegnTrinValg();
     tegnAktiveFiltre();
@@ -273,7 +283,7 @@
 
     grid.innerHTML = "";
     if (!liste.length) {
-      const rydLink = (state.fag || state.familie || state.klassetrin || state.omfang || state.pladser || state.forks || state.q)
+      const rydLink = (state.fag || state.familie || state.klassetrin || state.omfang || state.pladser || state.forks || state.gemte || state.q)
         ? `<br><a href="#" id="ryd-tom">Ryd filtre og se alle ${alle.length} forløb</a>`
         : "";
       grid.innerHTML = `<div class="tom-tilstand" style="grid-column:1/-1;">

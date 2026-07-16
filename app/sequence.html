@@ -23,9 +23,27 @@
     <div class="hero-handlinger">
       <a class="knap fag" id="fork-knap" href="#">Fork dette forløb</a>
       <a class="knap sekundaer" id="preview-knap" href="#">Se som dokument</a>
+      <button class="knap sekundaer" id="del-knap" type="button">Del med eleverne</button>
     </div>
     <p class="metadata hero-mikroforklaring">At forke betyder: lav din egen version af forløbet, med automatisk kredit til originalen.</p>
   </div>
+
+  <!-- #51: elev.html-link + evt. fase-anker + QR, klient-side (ingen API-kald, ingen tracking) -->
+  <dialog id="del-dialog" class="del-dialog">
+    <form method="dialog">
+      <h2>Del med eleverne</h2>
+      <p class="under">Linket åbner elevversionen af forløbet — ingen konto, intet gemmes.</p>
+      <label class="felt-label" for="del-fase-vaelger">Hele forløbet eller én fase</label>
+      <select id="del-fase-vaelger"></select>
+      <p class="del-link"><a id="del-link" href="#" target="_blank" rel="noopener"></a></p>
+      <div id="del-qr" class="del-qr"></div>
+      <div class="wizard-nav">
+        <button type="button" class="knap sekundaer" id="del-kopier-knap">Kopiér link</button>
+        <button type="submit" class="knap fag">Luk</button>
+      </div>
+      <p role="status" aria-live="polite" id="del-kopier-status" class="under"></p>
+    </form>
+  </dialog>
 
   <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
 
@@ -46,12 +64,22 @@
           <p class="panel-underlinje">Forfatterens egen deklaration: hvad forløbet dækker, og hvad du selv skal didaktisere. Tomme pladser er invitationer, ikke mangler.</p>
           <div id="dg"></div>
           <div id="pladser" style="margin-top:1.25rem;"></div>
+          <p class="dg-flag" id="dg-flag" hidden></p>
         </section>
 
         <section class="panel panel-mb" id="fravalg-panel" hidden>
           <h2>Bevidste fravalg</h2>
           <p class="panel-underlinje">Bevidst udeladt af forfatteren, med begrundelse. Ruller du et fravalg tilbage i din fork, så forhold dig til hvorfor det blev truffet.</p>
           <ul class="fravalg-liste" id="fravalg"></ul>
+        </section>
+
+        <section class="panel panel-mb" id="reviews-panel">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:0.6rem; flex-wrap:wrap;">
+            <h2>Reviews</h2>
+            <a class="fag-kontekstlink" id="review-link" href="#">Skriv et review →</a>
+          </div>
+          <p class="panel-underlinje" id="reviews-tom">Ingen reviews endnu. Vær den første kollega, der læser med →</p>
+          <div id="reviews-liste"></div>
         </section>
       </div>
 
@@ -85,9 +113,11 @@
 
 <script type="module">
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval, DIMENSIONER, DIM_NAVNE } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
-  import { dgProfil, pladsFold, omfangTekst } from "./assets/js/komponenter.js";
+  import { dgProfil, pladsFold, omfangTekst, dgPrikker } from "./assets/js/komponenter.js";
+  import { medietype, medieElement, renseUrl } from "./assets/js/medie.js";
+  import { gemKnap } from "./assets/js/samling.js";
   import { renderFaseIndhold } from "./assets/js/dokument.js";
   import { observe } from "./assets/js/motion.js";
 
@@ -146,11 +176,62 @@
     note.hidden = false;
     note.textContent = "Eksempelforløb: skrevet til demoen for at vise formatet. Forfatter og institution er fiktive.";
   }
+  // #54: "gem til senere" — sidste knap i hero-rækken, samme mønster som kortenes star.
+  document.querySelector(".hero-handlinger").appendChild(gemKnap(f.id));
+
   document.getElementById("fork-knap").href = `rediger.html?fork=${f.id}`;
   document.getElementById("fork-knap-2").href = `rediger.html?fork=${f.id}`;
   document.getElementById("preview-knap").href = `preview.html?id=${f.id}`;
 
+  // #51: deep-link + QR til elevfladen — rent klient-side, intet API-kald.
+  const delDialog = document.getElementById("del-dialog");
+  const delVaelger = document.getElementById("del-fase-vaelger");
+  delVaelger.appendChild(new Option("Hele forløbet", ""));
+  (f.faser || []).forEach((fase, i) =>
+    delVaelger.appendChild(new Option(`Fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}`, `fase-${i + 1}`)));
+  function opdaterDelLink() {
+    const url = new URL(`elev.html?id=${f.id}`, location.href);
+    if (delVaelger.value) url.hash = delVaelger.value;
+    const a = document.getElementById("del-link");
+    a.href = url.href;
+    a.textContent = url.href;
+    import("./assets/vendor/qr.js").then(({ default: encodeQR }) => {
+      document.getElementById("del-qr").innerHTML = encodeQR(url.href, "svg");
+    });
+  }
+  delVaelger.addEventListener("change", opdaterDelLink);
+  document.getElementById("del-knap").addEventListener("click", () => { opdaterDelLink(); delDialog.showModal(); });
+  document.getElementById("del-kopier-knap").addEventListener("click", async () => {
+    await navigator.clipboard.writeText(document.getElementById("del-link").href);
+    document.getElementById("del-kopier-status").textContent = "Kopieret.";
+  });
+
   const k = kaede(alle, f.id);
+
+  // E.4: reviews — seed-cache renderes altid; live Codeberg-issues (labels=review)
+  // lægges oveni når kaldet lykkes. Fejler det (offline, CORS, ingen reviews endnu),
+  // vises kun seed'en — ingen fejlbesked, jf. e4-review-plan.md §4.
+  async function hentReviews() {
+    const seed = await (await fetch("data/reviews.json")).json();
+    let live = [];
+    try {
+      const svar = await fetch("https://codeberg.org/api/v1/repos/almind/dss-v1/issues?labels=review&state=all&type=issues");
+      if (svar.ok) {
+        const issues = await svar.json();
+        live = issues.map((issue) => {
+          const match = issue.body?.match(/```json\n([\s\S]*?)\n```/);
+          if (!match) return null;
+          try {
+            const r = JSON.parse(match[1]);
+            r.issueUrl = issue.html_url;
+            return r;
+          } catch { return null; }
+        }).filter(Boolean);
+      }
+    } catch { /* offline/API-fejl: kun seed */ }
+    return [...seed, ...live].filter((r) => r.forloeb?.id === f.id);
+  }
+  const reviews = await hentReviews();
 
   // Dækningsgrad + tomme pladser som folder
   const dgEl = dgProfil(f);
@@ -158,6 +239,16 @@
   observe(document.getElementById("dg-panel"));
   const pladserEl = document.getElementById("pladser");
   (f.tomme_pladser || []).forEach((p) => pladserEl.appendChild(pladsFold(f, p)));
+
+  // Hoved-dg-panelet forbliver forfatterens — ét diskret flag når mindst ét
+  // review vurderer mindst én dimension anderledes (§4).
+  const afvigendeReviews = reviews.filter((r) =>
+    DIMENSIONER.some((dim) => r.daekningsgrad_vurderet?.[dim] && r.daekningsgrad_vurderet[dim] !== (f.daekningsgrad?.[dim] || "tom")));
+  if (afvigendeReviews.length) {
+    const flag = document.getElementById("dg-flag");
+    flag.hidden = false;
+    flag.innerHTML = `<a href="#reviews-panel">${afvigendeReviews.length} review${afvigendeReviews.length > 1 ? "s" : ""} vurderer dækningen anderledes ↓</a>`;
+  }
 
   // E.6: eksemplarisk_centrum, fravalg, didaktisk_position og samspil havde
   // ingen læser-side forbruger (kun skrevet af wizard/editor) — 0.1-reglen
@@ -219,18 +310,126 @@
        <p style="font-size:0.92rem; margin-top:0.6rem;">Et forløb begynder sit liv når nogen bygger videre på det. <a href="rediger.html?fork=${f.id}">Måske dig?</a></p>`;
   }
 
-  // Materialer
+  // Materialer. #52: rendering udledes af URL'en — lærerfladen (denne side)
+  // indlæser direkte, intet click-to-load nødvendigt (kun elev.html facade'r).
   if (f.materialer?.length) {
     document.getElementById("materialer-panel").hidden = false;
     const ul = document.getElementById("materialer");
     f.materialer.forEach((m) => {
       const li = document.createElement("li");
       li.innerHTML = `<span class="mat-type">${m.type}</span>
-        <a href="${m.url}" target="_blank" rel="noopener">${m.titel}</a>
+        <a href="${renseUrl(m.url)}" target="_blank" rel="noopener noreferrer">${m.titel}</a>
         ${m.note ? `<span class="metadata" style="flex-basis:100%;">${m.note}</span>` : ""}`;
+      const type = medietype(m.url);
+      if (type !== "link") {
+        const wrap = document.createElement("div");
+        wrap.className = "medie-indlejring";
+        wrap.appendChild(medieElement(m, type));
+        li.appendChild(wrap);
+      }
       ul.appendChild(li);
     });
   }
+
+  // Reviews-panelet (§4)
+  document.getElementById("review-link").href = `review.html?id=${f.id}`;
+  const RELATION_TEKST = { brugt: "Har brugt forløbet i undervisning", laest: "Har læst forløbet" };
+  const STEMME_TEKST = { dialogisk: "Dialogisk", monologisk: "Monologisk", blandet: "Blandet", to: "Til læseren", through: "Igennem læseren" };
+  if (reviews.length) {
+    document.getElementById("reviews-tom").hidden = true;
+    const liste = document.getElementById("reviews-liste");
+    reviews.forEach((r) => {
+      const panel = document.createElement("div");
+      panel.className = "review-panel";
+      const forladet = r.forloeb?.opdateret !== f.opdateret;
+      panel.innerHTML = `
+        <div class="review-kop">
+          <strong>${r.reviewer}</strong>
+          <span class="metadata">${datoTekst(r.dato)}</span>
+          <span class="relation-badge${r.relation === "brugt" ? " brugt" : ""}">${RELATION_TEKST[r.relation] || r.relation}</span>
+          ${forladet ? `<span class="tag forladet" title="Reviewet er skrevet mod en tidligere version">Reviewet gælder versionen fra ${datoTekst(r.forloeb?.opdateret)}</span>` : ""}
+        </div>
+        <p>${r.samlet}</p>
+      `;
+      const div = document.createElement("div");
+      div.className = "dg-divergens";
+      const forfatterKol = document.createElement("div");
+      forfatterKol.innerHTML = "<h4>Forfatterens deklaration</h4>";
+      const reviewerKol = document.createElement("div");
+      reviewerKol.innerHTML = "<h4>Reviewerens vurdering</h4>";
+      DIMENSIONER.forEach((dim) => {
+        const reviewerStatus = r.daekningsgrad_vurderet?.[dim];
+        if (!reviewerStatus) return;
+        const forfatterStatus = f.daekningsgrad?.[dim] || "tom";
+        const diverg = forfatterStatus !== reviewerStatus ? "1" : "0";
+        const raekke = (status) => {
+          const rk = document.createElement("div");
+          rk.className = "dg-raekke";
+          rk.dataset.diverg = diverg;
+          rk.innerHTML = `<span class="dg-navn">${DIM_NAVNE[dim]}</span><span class="dg-prikker">${dgPrikker(status)}</span>`;
+          return rk;
+        };
+        forfatterKol.appendChild(raekke(forfatterStatus));
+        reviewerKol.appendChild(raekke(reviewerStatus));
+      });
+      div.append(forfatterKol, reviewerKol);
+      panel.appendChild(div);
+
+      if (r.stemme?.dialog || r.stemme?.retning) {
+        const p = document.createElement("p");
+        p.className = "stemme-linje";
+        p.textContent = [
+          r.stemme.dialog ? `Dialog: ${STEMME_TEKST[r.stemme.dialog]}` : null,
+          r.stemme.retning ? `Retning: ${STEMME_TEKST[r.stemme.retning]}` : null,
+        ].filter(Boolean).join(" · ");
+        panel.appendChild(p);
+      }
+
+      if (r.typologi || r.trekant || r.fremstillingsformer || r.taksonomi || r.laeremiddeltjek) {
+        const d = document.createElement("details");
+        d.innerHTML = `<summary>Fagdidaktisk analyse</summary>` +
+          [["Typologi", r.typologi], ["Læremiddeltrekant", r.trekant], ["Fremstillingsformer", r.fremstillingsformer],
+           ["Taksonomi", r.taksonomi], ["Læremiddeltjek", r.laeremiddeltjek]]
+            .filter(([, v]) => v)
+            .map(([label, v]) => `<p><span class="ek-label">${label}</span>${v}</p>`).join("");
+        panel.appendChild(d);
+      }
+
+      (r.fork_forslag || []).forEach((fs) => {
+        const d = document.createElement("details");
+        d.className = "plads";
+        d.innerHTML = `
+          <summary>
+            <span class="fold-pil">&#9654;</span>
+            <span class="plads-label">Fork-forslag: ${DIM_NAVNE[fs.dimension] || fs.dimension}</span>
+            <span class="plads-preview">${fs.besked}</span>
+          </summary>
+          <div class="plads-krop">
+            <blockquote>${fs.besked}<br><span class="metadata">${r.reviewer}, review</span></blockquote>
+            <a class="knap fag" href="rediger.html?fork=${f.id}&dimension=${fs.dimension}">Fork herfra</a>
+          </div>
+        `;
+        panel.appendChild(d);
+      });
+
+      if (r.issueUrl) {
+        const a = document.createElement("a");
+        a.href = r.issueUrl; a.target = "_blank"; a.rel = "noopener";
+        a.className = "fag-kontekstlink";
+        a.textContent = "Svar forfatteren →";
+        panel.appendChild(a);
+      }
+      liste.appendChild(panel);
+    });
+  }
+
+  // Erfarings-markører ved faser: kun når reviewet er pinnet mod DENNE version
+  // (§4 forældelsesregel) — ellers kan faseindeks være forskudt.
+  const erfaringerPrFase = {};
+  reviews.forEach((r) => {
+    if (r.forloeb?.opdateret !== f.opdateret) return;
+    (r.erfaringer || []).forEach((e) => { erfaringerPrFase[e.fase] = (erfaringerPrFase[e.fase] || 0) + 1; });
+  });
 
   // Faser — samme fase-indhold (tekst, aktiviteter, callouts) som "se som
   // dokument" via renderFaseIndhold(), kun ramme/chrome er forskellig.
@@ -239,10 +438,27 @@
     const sek = document.createElement("section");
     sek.className = "fase panel";
     sek.style.marginBottom = "1.25rem";
+    const nrRaekke = document.createElement("div");
+    nrRaekke.className = "fase-nr-raekke";
     const nr = document.createElement("span");
     nr.className = "fase-nr";
     nr.textContent = `Fase ${i + 1} af ${f.faser.length}`;
-    sek.appendChild(nr);
+    nrRaekke.appendChild(nr);
+    if (fase.varighed) {
+      const v = document.createElement("span");
+      v.className = "fase-varighed-badge";
+      v.textContent = fase.varighed;
+      nrRaekke.appendChild(v);
+    }
+    if (erfaringerPrFase[i]) {
+      const antal = erfaringerPrFase[i];
+      const m = document.createElement("a");
+      m.href = "#reviews-panel";
+      m.className = "review-erfaring-markoer";
+      m.textContent = `${antal} praksisnote${antal > 1 ? "r" : ""}`;
+      nrRaekke.appendChild(m);
+    }
+    sek.appendChild(nrRaekke);
     const h3 = document.createElement("h3");
     h3.textContent = fase.titel;
     sek.appendChild(h3);

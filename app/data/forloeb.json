@@ -63,7 +63,7 @@
       },
       {
         "titel": "Spillet",
-        "beskrivelse": "Ca. 40 minutter: spillerne rykker rundt om pladens kant og markerer undervejs deres holdning til cases om religion, seksualitet, familiekonflikter og andre hverdagsdilemmaer eleverne kan spejle sig i.",
+        "beskrivelse": "Spillerne rykker rundt om pladens kant og markerer undervejs deres holdning til cases om religion, seksualitet, familiekonflikter og andre hverdagsdilemmaer eleverne kan spejle sig i.",
         "aktiviteter": [
           {
             "titel": "",
@@ -73,7 +73,8 @@
             "titel": "",
             "beskrivelse": "Holdning markeres og kan justeres undervejs"
           }
-        ]
+        ],
+        "varighed": "ca. 40 min"
       },
       {
         "titel": "Opsamling",

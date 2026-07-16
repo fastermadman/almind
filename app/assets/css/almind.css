@@ -599,9 +599,14 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
+.fase .fase-nr-raekke { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.2rem; }
 .fase .fase-nr {
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst);
-  display: block; margin-bottom: 0.2rem;
+}
+/* #52-opfølgning: varighed — samme registrer som fase-nr (mono, diskret), egen tag-form */
+.fase-varighed-badge {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+  border: 1px solid var(--border); border-radius: var(--r-pill); padding: 0.1rem 0.55rem;
 }
 .fase ol, .fase ul { margin: 0.6rem 0 0 1.2rem; padding-left: 1.2rem; }
 .fase li { margin-bottom: 0.25rem; font-size: 0.95rem; }
@@ -798,6 +803,7 @@ img, svg { display: block; max-width: 100%; }
   background: var(--typ-blue-bg); color: var(--typ-blue);
   padding: 0.5rem 0.8rem; border-radius: 4px;
   margin: 1.8rem 0 0.8rem;
+  scroll-margin-top: 6.5rem; /* #51: fase-ankre under den sticky header (96px + luft) */
 }
 .ark h3 {
   font-family: var(--font-ui); font-weight: 600; font-size: 1rem;
@@ -1192,4 +1198,76 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 @media (max-width: 900px) {
   .omslag-hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
   .trin-raekke { grid-template-columns: 1fr; gap: 1.75rem; }
+}
+
+/* ---------- E.4: review-formular (review.html) ---------- */
+.wizard fieldset.felt-gruppe { border: none; padding: 0; margin: 0 0 2.3rem; }
+.wizard fieldset.felt-gruppe legend { padding: 0; margin-bottom: 1rem; }
+.relation-valg { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.relation-kort {
+  flex: 1; min-width: 220px; border: 1px solid var(--border); border-radius: var(--r-modal);
+  padding: 1rem 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 0.7rem;
+  background: var(--surface); font-family: var(--font-ui); font-size: 0.92rem;
+}
+.relation-kort:has(input:checked) { border-color: var(--fagfarve, var(--accent)); background: color-mix(in srgb, var(--fagfarve, var(--accent)) 6%, var(--surface)); }
+.relation-kort input { margin: 0; }
+#preview-tekst { width: 100%; font-family: var(--font-mono); font-size: 0.82rem; }
+
+/* ---------- E.4: review-visning (sequence.html) ---------- */
+.review-panel + .review-panel { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.review-kop { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+.relation-badge { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.55rem; border-radius: var(--r-pill); border: 1px solid var(--border); color: var(--muted); }
+.relation-badge.brugt { color: var(--fagtekst, var(--ink)); border-color: var(--fagfarve, var(--border)); }
+.dg-divergens { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; margin: 0.9rem 0; }
+.dg-divergens h4 { font-family: var(--font-ui); font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.dg-divergens .dg-raekke[data-diverg="1"] .dg-navn::after { content: " ≠"; color: var(--muted); }
+.stemme-linje { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+.review-erfaring-markoer { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.review-erfaring-markoer:hover { text-decoration: underline; }
+.dg-flag { font-size: 0.82rem; margin-top: 0.6rem; }
+.dg-flag a { color: var(--accent); }
+
+/* ---------- #51: del-dialog (deep-link + QR til elev.html) ---------- */
+.del-dialog {
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface); color: var(--ink); max-width: 360px; padding: 1.5rem;
+}
+.del-dialog::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+.del-dialog h2 { font-family: var(--font-ui); font-size: 1.1rem; margin-bottom: 0.3rem; }
+.del-dialog select {
+  width: 100%; margin: 0.4rem 0 1rem; padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink);
+  font-family: var(--font-ui); font-size: 0.9rem;
+}
+.del-link { font-family: var(--font-mono); font-size: 0.78rem; word-break: break-all; margin-bottom: 1rem; }
+.del-qr { display: flex; justify-content: center; margin-bottom: 1rem; }
+.del-qr svg { width: 200px; height: 200px; }
+
+/* ---------- #52: medie-rendering (billede/lyd/video/YouTube, click-to-load) ---------- */
+.medie-indlejring { margin-top: 0.6rem; }
+.medie-billede { max-width: 100%; border-radius: 8px; display: block; }
+.medie-lyd { width: 100%; }
+.medie-video, .medie-youtube { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 8px; }
+.medie-facade {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%;
+  border: 1px dashed var(--border); border-radius: 8px; background: var(--surface-alt);
+  padding: 0.9rem 1.1rem; cursor: pointer; text-align: left;
+  font-family: var(--font-ui); font-size: 0.88rem; color: var(--ink);
+}
+.medie-facade:hover { border-color: var(--fagfarve, var(--accent)); }
+.medie-facade-ikon { color: var(--fagfarve, var(--accent)); font-size: 1.1rem; }
+
+/* ---------- #54: "gem til senere" (star-knap på kort + sequence.html) ---------- */
+.gem-knap {
+  background: none; border: none; cursor: pointer; padding: 0.15rem;
+  font-size: 1.3rem; line-height: 1; color: var(--muted);
+}
+.gem-knap[aria-pressed="true"] { color: var(--fagtekst, var(--fagfarve)); }
+.gem-knap:hover { color: var(--fagfarve); }
+/* På kortet: absolut placeret i hjørnet, over titlens stretched-link (#71-mønster) */
+.kort .gem-knap { position: absolute; top: 0.9rem; right: 0.9rem; z-index: 1; }
+/* I hero-handlinger (sequence.html): del af knap-rækken, samme højde som .knap.sekundaer */
+.hero-handlinger .gem-knap {
+  border: 1.5px solid var(--border); border-radius: var(--r-pill);
+  padding: 0.55rem 1rem; font-size: 1rem;
 }

@@ -1,0 +1,42 @@
+// graph.json-kontrakten (E-G0). Kommentar-dokumenteret EKSEMPEL, ikke en fil
+// der læses af koden — selve dataet bygges klient-side af graf-data.js's
+// bygGraf() (demo) og skal senere kunne bygges CI-side (E-G5) uden at skiftet
+// kræver en klient-ændring: begge sider skal blot returnere DENNE form.
+{
+  "nodes": [
+    {
+      "id": "dss-v1",                 // forløbs-id (forloeb.json) eller begreb-id (slug af navnet)
+      "type": "forloeb",              // "forloeb" | "begreb"
+      "navn": "Den Svære Samtale",
+      "fag": "dansk",                 // kun forloeb-noder
+      "klassetrin": "8. klasse",      // kun forloeb-noder
+      "familie": "hum",               // kun forloeb-noder — afledt af familieFor(), ikke gemt selvstændigt
+    },
+    {
+      "id": "mundtlighed",
+      "type": "begreb",
+      "navn": "Mundtlighed",
+      "begrebstype": "tema",          // "tema" | "begreb" | "greb" | "teoretiker" — kun "tema" findes før E-G2's register
+      "ung": false,                   // true hvis oprettet af en forfatter uden match i begreber.json (E-G2)
+    },
+  ],
+  "edges": [
+    {
+      "source": "dss-v0", "target": "dss-v1",
+      "type": "fork",                 // "fork" | "naer" | "fagplan" | "begreb" | "inferens" | (interim: "plads"|"metode"|"empiri", se note)
+      "lag": "strukturel",            // "strukturel" (udledt af data) | "deklareret" (redaktionelt/forfatter) | "infereret" (E-G5, embeddings)
+    },
+    {
+      "source": "dss-v1", "target": "mundtlighed",
+      "type": "begreb",
+      "lag": "deklareret",            // temaer er forfatterens egne, jf. f.tema[]
+    },
+    {
+      "source": "tema2-laesning", "target": "broekvaerkstedet",
+      "type": "plads",                // INTERIM: de 6 håndskrevne svage tværfaglige kanter fra graph.html
+      "lag": "deklareret",            // beholder deres oprindelige type (plads|metode|empiri) til E-G1/E-G2
+      "deler": "evaluering",          // erstattes af rigtige begrebs-noder + "begreb"-kanter, ikke bygget nu
+      "forklaring": "…",
+    },
+  ],
+}
