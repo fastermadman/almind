@@ -59,13 +59,6 @@ export const DIM_NAVNE = {
   organisering: "Organisering", differentiering: "Differentiering", evaluering: "Evaluering",
 };
 
-// Fasers bogstav (A, B, C, ...) er altid udledt af rækkefølgen ved
-// visning — aldrig gemt. Dermed følger det automatisk med når faser
-// trækkes rundt, uden noget separat at holde synkroniseret.
-export function faseBogstav(i) {
-  return String.fromCharCode(65 + i);
-}
-
 export function familieFor(fag) {
   for (const [noegle, fam] of Object.entries(FAMILIER)) {
     if (fam.fag.includes(fag)) return noegle;

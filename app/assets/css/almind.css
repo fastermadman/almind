@@ -330,7 +330,17 @@ img, svg { display: block; max-width: 100%; }
 /* PRØVE (2026-07-16): Bricolage i stedet for Marauder Text — "forløb som egen
    kategori", samme skrift som .ark-titel (print) og kommende sequence.html-titel,
    til sammenligning før Valdemar beslutter sig. */
+/* z-index her (#71), bevidst UDEN position (ville ellers blive ny containing
+   block for titel-linkets ::after og krympe det strakte klik-areal ned til
+   kun h3's egen højde — ramt og rettet i denne session). z-index virker på
+   flex-items uden position sat (spec-undtagelse for flex/grid-items). Uden
+   dette ville senere søskende-items (beskrivelse, metadata, kort-bund) male
+   sig OVEN PÅ titlens ::after-strakte link, og kun titel-teksten var klikbar.
+   Bevidst 0, ikke 1: skal stadig tabe til .kort-tags a's z-index:1, ellers
+   dækker titel-linket tags'ene og gør dem ikke-selvstændigt-klikbare (ramt
+   og rettet i denne session). */
 .kort h3 {
+  z-index: 0;
   font-family: var(--font-logo);
   font-weight: 500; font-size: 1.18rem; line-height: 1.3;
   margin-bottom: 0.45rem;
@@ -339,6 +349,10 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.92rem; color: var(--ink); opacity: 0.85;
   margin-bottom: 1rem; flex: 1;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  /* z-index (#71): -webkit-line-clamp + overflow:hidden gør denne til sin egen
+     stacking-kontekst i Chrome, uafhængigt af h3's z-index — uden dette vandt
+     den stadig over titel-linkets ::after, selv efter h3-fixet. */
+  position: relative; z-index: -1;
 }
 .kort-bund {
   display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;

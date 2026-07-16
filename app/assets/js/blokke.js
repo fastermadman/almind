@@ -6,7 +6,7 @@
 // Drag-to-reorder: SortableJS (loades som script-tag af rediger.html).
 
 import {
-  DIMENSIONER, DIM_NAVNE, familieFor, faseBogstav, SAMSPIL_FORMER, tegnFagOptions,
+  DIMENSIONER, DIM_NAVNE, familieFor, SAMSPIL_FORMER, tegnFagOptions,
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
 } from "./data.js";
 import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
@@ -357,7 +357,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
     const hoved = el("header", "fase-hoved");
     hoved.appendChild(haandtag());
-    hoved.appendChild(el("span", "fase-nr", `Fase ${faseBogstav(i)}`));
+    hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
     hoved.appendChild(sletKnap("Slet fasen", () => {
       if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
