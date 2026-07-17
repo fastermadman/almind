@@ -139,7 +139,7 @@ const FAG_RAEKKER = [
       fag: ["teknologiforstaaelse-valgfag", "musik-valgfag", "billedkunst-valgfag", "haandvaerk-og-design-valgfag", "madkundskab-valgfag"],
       valgfag: true,
     },
-    { navn: "Øvrige / særlige fag", fag: ["dsa-basis", "dsa-supplerende", "boernehaveklassen"], neutral: true },
+    { navn: "Øvrige / særlige fag", fag: ["dsa-basis", "dsa-supplerende", "boernehaveklassen"] },
   ],
 ];
 
@@ -154,7 +154,7 @@ function stripValgfagSuffiks(navn) {
 function fagFeltKort(fag, alle, kolonne) {
   const antal = alle.filter((f) => f.fag === fag.id).length;
   const a = document.createElement("a");
-  a.className = "fag-felt" + (kolonne.neutral ? " fag-felt--neutral" : "");
+  a.className = "fag-felt";
   a.dataset.fag = familieFor(fag.id);
   a.href = `fag.html?id=${fag.id}`;
   const visningsnavn = kolonne.valgfag ? stripValgfagSuffiks(fag.navn) : fag.navn;

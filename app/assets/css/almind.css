@@ -1180,14 +1180,6 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 .fag-felt .navn { font-family: var(--font-logo); font-weight: 600; font-size: 1rem; text-transform: lowercase; }
 .fag-felt .antal { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: color-mix(in srgb, var(--bg) 78%, var(--fagfarve)); margin-top: 0.4rem; }
 .fag-felt .antal.tom { color: var(--bg); }
-/* Øvrige/særlige fag: neutral fyld, ikke den (i dag forkerte) humaniora-farve
-   — se almind-dev#67. --muted alene er for lys til hvid skrift (kun 3.9:1,
-   den er kalibreret som tekstfarve mod --bg, ikke som baggrund) — mørknet
-   med --ink for at bestå AA (verificeret 7.7:1). */
-.fag-felt--neutral { background: color-mix(in srgb, var(--ink) 55%, var(--muted)); }
-.fag-felt--neutral:hover { background: color-mix(in srgb, var(--ink) 45%, var(--muted)); }
-.fag-felt--neutral .antal { color: color-mix(in srgb, var(--bg) 78%, var(--ink)); }
-.fag-felt--neutral .antal.tom { color: var(--bg); }
 @media (max-width: 975px) {
   .fag-raekke { grid-template-columns: 1fr; }
   /* margin-top holdes på 1.5rem (samme værdi som gap) — hver .fag-raekke er
