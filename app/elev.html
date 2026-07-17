@@ -34,14 +34,17 @@
   // ?kladde=1 læser forfatterens LOKALE kladde (samme mekanisme som
   // preview.html) til editorens "Se som elev"-knap — ingen ny lagring.
   import { sitehoved } from "./assets/js/sitehoved.js";
-  import { hentForloeb, findForloeb, hentKladde, familieFor } from "./assets/js/data.js";
+  import { hentForloeb, findForloeb, hentForloebFraKilde, hentKladde, familieFor } from "./assets/js/data.js";
   import { renderDokument } from "./assets/js/dokument.js";
 
   sitehoved(document.querySelector(".site-header"));
 
   const params = new URLSearchParams(location.search);
   let forloeb;
-  if (params.get("kladde") === "1") {
+  if (params.get("kilde")) {
+    // #56: "Del med klassen"-link — forløbet bor på en gren i lærerens fork
+    forloeb = await hentForloebFraKilde(params.get("kilde"));
+  } else if (params.get("kladde") === "1") {
     forloeb = hentKladde();
     if (forloeb) document.getElementById("kladde-note").hidden = false;
   }

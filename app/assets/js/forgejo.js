@@ -127,25 +127,29 @@ export async function hentBruger() {
   return mig.login;
 }
 
-// Fork → commit → PR i ét flow. Er brugeren selv ophavets ejer (kan ikke forke
-// eget repo), bruges en gren i samme repo — samme mønster som git-værter selv.
+// Repoet der kan skrives i: egen fork af ophavet — oprettes hvis den mangler.
+// Er brugeren selv ophavets ejer (kan ikke forke eget repo), bruges ophavet
+// direkte — samme mønster som git-værter selv.
+async function sikrSkriveRepo(mig) {
+  if (mig === OPHAV.ejer) return { ejer: OPHAV.ejer, repo: OPHAV.repo };
+  const f = await api(`/repos/${OPHAV.ejer}/${OPHAV.repo}/forks`, { method: "POST", body: "{}" });
+  if (f.ok) {
+    const fork = await f.json();
+    return { ejer: fork.owner.login, repo: fork.name };
+  }
+  if (f.status === 409) {
+    // 409 = fork findes allerede; ponytail: antag da standardnavnet.
+    // Slå-op-i-fork-listen tilføjes hvis omdøbte forks viser sig i praksis.
+    return { ejer: mig, repo: OPHAV.repo };
+  }
+  throw new Error(`Fork fejlede (${f.status}): ${await f.text()}`);
+}
+
+// Fork → commit → PR i ét flow.
 export async function delTilAlmind(forloeb) {
   const mig = await hentBruger();
   forloeb.forfatter_codeberg = mig; // #53: attribution-link — klienten kender jo det indloggede login
-
-  let ejer = mig, repo = OPHAV.repo;
-  if (mig !== OPHAV.ejer) {
-    const f = await api(`/repos/${OPHAV.ejer}/${OPHAV.repo}/forks`, { method: "POST", body: "{}" });
-    if (f.ok) {
-      const fork = await f.json();
-      ejer = fork.owner.login;
-      repo = fork.name;
-    } else if (f.status !== 409) {
-      // 409 = fork findes allerede; ponytail: antag da standardnavnet.
-      // Slå-op-i-fork-listen tilføjes hvis omdøbte forks viser sig i praksis.
-      throw new Error(`Fork fejlede (${f.status}): ${await f.text()}`);
-    }
-  }
+  const { ejer, repo } = await sikrSkriveRepo(mig);
 
   // Filens sha på main er påkrævet for opdatering; new_branch skaber grenen
   // og committer i samme kald.
@@ -172,4 +176,37 @@ export async function delTilAlmind(forloeb) {
     }),
   });
   return pr.html_url;
+}
+
+// #56 "Del med klassen": commit til en navngiven gren i egen fork — INGEN PR,
+// at dele med sin klasse er ikke et forslag til fællesskabet. Grennavnet
+// gemmes på forløbet (klasse_gren), så rettelser committer til SAMME gren:
+// elev-linket peger på grenen, ikke et commit, og forbliver derfor stabilt.
+export async function gemTilEgenGren(forloeb) {
+  const mig = await hentBruger();
+  forloeb.forfatter_codeberg = mig;
+  const { ejer, repo } = await sikrSkriveRepo(mig);
+
+  if (!forloeb.klasse_gren) {
+    const slug = (forloeb.titel || "forloeb").toLowerCase()
+      .replace(/[æå]/g, "a").replace(/ø/g, "o")
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "forloeb";
+    forloeb.klasse_gren = `klasse-${slug}-${b64url(crypto.getRandomValues(new Uint8Array(3)))}`;
+  }
+  const gren = forloeb.klasse_gren;
+
+  // Findes grenen: opdatér filen på den. Ellers: skab gren + commit i ét kald.
+  const findes = await api(`/repos/${ejer}/${repo}/contents/forloeb.json?ref=${encodeURIComponent(gren)}`);
+  const basis = findes.ok ? await findes.json()
+    : await apiOk(`/repos/${ejer}/${repo}/contents/forloeb.json?ref=main`);
+  await apiOk(`/repos/${ejer}/${repo}/contents/forloeb.json`, {
+    method: "PUT",
+    body: JSON.stringify({
+      content: b64utf8(JSON.stringify(forloeb, null, 2)),
+      sha: basis.sha,
+      ...(findes.ok ? { branch: gren } : { branch: "main", new_branch: gren }),
+      message: `Del med klassen: ${forloeb.titel || "forløb"} (${mig} via almind.org)`,
+    }),
+  });
+  return `elev.html?kilde=${ejer}/${repo}/${gren}`;
 }

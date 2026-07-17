@@ -29,6 +29,7 @@
       <button class="knap sekundaer" id="print-knap">Print</button>
       <button class="knap sekundaer" id="elev-knap" title="Sådan ser eleverne forløbet — kun elevtekst og elev-markerede materialer">Se som elev</button>
       <button class="knap" id="dokument-knap">Se som dokument</button>
+      <button class="knap" id="klasse-knap" hidden title="Publicér til en gren i din egen fork og få et elev-link til klassen — ingen pull request">Del med klassen</button>
       <button class="knap" id="cb-knap" hidden></button>
     </div>
   </div>
@@ -106,8 +107,9 @@
 
   // Codeberg: login → del som ægte fork/gren + PR. Download-JSON består som
   // fallback uden login — filen er stadig persistensformen.
-  const { erLoggetInd, login, hentBruger, delTilAlmind } = await import("./assets/js/forgejo.js");
+  const { erLoggetInd, login, hentBruger, delTilAlmind, gemTilEgenGren } = await import("./assets/js/forgejo.js");
   const cbKnap = document.getElementById("cb-knap");
+  const klasseKnap = document.getElementById("klasse-knap");
   const cbStatus = document.getElementById("cb-status");
   const visStatus = (tekst, erFejl = false) => {
     cbStatus.hidden = false;
@@ -117,6 +119,7 @@
 
   async function tegnCbKnap() {
     cbKnap.hidden = false;
+    klasseKnap.hidden = !erLoggetInd(); // #56: kun logget ind — knappen ER en git-operation
     if (erLoggetInd()) {
       cbKnap.textContent = "Del til Almind";
       try {
@@ -157,6 +160,37 @@
     }
   });
   tegnCbKnap();
+
+  // #56: "Del med klassen" — commit til egen gren, ingen PR og ingen
+  // publish-gate: at dele med egen klasse er ikke et forslag til fællesskabet.
+  klasseKnap.addEventListener("click", async () => {
+    gemKladde(f);
+    klasseKnap.disabled = true;
+    visStatus("Deler med klassen: commit til en gren i din egen fork ...");
+    try {
+      const sti = await gemTilEgenGren(f);
+      gemKladde(f); // klasse_gren + forfatter_codeberg blev sat af kaldet
+      const url = new URL(sti, location.href).href;
+      cbStatus.hidden = false;
+      cbStatus.classList.remove("fejl");
+      cbStatus.innerHTML = "";
+      cbStatus.append("Elev-link til klassen (rettelser opdaterer samme link): ");
+      const a = document.createElement("a");
+      a.href = url; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = url;
+      cbStatus.appendChild(a);
+      const kopier = document.createElement("button");
+      kopier.className = "knap sekundaer";
+      kopier.textContent = "Kopiér link";
+      kopier.addEventListener("click", () => navigator.clipboard.writeText(url));
+      cbStatus.append(" ");
+      cbStatus.appendChild(kopier);
+    } catch (fejl) {
+      visStatus("Kunne ikke dele med klassen: " + fejl.message, true);
+    } finally {
+      klasseKnap.disabled = false;
+    }
+  });
 
   // Filen ER persistensformen: ét forløb = én JSON = ét fremtidigt Codeberg-repo
   document.getElementById("download-knap").addEventListener("click", () => {

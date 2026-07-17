@@ -114,6 +114,22 @@ export function findForloeb(alle, id) {
   return alle.find((f) => f.id === id) || null;
 }
 
+// #56: elev-link fra "Del med klassen" — kilde er "ejer/repo/gren", forløbet
+// læses fra grenen i brugerens egen Codeberg-fork. Uden login: repoet er
+// offentligt, og API'et svarer med CORS. no-store, så elevers rettelses-
+// opdateringer ikke strander i browser-cachen.
+export async function hentForloebFraKilde(kilde) {
+  const [ejer, repo, ...gren] = (kilde || "").split("/");
+  if (!ejer || !repo || !gren.length) return null;
+  const svar = await fetch(
+    `https://codeberg.org/api/v1/repos/${ejer}/${repo}/contents/forloeb.json?ref=${encodeURIComponent(gren.join("/"))}`,
+    { cache: "no-store" });
+  if (!svar.ok) return null;
+  const { content } = await svar.json();
+  const bytes = Uint8Array.from(atob(content.replace(/\s/g, "")), (c) => c.charCodeAt(0));
+  return normaliserAktiviteter(JSON.parse(new TextDecoder().decode(bytes)));
+}
+
 // E-G2: vokabular-registrene (greb + begreber), slået sammen til én liste
 // {id, navn, type: "greb"|"begreb", ung: false, kilde, aliaser}. "ung"-begreber
 // (fra tema-frittekst eller wizard-input uden registermatch) findes ikke her —
