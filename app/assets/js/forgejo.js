@@ -263,4 +263,9 @@ export function loginMedForklaring(retur) {
   dlg.addEventListener("close", () => dlg.remove());
   document.body.appendChild(dlg);
   dlg.showModal();
+  // Tvungen reflow (ikke rAF — den kan være throttlet i en baggrundsfane/
+  // headless kontekst og aldrig fyre) committer opacity:0-udgangspunktet FØR
+  // .vis lægges på, så transitionen har noget at interpolere fra.
+  dlg.offsetHeight;
+  dlg.classList.add("vis");
 }

@@ -62,13 +62,19 @@ function loginKnap() {
       knap.addEventListener("click", () => loginMedForklaring());
       return;
     }
+    let brugernavn;
     try {
-      knap.textContent = await hentBruger();
+      brugernavn = await hentBruger();
     } catch {
       knap.textContent = "Log ind";
       knap.addEventListener("click", () => loginMedForklaring());
       return;
     }
+    // Synligt log ud-tegn, ikke kun en hover-title (virker ikke på mobil/touch).
+    knap.textContent = "";
+    knap.append(brugernavn, document.createElement("span"));
+    knap.lastChild.className = "header-logud";
+    knap.lastChild.textContent = "×";
     knap.title = "Log ud";
     knap.addEventListener("click", () => { logUd(); location.reload(); });
   });

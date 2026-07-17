@@ -1236,12 +1236,32 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 .dg-flag { font-size: 0.82rem; margin-top: 0.6rem; }
 .dg-flag a { color: var(--accent); }
 
+/* ---------- header-loginknap ---------- */
+.header-logud {
+  margin-left: 0.4rem; color: var(--muted); font-weight: 400;
+}
+.header-login-knap:hover .header-logud { color: inherit; }
+
 /* ---------- #82: login-forklaring (før Codeberg-OAuth-redirect) ---------- */
+/* Fade+scale i stedet for et hårdt pop — trækker øjet med fra klikket i
+   headeren til den centrerede dialog, uden at opgive centrering (en
+   identitets-/tillidsforklaring fortjener fuld opmærksomhed, ikke et lille
+   anker-hjørne der underspiller vigtigheden). JS lægger .vis-klassen på efter
+   næste frame (forgejo.js) — @starting-style blev forsøgt først, men er
+   upålidelig nok på tværs af browsere til at risikere en usynlig, fastfrosset
+   dialog; denne klasse-baserede variant virker overalt. */
 .login-dialog {
   border: 1px solid var(--border); border-radius: var(--r-modal);
   background: var(--surface); color: var(--ink); max-width: 400px; padding: 1.5rem;
+  opacity: 0; scale: 0.96;
+  transition: opacity 0.18s ease, scale 0.18s ease;
 }
-.login-dialog::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+.login-dialog.vis { opacity: 1; scale: 1; }
+.login-dialog::backdrop {
+  background: color-mix(in srgb, var(--ink) 40%, transparent);
+  opacity: 0; transition: opacity 0.18s ease;
+}
+.login-dialog.vis::backdrop { opacity: 1; }
 .login-dialog h2 { font-family: var(--font-ui); font-size: 1.1rem; margin-bottom: 0.5rem; }
 .login-dialog .under { margin-bottom: 1.2rem; }
 .login-dialog-knapper { display: flex; gap: 0.6rem; }
