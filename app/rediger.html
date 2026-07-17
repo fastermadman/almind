@@ -61,6 +61,7 @@
   import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor, fagNavn } from "./assets/js/data.js";
   import { startEditor, nytForloeb, forkAf, centrumOK, aabnCentrumDialog } from "./assets/js/blokke.js";
+  import { erLoggetInd, loginMedForklaring, hentBruger, delTilAlmind, gemTilEgenGren } from "./assets/js/forgejo.js";
 
   sitehoved(document.querySelector(".site-header"));
 
@@ -69,9 +70,19 @@
 
   if (params.get("kladde") === "1") f = hentKladde();
   if (!f && params.get("fork")) {
-    const alle = await hentForloeb();
-    const original = findForloeb(alle, params.get("fork"));
-    if (original) f = forkAf(original);
+    // #83: fork er overgangen fra at læse til at bygge videre på fælles-
+    // skabets arbejde — kræver login (browse/læs/preview forbliver frit,
+    // kun selve fork-handlingen gates). retur er den fulde fork-URL, så
+    // OAuth-turen lander brugeren tilbage her og forken fuldføres, nu
+    // logget ind. Afviser man popup'en, falder man tilbage til en tom
+    // kladde i stedet for at stå fast på en dødvande-side.
+    if (!erLoggetInd()) {
+      loginMedForklaring(location.pathname + location.search);
+    } else {
+      const alle = await hentForloeb();
+      const original = findForloeb(alle, params.get("fork"));
+      if (original) f = forkAf(original);
+    }
   }
   if (!f) f = nytForloeb();
 
@@ -107,7 +118,6 @@
 
   // Codeberg: login → del som ægte fork/gren + PR. Download-JSON består som
   // fallback uden login — filen er stadig persistensformen.
-  const { erLoggetInd, loginMedForklaring, hentBruger, delTilAlmind, gemTilEgenGren } = await import("./assets/js/forgejo.js");
   const cbKnap = document.getElementById("cb-knap");
   const klasseKnap = document.getElementById("klasse-knap");
   const cbStatus = document.getElementById("cb-status");
