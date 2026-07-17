@@ -363,7 +363,14 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     // #52-opfølgning: varighed er fasens tidsafgrænsning, fritekst (ikke minutter
     // som tal) — "10 min", "ca. 40 min", "en lektion" er alle gyldige. Vil man
     // have flere tidsafgrænsede dele, laver man flere faser, ikke felter herinde.
-    hoved.appendChild(inputFelt("fase-varighed", fase.varighed, "Varighed (fx \"10 min\")", (v) => (fase.varighed = v)));
+    // Label udenfor feltet, ikke kun placeholder — den blev klippet af i det
+    // smalle felt, og forsvandt helt så snart brugeren skrev noget.
+    const varighedWrap = el("span", "fase-varighed-wrap");
+    varighedWrap.append(
+      el("span", "fase-varighed-label", "Varighed"),
+      inputFelt("fase-varighed", fase.varighed, "10 min", (v) => (fase.varighed = v)),
+    );
+    hoved.appendChild(varighedWrap);
     hoved.appendChild(sletKnap("Slet fasen", () => {
       if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
       f.faser.splice(i, 1);
