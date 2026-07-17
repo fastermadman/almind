@@ -8,6 +8,7 @@
 import {
   DIMENSIONER, DIM_NAVNE, familieFor, SAMSPIL_FORMER, tegnFagOptions,
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
+  hentBegreber, begrebMatchNoegle,
 } from "./data.js";
 import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
@@ -799,6 +800,67 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     return grp;
   }
 
+  // E-G2: begrebs-autocomplete — tilbyder registrets ~100 greb/begreber som
+  // forslag, afkræver aldrig. Ukendt input tilføjes alligevel (bliver et
+  // "ungt begreb" i grafen, se graf-data.js) — feltet er invitation, ikke gate.
+  async function tegnBegreber() {
+    const grp = document.createElement("details");
+    grp.open = true;
+    grp.appendChild(el("summary", null, "Begreber og greb"));
+    grp.appendChild(el("p", "under",
+      "Hvilke faglige begreber og didaktiske greb bærer forløbet? Bruges til søgning og til at finde beslægtede forløb i konstellationen — helt valgfrit."));
+
+    f.tema ??= [];
+    const register = await hentBegreber();
+    const opslag = new Map();
+    register.forEach((post) => [post.id, post.navn, ...(post.aliaser || [])]
+      .forEach((s) => opslag.set(begrebMatchNoegle(s), post)));
+
+    const listeId = "begreber-datalist";
+    if (!document.getElementById(listeId)) {
+      const dl = el("datalist");
+      dl.id = listeId;
+      register.forEach((post) => dl.appendChild(new Option(post.navn)));
+      document.body.appendChild(dl);
+    }
+
+    const chipZone = el("div", "chips");
+    chipZone.setAttribute("role", "group");
+    const tegnChips = () => {
+      chipZone.innerHTML = "";
+      f.tema.forEach((t, i) => {
+        const kendt = opslag.has(begrebMatchNoegle(t));
+        const chip = el("span", "chip begreb-chip" + (kendt ? "" : " ungt"), t + (kendt ? "" : " (nyt)"));
+        const slet = sletKnap(`Fjern "${t}"`, () => { f.tema.splice(i, 1); gem(); tegnChips(); });
+        chip.appendChild(slet);
+        chipZone.appendChild(chip);
+      });
+    };
+    tegnChips();
+
+    const input = el("input");
+    input.type = "text";
+    input.placeholder = "Skriv et begreb eller greb ...";
+    input.setAttribute("list", listeId);
+    const tilfoej = () => {
+      const v = input.value.trim();
+      if (!v) return;
+      const findes = f.tema.some((t) => begrebMatchNoegle(t) === begrebMatchNoegle(v));
+      if (!findes) { f.tema.push(v); gem(); tegnChips(); }
+      input.value = "";
+    };
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); tilfoej(); } });
+    const tilfoejBtn = tilfoejKnap("+ Tilføj", tilfoej);
+
+    const raekke = el("div", "raekke");
+    raekke.appendChild(input);
+    raekke.appendChild(tilfoejBtn);
+
+    grp.appendChild(chipZone);
+    grp.appendChild(raekke);
+    return grp;
+  }
+
   async function tegnPanel() {
     panel.innerHTML = "";
     panel.appendChild(el("h2", null, "Didaktisk profil"));
@@ -828,6 +890,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     }
 
     panel.appendChild(tegnValgOgFravalg());
+    panel.appendChild(await tegnBegreber());
     panel.appendChild(await tegnKobling());
   }
 

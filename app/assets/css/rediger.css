@@ -217,6 +217,11 @@
 .profil-panel .chip { font-size: 0.8rem; padding: 0.3rem 0.7rem; }
 .profil-panel .segment button { font-size: 0.8rem; padding: 0.3rem 0.65rem; }
 
+/* E-G2: begrebs-chips — kendte (registermatchede) er optrukne som andre chips;
+   "ungt" (ukendt input, bliver en ung begrebs-node i grafen) er stiplet/kursiv. */
+.begreb-chip { display: inline-flex; align-items: center; gap: 0.3rem; cursor: default; }
+.begreb-chip.ungt { border-style: dashed; font-style: italic; color: var(--muted); }
+
 /* W1: fravalg-rækker i panelet (deler stil med wizardens trin ③) */
 .profil-panel .raekke-liste { margin-bottom: 0.6rem; }
 .profil-panel .raekke {

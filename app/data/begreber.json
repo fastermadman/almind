@@ -1,0 +1,3558 @@
+[
+  {
+    "id": "aarstidsvariation",
+    "navn": "Aarstidsvariation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "aktantmodellen",
+    "navn": "Aktantmodellen",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: h-c-andersen-paa-hovedet",
+    "aliaser": [
+      "aktantanalyse"
+    ]
+  },
+  {
+    "id": "aktoer-og-strukturforklaring",
+    "navn": "Aktoer og strukturforklaring",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "algebra-matematik",
+    "navn": "Algebra matematik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "algoritmekritik",
+    "navn": "Algoritmekritik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "algoritmer-deterministiske-adaptive-generative",
+    "navn": "Algoritmer deterministiske adaptive generative",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "almen-didaktik-og-fagdidaktik",
+    "navn": "Almen didaktik og fagdidaktik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "almendidaktik",
+      "fagdidaktik",
+      "almen didaktik"
+    ]
+  },
+  {
+    "id": "analyse",
+    "navn": "Analyse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "tekstanalyse",
+      "litterær analyse",
+      "sproglig analyse"
+    ]
+  },
+  {
+    "id": "andre-religioner-og-livsopfattelser",
+    "navn": "Andre religioner og livsopfattelser",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "anelser-intuition-fantasi",
+    "navn": "Anelser intuition fantasi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Håndværk og design: en fagmetodik (Hanne Schneider & Stig Pedersen, 2017)",
+    "aliaser": []
+  },
+  {
+    "id": "appelformer",
+    "navn": "Appelformer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: debatuge-om-magt-hvem-bestemmer (FGU/engelsk, tværfagligt anvendt i dansk)",
+    "aliaser": [
+      "logos",
+      "ethos",
+      "patos",
+      "appelform"
+    ]
+  },
+  {
+    "id": "argumentation",
+    "navn": "Argumentation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fælles Mål; Tema 5 eksamen",
+    "aliaser": [
+      "argumentationsanalyse",
+      "argumentation og belæg",
+      "Toulmin"
+    ]
+  },
+  {
+    "id": "at-lave-musik",
+    "navn": "At lave musik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "at-opleve-musik",
+    "navn": "At opleve musik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "atomets-opbygning",
+    "navn": "Atomets opbygning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "baeredygtigt-perspektiv",
+    "navn": "Baeredygtigt perspektiv",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "befolkning-og-byudvikling-indholdsomraade",
+    "navn": "Befolkning og byudvikling indholdsomraade",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "befolkningsudvikling",
+    "navn": "Befolkningsudvikling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "berettermodellen",
+    "navn": "Berettermodellen",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: h-c-andersen-paa-hovedet",
+    "aliaser": []
+  },
+  {
+    "id": "bias-i-modellering",
+    "navn": "Bias i modellering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "bibelske-fortaellinger-og-deres-spor",
+    "navn": "Bibelske fortaellinger og deres spor",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "billedbearbejdning",
+    "navn": "Billedbearbejdning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "billedfremstilling",
+    "navn": "Billedfremstilling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "billedkomposition",
+    "navn": "Billedkomposition",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "billedudforskning",
+    "navn": "Billedudforskning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "biodiversitet",
+    "navn": "Biodiversitet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "bioteknologi",
+    "navn": "Bioteknologi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "blokprogrammering",
+    "navn": "Blokprogrammering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "boelgetyper",
+    "navn": "Boelgetyper",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "boldbasis-og-boldspil",
+    "navn": "Boldbasis og boldspil",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "brugstekster",
+    "navn": "Brugstekster",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "brugstekst",
+      "fagtekst",
+      "sagprosa",
+      "ikke-fiktive tekster"
+    ]
+  },
+  {
+    "id": "brøk",
+    "navn": "Brøk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fælles Mål; forløb Brøkværkstedet",
+    "aliaser": [
+      "brøkregning",
+      "brøktal",
+      "rationalt tal"
+    ]
+  },
+  {
+    "id": "byudvikling-og-arealanvendelse",
+    "navn": "Byudvikling og arealanvendelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "børne-og-ungdomslitteratur",
+    "navn": "Børne og ungdomslitteratur",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "børnelitteratur",
+      "ungdomslitteratur",
+      "børne- og ungdomslitteratur"
+    ]
+  },
+  {
+    "id": "chunks",
+    "navn": "Chunks",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "computationel-tankegang",
+    "navn": "Computationel tankegang",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: liv-paa-mars",
+    "aliaser": [
+      "ct",
+      "computational thinking"
+    ]
+  },
+  {
+    "id": "dannelse",
+    "navn": "Dannelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål fagformål",
+    "aliaser": [
+      "bildung",
+      "almen dannelse",
+      "æstetisk dannelse",
+      "demokratisk dannelse"
+    ]
+  },
+  {
+    "id": "dannelsesbegreber",
+    "navn": "Dannelsesbegreber",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Didaktisk opslagsbog (redaktør Peter Brodersen m.fl., 2022)",
+    "aliaser": []
+  },
+  {
+    "id": "dans-og-udtryk",
+    "navn": "Dans og udtryk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "dansk-som-andetsprog",
+    "navn": "Dansk som andetsprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "DSA",
+      "dansk som andetsprog",
+      "tosprogede elever"
+    ]
+  },
+  {
+    "id": "datagoerelse-og-datamodellering",
+    "navn": "Datagoerelse og datamodellering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "deduktive-induktive-abduktive-aktiviteter",
+    "navn": "Deduktive induktive abduktive aktiviteter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "deduktiv",
+      "induktiv",
+      "abduktiv",
+      "deduktion",
+      "induktion",
+      "abduktion"
+    ]
+  },
+  {
+    "id": "demokrati-normativt-fundament",
+    "navn": "Demokrati normativt fundament",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Samfundsfagsdidaktik: livsverden, fag og politisk dannelse (Anders Stig Christensen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "designmetoder",
+    "navn": "Designmetoder",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "deskriptiv-statistik",
+    "navn": "Deskriptiv statistik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: deskriptiv-statistik-med-hjaelp-fra-rumvaesner",
+    "aliaser": [
+      "typetal",
+      "middeltal",
+      "hyppighed"
+    ]
+  },
+  {
+    "id": "deskriptorer-statistik",
+    "navn": "Deskriptorer statistik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "det-oekonomiske-kredsloeb",
+    "navn": "Det oekonomiske kredsloeb",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "det-periodiske-system",
+    "navn": "Det periodiske system",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "didaktiske-modeller",
+    "navn": "Didaktiske modeller",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "didaktisk model",
+      "undervisningsmodel",
+      "didaktisk design"
+    ]
+  },
+  {
+    "id": "differentiering",
+    "navn": "Differentiering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "undervisningsdifferentiering",
+      "differentieret undervisning",
+      "niveaudifferentiering"
+    ]
+  },
+  {
+    "id": "digital-kommunikation",
+    "navn": "Digital kommunikation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "digital kommunikation",
+      "sociale medier",
+      "online kommunikation"
+    ]
+  },
+  {
+    "id": "digital-kreativitet-og-design",
+    "navn": "Digital kreativitet og design",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "digitale-artefakter",
+    "navn": "Digitale artefakter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "digitale-faenomener",
+    "navn": "Digitale faenomener",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "diskurs",
+    "navn": "Diskurs",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Eksamenslitteratur Tema 5",
+    "aliaser": [
+      "diskursanalyse",
+      "kritisk diskursanalyse",
+      "Fairclough"
+    ]
+  },
+  {
+    "id": "drama",
+    "navn": "Drama",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "dramapædagogik",
+      "dramatisering",
+      "teaterpædagogik"
+    ]
+  },
+  {
+    "id": "eksamen-og-test",
+    "navn": "Eksamen og test",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "eksamen",
+      "test",
+      "prøve",
+      "mundtlig eksamen",
+      "skriftlig prøve"
+    ]
+  },
+  {
+    "id": "eksemplarisk-princip",
+    "navn": "Eksemplarisk princip",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "eksemplarisk",
+      "Wagenschein",
+      "eksempel-princip"
+    ]
+  },
+  {
+    "id": "eksistens-etik-og-livsfilosofi",
+    "navn": "Eksistens etik og livsfilosofi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "elektrisk-kredsløb",
+    "navn": "Elektrisk kredsløb",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Forløb Strøm i huset",
+    "aliaser": [
+      "kredsløb",
+      "strøm og modstand",
+      "serie- og parallelforbindelse"
+    ]
+  },
+  {
+    "id": "elevforudsætninger",
+    "navn": "Elevforudsætninger",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "forforståelse",
+      "forhåndsviden",
+      "elevernes baggrund"
+    ]
+  },
+  {
+    "id": "elevrespons",
+    "navn": "Elevrespons",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "peer respons",
+      "elevfeedback",
+      "kammeratrespons",
+      "responsgruppe"
+    ]
+  },
+  {
+    "id": "emne-og-projektarbejde",
+    "navn": "Emne og projektarbejde",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "projektarbejde",
+      "emnearbejde",
+      "tværfagligt projekt"
+    ]
+  },
+  {
+    "id": "en-baeredygtig-fremtid",
+    "navn": "En baeredygtig fremtid",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "energi-og-energiomdannelse",
+    "navn": "Energi og energiomdannelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "evaluering",
+    "navn": "Evaluering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "summativ evaluering",
+      "formativ evaluering",
+      "løbende evaluering"
+    ]
+  },
+  {
+    "id": "evolutionsteori",
+    "navn": "Evolutionsteori",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "faellesskab-og-identitet-indholdsomraade",
+    "navn": "Faellesskab og identitet indholdsomraade",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "faellesskaber-og-tilhoersforhold",
+    "navn": "Faellesskaber og tilhoersforhold",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "faglig-læsning-og-skrivning",
+    "navn": "Faglig læsning og skrivning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "faglig læsning",
+      "faglig skrivning",
+      "læsning i fag"
+    ]
+  },
+  {
+    "id": "fagspecifik_literacy",
+    "navn": "Fagspecifik_literacy",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "fagsprog-og-hverdagssprog",
+    "navn": "Fagsprog og hverdagssprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fagsprogsudvikling",
+    "navn": "Fagsprogsudvikling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Biologididaktik (Pernille Ulla Andersen & Ulla Hjøllund Linderoth, 2018)",
+    "aliaser": []
+  },
+  {
+    "id": "faseovergange",
+    "navn": "Faseovergange",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "feedback-og-vejledning",
+    "navn": "Feedback og vejledning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Aasen & Kvithyld",
+    "aliaser": [
+      "feedback",
+      "vejledning",
+      "respons på tekst",
+      "lærerfeedback"
+    ]
+  },
+  {
+    "id": "feltundersøgelse",
+    "navn": "Feltundersøgelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Forløb Åen bag skolen",
+    "aliaser": [
+      "feltarbejde",
+      "feltobservation",
+      "naturundersøgelse"
+    ]
+  },
+  {
+    "id": "filmsprog",
+    "navn": "Filmsprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Raskin (2001); Gissel (2016); Tema 4",
+    "aliaser": [
+      "filmanalyse",
+      "kortfilmsanalyse",
+      "Raskins parametre",
+      "filmvirkemidler"
+    ]
+  },
+  {
+    "id": "flersprogethed",
+    "navn": "Flersprogethed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fagdidaktik i dansk som andetsprog (Sofia Esmann Busch & Bergthóra Kristjánsdóttir, Frydenlund, 2024, ISBN 9788772168678)",
+    "aliaser": []
+  },
+  {
+    "id": "flersprogethedsdidaktik",
+    "navn": "Flersprogethedsdidaktik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fremmedsprogsdidaktik (Petra Daryai-Hansen, 2018)",
+    "aliaser": []
+  },
+  {
+    "id": "foedevarer",
+    "navn": "Foedevarer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fordoejelsessystemet",
+    "navn": "Fordoejelsessystemet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "forestilling-og-indlevelse",
+    "navn": "Forestilling og indlevelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "forestillingsevne",
+      "indlevelse",
+      "æstetisk oplevelse",
+      "imaginær forestilling"
+    ]
+  },
+  {
+    "id": "forfatter-fortaeller-skelnen",
+    "navn": "Forfatter fortaeller skelnen",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "forforståelse",
+    "navn": "Forforståelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "forhåndsviden",
+      "aktivering af viden",
+      "skemateori"
+    ]
+  },
+  {
+    "id": "formsprogligt-billedarbejde",
+    "navn": "Formsprogligt billedarbejde",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "formål-og-mål",
+    "navn": "Formål og mål",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "læringsmål",
+      "undervisningsmål",
+      "kompetencemål",
+      "fagformål"
+    ]
+  },
+  {
+    "id": "fortaellinger-og-spor",
+    "navn": "Fortaellinger og spor",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fortolkning",
+    "navn": "Fortolkning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål kompetenceområde",
+    "aliaser": [
+      "tekstfortolkning",
+      "litterær fortolkning",
+      "hermeneutik"
+    ]
+  },
+  {
+    "id": "fortolkningsfællesskab",
+    "navn": "Fortolkningsfællesskab",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Bang (2022); Fish (1980)",
+    "aliaser": [
+      "fortolkningsfaellesskab",
+      "læsefællesskab",
+      "Fish fortolkningsfællesskab"
+    ]
+  },
+  {
+    "id": "fremstillingsformer",
+    "navn": "Fremstillingsformer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "fremstillingsform",
+      "fortælling",
+      "beskrivelse",
+      "redegørelse"
+    ]
+  },
+  {
+    "id": "funktion-kommunikation-estetik",
+    "navn": "Funktion kommunikation estetik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Håndværk og design: en fagmetodik (Hanne Schneider & Stig Pedersen, 2017)",
+    "aliaser": []
+  },
+  {
+    "id": "funktionel-respons-elevsprog",
+    "navn": "Funktionel respons elevsprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "funktionelle-og-formelle-aktiviteter",
+    "navn": "Funktionelle og formelle aktiviteter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "funktionel aktivitet",
+      "formel aktivitet",
+      "Gissel aktivitetstyper"
+    ]
+  },
+  {
+    "id": "funktionelt-bogstavkendskab",
+    "navn": "Funktionelt bogstavkendskab",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "funktionelt-kildebegreb",
+    "navn": "Funktionelt kildebegreb",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "funktioner",
+    "navn": "Funktioner",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "færdigheder-og-viden",
+    "navn": "Færdigheder og viden",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "færdighedsmål",
+      "vidensmål",
+      "kompetencer og viden"
+    ]
+  },
+  {
+    "id": "genre",
+    "navn": "Genre",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "genrer",
+      "tekstgenre",
+      "genrebevidsthed",
+      "genrekonventioner"
+    ]
+  },
+  {
+    "id": "genrepædagogik",
+    "navn": "Genrepædagogik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Gyldendal: Skrivekraft",
+    "aliaser": []
+  },
+  {
+    "id": "geometri-og-maaling",
+    "navn": "Geometri og maaling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "gis",
+    "navn": "Gis",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "globalisering",
+    "navn": "Globalisering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "graenser-og-globalisering",
+    "navn": "Graenser og globalisering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "grammatik",
+    "navn": "Grammatik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "sproglig korrekthed",
+      "morfologi",
+      "syntaks",
+      "ordklasser",
+      "sætningslære"
+    ]
+  },
+  {
+    "id": "grundlaeggende-talehandlinger",
+    "navn": "Grundlaeggende talehandlinger",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "grundmotorik",
+    "navn": "Grundmotorik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "grundsmage",
+    "navn": "Grundsmage",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "haandvaerk-musik",
+    "navn": "Haandvaerk musik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "haandvaerk-og-skabende-processer",
+    "navn": "Haandvaerk og skabende processer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "helheds-og-elementprincip",
+    "navn": "Helheds og elementprincip",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "helheds- og elementprincippet",
+      "helordsmetode",
+      "elementpædagogik"
+    ]
+  },
+  {
+    "id": "helligt-og-profant",
+    "navn": "Helligt og profant",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "historiekanon",
+    "navn": "Historiekanon",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "historisk-kritiske-perspektiver-religion",
+    "navn": "Historisk kritiske perspektiver religion",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "historisk-læsning",
+    "navn": "Historisk læsning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål kanon",
+    "aliaser": [
+      "historisk læsning",
+      "litteraturhistorie",
+      "kanonlæsning",
+      "litterær kanon"
+    ]
+  },
+  {
+    "id": "historisk-taenkning",
+    "navn": "Historisk taenkning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "hverdagsliv-og-vilkaar",
+    "navn": "Hverdagsliv og vilkaar",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "hybridtekster",
+    "navn": "Hybridtekster",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "idraettens-mangfoldighed",
+    "navn": "Idraettens mangfoldighed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "indhold",
+    "navn": "Indhold",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "fagligt indhold",
+      "stof",
+      "indholdsselektion"
+    ]
+  },
+  {
+    "id": "inferens",
+    "navn": "Inferens",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Brudholm (2011); eksamenslitteratur",
+    "aliaser": [
+      "inferenser",
+      "tekstbaseret inferens",
+      "vidensbaseret inferens"
+    ]
+  },
+  {
+    "id": "interaktion-og-dialog",
+    "navn": "Interaktion og dialog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "interkulturel-kommunikation",
+    "navn": "Interkulturel kommunikation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "intersektionalitet",
+    "navn": "Intersektionalitet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: identitet-og-mangfoldighed-i-ny-dansk-digtning",
+    "aliaser": []
+  },
+  {
+    "id": "journalistisk-tekst",
+    "navn": "Journalistisk tekst",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Eksamenslitteratur Tema 5",
+    "aliaser": [
+      "journalistik",
+      "nyhedsartikel",
+      "nyhedskriterier",
+      "vinkel",
+      "nyhedsgenren"
+    ]
+  },
+  {
+    "id": "kemisk-reaktion",
+    "navn": "Kemisk reaktion",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kend-din-krop",
+    "navn": "Kend din krop",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kildekritik",
+    "navn": "Kildekritik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: debatuge-om-magt-hvem-bestemmer",
+    "aliaser": [
+      "faktatjek",
+      "kildevurdering"
+    ]
+  },
+  {
+    "id": "klimazoner-og-plantebaelter",
+    "navn": "Klimazoner og plantebaelter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kommunikation",
+    "navn": "Kommunikation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål kompetenceområde",
+    "aliaser": [
+      "sproglig kommunikation",
+      "kommunikationssituation",
+      "afsender-modtager"
+    ]
+  },
+  {
+    "id": "kommunikation-og-sproglig-udvikling",
+    "navn": "Kommunikation og sproglig udvikling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kommunikationsstrategier-engelsk",
+    "navn": "Kommunikationsstrategier engelsk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kommunikationsstrategier-sprogfag",
+    "navn": "Kommunikationsstrategier sprogfag",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "komparativ-metode-religion",
+    "navn": "Komparativ metode religion",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kompetencer-og-handlekompetencer",
+    "navn": "Kompetencer og handlekompetencer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "handlekompetence",
+      "kompetence",
+      "kompetencebegreb"
+    ]
+  },
+  {
+    "id": "konceptuelt-billedarbejde",
+    "navn": "Konceptuelt billedarbejde",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kontroversialitet-niveauer",
+    "navn": "Kontroversialitet niveauer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Samfundsfagsdidaktik: livsverden, fag og politisk dannelse (Anders Stig Christensen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "koordinatsystem",
+    "navn": "Koordinatsystem",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "koreografi",
+    "navn": "Koreografi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "krop-og-traening",
+    "navn": "Krop og traening",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kropsbevidsthed",
+    "navn": "Kropsbevidsthed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kultur-og-hverdagsliv",
+    "navn": "Kultur og hverdagsliv",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kultur-og-interkulturel-forstaaelse",
+    "navn": "Kultur og interkulturel forstaaelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kultur-og-kulturer",
+    "navn": "Kultur og kulturer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "kulturforståelse",
+      "interkulturel kompetence",
+      "kulturmøde"
+    ]
+  },
+  {
+    "id": "kulturel-og-aestetisk-opmaerksomhed",
+    "navn": "Kulturel og aestetisk opmaerksomhed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kulturteknikker",
+    "navn": "Kulturteknikker",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "kunstig-intelligens-i-dansk",
+    "navn": "Kunstig intelligens i dansk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "landskabsdannelse",
+    "navn": "Landskabsdannelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "leg-krop-og-bevaegelse",
+    "navn": "Leg krop og bevaegelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "ligningsloesning",
+    "navn": "Ligningsloesning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "literacy",
+    "navn": "Literacy",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "skriftsprogskompetence",
+      "critical literacy",
+      "multiliteracy"
+    ]
+  },
+  {
+    "id": "litteratur",
+    "navn": "Litteratur",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "skønlitteratur",
+      "fiktion",
+      "litterær tekst"
+    ]
+  },
+  {
+    "id": "livet-udvikler-sig",
+    "navn": "Livet udvikler sig",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "lydlige-strukturer",
+    "navn": "Lydlige strukturer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "lytning",
+    "navn": "Lytning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Nissen (2023)",
+    "aliaser": [
+      "lyttekompetence",
+      "aktiv lytning",
+      "lyttedidaktik"
+    ]
+  },
+  {
+    "id": "lytte-laese-opleve",
+    "navn": "Lytte laese opleve",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "lytte-og-laese",
+    "navn": "Lytte og laese",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "læremidler",
+    "navn": "Læremidler",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Gissel typologi",
+    "aliaser": [
+      "læremiddel",
+      "didaktisk læremiddel",
+      "semantisk læremiddel",
+      "funktionelt læremiddel"
+    ]
+  },
+  {
+    "id": "læring",
+    "navn": "Læring",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "læringsteorier",
+      "læringsformer",
+      "læringssyn"
+    ]
+  },
+  {
+    "id": "læseforståelse",
+    "navn": "Læseforståelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Brudholm (2011)",
+    "aliaser": [
+      "tekstforståelse",
+      "reading comprehension",
+      "forståelsesstrategier"
+    ]
+  },
+  {
+    "id": "læseplan",
+    "navn": "Læseplan",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "undervisningsplan",
+      "fagplan"
+    ]
+  },
+  {
+    "id": "læsning-afkodning",
+    "navn": "Læsning afkodning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "afkodning",
+      "dekodering",
+      "lydanalyse",
+      "fonologisk bevidsthed"
+    ]
+  },
+  {
+    "id": "mad-krop-og-klode",
+    "navn": "Mad krop og klode",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "madlavning-indholdsomraade",
+    "navn": "Madlavning indholdsomraade",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "magt-og-frihed",
+    "navn": "Magt og frihed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "magtens-tredeling",
+    "navn": "Magtens tredeling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "matematik-i-anvendelse",
+    "navn": "Matematik i anvendelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "matematisk-modellering",
+    "navn": "Matematisk modellering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fælles Mål kompetenceområde",
+    "aliaser": [
+      "matematisk model",
+      "matematisering"
+    ]
+  },
+  {
+    "id": "matematisk-problemloesning",
+    "navn": "Matematisk problemloesning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "matematisk-raesonnement",
+    "navn": "Matematisk raesonnement",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "matematiske-kerneideer",
+    "navn": "Matematiske kerneideer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "matematiske-taenke-og-handlemaader",
+    "navn": "Matematiske taenke og handlemaader",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "materialebevidsthed",
+    "navn": "Materialebevidsthed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "materialer-og-ressourcer",
+    "navn": "Materialer og ressourcer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "materialkultur-haandvaerk",
+    "navn": "Materialkultur haandvaerk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Håndværk og design – en fagdidaktik (Hanne Schneider & Stig Pedersen)",
+    "aliaser": []
+  },
+  {
+    "id": "materiel-kultur",
+    "navn": "Materiel kultur",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Håndværk og design: en fagmetodik (Hanne Schneider & Stig Pedersen, 2017)",
+    "aliaser": []
+  },
+  {
+    "id": "medbestemmelse",
+    "navn": "Medbestemmelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "elevmedbestemmelse",
+      "demokratisk undervisning",
+      "elevinddragelse"
+    ]
+  },
+  {
+    "id": "meddigtning",
+    "navn": "Meddigtning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "medier",
+    "navn": "Medier",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "mediekompetence",
+      "medieanalyse",
+      "mediedidaktik"
+    ]
+  },
+  {
+    "id": "meningsfuld-idraetsoplevelse",
+    "navn": "Meningsfuld idraetsoplevelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fagdidaktik i idræt (Kasper Lasthein Madsen, Annemari Munk Svendsen, Esben Volshøj, Andreas Bolding Christensen, Anette Bentholm, 2022)",
+    "aliaser": []
+  },
+  {
+    "id": "mennesker-og-maaltider",
+    "navn": "Mennesker og maaltider",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "mennesket-indholdsomraade",
+    "navn": "Mennesket indholdsomraade",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "metakognition-og-metasprog",
+    "navn": "Metakognition og metasprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "metakognition",
+      "metasprog",
+      "læringsbevidsthed",
+      "sproglig bevidsthed"
+    ]
+  },
+  {
+    "id": "mikroorganismer",
+    "navn": "Mikroorganismer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "mitose-og-dna",
+    "navn": "Mitose og dna",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "modellering-begreber",
+    "navn": "Modellering begreber",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "modeltekst",
+      "modellæsning",
+      "modelskrivning",
+      "modelbaseret undervisning"
+    ]
+  },
+  {
+    "id": "modellering-naturfag",
+    "navn": "Modellering naturfag",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Natur/teknologididaktik (Trine Hyllested, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "motivation",
+    "navn": "Motivation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "læringsmotivation",
+      "indre motivation",
+      "ydre motivation",
+      "engagement"
+    ]
+  },
+  {
+    "id": "multimodale-tekster",
+    "navn": "Multimodale tekster",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål Forenklede",
+    "aliaser": [
+      "multimodalitet",
+      "multimodal tekst",
+      "billedtekst",
+      "sammensatte tekster"
+    ]
+  },
+  {
+    "id": "mundtlig-fremstilling",
+    "navn": "Mundtlig fremstilling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Mundbjerg (2022)",
+    "aliaser": [
+      "mundtlighed",
+      "tale",
+      "præsentation",
+      "fremlæggelse",
+      "oracy"
+    ]
+  },
+  {
+    "id": "musik-i-brug",
+    "navn": "Musik i brug",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "musik-og-bevaegelse",
+    "navn": "Musik og bevaegelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "musikalsk-notation",
+    "navn": "Musikalsk notation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "musikalske-grundelementer",
+    "navn": "Musikalske grundelementer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "nabosprog",
+    "navn": "Nabosprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "norsk",
+      "svensk",
+      "skandinaviske sprog",
+      "nordiske sprog"
+    ]
+  },
+  {
+    "id": "natur-og-matematisk-opmaerksomhed",
+    "navn": "Natur og matematisk opmaerksomhed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "naturfaglig-dannelse",
+    "navn": "Naturfaglig dannelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "naturgrundlag-og-landskabsudvikling",
+    "navn": "Naturgrundlag og landskabsudvikling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "naturlig-og-seksuel-selektion",
+    "navn": "Naturlig og seksuel selektion",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "natursyn",
+    "navn": "Natursyn",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "nedarvningsmoenstre",
+    "navn": "Nedarvningsmoenstre",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "normkritik",
+    "navn": "Normkritik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": [
+      "heteronormativitet-kritik"
+    ]
+  },
+  {
+    "id": "nærlæsning",
+    "navn": "Nærlæsning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: h-c-andersen-paa-hovedet",
+    "aliaser": [
+      "close reading"
+    ]
+  },
+  {
+    "id": "oekonomi-fordeling-og-forbrug",
+    "navn": "Oekonomi fordeling og forbrug",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "opdag-mikroskopisk-biologi",
+    "navn": "Opdag mikroskopisk biologi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "oplev-naturen-omkring-dig",
+    "navn": "Oplev naturen omkring dig",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "organisationsformer",
+    "navn": "Organisationsformer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "organiseringsformer"
+    ]
+  },
+  {
+    "id": "organismers-tilpasning",
+    "navn": "Organismers tilpasning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "organsystemer",
+    "navn": "Organsystemer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "partikelmodel",
+    "navn": "Partikelmodel",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "perspektivering",
+    "navn": "Perspektivering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Natur/teknologididaktik (Trine Hyllested, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "pladetektonik",
+    "navn": "Pladetektonik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "planlægning-af-undervisning",
+    "navn": "Planlægning af undervisning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "undervisningsplanlægning",
+      "forløbsplanlægning",
+      "lektionsplanlægning"
+    ]
+  },
+  {
+    "id": "pligt-nytte-og-dydsetik",
+    "navn": "Pligt nytte og dydsetik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "pluralistiske-tilgange-til-sprog-fransk",
+    "navn": "Pluralistiske tilgange til sprog fransk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Fremmedsprogsdidaktik (Petra Daryai-Hansen m.fl.)",
+    "aliaser": []
+  },
+  {
+    "id": "politik-magt-og-deltagelse",
+    "navn": "Politik magt og deltagelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "procesorienteret-skrivning",
+    "navn": "Procesorienteret skrivning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Gyldendal: Skrivekraft",
+    "aliaser": [
+      "proces-skrivning"
+    ]
+  },
+  {
+    "id": "programmering-og-computerforstaaelse",
+    "navn": "Programmering og computerforstaaelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "progression",
+    "navn": "Progression",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "faglig progression",
+      "læringsprogresssion",
+      "sværhedsgrad"
+    ]
+  },
+  {
+    "id": "pythagoras-saetning",
+    "navn": "Pythagoras saetning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "queerteori",
+    "navn": "Queerteori",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": []
+  },
+  {
+    "id": "redskabsaktiviteter",
+    "navn": "Redskabsaktiviteter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "refleksion",
+    "navn": "Refleksion",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "refleksiv praksis",
+      "metarefleksion",
+      "faglig refleksion"
+    ]
+  },
+  {
+    "id": "registerkontinuum",
+    "navn": "Registerkontinuum",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "regnestrategier",
+    "navn": "Regnestrategier",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "religioes-laesefaerdighed",
+    "navn": "Religioes laesefaerdighed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "remediering",
+    "navn": "Remediering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "rigsfaellesskabet-i-dansk",
+    "navn": "Rigsfaellesskabet i dansk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "robotteknologi",
+    "navn": "Robotteknologi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "samfundsfaglig-metode",
+    "navn": "Samfundsfaglig metode",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "samspil-naturen",
+    "navn": "Samspil naturen",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Håndværk og design: en fagmetodik (Hanne Schneider & Stig Pedersen, 2017)",
+    "aliaser": []
+  },
+  {
+    "id": "samtalegenrer",
+    "navn": "Samtalegenrer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "samtaletype",
+      "samtaleformat",
+      "diskussion",
+      "debat",
+      "dialog"
+    ]
+  },
+  {
+    "id": "sang-musik",
+    "navn": "Sang musik",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "semantiske-boelger",
+    "navn": "Semantiske boelger",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen, 2. udgave (Lone Wulff & Stine Kragholm Knudsen (red.), Akademisk Forlag, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "semantiske-felter",
+    "navn": "Semantiske felter",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "semantiske_boelger",
+    "navn": "Semantiske_boelger",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "skalaperspektiv",
+    "navn": "Skalaperspektiv",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "skelet-muskler-og-sanser",
+    "navn": "Skelet muskler og sanser",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "skimming",
+    "navn": "Skimming",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "skriftlig-fremstilling",
+    "navn": "Skriftlig fremstilling",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "skrivning",
+      "skrivedidaktik",
+      "skriftlig produktion",
+      "skriveproces"
+    ]
+  },
+  {
+    "id": "skrive-og-laese-modersmaal",
+    "navn": "Skrive og laese modersmaal",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "skrivekultur-skrivefaellesskab",
+    "navn": "Skrivekultur skrivefaellesskab",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "social-mobilitet",
+    "navn": "Social mobilitet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sociale-og-kulturelle-forhold",
+    "navn": "Sociale og kulturelle forhold",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "spekulativ-litteratur",
+    "navn": "Spekulativ litteratur",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "spilforstaaelse-idraet",
+    "navn": "Spilforstaaelse idraet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprog",
+    "navn": "Sprog",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Fælles Mål",
+    "aliaser": [
+      "sprogbrug",
+      "sproglig bevidsthed",
+      "sprogtilegnelse"
+    ]
+  },
+  {
+    "id": "sprog-og-sprogbrug-dsa-basis",
+    "navn": "Sprog og sprogbrug dsa basis",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprog-og-sproglaering-dsa",
+    "navn": "Sprog og sproglaering dsa",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprog-og-sproglaering-engelsk",
+    "navn": "Sprog og sproglaering engelsk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sproglaeringsstrategier",
+    "navn": "Sproglaeringsstrategier",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sproglig-myndiggoerelse",
+    "navn": "Sproglig myndiggoerelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "sproglig-udvikling-stilladsering",
+    "navn": "Sproglig udvikling stilladsering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "sprogmod",
+    "navn": "Sprogmod",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprogteknologi",
+    "navn": "Sprogteknologi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprogtilegnelse-og-flersproget-kommunikation",
+    "navn": "Sprogtilegnelse og flersproget kommunikation",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "statisk-og-dynamisk-kulturbegreb",
+    "navn": "Statisk og dynamisk kulturbegreb",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "statistik-og-sandsynlighed",
+    "navn": "Statistik og sandsynlighed",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "stilladsering",
+    "navn": "Stilladsering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "scaffolding",
+      "støttestruktur",
+      "Vygotsky ZPD",
+      "nærmeste udviklingszone"
+    ]
+  },
+  {
+    "id": "stof-og-stofegenskaber",
+    "navn": "Stof og stofegenskaber",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "stofkredsloeb-og-foedenet",
+    "navn": "Stofkredsloeb og foedenet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "taksonomi",
+    "navn": "Taksonomi",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "Blooms taksonomi",
+      "taksonomisk niveau",
+      "kognitive niveauer"
+    ]
+  },
+  {
+    "id": "tale-og-lytte-modersmaal",
+    "navn": "Tale og lytte modersmaal",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "tale-og-skrive",
+    "navn": "Tale og skrive",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "tale-skrive-skabe",
+    "navn": "Tale skrive skabe",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "teknologi-indholdsomraade",
+    "navn": "Teknologi indholdsomraade",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "teknologiforståelse",
+    "navn": "Teknologiforståelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "digital teknologi",
+      "computational thinking",
+      "teknologisk handleevne"
+    ]
+  },
+  {
+    "id": "teknologiske-systemer",
+    "navn": "Teknologiske systemer",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "tekstabnere",
+    "navn": "Tekstabnere",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Grib Litteraturen! 50 litteraturdidaktiske greb (Ayoe Quist Henkel, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "tekstfordybere",
+    "navn": "Tekstfordybere",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Grib Litteraturen! 50 litteraturdidaktiske greb (Ayoe Quist Henkel, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "teksttaenkere",
+    "navn": "Teksttaenkere",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Grib Litteraturen! 50 litteraturdidaktiske greb (Ayoe Quist Henkel, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "tematisk-billedarbejde",
+    "navn": "Tematisk billedarbejde",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "ting-og-haandvaerkskultur",
+    "navn": "Ting og haandvaerkskultur",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "titalssystemet",
+    "navn": "Titalssystemet",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "transparente-ord",
+    "navn": "Transparente ord",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "tværfag-med-dansk",
+    "navn": "Tværfag med dansk",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "tværfaglighed",
+      "tværfagligt samarbejde",
+      "dansk på tværs"
+    ]
+  },
+  {
+    "id": "undersoegelse-og-modellering",
+    "navn": "Undersoegelse og modellering",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "undersoegelse-og-stillingtagen",
+    "navn": "Undersoegelse og stillingtagen",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "undersoegelses-kompetence",
+    "navn": "Undersoegelses kompetence",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Natur/teknologididaktik (Trine Hyllested, 2020)",
+    "aliaser": []
+  },
+  {
+    "id": "undersøgelse",
+    "navn": "Undersøgelse",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "undersøgende arbejde",
+      "inquiry",
+      "undersøgelsesbaseret læring"
+    ]
+  },
+  {
+    "id": "undersøgelsesorienteret-undervisning",
+    "navn": "Undersøgelsesorienteret undervisning",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "EMU: undersoegelsesorienteret-undervisning",
+    "aliaser": [
+      "ibse",
+      "6f-modellen"
+    ]
+  },
+  {
+    "id": "undervisning-og-undervisningsmønstre",
+    "navn": "Undervisning og undervisningsmønstre",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "undervisningsmønster",
+      "IRE-mønster",
+      "klasseundervisning"
+    ]
+  },
+  {
+    "id": "universets-bestanddele-og-sammenhaenge",
+    "navn": "Universets bestanddele og sammenhaenge",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "vaerkstedsfaellesskab",
+    "navn": "Vaerkstedsfaellesskab",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "vands-kredsloeb",
+    "navn": "Vands kredsloeb",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "vejr-og-klima",
+    "navn": "Vejr og klima",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "verdensbilleder-og-faellesskaber",
+    "navn": "Verdensbilleder og faellesskaber",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "visuelle-virkemidler",
+    "navn": "Visuelle virkemidler",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "vurderingskriterier",
+    "navn": "Vurderingskriterier",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "bedømmelseskriterie",
+      "evalueringskriterie",
+      "rubrik",
+      "karaktergivning"
+    ]
+  },
+  {
+    "id": "årsplan",
+    "navn": "Årsplan",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog",
+    "aliaser": [
+      "årsplanlægning",
+      "årsplan dansk",
+      "årsplansskabelon"
+    ]
+  },
+  {
+    "id": "æstetiske-læreprocesser",
+    "navn": "Æstetiske læreprocesser",
+    "type": "begreb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog; Brodersen (2021)",
+    "aliaser": [
+      "æstetisk læreproces",
+      "æstetisk erfaring",
+      "Dewey erfaring",
+      "sanselig læring"
+    ]
+  },
+  {
+    "id": "aabne-problemstillinger-som-ramme",
+    "navn": "Åbne problemstillinger som ramme",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "afmaskering-af-algoritmer-og-data",
+    "navn": "Afmaskering af algoritmer og data",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "akvariet",
+    "navn": "Akvariet",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: identitet-og-mangfoldighed-i-ny-dansk-digtning",
+    "aliaser": [
+      "fishbowl"
+    ]
+  },
+  {
+    "id": "alsidige-oevelser-som-konsolidering",
+    "navn": "Alsidige øvelser som konsolidering",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "analyse-til-produktion",
+    "navn": "Analyse-til-produktion",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Raskin/Gissel; multimodalitet",
+    "aliaser": [
+      "parametre-begge-veje",
+      "analyseredskab-som-designværktøj",
+      "reception-til-produktion"
+    ]
+  },
+  {
+    "id": "anslag",
+    "navn": "Anslag (dramaturgisk)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brodersen et al. (didaktisk dramaturgi)",
+    "aliaser": [
+      "dramaturgisk anslag",
+      "hook",
+      "åbningsgreb"
+    ]
+  },
+  {
+    "id": "autentiske-spørgsmål",
+    "navn": "Autentiske spørgsmål",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Dysthe",
+    "aliaser": [
+      "ægte spørgsmål",
+      "åbne spørgsmål",
+      "dysthe-autentisk"
+    ]
+  },
+  {
+    "id": "billedplan",
+    "navn": "Billedplan",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Rosenblatt-inspireret praksis",
+    "aliaser": [
+      "indre-billeder",
+      "billedplan-fortolkning",
+      "æstetisk-læsning"
+    ]
+  },
+  {
+    "id": "billedsamtaler",
+    "navn": "Billedsamtaler",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "case-baseret-undervisning",
+    "navn": "Case-baseret undervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Samfundsfagsdidaktik: livsverden, fag og politisk dannelse (Anders Stig Christensen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "cooperative-learning",
+    "navn": "Cooperative learning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Alinea fagportal (dansk.fagportal.alinea.dk/om-portalen)",
+    "aliaser": [
+      "cl",
+      "samarbejdende laering"
+    ]
+  },
+  {
+    "id": "dartskiven",
+    "navn": "Dartskiven",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Tekstmøder — 22 greb til perspektivrig danskundervisning",
+    "aliaser": []
+  },
+  {
+    "id": "de-fantastiske-4",
+    "navn": "De Fantastiske 4 (læseroller)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "praksis; jf. Bang (2022)",
+    "aliaser": [
+      "fantastiske fire",
+      "læseroller",
+      "rollelæsning"
+    ]
+  },
+  {
+    "id": "demokratisk-samtale",
+    "navn": "Demokratisk samtale",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "diskussionskort",
+    "navn": "Diskussionskort",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": []
+  },
+  {
+    "id": "dissektion",
+    "navn": "Dissektion",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "eksplorativ-dialogisk-samtale",
+    "navn": "Eksplorativ dialogisk samtale",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: undersoegelsesorienteret-undervisning",
+    "aliaser": []
+  },
+  {
+    "id": "eksterne-laeringsmiljoeer-biologi",
+    "navn": "Eksterne læringsmiljøer (biologiundervisning)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Biologididaktik (Pernille Ulla Andersen & Ulla Hjøllund Linderoth, Hans Reitzels Forlag, 2018)",
+    "aliaser": []
+  },
+  {
+    "id": "faelles-faglige-droeftelser-som-drivkraft",
+    "navn": "Fælles faglige drøftelser som drivkraft",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fagligt-evaluerende-samtale",
+    "navn": "Fagligt evaluerende samtale",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: undersoegelsesorienteret-undervisning",
+    "aliaser": []
+  },
+  {
+    "id": "feed-up-feedback-feed-forward",
+    "navn": "Feed up/feedback/feed forward",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU (Hattie & Timperley); stationsundervisning-som-ramme-differentieret-laese-og",
+    "aliaser": [
+      "3f",
+      "tredelt feedbackmodel"
+    ]
+  },
+  {
+    "id": "fejlfinding-programmering",
+    "navn": "Fejlfinding (programmering)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "feltbiologiske-metoder",
+    "navn": "Feltbiologiske metoder",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fem-teser-respons",
+    "navn": "Fem responsteser",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Aasen & Kvithyld (2015)",
+    "aliaser": [
+      "aasen-kvithyld-teser",
+      "responstese",
+      "fem responsteser"
+    ]
+  },
+  {
+    "id": "filosofiske-samtaler",
+    "navn": "Filosofiske samtaler (med børn)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "fortolkningshypotese",
+    "navn": "Fortolkningshypotese",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": []
+  },
+  {
+    "id": "fremmedhedsprincip",
+    "navn": "Fremmedhedsprincip",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Ziehe (via Penne & Hertzberg)",
+    "aliaser": [
+      "ziehe-fremmedhed",
+      "god-anderledeshed",
+      "produktiv-fremmedhed"
+    ]
+  },
+  {
+    "id": "før-under-efter",
+    "navn": "Før-under-efter (læsestrategi)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brudholm (2011)",
+    "aliaser": [
+      "læsestrategi-faser",
+      "før-under-efter-læsning",
+      "tre-fase-læsning"
+    ]
+  },
+  {
+    "id": "gaettestrategier",
+    "navn": "Gættestrategier (sproglæring)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "gambitter",
+    "navn": "Gambitter",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Nissen (2023)",
+    "aliaser": [
+      "turtagningssignaler",
+      "lyttemarkører"
+    ]
+  },
+  {
+    "id": "garnnoegledialogen",
+    "navn": "Garnnøgledialogen",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: identitet-og-mangfoldighed-i-ny-dansk-digtning",
+    "aliaser": []
+  },
+  {
+    "id": "gruppearbejde-generelt",
+    "navn": "Gruppearbejde",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Didaktisk opslagsbog (Ågård, Poulsen m.fl., Hans Reitzels Forlag, 2022)",
+    "aliaser": [
+      "gruppearbejde"
+    ]
+  },
+  {
+    "id": "historisk-fremstilling",
+    "navn": "Historiske fremstillinger (etablering og vurdering af)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "indlevelse-og-perspektivskifte",
+    "navn": "Indlevelse og perspektivskifte",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "inferensarbejde",
+    "navn": "Inferensarbejde",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brudholm (2011)",
+    "aliaser": [
+      "inferenstræning",
+      "slutningsarbejde",
+      "arbejde-med-tomme-pladser"
+    ]
+  },
+  {
+    "id": "ire",
+    "navn": "IRE (initiation-respons-evaluering)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "klassisk; kritiseret af Bang (2022)",
+    "aliaser": [
+      "initiation-respons-evaluering",
+      "ire-divergens",
+      "partitur-samtale"
+    ]
+  },
+  {
+    "id": "kildetolkning",
+    "navn": "Kildetolkning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "klasseundervisning",
+    "navn": "Klasseundervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog (fejlagtigt tidligere aliaseret under Organisationsformer)",
+    "aliaser": [
+      "fælles undervisning",
+      "helklasseundervisning"
+    ]
+  },
+  {
+    "id": "kortanalyse",
+    "navn": "Kortanalyse",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kreative-benspaend",
+    "navn": "Kreative benspænd",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kropsbaserede-sprogaktiviteter",
+    "navn": "Kropsbaserede sprogaktiviteter",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kropslig-lytning",
+    "navn": "Kropslig lytning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kropsliggoerelse-af-begreber",
+    "navn": "Kropsliggørelse af begreber",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "kultur-møder-interkulturalitet",
+    "navn": "Cultural Studies-tilgang til kulturmøder og interkulturalitet",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Fremmedsprogsdidaktik (Petra Daryai-Hansen, 2018)",
+    "aliaser": []
+  },
+  {
+    "id": "laererroller",
+    "navn": "Lærerroller",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Didaktisk opslagsbog (Dorte Ågård, Jens Aage Poulsen m.fl. (red.), Hans Reitzels Forlag, 2022, ISBN 9788702375268)",
+    "aliaser": []
+  },
+  {
+    "id": "legens-egenvaerdi",
+    "navn": "Legens egenværdi",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "lingua-franca-vs-landeskunde",
+    "navn": "Lingua franca-tilgang (sprogsyn i fremmedsprogsundervisning)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Fremmedsprog - tysk og engelsk (Benthe Fogh Jensen, Helle Libenholt, Keld Skovmand & Finn Sørensen, Forlaget Klim, 2013, ISBN 9788771292480, serien Mål og midler)",
+    "aliaser": []
+  },
+  {
+    "id": "lytte-forstaelse",
+    "navn": "Lytteforståelse i fagundervisningen",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "lytteroller",
+    "navn": "Lytteroller",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Nissen (2023)",
+    "aliaser": [
+      "lytteobservatør",
+      "struktureret-lytning",
+      "observationsroller"
+    ]
+  },
+  {
+    "id": "makkerlaesning",
+    "navn": "Makkerlæsning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: stationsundervisning-som-ramme-differentieret-laese-og",
+    "aliaser": []
+  },
+  {
+    "id": "matrixgruppearbejde",
+    "navn": "Matrixgruppearbejde",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": [
+      "ekspertgrupper"
+    ]
+  },
+  {
+    "id": "meningsfulde-situationer-som-udgangspunkt",
+    "navn": "Meningsfulde situationer som udgangspunkt",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "meningssoegende-laesning",
+    "navn": "Meningssøgende læsning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "mesterlaere",
+    "navn": "Mesterlære",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "metodebattle",
+    "navn": "Metodebattle",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": []
+  },
+  {
+    "id": "minilektion",
+    "navn": "Minilektion",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Skrivekraft (Skriveklaveret/AI-skrivemakker-bogen)",
+    "aliaser": [
+      "mini-lesson"
+    ]
+  },
+  {
+    "id": "modellering",
+    "navn": "Eksplicit modellering",
+    "type": "greb",
+    "ung": false,
+    "kilde": "læsedidaktik; Gissel (mediedidaktik)",
+    "aliaser": [
+      "eksplicit modellering",
+      "stilladsering-ved-demonstration",
+      "modeltekstanalyse",
+      "tænke-højt"
+    ]
+  },
+  {
+    "id": "notatteknik",
+    "navn": "Notatteknik / grafiske modeller til notater",
+    "type": "greb",
+    "ung": false,
+    "kilde": "260703-dansk-andet-udkast-til-fagplan-juni-2026.pdf",
+    "aliaser": []
+  },
+  {
+    "id": "optag",
+    "navn": "Optag (uptake)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Dysthe",
+    "aliaser": [
+      "uptake",
+      "bygge-videre-på-elevbidrag"
+    ]
+  },
+  {
+    "id": "osmt",
+    "navn": "OSMT-samtalegrammatik",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Bang (2022)",
+    "aliaser": [
+      "observation-supplering-modstand-tilslutning",
+      "osmt-divergens",
+      "bangs samtalegrammatik"
+    ]
+  },
+  {
+    "id": "par-arbejde",
+    "navn": "Par-arbejde",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Danskdidaktisk Opslagsbog (fejlagtigt tidligere aliaseret under Organisationsformer)",
+    "aliaser": [
+      "pararbejde",
+      "makkerarbejde"
+    ]
+  },
+  {
+    "id": "pee-struktur",
+    "navn": "PEE-struktur",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: identitet-og-mangfoldighed-i-ny-dansk-digtning",
+    "aliaser": [
+      "pointe-eksempler-effekt"
+    ]
+  },
+  {
+    "id": "prima-vista-læsning",
+    "navn": "Prima vista-læsning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Bang (2022)",
+    "aliaser": [
+      "førstegangslæsning",
+      "kollektiv-tekstlæsning",
+      "ulæst-tekst"
+    ]
+  },
+  {
+    "id": "problem-projektorienteret-undervisning",
+    "navn": "Problem- og projektorienteret undervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Samfundsfagsdidaktik: livsverden, fag og politisk dannelse (Anders Stig Christensen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "projektorienteret-undervisning",
+    "navn": "Projektorienteret undervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Håndværk og design: en fagmetodik (Hanne Schneider & Stig Pedersen, 2017)",
+    "aliaser": []
+  },
+  {
+    "id": "queerlaesning",
+    "navn": "Queerlæsning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: queer-i-sprog-litteratur-og-medier",
+    "aliaser": []
+  },
+  {
+    "id": "rollespil",
+    "navn": "Rollespil",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: fagplan for engelsk (juni 2026)",
+    "aliaser": [
+      "role-play"
+    ]
+  },
+  {
+    "id": "rytme-gentagelse-variation-balance",
+    "navn": "Didaktisk rytme",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brodersen et al. (Dewey)",
+    "aliaser": [
+      "didaktisk rytme",
+      "gentagelse-variation-balance",
+      "orkestrering"
+    ]
+  },
+  {
+    "id": "samfundsfaglig-undersoegelse",
+    "navn": "Samfundsfaglig undersøgelse",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "samtale-interaktion-undervisning",
+    "navn": "Samtale og interaktion i undervisningen",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen (Lone Wulff & Stine Kragholm Knudsen, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "scenariedidaktik",
+    "navn": "Scenariedidaktik",
+    "type": "greb",
+    "ung": false,
+    "kilde": "skrivedidaktik-praksis",
+    "aliaser": [
+      "scenariebaseret-skrivning",
+      "rammefortælling",
+      "fiktionsramme"
+    ]
+  },
+  {
+    "id": "selektiv-lytteforstaaelse",
+    "navn": "Selektiv lytteforståelse",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "selvinitieret-og-planlagt-leg",
+    "navn": "Selvinitieret og planlagt leg",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "skriveklaveret",
+    "navn": "Skriveklaveret",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Skrivekraft",
+    "aliaser": []
+  },
+  {
+    "id": "skriverammer",
+    "navn": "Skriverammer",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "skriveskabeloner",
+    "navn": "Skriveskabeloner",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "sprogbaseret-undervisning-fagundervisning",
+    "navn": "Sprogbaseret fagundervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Kom ind i sproget: Flersprogede elever i fagundervisningen, 2. udgave (Lone Wulff & Stine Kragholm Knudsen (red.), Akademisk Forlag, 2021)",
+    "aliaser": []
+  },
+  {
+    "id": "sproglige-strategier-flersproget",
+    "navn": "Sproglige strategier (flersproget kommunikation)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "spørgsmål-til-udsagn",
+    "navn": "Spørgsmål-til-udsagn (MFP-åbning)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Bang (2022)",
+    "aliaser": [
+      "transformere spørgsmål til udsagn",
+      "mfp-åbning",
+      "observation-i-stedet-for-spørgsmål"
+    ]
+  },
+  {
+    "id": "standpunktskift-på-signal",
+    "navn": "Standpunktskift på signal",
+    "type": "greb",
+    "ung": false,
+    "kilde": "dilemmaspil-praksis",
+    "aliaser": [
+      "dilemmaspil-struktur",
+      "positionsskift",
+      "standpunktsrotation"
+    ]
+  },
+  {
+    "id": "stationsundervisning",
+    "navn": "Stationsundervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: stationsundervisning-som-ramme-differentieret-laese-og",
+    "aliaser": []
+  },
+  {
+    "id": "stedbaseret-billedarbejde",
+    "navn": "Stedbaseret billedarbejde",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "stedsbaseret-skrivning",
+    "navn": "Stedsbaseret skrivning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "praksis (Tema 3)",
+    "aliaser": [
+      "stedbaseret",
+      "sansebaseret-skrivning",
+      "place-based"
+    ]
+  },
+  {
+    "id": "stemthed",
+    "navn": "Stemthed",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Grib Litteraturen! 50 litteraturdidaktiske greb",
+    "aliaser": []
+  },
+  {
+    "id": "taenkeskrivning",
+    "navn": "Tænkeskrivning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: undersoegelsesorienteret-undervisning",
+    "aliaser": [
+      "think-writing"
+    ]
+  },
+  {
+    "id": "teknologiske-designprocesser",
+    "navn": "Teknologiske designprocesser",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "to-rejsekammerater",
+    "navn": "To rejsekammerater",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Tekstmøder — 22 greb til perspektivrig danskundervisning",
+    "aliaser": []
+  },
+  {
+    "id": "tre-k-feedback",
+    "navn": "Tre K'er (feedback)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brendstrup (2018)",
+    "aliaser": [
+      "tre k'er",
+      "kærlig-konkret-konstruktiv",
+      "kkk-feedback"
+    ]
+  },
+  {
+    "id": "use-modify-create",
+    "navn": "Use-Modify-Create",
+    "type": "greb",
+    "ung": false,
+    "kilde": "EMU: liv-paa-mars (fysik/kemi)",
+    "aliaser": [
+      "umc"
+    ]
+  },
+  {
+    "id": "vaerkstedsundervisning-haandvaerk",
+    "navn": "Værkstedsundervisning",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Håndværk og design – en fagdidaktik (Hanne Schneider & Stig Pedersen)",
+    "aliaser": []
+  },
+  {
+    "id": "variabelkontrolleret-eksperiment",
+    "navn": "Variabelkontrolleret eksperiment",
+    "type": "greb",
+    "ung": false,
+    "kilde": "full.md",
+    "aliaser": []
+  },
+  {
+    "id": "verdensvendthed",
+    "navn": "Verdensvendthed",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Gyldendal: Grib Litteraturen! 50 litteraturdidaktiske greb",
+    "aliaser": []
+  },
+  {
+    "id": "virksomhedsveksling",
+    "navn": "Virksomhedsveksling",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Brodersen et al.; Hansen (2020)",
+    "aliaser": [
+      "virksomhedsformer",
+      "æstetisk-analytisk-veksling",
+      "firfeltsveksling"
+    ]
+  },
+  {
+    "id": "zigzag",
+    "navn": "Zigzag (analyse↔produktion)",
+    "type": "greb",
+    "ung": false,
+    "kilde": "Tufte; Gissel (2016) præcisering",
+    "aliaser": [
+      "zig-zag",
+      "zigzag-model",
+      "tuftes zigzag",
+      "analyse-produktion-veksling"
+    ]
+  }
+]

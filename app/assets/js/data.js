@@ -114,6 +114,39 @@ export function findForloeb(alle, id) {
   return alle.find((f) => f.id === id) || null;
 }
 
+// E-G2: vokabular-registrene (greb + begreber), slået sammen til én liste
+// {id, navn, type: "greb"|"begreb", ung: false, kilde, aliaser}. "ung"-begreber
+// (fra tema-frittekst eller wizard-input uden registermatch) findes ikke her —
+// de opstår først i graf-data.js's normalisering.
+let _begreber = null;
+export async function hentBegreber() {
+  if (!_begreber) {
+    const svar = await fetch("data/begreber.json");
+    _begreber = await svar.json();
+  }
+  return _begreber;
+}
+
+// Matchnøgle: lowercase, trim, bindestreg=mellemrum (samme regel som
+// greb-register-v1.jsons egen "matchnøgle"-note). Bruges til at slå et frit
+// tema/greb-strengeinput op mod registret, id ELLER navn ELLER en alias.
+export function begrebMatchNoegle(s) {
+  return s.trim().toLowerCase().replace(/-/g, " ");
+}
+
+let _begrebOpslag = null;
+export async function hentBegrebOpslag() {
+  if (!_begrebOpslag) {
+    const register = await hentBegreber();
+    _begrebOpslag = new Map();
+    register.forEach((post) => {
+      [post.id, post.navn, ...(post.aliaser || [])].forEach((s) =>
+        _begrebOpslag.set(begrebMatchNoegle(s), post));
+    });
+  }
+  return _begrebOpslag;
+}
+
 // Hele kæden et forløb indgår i: op til roden, derefter alle generationer ned.
 export function kaede(alle, id) {
   let node = findForloeb(alle, id);

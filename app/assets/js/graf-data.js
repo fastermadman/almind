@@ -3,7 +3,7 @@
 // bygGraf() (E-G1), rører ikke selv forloeb.json/fag-filerne direkte længere.
 // Skema-eksempel: data/graph-schema.jsonc.
 
-import { hentForloeb, hentFag, hentFagIndex, familieFor } from "./data.js";
+import { hentForloeb, hentFag, hentFagIndex, familieFor, hentBegrebOpslag, begrebMatchNoegle } from "./data.js";
 
 // Nære relationer: redaktionelt kurateret (samme liste som graph.html havde).
 const NAER_KANTER = [
@@ -53,22 +53,31 @@ export async function bygGraf() {
     fag: f.fag, klassetrin: f.klassetrin, familie: familieFor(f.fag),
   }));
 
-  // ---------- begrebs-noder: normaliserede tema-felter, dedupereret ----------
-  const begrebNavn = new Map(); // id → første forekomst af det originale (trimmede) navn
+  // ---------- begrebs-noder: E-G2 — tema-felter slås op mod vokabular-registret,
+  // kendte termer arver registrets id/navn/type (ung:false), ukendte forbliver
+  // rå tema-noder (ung:true — "unge begreber", jf. slutarkitekturens §2). ----------
+  const opslag = await hentBegrebOpslag();
+  const begrebPoster = new Map(); // node-id → { id, type, navn, ung }
+  const temaTilNodeId = new Map(); // rå tema-streng → node-id (for kant-opbygning)
   alle.forEach((f) => (f.tema || []).forEach((t) => {
     const trimmet = t.trim();
     if (!trimmet) return;
-    const id = begrebId(trimmet);
-    if (!begrebNavn.has(id)) begrebNavn.set(id, trimmet);
+    const match = opslag.get(begrebMatchNoegle(trimmet));
+    const post = match
+      ? { id: match.id, type: match.type, navn: match.navn, ung: false }
+      : { id: begrebId(trimmet), type: "tema", navn: trimmet, ung: true };
+    temaTilNodeId.set(trimmet, post.id);
+    if (!begrebPoster.has(post.id)) begrebPoster.set(post.id, post);
   }));
-  begrebNavn.forEach((navn, id) => noder.push({ id, type: "begreb", navn, begrebstype: "tema", ung: false }));
+  begrebPoster.forEach((post) =>
+    noder.push({ id: post.id, type: "begreb", navn: post.navn, begrebstype: post.type, ung: post.ung }));
 
-  // ---------- begreb-kanter: forløb → dets temaer ----------
+  // ---------- begreb-kanter: forløb → dets temaer (normaliseret til register-id) ----------
   const begrebKanter = [];
   alle.forEach((f) => (f.tema || []).forEach((t) => {
     const trimmet = t.trim();
     if (!trimmet) return;
-    begrebKanter.push({ source: f.id, target: begrebId(trimmet), type: "begreb", lag: "deklareret" });
+    begrebKanter.push({ source: f.id, target: temaTilNodeId.get(trimmet), type: "begreb", lag: "deklareret" });
   }));
 
   // ---------- fork-kanter: strukturelt udledt af fork_af ----------

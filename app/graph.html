@@ -71,6 +71,9 @@
     .node circle.begreb-kerne {
       fill: none; stroke: var(--blaek-svag); stroke-width: 1.2; stroke-dasharray: 1.5 3;
     }
+    /* E-G2: registermatchede begreber/greb er "etablerede" — optrukket kant,
+       skelnet fra "unge begreber" (ukendt tema, forbliver hullet/stiplet). */
+    .node.etableret circle.begreb-kerne { stroke-dasharray: none; stroke-width: 1.4; }
     .node:hover circle.begreb-kerne { stroke: var(--navy); }
     .node text.begreb-navn {
       font-family: var(--font-ui); font-size: 10px; font-style: italic;
@@ -437,7 +440,7 @@ kantSel.append("line").attr("class", "hit");
 
 /* ---------- Noder ---------- */
 const nodeSel = gNoder.selectAll("g.node").data(NODER).join("g")
-  .attr("class", d => "node" + (d.type === "begreb" ? " node-begreb" : ""))
+  .attr("class", d => "node" + (d.type === "begreb" ? " node-begreb" + (d.ung ? "" : " etableret") : ""))
   .style("cursor", "pointer");
 const forloebSel = nodeSel.filter(d => d.type === "forloeb");
 const begrebSel  = nodeSel.filter(d => d.type === "begreb");
