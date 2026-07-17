@@ -196,15 +196,17 @@ export async function gemTilEgenGren(forloeb) {
   const gren = forloeb.klasse_gren;
 
   // Findes grenen: opdatér filen på den. Ellers: skab gren + commit i ét kald.
-  const findes = await api(`/repos/${ejer}/${repo}/contents/forloeb.json?ref=${encodeURIComponent(gren)}`);
-  const basis = findes.ok ? await findes.json()
-    : await apiOk(`/repos/${ejer}/${repo}/contents/forloeb.json?ref=main`);
+  // /branches/{navn} er den utvetydige eksistens-tjek — contents?ref=<ukendt gren>
+  // faldt i praksis tilbage til main-indholdet med 200 i stedet for at 404'e,
+  // hvilket fik PUT'en (som IKKE er tilgivende) til at fejle med "branch does not exist".
+  const grenFindes = (await api(`/repos/${ejer}/${repo}/branches/${encodeURIComponent(gren)}`)).ok;
+  const basis = await apiOk(`/repos/${ejer}/${repo}/contents/forloeb.json?ref=${encodeURIComponent(grenFindes ? gren : "main")}`);
   await apiOk(`/repos/${ejer}/${repo}/contents/forloeb.json`, {
     method: "PUT",
     body: JSON.stringify({
       content: b64utf8(JSON.stringify(forloeb, null, 2)),
       sha: basis.sha,
-      ...(findes.ok ? { branch: gren } : { branch: "main", new_branch: gren }),
+      ...(grenFindes ? { branch: gren } : { branch: "main", new_branch: gren }),
       message: `Del med klassen: ${forloeb.titel || "forløb"} (${mig} via almind.org)`,
     }),
   });
