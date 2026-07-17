@@ -134,7 +134,7 @@
   }
 
   cbKnap.addEventListener("click", async () => {
-    if (!erLoggetInd()) { login(); return; }
+    if (!erLoggetInd()) { gemKladde(f); login(); return; }
     if (!centrumOK(f)) {
       const fortsat = await aabnCentrumDialog(f, gemKladde);
       if (!fortsat) return;

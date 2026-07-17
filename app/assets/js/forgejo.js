@@ -51,7 +51,12 @@ export async function login() {
 
   sessionStorage.setItem("cb_verifier", verifier);
   sessionStorage.setItem("cb_state", state);
-  sessionStorage.setItem("cb_retur", location.pathname + location.search);
+  // login() kaldes udelukkende fra en aktiv redigeringssession (rediger.html) —
+  // returstien SKAL derfor altid genoptage kladden, uanset hvilken URL brugeren
+  // stod på (fx den blanke rediger.html-indgang uden ?kladde=1). Ellers tolker
+  // editoren OAuth-turen som "start forfra" og en gemt kladde forsvinder synligt,
+  // selvom den stadig ligger i localStorage.
+  sessionStorage.setItem("cb_retur", "rediger.html?kladde=1");
 
   location.href = `${BASE}/login/oauth/authorize?` + new URLSearchParams({
     client_id: CLIENT_ID,
