@@ -3,6 +3,11 @@
    ============================================================ */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+/* dialog:modal skal centrere sig selv via browserens indbyggede margin:auto,
+   men det universelle margin-reset ovenfor overskriver det (author-regler
+   vinder altid over UA-stylesheet, uanset specificitet) — ramte ALLE dialoger
+   (greb/centrum/del/login), ikke kun én. Én delt undtagelse løser det for dem alle. */
+dialog:modal { margin: auto; }
 
 html { scroll-behavior: smooth; }
 
