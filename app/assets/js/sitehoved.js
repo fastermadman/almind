@@ -46,40 +46,68 @@ function laesefremskridt() {
   return bar;
 }
 
-// #82: neutral login-knap i headeren — siger bevidst ikke "med Codeberg" (det
-// hører til forklarings-popup'en, ikke selve knappen). Async status-tjek
-// importerer forgejo.js dovent, så sider der aldrig rører login ikke betaler
-// for det ved indlæsning. En frisk knap pr. kald, så samme markup kan sidde
-// både i desktop-navet og mobilmenuen.
-function loginKnap() {
-  const knap = document.createElement("button");
-  knap.type = "button";
-  knap.className = "knap sekundaer header-login-knap";
-  knap.textContent = "Log ind";
+// #84: rigtig brugermenu, ikke bare et log ud-tegn — #82's første version
+// klarede sig med et "×" ved brugernavnet, men det holder ikke når der er
+// mere end log ud at vælge mellem (profil, gemte forløb). Native <details>,
+// samme mønster som mobilmenuen. Async status-tjek importerer forgejo.js
+// dovent, så sider der aldrig rører login ikke betaler for det ved
+// indlæsning. En frisk menu pr. kald, så samme markup kan sidde både i
+// desktop-navet og mobilmenuen.
+function brugerMenu() {
+  const detaljer = document.createElement("details");
+  detaljer.className = "brugermenu";
+  const summary = document.createElement("summary");
+  summary.className = "knap sekundaer header-login-knap";
+  summary.textContent = "Log ind";
+  detaljer.appendChild(summary);
 
   import("./forgejo.js").then(async ({ erLoggetInd, hentBruger, loginMedForklaring, logUd }) => {
     if (!erLoggetInd()) {
-      knap.addEventListener("click", () => loginMedForklaring());
+      // <details> skal ikke folde ud til en tom menu for en ikke-logget-ind
+      // bruger — klik trigger login direkte i stedet.
+      summary.addEventListener("click", (e) => { e.preventDefault(); loginMedForklaring(); });
       return;
     }
     let brugernavn;
     try {
       brugernavn = await hentBruger();
     } catch {
-      knap.textContent = "Log ind";
-      knap.addEventListener("click", () => loginMedForklaring());
+      summary.textContent = "Log ind";
+      summary.addEventListener("click", (e) => { e.preventDefault(); loginMedForklaring(); });
       return;
     }
-    // Synligt log ud-tegn, ikke kun en hover-title (virker ikke på mobil/touch).
-    knap.textContent = "";
-    knap.append(brugernavn, document.createElement("span"));
-    knap.lastChild.className = "header-logud";
-    knap.lastChild.textContent = "×";
-    knap.title = "Log ud";
-    knap.addEventListener("click", () => { logUd(); location.reload(); });
+    summary.textContent = brugernavn;
+
+    const liste = document.createElement("nav");
+    liste.className = "brugermenu-liste";
+    liste.setAttribute("aria-label", "Brugermenu");
+
+    const profil = document.createElement("a");
+    profil.href = `profil.html?bruger=${encodeURIComponent(brugernavn)}`;
+    profil.textContent = "Min profil";
+    liste.appendChild(profil);
+
+    const gemte = document.createElement("a");
+    gemte.href = "browse.html?gemte=1";
+    gemte.textContent = "Gemte forløb";
+    liste.appendChild(gemte);
+
+    const udKnap = document.createElement("button");
+    udKnap.type = "button";
+    udKnap.textContent = "Log ud";
+    udKnap.addEventListener("click", () => { logUd(); location.reload(); });
+    liste.appendChild(udKnap);
+
+    detaljer.appendChild(liste);
+
+    // <details> lukker sig ikke selv ved klik udenfor (i modsætning til
+    // popover-API'et) — en hængende åben menu er forvirrende.
+    document.addEventListener("click", (e) => {
+      if (!detaljer.contains(e.target)) detaljer.removeAttribute("open");
+    });
   });
 
-  return knap;
+  return detaljer;
 }
 
 function navLinks(aktiv, luk) {
@@ -118,7 +146,7 @@ export function sitehoved(el) {
   nav.className = "site-nav";
   nav.setAttribute("aria-label", "Hovednavigation");
   navLinks(aktiv, null).forEach((a) => nav.appendChild(a));
-  nav.appendChild(loginKnap());
+  nav.appendChild(brugerMenu());
   el.appendChild(nav);
 
   // Mobilmenu: native <details> — MPA'en navigerer ved valg, så menuen
@@ -133,7 +161,7 @@ export function sitehoved(el) {
   mobilNav.appendChild(soegeform(false));
   const luk = () => detaljer.removeAttribute("open");
   navLinks(aktiv, luk).forEach((a) => mobilNav.appendChild(a));
-  mobilNav.appendChild(loginKnap());
+  mobilNav.appendChild(brugerMenu());
   detaljer.appendChild(mobilNav);
   el.appendChild(detaljer);
 

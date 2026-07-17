@@ -1241,11 +1241,29 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 .dg-flag { font-size: 0.82rem; margin-top: 0.6rem; }
 .dg-flag a { color: var(--accent); }
 
-/* ---------- header-loginknap ---------- */
-.header-logud {
-  margin-left: 0.4rem; color: var(--muted); font-weight: 400;
+/* ---------- #84: brugermenu (header) ---------- */
+.brugermenu { position: relative; }
+.brugermenu summary { list-style: none; }
+.brugermenu summary::-webkit-details-marker, .brugermenu summary::marker { display: none; content: ""; }
+.brugermenu-liste {
+  position: absolute; top: calc(100% + 0.4rem); right: 0; z-index: 20;
+  display: flex; flex-direction: column; min-width: 11rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.4rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
-.header-login-knap:hover .header-logud { color: inherit; }
+.brugermenu-liste a, .brugermenu-liste button {
+  display: block; width: 100%; text-align: left; font-family: var(--font-ui); font-size: 0.88rem;
+  color: var(--ink); background: none; border: none; border-radius: 6px;
+  padding: 0.5rem 0.6rem; cursor: pointer; text-decoration: none;
+}
+.brugermenu-liste a:hover, .brugermenu-liste button:hover { background: var(--surface-alt); }
+/* .site-nav a:not(.knap) (uppercase/bold nav-links) når ind i den indlejrede
+   dropdown på desktop, samme specificitetskamp som .site-nav a.knap allerede
+   løser ovenfor — samme opskrift her. */
+.site-nav .brugermenu-liste a { text-transform: none; font-weight: 500; letter-spacing: normal; padding: 0.5rem 0.6rem; }
+/* Mobilmenuen er selv en <details> — den indlejrede brugermenu ligger derfor
+   i det normale flow i stedet for at være absolut positioneret over resten. */
+.mobilmenu .brugermenu-liste { position: static; box-shadow: none; margin-top: 0.3rem; }
 
 /* ---------- #82: login-forklaring (før Codeberg-OAuth-redirect) ---------- */
 /* Fade+scale i stedet for et hårdt pop — trækker øjet med fra klikket i
