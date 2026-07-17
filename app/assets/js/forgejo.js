@@ -218,6 +218,36 @@ export async function gemTilEgenGren(forloeb) {
   return `elev.html?kilde=${ejer}/${repo}/${gren}`;
 }
 
+// #85: "gem til senere" (samling.js) spejlet til Codeberg ved login — samme
+// fork-infrastruktur som delTilAlmind/gemTilEgenGren (sikrSkriveRepo), bare
+// samling.json på main i stedet for forloeb.json på en gren (det er ikke en
+// deling, kun personlig lagring, så ingen ny gren er nødvendig).
+export async function hentSamlingFraCodeberg() {
+  const mig = await hentBruger();
+  const { ejer, repo } = await sikrSkriveRepo(mig);
+  const res = await api(`/repos/${ejer}/${repo}/contents/samling.json?ref=main`);
+  if (!res.ok) return null; // findes ikke endnu — første gang denne bruger gemmer noget
+  const fil = await res.json();
+  const bytes = Uint8Array.from(atob(fil.content.replace(/\s/g, "")), (c) => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+export async function gemSamlingTilCodeberg(ids) {
+  const mig = await hentBruger();
+  const { ejer, repo } = await sikrSkriveRepo(mig);
+  const findes = await api(`/repos/${ejer}/${repo}/contents/samling.json?ref=main`);
+  const sha = findes.ok ? (await findes.json()).sha : undefined;
+  await apiOk(`/repos/${ejer}/${repo}/contents/samling.json`, {
+    method: "PUT",
+    body: JSON.stringify({
+      content: b64utf8(JSON.stringify(ids)),
+      ...(sha ? { sha } : {}),
+      branch: "main",
+      message: "Opdatér gemte forløb",
+    }),
+  });
+}
+
 // #82: Codeberg er ikke et kendt navn for en VIA-studerende — forklar hvad og
 // hvorfor, FØR den uforklarede omstilling til et fremmed domæne, i stedet for
 // at redirecte instant. Vises kun første gang (localStorage), så den ikke

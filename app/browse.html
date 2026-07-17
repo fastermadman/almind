@@ -165,6 +165,9 @@
   document.getElementById("filter-gemte").addEventListener("click", () => { state.gemte = !state.gemte; opdater(); });
   // #54: en stjerne skiftet på selve kortet skal opdatere "Gemte"-filtret med det samme
   grid.addEventListener("samling-aendret", () => opdater());
+  // #85: Codeberg-samlingen kan lande EFTER første tegning (netværkskald) —
+  // opdatér "Gemte"-filtret hvis synkroniseringen tilføjede noget nyt.
+  document.addEventListener("samling-synkroniseret", () => opdater());
   const soeg = document.getElementById("soeg");
   soeg.value = state.q;
   let tid;
