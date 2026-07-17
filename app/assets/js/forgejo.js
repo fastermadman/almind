@@ -244,8 +244,13 @@ export async function gemSamlingTilCodeberg(ids) {
   const { ejer, repo } = await sikrSkriveRepo(mig, opts);
   const findes = await api(`/repos/${ejer}/${repo}/contents/samling.json?ref=main`, opts);
   const sha = findes.ok ? (await findes.json()).sha : undefined;
+  // Forgejo/Codeberg skelner mellem opret og opdatér — modsat GitHub, hvor PUT
+  // dækker begge. PUT uden sha giver 422 "[SHA]: Required"; opret skal være
+  // POST. delTilAlmind/gemTilEgenGren ramte aldrig dette, fordi forloeb.json
+  // altid findes i forvejen (sha er altid sat) — samling.json er den første
+  // fil, koden reelt opretter fra bunden.
   await apiOk(`/repos/${ejer}/${repo}/contents/samling.json`, {
-    method: "PUT",
+    method: sha ? "PUT" : "POST",
     ...opts,
     body: JSON.stringify({
       content: b64utf8(JSON.stringify(ids)),
