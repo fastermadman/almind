@@ -19,12 +19,12 @@
   /* Fagfarver: tre familier (STEM fjernet 2026-07-09 — matematik/fysik/teknik
      hører naturfagligt til i dansk kontekst, foldet ind i Natur & teknik).
      Alle fire farver består WCAG AA direkte mod --bg, ingen separat -text-variant nødvendig. */
-  --fag-hum:        #b54a0c;
-  --fag-hum-text:   #b54a0c;
+  --fag-hum:        #731702;
+  --fag-hum-text:   #731702;
   --fag-natur:      #16233a;
   --fag-natur-text: #16233a;
-  --fag-aes:        #731702;
-  --fag-aes-text:   #731702;
+  --fag-aes:        #b54a0c;
+  --fag-aes-text:   #b54a0c;
   --fag-ovr:        #4a2b5c;
   --fag-ovr-text:   #4a2b5c;
 
