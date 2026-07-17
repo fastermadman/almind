@@ -14,10 +14,13 @@
 // under en "praktisk"-ramme. Almind er ikke en statslig side og følger her
 // sin egen stemme, samme begrundelse som Kristendomskundskab → Religionskundskab.
 // oevrige/ovr dækker fag uden fagblok efter Folkeskolelovens §5, stk. 2 (dsa,
-// børnehaveklassen) — se #67. familieFor()s fallback ("hum") rammer ikke
+// børnehaveklassen) — se #67. familieFor()s fallback ("ovr") rammer ikke
 // disse, kun reelt ukendte fag-id'er.
-const FAMILIE_NAVN = { hum: "Humanistiske fag", natur: "Naturfag", aes: "Praktiske og æstetiske fag", ovr: "Øvrige fag" };
-const FAMILIE_NOEGLE = { humaniora: "hum", naturfag: "natur", "praktisk-musisk": "aes", oevrige: "ovr" };
+// Humaniora er splittet i sprogfag og kulturfag (2026-07-18) — "kulturfag"
+// bruges her i sin etablerede, smalle betydning (hi/kr/sa-prøveblokken, jf.
+// Folkeskoleloven), ikke som et bredere synonym for humaniora.
+const FAMILIE_NAVN = { sprog: "Sprogfag", kultur: "Kulturfag", natur: "Naturfag", aes: "Praktiske og æstetiske fag", ovr: "Øvrige fag" };
+const FAMILIE_NOEGLE = { sprogfag: "sprog", kulturfag: "kultur", naturfag: "natur", "praktisk-musisk": "aes", oevrige: "ovr" };
 
 export const FAMILIER = {};
 let _fagIndex = null;
@@ -26,7 +29,7 @@ async function _fetchFagIndex() {
     const svar = await fetch("data/fag-index.json");
     _fagIndex = await svar.json();
     for (const fag of _fagIndex) {
-      const noegle = FAMILIE_NOEGLE[fag.familie] || "hum";
+      const noegle = FAMILIE_NOEGLE[fag.familie] || "ovr";
       if (!FAMILIER[noegle]) FAMILIER[noegle] = { navn: FAMILIE_NAVN[noegle], fag: [] };
       FAMILIER[noegle].fag.push(fag.id);
     }
@@ -66,7 +69,7 @@ export function familieFor(fag) {
   for (const [noegle, fam] of Object.entries(FAMILIER)) {
     if (fam.fag.includes(fag)) return noegle;
   }
-  return "hum";
+  return "ovr";
 }
 
 // Taksonomi-shape D1: native <optgroup> pr. fagblok, én kilde til alle tre

@@ -16,17 +16,23 @@
   --surface:     #ffffff;
   --surface-alt: #f9f8f5;
 
-  /* Fagfarver: tre familier (STEM fjernet 2026-07-09 — matematik/fysik/teknik
+  /* Fagfarver: fem familier (STEM fjernet 2026-07-09 — matematik/fysik/teknik
      hører naturfagligt til i dansk kontekst, foldet ind i Natur & teknik).
-     Alle fire farver består WCAG AA direkte mod --bg, ingen separat -text-variant nødvendig. */
-  --fag-hum:        #731702;
-  --fag-hum-text:   #731702;
-  --fag-natur:      #16233a;
-  --fag-natur-text: #16233a;
-  --fag-aes:        #b54a0c;
-  --fag-aes-text:   #b54a0c;
-  --fag-ovr:        #4a2b5c;
-  --fag-ovr-text:   #4a2b5c;
+     Humaniora splittet i sprogfag/kulturfag 2026-07-18 (kulturfag = hi/kr/sa,
+     Folkeskolelovens etablerede snævre betydning). Alle -text-varianter består
+     WCAG AA direkte mod --bg, undtagen kulturfags fyldfarve (bevidst — bruges
+     kun til outline/fyld, aldrig tekst; -text-varianten er en mørkere guld-
+     nuance der klarer AA). Farvelagt via OKLCH, jf. color-expert-skillet. */
+  --fag-sprog:        #5e0d07;
+  --fag-sprog-text:   #5e0d07;
+  --fag-kultur:       #ae7a17;
+  --fag-kultur-text:  #784a0f;
+  --fag-natur:        #163256;
+  --fag-natur-text:   #163256;
+  --fag-aes:          #9f4517;
+  --fag-aes-text:     #9f4517;
+  --fag-ovr:          #452b53;
+  --fag-ovr-text:     #452b53;
 
   /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
@@ -52,13 +58,17 @@
   /* Callout-farver (2026-07-09: koblet direkte til fag-/accent-farverne, ikke
      bare "samme familie" — hvor der er en begrebslig relation, genbruges selve
      token'en, så de aldrig kan drifte fra hinanden igen. valg=natur (analytisk/
-     reflekterende), obs=hum (opmærksomhed/varsel), almind=accent (hedder jo
-     det), dramaturgi=aes (oxblod, drama-faget). gissel har intet fag-match,
-     forbliver sin egen dæmpede grå. Alle består WCAG AA. */
+     reflekterende), obs=kultur (opmærksomhed/varsel — nu reelt gul, matcher
+     endelig sit eget navn), almind=accent (hedder jo det), dramaturgi=sprog
+     (oxblod, drama-faget — fulgte tidligere aes, men den blev orange ved
+     humaniora-omlægningen 2026-07-18; sprogfags mørke rød er nu den, der
+     rammer "oxblod"). gissel har intet fag-match, forbliver sin egen dæmpede
+     grå. --typ-purple hedder stadig purple af historiske grunde, er det ikke
+     længere — omdøbning er en separat, større oprydning. Alle består WCAG AA. */
   --typ-blue: var(--fag-natur);    --typ-blue-bg: #edf1f7;    --typ-blue-text: var(--fag-natur);
-  --typ-yellow: var(--fag-hum);    --typ-yellow-bg: #f7f1ed;  --typ-yellow-text: var(--fag-hum);
+  --typ-yellow: var(--fag-kultur-text); --typ-yellow-bg: #f7f1ed;  --typ-yellow-text: var(--fag-kultur-text);
   --typ-green: var(--accent);      --typ-green-bg: #edf7f3;   --typ-green-text: var(--accent);
-  --typ-purple: var(--fag-aes);    --typ-purple-bg: #f7efed;  --typ-purple-text: var(--fag-aes);
+  --typ-purple: var(--fag-sprog);  --typ-purple-bg: #f7efed;  --typ-purple-text: var(--fag-sprog);
   --typ-gray: #606776;    --typ-gray-bg: #f1f2f4;
 }
 
@@ -81,7 +91,8 @@
 }
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */
-[data-fag="hum"]   { --fagfarve: var(--fag-hum);   --fagtekst: var(--fag-hum-text); }
-[data-fag="natur"] { --fagfarve: var(--fag-natur); --fagtekst: var(--fag-natur-text); }
-[data-fag="aes"]   { --fagfarve: var(--fag-aes);   --fagtekst: var(--fag-aes-text); }
-[data-fag="ovr"]   { --fagfarve: var(--fag-ovr);   --fagtekst: var(--fag-ovr-text); }
+[data-fag="sprog"]  { --fagfarve: var(--fag-sprog);  --fagtekst: var(--fag-sprog-text); }
+[data-fag="kultur"] { --fagfarve: var(--fag-kultur); --fagtekst: var(--fag-kultur-text); }
+[data-fag="natur"]  { --fagfarve: var(--fag-natur);  --fagtekst: var(--fag-natur-text); }
+[data-fag="aes"]    { --fagfarve: var(--fag-aes);    --fagtekst: var(--fag-aes-text); }
+[data-fag="ovr"]    { --fagfarve: var(--fag-ovr);    --fagtekst: var(--fag-ovr-text); }

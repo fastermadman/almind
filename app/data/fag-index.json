@@ -9,7 +9,7 @@
   {
     "id": "dansk",
     "navn": "Dansk",
-    "familie": "humaniora",
+    "familie": "sprogfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
@@ -30,35 +30,35 @@
   {
     "id": "engelsk",
     "navn": "Engelsk",
-    "familie": "humaniora",
+    "familie": "sprogfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
   {
     "id": "historie",
     "navn": "Historie",
-    "familie": "humaniora",
+    "familie": "kulturfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
   {
     "id": "religionskundskab",
     "navn": "Religionskundskab",
-    "familie": "humaniora",
+    "familie": "kulturfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
   {
     "id": "modersmaalsundervisning",
     "navn": "Modersmålsundervisning",
-    "familie": "humaniora",
+    "familie": "sprogfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
   {
     "id": "samfundsfag",
     "navn": "Samfundsfag",
-    "familie": "humaniora",
+    "familie": "kulturfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
@@ -114,7 +114,7 @@
   {
     "id": "fransk",
     "navn": "Fransk",
-    "familie": "humaniora",
+    "familie": "sprogfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   },
@@ -177,7 +177,7 @@
   {
     "id": "tysk",
     "navn": "Tysk",
-    "familie": "humaniora",
+    "familie": "sprogfag",
     "fagplan_version": "2026-06-udkast2",
     "har_fagplan": true
   }

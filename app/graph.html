@@ -12,7 +12,7 @@
   <style>
     /* Kortlæg grafens semantiske variable til platform-tokens */
     :root {
-      --okker:      var(--fag-hum);
+      --okker:      var(--fag-kultur-text);
       --navy:       var(--accent);
       --salvie:     var(--fag-natur);
       --violet:     #7c3aed;
@@ -321,9 +321,11 @@ const REDUCERET = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* ---------- Farver: læses fra tokens.css's CSS-variable, ingen hardkodet hex (issue #11) ---------- */
 const rodstil = getComputedStyle(document.documentElement);
 const FAMILIE_FARVE = {
-  hum:   rodstil.getPropertyValue("--fag-hum").trim(),
-  natur: rodstil.getPropertyValue("--fag-natur").trim(),
-  aes:   rodstil.getPropertyValue("--fag-aes").trim(),
+  sprog:  rodstil.getPropertyValue("--fag-sprog").trim(),
+  kultur: rodstil.getPropertyValue("--fag-kultur").trim(),
+  natur:  rodstil.getPropertyValue("--fag-natur").trim(),
+  aes:    rodstil.getPropertyValue("--fag-aes").trim(),
+  ovr:    rodstil.getPropertyValue("--fag-ovr").trim(), // manglede — øvrige-fag faldt tilbage til gråt
 };
 const FAG_FARVE = {};
 const FAG_NAVN = {};
