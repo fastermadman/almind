@@ -40,8 +40,9 @@ async function synkroniser() {
     if (forenet.length === foer.length && forenet.every((id) => foer.includes(id))) return;
     gemLokalt(forenet);
     document.dispatchEvent(new CustomEvent("samling-synkroniseret"));
-  } catch {
+  } catch (fejl) {
     // localStorage består uanset — Codeberg er et spejl, ikke kilden
+    console.warn("Kunne ikke hente \"gem til senere\" fra Codeberg:", fejl);
   }
 }
 synkroniser();
@@ -56,9 +57,14 @@ export function skiftGemt(id) {
   const i = samling.indexOf(id);
   if (i === -1) samling.push(id); else samling.splice(i, 1);
   gemLokalt(samling);
-  // Baggrunds-spejling — blokerer aldrig klikket, fejler tavst.
+  // Baggrunds-spejling — blokerer aldrig klikket. Fejl logges (console.warn),
+  // men kaster ikke: en mislykket Codeberg-sync må aldrig fremstå som en
+  // fejlet stjerne-klik, det virkede jo lokalt.
   import("./forgejo.js").then(({ erLoggetInd, gemSamlingTilCodeberg }) => {
-    if (erLoggetInd()) gemSamlingTilCodeberg(samling).catch(() => {});
+    if (erLoggetInd()) {
+      gemSamlingTilCodeberg(samling)
+        .catch((fejl) => console.warn("Kunne ikke synkronisere \"gem til senere\" til Codeberg:", fejl));
+    }
   });
   return i === -1;
 }

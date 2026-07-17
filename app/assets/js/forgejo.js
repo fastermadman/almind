@@ -135,9 +135,9 @@ export async function hentBruger() {
 // Repoet der kan skrives i: egen fork af ophavet — oprettes hvis den mangler.
 // Er brugeren selv ophavets ejer (kan ikke forke eget repo), bruges ophavet
 // direkte — samme mønster som git-værter selv.
-async function sikrSkriveRepo(mig) {
+async function sikrSkriveRepo(mig, opts = {}) {
   if (mig === OPHAV.ejer) return { ejer: OPHAV.ejer, repo: OPHAV.repo };
-  const f = await api(`/repos/${OPHAV.ejer}/${OPHAV.repo}/forks`, { method: "POST", body: "{}" });
+  const f = await api(`/repos/${OPHAV.ejer}/${OPHAV.repo}/forks`, { method: "POST", body: "{}", ...opts });
   if (f.ok) {
     const fork = await f.json();
     return { ejer: fork.owner.login, repo: fork.name };
@@ -232,13 +232,21 @@ export async function hentSamlingFraCodeberg() {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
+// keepalive: true på ALLE kald i denne kæde — kaldes fra en stjerne-klik,
+// hvor brugeren meget vel navigerer videre inden for millisekunder (naturligt
+// at klikke stjernen og straks klikke ind i forløbet). Uden keepalive
+// afbryder browseren fetch-kæden ved sideskift, og skrivningen når aldrig
+// frem — det var præcis det, der skete (samling.json fandtes slet ikke på
+// Codeberg, selvom UI'et virkede lokalt).
 export async function gemSamlingTilCodeberg(ids) {
+  const opts = { keepalive: true };
   const mig = await hentBruger();
-  const { ejer, repo } = await sikrSkriveRepo(mig);
-  const findes = await api(`/repos/${ejer}/${repo}/contents/samling.json?ref=main`);
+  const { ejer, repo } = await sikrSkriveRepo(mig, opts);
+  const findes = await api(`/repos/${ejer}/${repo}/contents/samling.json?ref=main`, opts);
   const sha = findes.ok ? (await findes.json()).sha : undefined;
   await apiOk(`/repos/${ejer}/${repo}/contents/samling.json`, {
     method: "PUT",
+    ...opts,
     body: JSON.stringify({
       content: b64utf8(JSON.stringify(ids)),
       ...(sha ? { sha } : {}),
