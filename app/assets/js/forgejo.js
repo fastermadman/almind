@@ -38,7 +38,12 @@ export function logUd() {
   ["cb_token", "cb_refresh", "cb_login"].forEach((k) => sessionStorage.removeItem(k));
 }
 
-export async function login() {
+// retur: hvor OAuth-turen skal lande brugeren. rediger.html SKAL altid sende
+// "rediger.html?kladde=1" eksplicit her — ellers tolker editoren OAuth-turen
+// som "start forfra" og en gemt kladde forsvinder synligt, selvom den stadig
+// ligger i localStorage. Andre sider (fx header-loginknappen) har ingen kladde
+// at miste og kan trygt falde tilbage til den side, brugeren faktisk stod på.
+export async function login(retur) {
   if (location.hostname === "localhost") {
     // origin-skiftet SKAL ske før verifier gemmes — se note ved REDIRECT
     location.href = location.href.replace("//localhost", "//127.0.0.1");
@@ -51,12 +56,7 @@ export async function login() {
 
   sessionStorage.setItem("cb_verifier", verifier);
   sessionStorage.setItem("cb_state", state);
-  // login() kaldes udelukkende fra en aktiv redigeringssession (rediger.html) —
-  // returstien SKAL derfor altid genoptage kladden, uanset hvilken URL brugeren
-  // stod på (fx den blanke rediger.html-indgang uden ?kladde=1). Ellers tolker
-  // editoren OAuth-turen som "start forfra" og en gemt kladde forsvinder synligt,
-  // selvom den stadig ligger i localStorage.
-  sessionStorage.setItem("cb_retur", "rediger.html?kladde=1");
+  sessionStorage.setItem("cb_retur", retur || (location.pathname + location.search));
 
   location.href = `${BASE}/login/oauth/authorize?` + new URLSearchParams({
     client_id: CLIENT_ID,
@@ -216,4 +216,51 @@ export async function gemTilEgenGren(forloeb) {
     }),
   });
   return `elev.html?kilde=${ejer}/${repo}/${gren}`;
+}
+
+// #82: Codeberg er ikke et kendt navn for en VIA-studerende — forklar hvad og
+// hvorfor, FØR den uforklarede omstilling til et fremmed domæne, i stedet for
+// at redirecte instant. Vises kun første gang (localStorage), så den ikke
+// generer en bruger der allerede har set den og vil dele igen.
+const FORKLARET_KEY = "almind_login_forklaret";
+
+export function loginMedForklaring(retur) {
+  if (localStorage.getItem(FORKLARET_KEY)) { login(retur); return; }
+
+  const dlg = document.createElement("dialog");
+  dlg.className = "login-dialog";
+  const h2 = document.createElement("h2");
+  h2.textContent = "Hvorfor Codeberg?";
+  dlg.appendChild(h2);
+  const p = document.createElement("p");
+  p.className = "under";
+  p.textContent = "Almind har ingen egen brugerdatabase — dit login og dine bidrag bor på "
+    + "Codeberg, en uafhængig, non-profit git-tjeneste (samme slags system som GitHub, men "
+    + "fri og fællesejet, ligesom Almind selv). Ingen Big Tech-konto, ingen sporing — og dine "
+    + "data ligger et sted du selv kan tage med dig.";
+  dlg.appendChild(p);
+
+  const knapper = document.createElement("div");
+  knapper.className = "login-dialog-knapper";
+  const fortsaet = document.createElement("button");
+  fortsaet.type = "button";
+  fortsaet.className = "knap";
+  fortsaet.textContent = "Fortsæt til Codeberg";
+  fortsaet.addEventListener("click", () => {
+    localStorage.setItem(FORKLARET_KEY, "1");
+    dlg.close(); dlg.remove();
+    login(retur);
+  });
+  knapper.appendChild(fortsaet);
+  const annuller = document.createElement("button");
+  annuller.type = "button";
+  annuller.className = "knap sekundaer";
+  annuller.textContent = "Ikke nu";
+  annuller.addEventListener("click", () => { dlg.close(); dlg.remove(); });
+  knapper.appendChild(annuller);
+  dlg.appendChild(knapper);
+
+  dlg.addEventListener("close", () => dlg.remove());
+  document.body.appendChild(dlg);
+  dlg.showModal();
 }

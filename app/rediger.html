@@ -107,7 +107,7 @@
 
   // Codeberg: login → del som ægte fork/gren + PR. Download-JSON består som
   // fallback uden login — filen er stadig persistensformen.
-  const { erLoggetInd, login, hentBruger, delTilAlmind, gemTilEgenGren } = await import("./assets/js/forgejo.js");
+  const { erLoggetInd, loginMedForklaring, hentBruger, delTilAlmind, gemTilEgenGren } = await import("./assets/js/forgejo.js");
   const cbKnap = document.getElementById("cb-knap");
   const klasseKnap = document.getElementById("klasse-knap");
   const cbStatus = document.getElementById("cb-status");
@@ -134,7 +134,7 @@
   }
 
   cbKnap.addEventListener("click", async () => {
-    if (!erLoggetInd()) { gemKladde(f); login(); return; }
+    if (!erLoggetInd()) { gemKladde(f); loginMedForklaring("rediger.html?kladde=1"); return; }
     if (!centrumOK(f)) {
       const fortsat = await aabnCentrumDialog(f, gemKladde);
       if (!fortsat) return;

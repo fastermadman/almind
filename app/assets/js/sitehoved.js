@@ -46,6 +46,36 @@ function laesefremskridt() {
   return bar;
 }
 
+// #82: neutral login-knap i headeren — siger bevidst ikke "med Codeberg" (det
+// hører til forklarings-popup'en, ikke selve knappen). Async status-tjek
+// importerer forgejo.js dovent, så sider der aldrig rører login ikke betaler
+// for det ved indlæsning. En frisk knap pr. kald, så samme markup kan sidde
+// både i desktop-navet og mobilmenuen.
+function loginKnap() {
+  const knap = document.createElement("button");
+  knap.type = "button";
+  knap.className = "knap sekundaer header-login-knap";
+  knap.textContent = "Log ind";
+
+  import("./forgejo.js").then(async ({ erLoggetInd, hentBruger, loginMedForklaring, logUd }) => {
+    if (!erLoggetInd()) {
+      knap.addEventListener("click", () => loginMedForklaring());
+      return;
+    }
+    try {
+      knap.textContent = await hentBruger();
+    } catch {
+      knap.textContent = "Log ind";
+      knap.addEventListener("click", () => loginMedForklaring());
+      return;
+    }
+    knap.title = "Log ud";
+    knap.addEventListener("click", () => { logUd(); location.reload(); });
+  });
+
+  return knap;
+}
+
 function navLinks(aktiv, luk) {
   const links = NAV_LINKS.map((l) => {
     const a = document.createElement("a");
@@ -82,6 +112,7 @@ export function sitehoved(el) {
   nav.className = "site-nav";
   nav.setAttribute("aria-label", "Hovednavigation");
   navLinks(aktiv, null).forEach((a) => nav.appendChild(a));
+  nav.appendChild(loginKnap());
   el.appendChild(nav);
 
   // Mobilmenu: native <details> — MPA'en navigerer ved valg, så menuen
@@ -96,6 +127,7 @@ export function sitehoved(el) {
   mobilNav.appendChild(soegeform(false));
   const luk = () => detaljer.removeAttribute("open");
   navLinks(aktiv, luk).forEach((a) => mobilNav.appendChild(a));
+  mobilNav.appendChild(loginKnap());
   detaljer.appendChild(mobilNav);
   el.appendChild(detaljer);
 
