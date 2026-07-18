@@ -84,22 +84,75 @@
   --typ-gray: #606776;    --typ-gray-bg: #f1f2f4;
 }
 
-/* Selvhostet variabel font (Indestructible Type, SIL OFL) — samme kilde som index.html.
-   Direkte raw.githubusercontent.com: github.com/raw-redirectet mister CORS-headeren undervejs
-   (302-svaret sender en tom access-control-allow-origin), så browseren afviser fontfetchet. */
+/* Selvhostet (Indestructible Type, SIL OFL) — filer i assets/fonts/, ikke længere
+   hentet fra raw.githubusercontent.com ved sideload (GDPR: undgår IP-overførsel
+   til GitHub/USA ved hvert besøg, jf. gdpr-gennemgang 2026-07-18). */
 @font-face {
   font-family: 'Marauder';
-  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder%5Bwght%5D.woff2') format('woff2-variations');
+  src: url('../fonts/marauder.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Marauder';
-  src: url('https://raw.githubusercontent.com/indestructible-type/indestructible-type.github.io/refs/heads/master/Marauder/Marauder-Italic%5Bwght%5D.woff2') format('woff2-variations');
+  src: url('../fonts/marauder-italic.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
+}
+
+/* Selvhostet (Google Fonts, SIL OFL/Apache) — kun latin-subset (dansk indhold
+   dækkes af U+0000-00FF+; latin-ext udeladt bevidst, sparer 7 unødvendige filer). */
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/atkinson-hyperlegible-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/atkinson-hyperlegible-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/atkinson-hyperlegible-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/atkinson-hyperlegible-next-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/atkinson-hyperlegible-next.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('../fonts/bricolage-grotesque.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/jost.woff2') format('woff2');
 }
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */
