@@ -170,13 +170,22 @@ export async function hentBegrebOpslag() {
 export function kaede(alle, id) {
   let node = findForloeb(alle, id);
   if (!node) return [];
+  // ponytail: Set'ene beskytter mod korrupt/manuelt redigeret forloeb.json
+  // (cirkulær fork_af, eller et forks-array der peger tilbage på en forfader)
+  // — normal fork-UI kan ikke selv skabe det, se issue #98.
+  const setOpad = new Set();
   while (node.fork_af) {
+    if (setOpad.has(node.id)) break; // cyklus opad: stop i stedet for at løkke uendeligt
+    setOpad.add(node.id);
     const forael = findForloeb(alle, node.fork_af.id);
     if (!forael) break; // brudt kæde: stop i stedet for at løkke uendeligt
     node = forael;
   }
   const resultat = [];
+  const setNed = new Set();
   const gaaNed = (f) => {
+    if (setNed.has(f.id)) return; // cyklus nedad
+    setNed.add(f.id);
     resultat.push(f);
     (f.forks || []).forEach((fid) => {
       const barn = findForloeb(alle, fid);
