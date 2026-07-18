@@ -28,7 +28,8 @@
       <button class="knap sekundaer" id="download-knap" title="Forløbet som JSON-fil — den form det deles og forkes i">Download JSON</button>
       <button class="knap sekundaer" id="print-knap">Print</button>
       <button class="knap sekundaer" id="elev-knap" title="Sådan ser eleverne forløbet — kun elevtekst og elev-markerede materialer">Se som elev</button>
-      <button class="knap" id="dokument-knap">Se som dokument</button>
+      <button class="knap sekundaer" id="dokument-knap">Se som dokument</button>
+      <span class="knap-adskiller" aria-hidden="true"></span>
       <button class="knap" id="klasse-knap" hidden title="Publicér til en gren i din egen fork og få et elev-link til klassen — ingen pull request">Del med klassen</button>
       <button class="knap" id="cb-knap" hidden></button>
     </div>
@@ -129,18 +130,19 @@
   };
 
   async function tegnCbKnap() {
+    // Knappen hedder altid det, den gør — "Del til Almind"/"Del med klassen".
+    // Login er kontotilstand, ikke en handling i sig selv, og vises allerede
+    // i headeren (sitehoved.js). Klik uden login redirecter i stedet dertil
+    // (samme mønster som fork, #83) — ingen knap her skal sige "log ind".
     cbKnap.hidden = false;
-    klasseKnap.hidden = !erLoggetInd(); // #56: kun logget ind — knappen ER en git-operation
+    klasseKnap.hidden = false;
+    cbKnap.textContent = "Del til Almind";
     if (erLoggetInd()) {
-      cbKnap.textContent = "Del til Almind";
       try {
         visStatus(`Logget ind på Codeberg som ${await hentBruger()} · forslag sendes som pull request`);
       } catch (fejl) {
         visStatus(fejl.message, true);
-        if (!erLoggetInd()) cbKnap.textContent = "Log ind med Codeberg"; // 401 → logget ud
       }
-    } else {
-      cbKnap.textContent = "Log ind med Codeberg";
     }
   }
 
@@ -175,6 +177,7 @@
   // #56: "Del med klassen" — commit til egen gren, ingen PR og ingen
   // publish-gate: at dele med egen klasse er ikke et forslag til fællesskabet.
   klasseKnap.addEventListener("click", async () => {
+    if (!erLoggetInd()) { gemKladde(f); loginMedForklaring("rediger.html?kladde=1"); return; }
     gemKladde(f);
     klasseKnap.disabled = true;
     visStatus("Deler med klassen: commit til en gren i din egen fork ...");

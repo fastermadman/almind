@@ -10,7 +10,8 @@
 }
 .editor-hoved h1 { font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.8rem; margin-bottom: 0.4rem; }
 .editor-hoved .intro { color: var(--muted); max-width: 56ch; }
-.editor-knapper { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.editor-knapper { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.6rem; }
+.knap-adskiller { width: 1px; background: var(--border); margin: 0.2rem 0.2rem; }
 
 .editor-layout {
   display: grid; grid-template-columns: minmax(0, 1fr) 340px;
