@@ -24,36 +24,71 @@ export function forloebKort(f, alle) {
   a.dataset.fag = fam;
 
   const k = alle ? kaede(alle, f.id) : [f];
-  const miniGenealogi =
-    k.length > 1
-      ? `<span class="mini-genealogi" title="${k.length} versioner">` +
-        k.map((v, i) =>
-            `<span class="prik${v.id === f.id ? " fyldt" : ""}"></span>` +
-            (i < k.length - 1 ? `<span class="streg"></span>` : "")
-          ).join("") +
-        `</span>`
-      : "";
-
   const pladser = antalAabnePladser(f);
   const omfang = omfangTekst(f.omfang);
   const klassetrinInterval = klassetrinTilInterval(f.klassetrin);
 
-  a.innerHTML = `
-    <div class="kort-tags">
-      <a class="tag" href="fag.html?id=${f.fag}">${fagNavn(f.fag)}</a>
-      ${klassetrinInterval
-        ? `<a class="tag neutral" href="browse.html?klassetrin=${klassetrinInterval[0]}">${f.klassetrin}</a>`
-        : `<span class="tag neutral">${f.klassetrin}</span>`}
-      ${f.demo ? `<span class="tag neutral">Eksempel</span>` : ""}
-    </div>
-    <h3><a class="kort-titel-link" href="sequence.html?id=${f.id}">${f.titel}</a></h3>
-    <p class="kort-beskrivelse">${f.beskrivelse}</p>
-    <div class="metadata">${f.forfatter} · ${datoTekst(f.opdateret)}${omfang ? ` · ${omfang}` : ""}</div>
-    <div class="kort-bund">
-      ${miniGenealogi || `<span class="metadata">1 version</span>`}
-      ${pladser ? `<span class="plads-badge">${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}</span>` : ""}
-    </div>
-  `;
+  const tags = document.createElement("div");
+  tags.className = "kort-tags";
+  const tagFag = document.createElement("a");
+  tagFag.className = "tag";
+  tagFag.href = `fag.html?id=${f.fag}`;
+  tagFag.textContent = fagNavn(f.fag);
+  tags.appendChild(tagFag);
+  const tagKlasse = document.createElement(klassetrinInterval ? "a" : "span");
+  tagKlasse.className = "tag neutral";
+  if (klassetrinInterval) tagKlasse.href = `browse.html?klassetrin=${klassetrinInterval[0]}`;
+  tagKlasse.textContent = f.klassetrin;
+  tags.appendChild(tagKlasse);
+  if (f.demo) {
+    const tagDemo = document.createElement("span");
+    tagDemo.className = "tag neutral";
+    tagDemo.textContent = "Eksempel";
+    tags.appendChild(tagDemo);
+  }
+
+  const h3 = document.createElement("h3");
+  const titelLink = document.createElement("a");
+  titelLink.className = "kort-titel-link";
+  titelLink.href = `sequence.html?id=${f.id}`;
+  titelLink.textContent = f.titel;
+  h3.appendChild(titelLink);
+
+  const beskrivelse = document.createElement("p");
+  beskrivelse.className = "kort-beskrivelse";
+  beskrivelse.textContent = f.beskrivelse;
+
+  const meta = document.createElement("div");
+  meta.className = "metadata";
+  meta.textContent = `${f.forfatter} · ${datoTekst(f.opdateret)}${omfang ? ` · ${omfang}` : ""}`;
+
+  const bund = document.createElement("div");
+  bund.className = "kort-bund";
+  if (k.length > 1) {
+    const mini = document.createElement("span");
+    mini.className = "mini-genealogi";
+    mini.title = `${k.length} versioner`;
+    k.forEach((v, i) => {
+      const prik = document.createElement("span");
+      prik.className = "prik" + (v.id === f.id ? " fyldt" : "");
+      mini.appendChild(prik);
+      if (i < k.length - 1) mini.appendChild(Object.assign(document.createElement("span"), { className: "streg" }));
+    });
+    bund.appendChild(mini);
+  } else {
+    const enkelt = document.createElement("span");
+    enkelt.className = "metadata";
+    enkelt.textContent = "1 version";
+    bund.appendChild(enkelt);
+  }
+  if (pladser) {
+    const badge = document.createElement("span");
+    badge.className = "plads-badge";
+    badge.textContent = `${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}`;
+    bund.appendChild(badge);
+  }
+
+  a.append(tags, h3, beskrivelse, meta, bund);
   a.appendChild(gemKnap(f.id));
   return a;
 }
@@ -89,18 +124,38 @@ export function dgProfil(f) {
 export function pladsFold(f, plads) {
   const d = document.createElement("details");
   d.className = "plads";
-  d.innerHTML = `
-    <summary>
-      <span class="fold-pil">&#9654;</span>
-      <span class="plads-label">Åben plads: ${DIM_NAVNE[plads.dimension] || plads.dimension}</span>
-      <span class="plads-preview">${plads.besked}</span>
-    </summary>
-    <div class="plads-krop">
-      <blockquote>${plads.besked}<br><span class="metadata">${f.forfatter}</span></blockquote>
-      <p class="gissel-def" data-dim="${plads.dimension}"></p>
-      <a class="knap fag" href="rediger.html?fork=${f.id}&dimension=${plads.dimension}">Fork herfra</a>
-    </div>
-  `;
+
+  const summary = document.createElement("summary");
+  const pil = document.createElement("span");
+  pil.className = "fold-pil";
+  pil.textContent = "▶";
+  const label = document.createElement("span");
+  label.className = "plads-label";
+  label.textContent = `Åben plads: ${DIM_NAVNE[plads.dimension] || plads.dimension}`;
+  const preview = document.createElement("span");
+  preview.className = "plads-preview";
+  preview.textContent = plads.besked;
+  summary.append(pil, label, preview);
+
+  const krop = document.createElement("div");
+  krop.className = "plads-krop";
+  const bq = document.createElement("blockquote");
+  bq.appendChild(document.createTextNode(plads.besked));
+  bq.appendChild(document.createElement("br"));
+  const forfatterSpan = document.createElement("span");
+  forfatterSpan.className = "metadata";
+  forfatterSpan.textContent = f.forfatter;
+  bq.appendChild(forfatterSpan);
+  const gisselDef = document.createElement("p");
+  gisselDef.className = "gissel-def";
+  gisselDef.dataset.dim = plads.dimension;
+  const forkLink = document.createElement("a");
+  forkLink.className = "knap fag";
+  forkLink.href = `rediger.html?fork=${f.id}&dimension=${plads.dimension}`;
+  forkLink.textContent = "Fork herfra";
+  krop.append(bq, gisselDef, forkLink);
+
+  d.append(summary, krop);
   // Gissel-definition hentes lazy ved første åbning.
   d.addEventListener("toggle", async () => {
     const felt = d.querySelector(".gissel-def");

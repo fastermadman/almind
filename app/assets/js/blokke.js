@@ -13,7 +13,7 @@ import {
 import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 
-export const CALLOUT_TYPER = {
+const CALLOUT_TYPER = {
   valg: "Didaktisk valg",
   obs: "Opmærksomhed",
   almind: "Almind: fork-invitation",
@@ -80,17 +80,20 @@ export function aabnCentrumDialog(f, gemKladdeFn) {
     dlg.appendChild(intro);
 
     const fortsaet = document.createElement("button");
+    let dialogFeltId = 0;
     function felt(label, vaerdi, placeholder, onInput) {
       const wrap = document.createElement("div");
       wrap.className = "felt";
       const l = document.createElement("span");
       l.className = "felt-label";
+      l.id = `centrum-dialog-label-${dialogFeltId++}`;
       l.textContent = label;
       wrap.appendChild(l);
       const ta = document.createElement("textarea");
       ta.className = "tekstfelt";
       ta.value = vaerdi || "";
       ta.placeholder = placeholder;
+      ta.setAttribute("aria-labelledby", l.id);
       ta.addEventListener("input", () => { onInput(ta.value); fortsaet.disabled = !centrumOK(f); });
       wrap.appendChild(ta);
       return wrap;
@@ -144,6 +147,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   const fagIndex = await hentFagIndex();
   const gisselTyper = await gisselMaterialetyper().catch(() => []);
 
+  let feltId = 0; // unikt id-suffiks til felt-label-spans, så aria-labelledby kan pege på dem
   let gemT = null;
   const gem = () => {
     clearTimeout(gemT);
@@ -213,8 +217,12 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
   function feltMedLabel(label, under, kontrol) {
     const wrap = el("div", "felt centrum-felt");
-    wrap.appendChild(el("span", "felt-label", label));
+    const labelSpan = el("span", "felt-label", label);
+    labelSpan.id = `felt-label-${feltId++}`;
+    wrap.appendChild(labelSpan);
     if (under) wrap.appendChild(el("span", "under", under));
+    const styring = kontrol.matches?.("textarea, select") ? kontrol : kontrol.querySelector?.("textarea, select");
+    styring?.setAttribute("aria-labelledby", labelSpan.id);
     wrap.appendChild(kontrol);
     return wrap;
   }
@@ -320,9 +328,11 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
     kort.appendChild(raekke);
     kort.appendChild(tegnOmfang());
-    kort.appendChild(tekstFelt("tekstfelt", f.beskrivelse,
+    const beskrivelse = tekstFelt("tekstfelt", f.beskrivelse,
       "Kort beskrivelse: hvad gør forløbet, og hvad er det stærkt på?",
-      (v) => (f.beskrivelse = v)));
+      (v) => (f.beskrivelse = v));
+    beskrivelse.setAttribute("aria-label", "Kort beskrivelse af forløbet");
+    kort.appendChild(beskrivelse);
     return kort;
   }
 
@@ -616,9 +626,11 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       if (status === "tom") {
         let plads = f.tomme_pladser.find((p) => p.dimension === dim);
         if (!plads) { plads = { dimension: dim, besked: "" }; f.tomme_pladser.push(plads); }
-        boks.appendChild(tekstFelt(null, plads.besked,
+        const besked = tekstFelt(null, plads.besked,
           "Hvorfor lader du denne plads stå åben? Din begrundelse vises til den næste lærer.",
-          (v) => (plads.besked = v)));
+          (v) => (plads.besked = v));
+        besked.setAttribute("aria-label", `Begrundelse for åben plads: ${DIM_NAVNE[dim]}`);
+        boks.appendChild(besked);
       }
       if (fokusDimension === dim) boks.style.borderColor = "var(--accent)";
       sek.appendChild(boks);
@@ -630,7 +642,9 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
   function profilFelt(def, kildeTekst) {
     const wrap = el("div", "felt");
-    wrap.appendChild(el("span", "felt-label", def.label));
+    const labelSpan = el("span", "felt-label", def.label);
+    labelSpan.id = `profil-label-${feltId++}`;
+    wrap.appendChild(labelSpan);
     if (def.under) wrap.appendChild(el("span", "under", def.under));
 
     let kontrol;
@@ -689,6 +703,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
         if (v.trim()) f.refleksioner.push({ kilde, tekst: v.trim() });
       });
     }
+    kontrol.setAttribute("aria-labelledby", labelSpan.id);
     wrap.appendChild(kontrol);
     if (kildeTekst) wrap.appendChild(el("p", "destillat-kilde", kildeTekst));
     return wrap;
@@ -710,8 +725,12 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       liste.innerHTML = "";
       f.fravalg.forEach((fv, i) => {
         const raekke = el("div", "raekke");
-        raekke.appendChild(inputFelt(null, fv.hvad, "Hvad er valgt fra? fx \"forfatterens øvrige værker\"", (v) => (fv.hvad = v)));
-        raekke.appendChild(tekstFelt(null, fv.hvorfor, "Hvorfor? Begrundelsen vises til den næste lærer.", (v) => (fv.hvorfor = v)));
+        const hvad = inputFelt(null, fv.hvad, "Hvad er valgt fra? fx \"forfatterens øvrige værker\"", (v) => (fv.hvad = v));
+        hvad.setAttribute("aria-label", "Hvad er valgt fra");
+        raekke.appendChild(hvad);
+        const hvorfor = tekstFelt(null, fv.hvorfor, "Hvorfor? Begrundelsen vises til den næste lærer.", (v) => (fv.hvorfor = v));
+        hvorfor.setAttribute("aria-label", "Hvorfor er det valgt fra");
+        raekke.appendChild(hvorfor);
         const slet = sletKnap("Fjern fravalget", () => { f.fravalg.splice(i, 1); gem(); tegnRaekker(); });
         slet.className = "raekke-slet";
         raekke.appendChild(slet);

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forløb · Almind</title>
+  <meta name="description" content="Læs et komplet Almind-forløb: didaktisk position, materialer og fagligt begrundede valg.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
@@ -14,6 +15,7 @@
 
   <header class="site-header"></header>
 
+  <main>
   <div class="detalje-hoved">
     <div class="kort-tags" id="tags"></div>
     <h1 id="titel"></h1>
@@ -105,6 +107,7 @@
     <p class="metadata" id="genealogi-note" style="margin-top:0.75rem;"></p>
     <p class="metadata" style="margin-top:0.5rem;"><a id="graf-link" href="graph.html">Se forløbet i konstellationen →</a></p>
   </section>
+  </main>
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
@@ -155,28 +158,61 @@
   // (intervallerOverlapper) finder så alt der dækker/overlapper det klassetrin,
   // uanset om DENNE tags klassetrin er ét trin eller et spænd.
   const klassetrinInterval = klassetrinTilInterval(f.klassetrin);
-  document.getElementById("tags").innerHTML =
-    `<a class="tag" href="fag.html?id=${f.fag}" title="Se fagets forside og dækningskort">${fagPost?.navn || f.fag}</a>` +
-    (klassetrinInterval
-      ? `<a class="tag neutral" href="browse.html?klassetrin=${klassetrinInterval[0]}">${f.klassetrin}</a>`
-      : `<span class="tag neutral">${f.klassetrin}</span>`) +
-    (omfang ? `<a class="tag neutral" href="browse.html?omfang=${f.omfang.type}">${omfang}</a>` : "") +
-    (f.demo ? `<span class="tag neutral">Eksempel</span>` : "") +
-    (forladetFagplan
-      ? `<span class="tag forladet" title="Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}">Fagplan opdateret siden kobling</span>`
-      : "") +
-    // Issue #65: tema er søgbart fritekst i browse.html (matcher f.tema) —
-    // klikbart giver "søg inspiration ved dette tema" uden ny facet-infrastruktur.
-    (f.tema || []).slice(0, 3).map((t) => `<a class="tag neutral" href="browse.html?q=${encodeURIComponent(t)}">${t}</a>`).join("");
+  const tagsEl = document.getElementById("tags");
+  const tagFag = document.createElement("a");
+  tagFag.className = "tag";
+  tagFag.href = `fag.html?id=${f.fag}`;
+  tagFag.title = "Se fagets forside og dækningskort";
+  tagFag.textContent = fagPost?.navn || f.fag;
+  tagsEl.appendChild(tagFag);
+  const tagKlasse = document.createElement(klassetrinInterval ? "a" : "span");
+  tagKlasse.className = "tag neutral";
+  if (klassetrinInterval) tagKlasse.href = `browse.html?klassetrin=${klassetrinInterval[0]}`;
+  tagKlasse.textContent = f.klassetrin;
+  tagsEl.appendChild(tagKlasse);
+  if (omfang) {
+    const tagOmfang = document.createElement("a");
+    tagOmfang.className = "tag neutral";
+    tagOmfang.href = `browse.html?omfang=${f.omfang.type}`;
+    tagOmfang.textContent = omfang;
+    tagsEl.appendChild(tagOmfang);
+  }
+  if (f.demo) {
+    const tagDemo = document.createElement("span");
+    tagDemo.className = "tag neutral";
+    tagDemo.textContent = "Eksempel";
+    tagsEl.appendChild(tagDemo);
+  }
+  if (forladetFagplan) {
+    const tagForladet = document.createElement("span");
+    tagForladet.className = "tag forladet";
+    tagForladet.title = `Koblet mod fagplan ${f.fagplan_ref.version}, fagets nuværende udkast er ${fagPost.fagplan_version}`;
+    tagForladet.textContent = "Fagplan opdateret siden kobling";
+    tagsEl.appendChild(tagForladet);
+  }
+  // Issue #65: tema er søgbart fritekst i browse.html (matcher f.tema) —
+  // klikbart giver "søg inspiration ved dette tema" uden ny facet-infrastruktur.
+  (f.tema || []).slice(0, 3).forEach((t) => {
+    const tagTema = document.createElement("a");
+    tagTema.className = "tag neutral";
+    tagTema.href = `browse.html?q=${encodeURIComponent(t)}`;
+    tagTema.textContent = t;
+    tagsEl.appendChild(tagTema);
+  });
   document.getElementById("titel").textContent = f.titel;
   document.getElementById("undertitel").textContent = f.undertitel || "";
   // #53: forfatternavnet linker til profilen når forfatter_codeberg er sat
   // (delTilAlmind sætter feltet automatisk) — uden feltet forbliver navnet ren tekst.
-  const forfatterHtml = f.forfatter_codeberg
-    ? `<a href="profil.html?bruger=${encodeURIComponent(f.forfatter_codeberg)}">${f.forfatter}</a>`
-    : f.forfatter;
-  document.getElementById("meta").innerHTML =
-    `${forfatterHtml} · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`;
+  const metaEl = document.getElementById("meta");
+  if (f.forfatter_codeberg) {
+    const forfatterLink = document.createElement("a");
+    forfatterLink.href = `profil.html?bruger=${encodeURIComponent(f.forfatter_codeberg)}`;
+    forfatterLink.textContent = f.forfatter;
+    metaEl.appendChild(forfatterLink);
+  } else {
+    metaEl.appendChild(document.createTextNode(f.forfatter));
+  }
+  metaEl.appendChild(document.createTextNode(` · ${f.institution} · opdateret ${datoTekst(f.opdateret)} · ${f.licens}`));
   if (f.demo) {
     const note = document.getElementById("demo-note");
     note.hidden = false;
@@ -265,10 +301,16 @@
   if (f.eksemplarisk_centrum?.konkret || f.eksemplarisk_centrum?.alment) {
     const ek = document.getElementById("eksemplarisk-centrum");
     ek.hidden = false;
-    ek.innerHTML = `
-      ${f.eksemplarisk_centrum.konkret ? `<p><span class="ek-label">Det konkrete</span>${f.eksemplarisk_centrum.konkret}</p>` : ""}
-      ${f.eksemplarisk_centrum.alment ? `<p><span class="ek-label">Det almene</span>${f.eksemplarisk_centrum.alment}</p>` : ""}
-    `;
+    const ekAfsnit = (label, tekst) => {
+      const p = document.createElement("p");
+      const span = document.createElement("span");
+      span.className = "ek-label";
+      span.textContent = label;
+      p.append(span, document.createTextNode(tekst));
+      return p;
+    };
+    if (f.eksemplarisk_centrum.konkret) ek.appendChild(ekAfsnit("Det konkrete", f.eksemplarisk_centrum.konkret));
+    if (f.eksemplarisk_centrum.alment) ek.appendChild(ekAfsnit("Det almene", f.eksemplarisk_centrum.alment));
   }
 
   if (f.fravalg?.length) {
@@ -277,7 +319,11 @@
     const liste = document.getElementById("fravalg");
     f.fravalg.forEach((fv) => {
       const li = document.createElement("li");
-      li.innerHTML = `<strong>${fv.hvad}</strong><span>${fv.hvorfor}</span>`;
+      const hvad = document.createElement("strong");
+      hvad.textContent = fv.hvad;
+      const hvorfor = document.createElement("span");
+      hvorfor.textContent = fv.hvorfor;
+      li.append(hvad, hvorfor);
       liste.appendChild(li);
     });
   }
@@ -286,8 +332,16 @@
     const panel = document.getElementById("position-panel");
     panel.hidden = false;
     const pos = document.getElementById("position");
-    if (f.didaktisk_position?.fagsyn) pos.appendChild(Object.assign(document.createElement("p"), { innerHTML: `<span class="ek-label">Fagsyn</span>${f.didaktisk_position.fagsyn}` }));
-    if (f.didaktisk_position?.laeringssyn) pos.appendChild(Object.assign(document.createElement("p"), { innerHTML: `<span class="ek-label">Læringssyn</span>${f.didaktisk_position.laeringssyn}` }));
+    const positionsAfsnit = (label, tekst) => {
+      const p = document.createElement("p");
+      const span = document.createElement("span");
+      span.className = "ek-label";
+      span.textContent = label;
+      p.append(span, document.createTextNode(tekst));
+      return p;
+    };
+    if (f.didaktisk_position?.fagsyn) pos.appendChild(positionsAfsnit("Fagsyn", f.didaktisk_position.fagsyn));
+    if (f.didaktisk_position?.laeringssyn) pos.appendChild(positionsAfsnit("Læringssyn", f.didaktisk_position.laeringssyn));
     if (f.samspil) {
       const SAMSPIL_NAVN = { funktionelt: "Funktionelt samspil", flerfagligt: "Flerfagligt samspil", tvaerfagligt: "Tværfagligt samspil" };
       const fagIndex = await hentFagIndex();
@@ -324,9 +378,22 @@
     const ul = document.getElementById("materialer");
     f.materialer.forEach((m) => {
       const li = document.createElement("li");
-      li.innerHTML = `<span class="mat-type">${m.type}</span>
-        <a href="${renseUrl(m.url)}" target="_blank" rel="noopener noreferrer">${m.titel}</a>
-        ${m.note ? `<span class="metadata" style="flex-basis:100%;">${m.note}</span>` : ""}`;
+      const matType = document.createElement("span");
+      matType.className = "mat-type";
+      matType.textContent = m.type;
+      const matLink = document.createElement("a");
+      matLink.href = renseUrl(m.url);
+      matLink.target = "_blank";
+      matLink.rel = "noopener noreferrer";
+      matLink.textContent = m.titel;
+      li.append(matType, matLink);
+      if (m.note) {
+        const matNote = document.createElement("span");
+        matNote.className = "metadata";
+        matNote.style.flexBasis = "100%";
+        matNote.textContent = m.note;
+        li.appendChild(matNote);
+      }
       const type = medietype(m.url);
       if (type !== "link") {
         const wrap = document.createElement("div");
@@ -349,21 +416,33 @@
       const panel = document.createElement("div");
       panel.className = "review-panel";
       const forladet = r.forloeb?.opdateret !== f.opdateret;
-      panel.innerHTML = `
-        <div class="review-kop">
-          <strong>${r.reviewer}</strong>
-          <span class="metadata">${datoTekst(r.dato)}</span>
-          <span class="relation-badge${r.relation === "brugt" ? " brugt" : ""}">${RELATION_TEKST[r.relation] || r.relation}</span>
-          ${forladet ? `<span class="tag forladet" title="Reviewet er skrevet mod en tidligere version">Reviewet gælder versionen fra ${datoTekst(r.forloeb?.opdateret)}</span>` : ""}
-        </div>
-        <p>${r.samlet}</p>
-      `;
+      const kop = document.createElement("div");
+      kop.className = "review-kop";
+      const reviewerStrong = document.createElement("strong");
+      reviewerStrong.textContent = r.reviewer;
+      const datoSpan = document.createElement("span");
+      datoSpan.className = "metadata";
+      datoSpan.textContent = datoTekst(r.dato);
+      const relationSpan = document.createElement("span");
+      relationSpan.className = "relation-badge" + (r.relation === "brugt" ? " brugt" : "");
+      relationSpan.textContent = RELATION_TEKST[r.relation] || "Relation ukendt";
+      kop.append(reviewerStrong, datoSpan, relationSpan);
+      if (forladet) {
+        const forladetSpan = document.createElement("span");
+        forladetSpan.className = "tag forladet";
+        forladetSpan.title = "Reviewet er skrevet mod en tidligere version";
+        forladetSpan.textContent = `Reviewet gælder versionen fra ${datoTekst(r.forloeb?.opdateret)}`;
+        kop.appendChild(forladetSpan);
+      }
+      const samletP = document.createElement("p");
+      samletP.textContent = r.samlet;
+      panel.append(kop, samletP);
       const div = document.createElement("div");
       div.className = "dg-divergens";
       const forfatterKol = document.createElement("div");
-      forfatterKol.innerHTML = "<h4>Forfatterens deklaration</h4>";
+      forfatterKol.appendChild(Object.assign(document.createElement("h4"), { textContent: "Forfatterens deklaration" }));
       const reviewerKol = document.createElement("div");
-      reviewerKol.innerHTML = "<h4>Reviewerens vurdering</h4>";
+      reviewerKol.appendChild(Object.assign(document.createElement("h4"), { textContent: "Reviewerens vurdering" }));
       DIMENSIONER.forEach((dim) => {
         const reviewerStatus = r.daekningsgrad_vurderet?.[dim];
         if (!reviewerStatus) return;
@@ -394,28 +473,54 @@
 
       if (r.typologi || r.trekant || r.fremstillingsformer || r.taksonomi || r.laeremiddeltjek) {
         const d = document.createElement("details");
-        d.innerHTML = `<summary>Fagdidaktisk analyse</summary>` +
-          [["Typologi", r.typologi], ["Læremiddeltrekant", r.trekant], ["Fremstillingsformer", r.fremstillingsformer],
-           ["Taksonomi", r.taksonomi], ["Læremiddeltjek", r.laeremiddeltjek]]
-            .filter(([, v]) => v)
-            .map(([label, v]) => `<p><span class="ek-label">${label}</span>${v}</p>`).join("");
+        const summary = document.createElement("summary");
+        summary.textContent = "Fagdidaktisk analyse";
+        d.appendChild(summary);
+        [["Typologi", r.typologi], ["Læremiddeltrekant", r.trekant], ["Fremstillingsformer", r.fremstillingsformer],
+         ["Taksonomi", r.taksonomi], ["Læremiddeltjek", r.laeremiddeltjek]]
+          .filter(([, v]) => v)
+          .forEach(([label, v]) => {
+            const p = document.createElement("p");
+            const span = document.createElement("span");
+            span.className = "ek-label";
+            span.textContent = label;
+            p.append(span, document.createTextNode(v));
+            d.appendChild(p);
+          });
         panel.appendChild(d);
       }
 
       (r.fork_forslag || []).forEach((fs) => {
         const d = document.createElement("details");
         d.className = "plads";
-        d.innerHTML = `
-          <summary>
-            <span class="fold-pil">&#9654;</span>
-            <span class="plads-label">Fork-forslag: ${DIM_NAVNE[fs.dimension] || fs.dimension}</span>
-            <span class="plads-preview">${fs.besked}</span>
-          </summary>
-          <div class="plads-krop">
-            <blockquote>${fs.besked}<br><span class="metadata">${r.reviewer}, review</span></blockquote>
-            <a class="knap fag" href="rediger.html?fork=${f.id}&dimension=${fs.dimension}">Fork herfra</a>
-          </div>
-        `;
+        const summary = document.createElement("summary");
+        const pil = document.createElement("span");
+        pil.className = "fold-pil";
+        pil.textContent = "▶";
+        const label = document.createElement("span");
+        label.className = "plads-label";
+        label.textContent = `Fork-forslag: ${DIM_NAVNE[fs.dimension] || fs.dimension}`;
+        const preview = document.createElement("span");
+        preview.className = "plads-preview";
+        preview.textContent = fs.besked;
+        summary.append(pil, label, preview);
+
+        const krop = document.createElement("div");
+        krop.className = "plads-krop";
+        const bq = document.createElement("blockquote");
+        bq.appendChild(document.createTextNode(fs.besked));
+        bq.appendChild(document.createElement("br"));
+        const reviewerSpan = document.createElement("span");
+        reviewerSpan.className = "metadata";
+        reviewerSpan.textContent = `${r.reviewer}, review`;
+        bq.appendChild(reviewerSpan);
+        const forkLink = document.createElement("a");
+        forkLink.className = "knap fag";
+        forkLink.href = `rediger.html?fork=${f.id}&dimension=${fs.dimension}`;
+        forkLink.textContent = "Fork herfra";
+        krop.append(bq, forkLink);
+
+        d.append(summary, krop);
         panel.appendChild(d);
       });
 
@@ -466,9 +571,9 @@
       nrRaekke.appendChild(m);
     }
     sek.appendChild(nrRaekke);
-    const h3 = document.createElement("h3");
-    h3.textContent = fase.titel;
-    sek.appendChild(h3);
+    const h2 = document.createElement("h2");
+    h2.textContent = fase.titel;
+    sek.appendChild(h2);
     sek.appendChild(renderFaseIndhold(fase, "laerer"));
     faserEl.appendChild(sek);
   });

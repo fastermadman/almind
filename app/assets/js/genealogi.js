@@ -20,13 +20,16 @@ export function horisontaltTrae(kaede, aktivId) {
   const y = 62;
   const afstand = n > 1 ? (bredde - margin * 2) / (n - 1) : 0;
 
-  const svg = el("svg", {
-    viewBox: `0 0 ${bredde} ${hoejde}`,
-    role: "img",
-    "aria-label":
-      "Versionshistorik: " +
-      kaede.map((f, i) => `V${i} af ${f.forfatter} (${f.aar})`).join(", "),
-  });
+  // Ingen role="img": svg'en indeholder rigtige <a>-links (V0/V1/V2-noder),
+  // og role="img" ville få skærmlæsere til at gengive dem som ét fladt billede
+  // (axe-core "nested-interactive"). <title> giver et tilgængeligt navn uden
+  // den konflikt — standardmønstret for SVG-tilgængelighed.
+  const svg = el("svg", { viewBox: `0 0 ${bredde} ${hoejde}` });
+  const svgTitel = el("title");
+  svgTitel.textContent =
+    "Versionshistorik: " +
+    kaede.map((f, i) => `V${i} af ${f.forfatter} (${f.aar})`).join(", ");
+  svg.appendChild(svgTitel);
 
   // Grene først (bag noderne)
   for (let i = 0; i < n - 1; i++) {
@@ -93,13 +96,37 @@ export function vertikaltTrae(kaede, aktivId) {
     // forælderen redigeret siden. Kæden (kaede) rummer altid forælderen.
     const forael = f.fork_af ? kaede.find((k) => k.id === f.fork_af.id) : null;
     const forladet = forael && forael.opdateret !== f.fork_af.opdateret;
-    li.innerHTML = `
-      <span class="v-label">V${i}</span>
-      <div class="v-titel"><a href="sequence.html?id=${f.id}">${f.titel}${f.undertitel ? ": " + f.undertitel : ""}</a></div>
-      <div class="v-meta">${f.forfatter} · ${f.institution} · ${f.aar}${pladser ? ` · ${pladser} åbne pladser` : ""}</div>
-      ${f.diff ? `<div class="v-diff">${f.diff}</div>` : ""}
-      ${forladet ? `<div class="v-forladet">Forket fra en tidligere version af "${forael.titel}" — forælderen er redigeret siden</div>` : ""}
-    `;
+
+    const label = document.createElement("span");
+    label.className = "v-label";
+    label.textContent = `V${i}`;
+
+    const titelDiv = document.createElement("div");
+    titelDiv.className = "v-titel";
+    const titelLink = document.createElement("a");
+    titelLink.href = `sequence.html?id=${f.id}`;
+    titelLink.textContent = f.titel + (f.undertitel ? ": " + f.undertitel : "");
+    titelDiv.appendChild(titelLink);
+
+    const metaDiv = document.createElement("div");
+    metaDiv.className = "v-meta";
+    metaDiv.textContent = `${f.forfatter} · ${f.institution} · ${f.aar}${pladser ? ` · ${pladser} åbne pladser` : ""}`;
+
+    li.append(label, titelDiv, metaDiv);
+
+    if (f.diff) {
+      const diffDiv = document.createElement("div");
+      diffDiv.className = "v-diff";
+      diffDiv.textContent = f.diff;
+      li.appendChild(diffDiv);
+    }
+    if (forladet) {
+      const forladetDiv = document.createElement("div");
+      forladetDiv.className = "v-forladet";
+      forladetDiv.textContent = `Forket fra en tidligere version af "${forael.titel}" — forælderen er redigeret siden`;
+      li.appendChild(forladetDiv);
+    }
+
     ol.appendChild(li);
   });
   return ol;

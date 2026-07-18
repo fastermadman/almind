@@ -11,7 +11,7 @@
   /* Neutral base */
   --bg:          #f4f3ee;
   --ink:         #2c2420;
-  --muted:       #8a7e74;
+  --muted:       #756a60; /* was #8a7e74 — darkened same hue/sat for WCAG AA 4.5:1 mod --bg og --surface (2026-07-18) */
   --border:      #e0d8cf;
   --surface:     #ffffff;
   --surface-alt: #f9f8f5;
@@ -33,6 +33,18 @@
   --fag-aes-text:     #9f4517;
   --fag-ovr:          #452b53;
   --fag-ovr-text:     #452b53;
+
+  /* -solid: egen funktion for .fag-felt (kortet HAR fagfarven som solid
+     baggrund, ikke bare outline/dot/lav-opacity badge). Kun kultur afviger
+     — guld kan ikke mørkne nok til hvid tekst uden at blive brun (fysisk
+     lysheds-loft for hue ~39°), så kultur går den modsatte vej: LYSERE end
+     --fag-kultur (samme hue/mætning, kun løftet), parret med mørk (--ink)
+     tekst i stedet for lys. --fag-aes rørt IKKE (Valdemar, 2026-07-18:
+     "praktisk/æstetisk forbliver bevidst lysere/mere fremtrædende end de
+     andre familier, bekræftet outlier, ikke en fejl") — dens eneste fejl
+     (.antal, 4.1:1) er rettet ved at sænke .antal's globale bg-blandingsandel
+     i stedet, se .fag-felt .antal i almind.css. */
+  --fag-kultur-solid: #cf911b; /* mod --ink: .navn 5.59:1, .antal (se nedenfor) 4.85:1 (var --fag-kultur m. hvid tekst: 3.38:1 / 2.66:1) */
 
   /* Typografi */
   --font-logo: "Bricolage Grotesque", "Jost", sans-serif;
@@ -92,7 +104,7 @@
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */
 [data-fag="sprog"]  { --fagfarve: var(--fag-sprog);  --fagtekst: var(--fag-sprog-text); }
-[data-fag="kultur"] { --fagfarve: var(--fag-kultur); --fagtekst: var(--fag-kultur-text); }
+[data-fag="kultur"] { --fagfarve: var(--fag-kultur); --fagtekst: var(--fag-kultur-text); --fagfarve-solid: var(--fag-kultur-solid); }
 [data-fag="natur"]  { --fagfarve: var(--fag-natur);  --fagtekst: var(--fag-natur-text); }
 [data-fag="aes"]    { --fagfarve: var(--fag-aes);    --fagtekst: var(--fag-aes-text); }
 [data-fag="ovr"]    { --fagfarve: var(--fag-ovr);    --fagtekst: var(--fag-ovr-text); }

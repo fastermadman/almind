@@ -51,7 +51,7 @@ export const PROFIL_GRUPPER = [
 
 // Rygradens fem trin. felter-strengen vælger renderfunktion i startWizard;
 // blok-editoren bruger kun PROFIL_GRUPPER ovenfor.
-export const TRIN = [
+const TRIN = [
   { navn: "Kernen", felter: "kerne" },
   { navn: "Forløbet", felter: "forloeb" },
   { navn: "Valg og fravalg", felter: "fravalg" },

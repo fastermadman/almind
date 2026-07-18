@@ -173,6 +173,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .soegefelt::placeholder { color: var(--muted); }
 .soegefelt:focus { border-color: var(--accent); outline: none; }
+.soegefelt:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
 
 /* Materialer via mitCFU */
 .materiale-liste { list-style: none; display: grid; gap: 0.7rem; }
@@ -398,6 +399,7 @@ img, svg { display: block; max-width: 100%; }
   border: 1px solid var(--border); background: var(--surface); color: var(--ink);
 }
 .facetraekke select:focus { border-color: var(--accent); outline: none; }
+.facetraekke select:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
 
 /* ---------- Filtre (browse) ---------- */
 .filterraekke { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin: 1.25rem 0 1.75rem; }
@@ -609,7 +611,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Faser ---------- */
 .fase { margin-bottom: 2rem; }
-.fase h3 {
+.fase h2 {
   font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
@@ -689,6 +691,9 @@ img, svg { display: block; max-width: 100%; }
 .felt textarea { min-height: 90px; resize: vertical; }
 .felt input:focus, .felt select:focus, .felt textarea:focus {
   border-color: var(--fagfarve, var(--ink)); outline: none;
+}
+.felt input:focus-visible, .felt select:focus-visible, .felt textarea:focus-visible {
+  box-shadow: 0 0 0 3px var(--fagfarve, var(--ink));
 }
 .felt.arvet input, .felt.arvet textarea, .felt.arvet select {
   background: color-mix(in srgb, var(--fagfarve, var(--muted)) 6%, var(--surface));
@@ -1161,8 +1166,13 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 .fag-stak { display: flex; flex-direction: column; gap: 0.9rem; }
 /* Fagfarven fylder hele kortet (Valdemar, 2026-07-16) — "papir-midtens" eget
    farvemoment, jf. landingpage-planens §5b ("her ejer indholdet farven").
-   Hvid skrift på fagfarve består AA på alle tre farver (verificeret: hum
-   5.3:1, natur 15.7:1, aes 11.3:1 — svageste stadig over 4.5:1-kravet). */
+   Standard: mørk fagfarve + lys (--bg) tekst. Kultur er eneste undtagelse
+   (issue #104, 2026-07-18) — guld kan ikke mørkne nok til hvid tekst uden
+   at blive brun, så .fag-felt[data-fag="kultur"] vender det om: LYSERE
+   fagfarve (--fagfarve-solid) + mørk (--ink) tekst. --fag-aes er urørt
+   (Valdemar, 2026-07-18: bevidst lysere/mere fremtrædende end de andre
+   familier, bekræftet outlier) — dens eneste fejl (.antal) er rettet ved
+   at sænke .antal's bg-andel nedenfor, ikke ved at ændre selve farven. */
 .fag-felt {
   display: block;
   padding: 1.1rem 1.25rem;
@@ -1172,14 +1182,24 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
   transition: background 0.15s;
 }
 .fag-felt:hover { background: color-mix(in srgb, var(--fagfarve) 85%, white); }
+.fag-felt[data-fag="kultur"] {
+  background: var(--fagfarve-solid);
+  color: var(--ink);
+}
+.fag-felt[data-fag="kultur"]:hover { background: color-mix(in srgb, var(--fagfarve-solid) 85%, white); }
 /* Bricolage Grotesque bold (--font-logo — samme font som .ark-titel/.ark h2,
    forløbenes eget dokument-titel-register), ikke Jost: de farvefyldte kort
    skal have samme sprælske vægt som resten af sitets titler, ikke UI-labels
    register. Størrelse tunet (ikke gættet) til at holde "modersmålsundervisning"
    på én linje ved kolonnens smalleste bredde (290px) — se verifikation i browser. */
 .fag-felt .navn { font-family: var(--font-logo); font-weight: 600; font-size: 1rem; text-transform: lowercase; }
-.fag-felt .antal { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: color-mix(in srgb, var(--bg) 78%, var(--fagfarve)); margin-top: 0.4rem; }
+/* bg-andelen sænket fra 22% til 14% (2026-07-18, issue #104) — eneste ændring
+   der var nødvendig for at æstetiske fags .antal (var 4.1:1) skulle bestå;
+   de tre andre mørke familier havde rigelig margin i forvejen. */
+.fag-felt .antal { display: block; font-family: var(--font-mono); font-size: 0.74rem; color: color-mix(in srgb, var(--bg) 86%, var(--fagfarve)); margin-top: 0.4rem; }
 .fag-felt .antal.tom { color: var(--bg); }
+.fag-felt[data-fag="kultur"] .antal { color: color-mix(in srgb, var(--ink) 90%, var(--fagfarve-solid)); }
+.fag-felt[data-fag="kultur"] .antal.tom { color: var(--ink); }
 @media (max-width: 975px) {
   .fag-raekke { grid-template-columns: 1fr; }
   /* margin-top holdes på 1.5rem (samme værdi som gap) — hver .fag-raekke er

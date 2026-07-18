@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Print · Almind</title>
+  <meta name="description" content="Print-venlig, pagineret udgave af et Almind-forløb.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/almind.css">
   <link rel="stylesheet" href="assets/css/print.css">
   <script>window.PagedConfig = { auto: false };</script>
-  <script src="assets/vendor/paged.polyfill.js"></script>
+  <script src="assets/vendor/paged.polyfill.js" defer></script>
 </head>
 <body>
 <script type="module">
@@ -30,7 +31,9 @@
   // Fagfarven skal nå sidehovederne, som Paged.js bygger UDEN FOR .ark — derfor på roden
   document.documentElement.dataset.fag = familieFor(forloeb.fag);
 
-  document.body.appendChild(renderDokument(forloeb, tilstand));
+  const hoved = document.createElement("main");
+  hoved.appendChild(renderDokument(forloeb, tilstand));
+  document.body.appendChild(hoved);
 
   // Paged.js chunker ud fra målte linjehøjder: fontene skal være færdige FØR paginering,
   // ellers beregnes alle sideskift på fallback-fontens metrik.

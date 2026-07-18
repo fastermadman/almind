@@ -91,7 +91,12 @@ export function medieFacade(m, type) {
   knap.type = "button";
   knap.className = "medie-facade";
   const MEDIE_NAVN = { billede: "billede", lyd: "lyd", video: "video", youtube: "video (YouTube)", vimeo: "video (Vimeo)" };
-  knap.innerHTML = `<span class="medie-facade-ikon" aria-hidden="true">&#9654;</span> Afspil ${MEDIE_NAVN[type] || "medie"}: ${m.titel || ""}`;
+  const ikon = document.createElement("span");
+  ikon.className = "medie-facade-ikon";
+  ikon.setAttribute("aria-hidden", "true");
+  ikon.textContent = "▶";
+  knap.appendChild(ikon);
+  knap.appendChild(document.createTextNode(` Afspil ${MEDIE_NAVN[type] || "medie"}: ${m.titel || ""}`));
   knap.addEventListener("click", () => {
     const el = medieElement(m, type);
     if (el) knap.replaceWith(el);

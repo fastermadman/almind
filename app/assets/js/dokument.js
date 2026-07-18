@@ -216,7 +216,8 @@ export function renderDokument(f, tilstand = "laerer") {
   // Fod
   const fod = document.createElement("footer");
   fod.className = "ark-fod";
-  fod.innerHTML = `<span>Almind · ${datoTekst(f.opdateret || new Date().toISOString())}</span><span>${f.licens || "CC BY-SA 4.0"}</span>`;
+  fod.appendChild(tekstEl("span", null, `Almind · ${datoTekst(f.opdateret || new Date().toISOString())}`));
+  fod.appendChild(tekstEl("span", null, f.licens || "CC BY-SA 4.0"));
   ark.appendChild(fod);
 
   return ark;

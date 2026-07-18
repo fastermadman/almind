@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alle forløb · Almind</title>
+  <meta name="description" content="Gennemse alle undervisningsforløb på Almind, filtreret efter fag, klassetrin og kompetenceområde.">
+  <link rel="canonical" href="https://almind.org/browse.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:wght@400;500;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css">
@@ -14,6 +16,7 @@
 
   <header class="site-header" data-aktiv="browse"></header>
 
+  <main>
   <h1 style="font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin-top:1rem;">Alle forløb</h1>
   <p class="resultat-taeller" id="taeller" aria-live="polite" tabindex="-1"></p>
 
@@ -45,7 +48,9 @@
   <div id="fag-kontekst"></div>
   <div id="graf-kontekst"></div>
   <div id="fag-genvej"></div>
+  <h2 class="sr-only">Forløb</h2>
   <div class="kortgrid" id="grid"></div>
+  </main>
 
   <footer class="site-footer">
     <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
