@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bidrag & tak · Almind</title>
+  <meta name="description" content="Skrifttyperne, koden og infrastrukturen Almind er bygget videre på — og hvorfor det passer til Alminds egen ånd at vise det.">
+  <link rel="canonical" href="https://almind.org/bidrag.html">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/almind.css">
+</head>
+<body>
+
+<div class="container">
+  <header class="site-header"></header>
+
+  <section aria-labelledby="bidrag-titel" style="margin-top:1.5rem;">
+    <h1 id="bidrag-titel">Bidrag & tak</h1>
+    <p class="sektion-intro">Almind beder lærere om at vise deres fagsyn og bygge videre på hinandens forløb i stedet for at starte forfra. Det samme princip gælder Almind selv: platformen er bygget på andres frie skrifttyper, kode og infrastruktur. Her er det, vi står på skuldrene af.</p>
+  </section>
+
+  <section aria-labelledby="codeberg-titel">
+    <h2 class="sektionstitel" id="codeberg-titel">Codeberg</h2>
+    <p>Almind har ingen egen brugerdatabase. Login og alle bidrag bor på <a href="https://codeberg.org" target="_blank" rel="noopener">Codeberg</a>, en uafhængig, non-profit git-tjeneste — samme slags system som GitHub, men fri og fællesejet, ligesom Almind selv. Ingen Big Tech-konto, ingen sporing, og dine data ligger et sted du selv kan tage med dig. Hvert forløb er et rigtigt git-repo: forks, versioner og pull requests er ikke en metafor, det er den faktiske mekanik bag "frit, fælles &amp; forgrenet".</p>
+  </section>
+
+  <section aria-labelledby="fonte-titel">
+    <h2 class="sektionstitel" id="fonte-titel">Skrifttyper</h2>
+    <p class="sektion-intro">Alle fire fonte er frie (SIL Open Font License) og selvhostede — ingen af dem sender besøgendes IP-adresse til en tredjepart ved sideload.</p>
+    <div class="princip-grid">
+      <article class="princip-kort">
+        <div class="label">Display &amp; logo</div>
+        <h3 style="font-family:'Marauder', Georgia, serif; font-size:1.6rem;">Marauder</h3>
+        <p>Chris Lozos / Indestructible Type, SIL OFL. Bruges til overskrifter og logoet. <a href="https://github.com/indestructible-type/indestructible-type.github.io" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Brødtekst</div>
+        <h3 style="font-family:'Atkinson Hyperlegible Next', sans-serif; font-size:1.6rem;">Atkinson Hyperlegible</h3>
+        <p>Braille Institute, SIL OFL. Designet til maksimal læsbarhed — bruges til alt brødtekst i Almind. <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible+Next" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">UI &amp; navigation</div>
+        <h3 style="font-family:'Jost', sans-serif; font-size:1.6rem;">Jost</h3>
+        <p>Owen Earl, SIL OFL. Bruges til knapper, navigation og labels. <a href="https://fonts.google.com/specimen/Jost" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Wordmark-accent</div>
+        <h3 style="font-family:'Bricolage Grotesque', sans-serif; font-size:1.6rem;">Bricolage Grotesque</h3>
+        <p>Mathieu Réguer, SIL OFL. Indgår i logoets skrifttypestak. <a href="https://fonts.google.com/specimen/Bricolage+Grotesque" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="kode-titel">
+    <h2 class="sektionstitel" id="kode-titel">Kode vi bygger videre på</h2>
+    <p class="sektion-intro">Almind selv er skrevet i almindeligt JavaScript uden framework. Fem opgaver løses af fri kode, hentet ind lokalt (ingen af dem indlæses fra et eksternt CDN):</p>
+    <div class="princip-grid">
+      <article class="princip-kort">
+        <div class="label">MIT</div>
+        <h3>D3.js</h3>
+        <p>Mike Bostock. Tegner konstellationen og forløbenes genealogi-træer. <a href="https://d3js.org" target="_blank" rel="noopener">d3js.org →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">BSD-2-Clause</div>
+        <h3>Mammoth.js</h3>
+        <p>Michael Williamson. Konverterer uploadede Word-dokumenter til forløbsblokke, helt lokalt i browseren. <a href="https://github.com/mwilliamson/mammoth.js" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">MIT</div>
+        <h3>Sortable.js</h3>
+        <p>SortableJS-fællesskabet. Træk-og-slip af faser og aktiviteter i editoren. <a href="https://github.com/SortableJS/Sortable" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">MIT</div>
+        <h3>Paged.js</h3>
+        <p>Coko Foundation. Paginerer forløb til et printklart, sideopdelt dokument. <a href="https://pagedjs.org" target="_blank" rel="noopener">pagedjs.org →</a></p>
+      </article>
+      <article class="princip-kort">
+        <div class="label">Apache 2.0 / MIT</div>
+        <h3>paulmillr-qr</h3>
+        <p>Paul Miller. Genererer QR-koden til elevlinket, helt uden serverkald. <a href="https://github.com/paulmillr/qr" target="_blank" rel="noopener">Kilde →</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="licens-titel">
+    <h2 class="sektionstitel" id="licens-titel">Alminds eget indhold</h2>
+    <p>Alle forløb, tekster og materialer publiceret på Almind er delt under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.da" target="_blank" rel="noopener">Creative Commons BY-SA 4.0</a>: brug det, byg videre på det, del din version — bare kredit forfatteren og del under samme vilkår.</p>
+  </section>
+
+  <footer class="site-footer">
+    <span>Almind · non-profit, fællesejet infrastruktur for læremidler</span>
+    <span>Alt indhold: CC BY-SA 4.0 · <a href="graph.html">Konstellation</a></span>
+  </footer>
+</div>
+
+<script type="module">
+  import { sitehoved } from "./assets/js/sitehoved.js";
+  sitehoved(document.querySelector(".site-header"));
+</script>
+</body>
+</html>
