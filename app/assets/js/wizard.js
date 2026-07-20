@@ -423,6 +423,10 @@ export async function startWizard({ rod, prefill = {} }) {
       ? "Skitsér forløbets faser — titel og en sætning om hver er nok. Aktiviteter, callouts og detaljer bygger du bagefter i editoren."
       : "Skitsér lektionens indhold som én eller få faser. Detaljerne bygger du bagefter i editoren.";
     rod.appendChild(intro);
+    const elevNote = document.createElement("p");
+    elevNote.className = "under";
+    elevNote.textContent = "Elevmaterialet skriver du bagefter i editoren — under fanen Elevmateriale.";
+    rod.appendChild(elevNote);
 
     const liste = document.createElement("div");
     liste.className = "raekke-liste";

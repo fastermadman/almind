@@ -11,7 +11,19 @@ const CALLOUT_TITLER = {
   almind: "Almind: fork-invitation",
   dramaturgi: "Dramaturgisk arkitektur",
   gissel: "Materialetyper (Gissel 2026)",
+  tip: "Tip",
+  opgave: "Opgave",
+  regel: "Regel",
 };
+
+// almind-dev#112: en fase har elevindhold når mindst ét af de fire elevfelter
+// er udfyldt — bruges til fallback-hierarkiet (fase-niveau og forløbs-niveau).
+export function harElevIndholdFase(fase) {
+  return !!(fase.elevmaal?.length || fase.elevtekst || fase.elevaktiviteter?.length || fase.elevbokse?.length);
+}
+export function harElevIndhold(f) {
+  return !!(f.elevintro || (f.faser || []).some(harElevIndholdFase));
+}
 
 function tekstEl(tag, klasse, tekst) {
   const e = document.createElement(tag);
@@ -41,26 +53,39 @@ function aktivitetLi(a) {
 export function renderFaseIndhold(fase, tilstand = "laerer") {
   const frag = document.createDocumentFragment();
   if (tilstand === "elev") {
-    // #50: elevtekst er forfatterens elevvendte oversættelse af beskrivelsen
-    // (skrevet i editoren, samme fase-kort). Uden den falder vi tilbage til
-    // "Efter denne fase kan du ..."-rammen om den almindelige beskrivelse —
-    // samme register-kompromis som editorens hint-linje beskriver.
+    // almind-dev#112: eleven ser aldrig lærerens register uden forfatterens
+    // aktive valg — en fase uden elevindhold får en neutral linje, ikke
+    // lærerens beskrivelse i en "Efter denne fase kan du ..."-indpakning.
+    if (!harElevIndholdFase(fase)) {
+      frag.appendChild(tekstEl("p", "fase-elev-neutral", "Din lærer sætter jer i gang med denne fase."));
+      return frag;
+    }
+    if (fase.elevmaal?.length) {
+      const maal = document.createElement("div");
+      maal.className = "maal-boks";
+      maal.appendChild(tekstEl("strong", null, "Efter denne fase kan du ..."));
+      const ul = document.createElement("ul");
+      fase.elevmaal.forEach((m) => ul.appendChild(tekstEl("li", null, m)));
+      maal.appendChild(ul);
+      frag.appendChild(maal);
+    }
     if (fase.elevtekst) {
       fase.elevtekst.split(/\n\n+/).filter((s) => s.trim())
         .forEach((afsnit) => frag.appendChild(tekstEl("p", null, afsnit)));
-    } else {
-      const maal = document.createElement("div");
-      maal.className = "maal-boks";
-      maal.innerHTML = `<strong>Efter denne fase kan du ...</strong> `;
-      maal.appendChild(document.createTextNode(fase.beskrivelse));
-      frag.appendChild(maal);
     }
-    if (fase.aktiviteter?.length) {
+    if (fase.elevaktiviteter?.length) {
       frag.appendChild(tekstEl("h3", null, "Det skal du"));
       const ol = document.createElement("ol");
-      fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
+      fase.elevaktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
       frag.appendChild(ol);
     }
+    (fase.elevbokse || []).forEach((b) => {
+      const boks = document.createElement("aside");
+      boks.className = `callout callout-${b.type}`;
+      boks.appendChild(tekstEl("span", "callout-titel", b.titel || CALLOUT_TITLER[b.type] || b.type));
+      boks.appendChild(document.createTextNode(b.tekst));
+      frag.appendChild(boks);
+    });
   } else {
     // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
     (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
@@ -145,7 +170,19 @@ export function renderDokument(f, tilstand = "laerer") {
   }
   ark.appendChild(kolofon);
 
-  if (f.beskrivelse) ark.appendChild(tekstEl("p", null, f.beskrivelse));
+  // almind-dev#112: beskrivelse er lærervendt ("Din klasse skal ..."), elevintro
+  // er elevens egen åbning — de to felter viser aldrig samtidig.
+  if (tilstand === "laerer" && f.beskrivelse) ark.appendChild(tekstEl("p", null, f.beskrivelse));
+
+  const elevHarIndhold = tilstand === "elev" ? harElevIndhold(f) : true;
+  if (tilstand === "elev" && !elevHarIndhold) {
+    ark.appendChild(tekstEl("aside", "tom-tilstand",
+      "Dette forløb har endnu ikke et elevmateriale. Din lærer fortæller jer, hvad der skal ske — eller også er du læreren: skriv elevversionen i editoren."));
+  }
+  if (tilstand === "elev" && elevHarIndhold && f.elevintro) {
+    f.elevintro.split(/\n\n+/).filter((s) => s.trim())
+      .forEach((afsnit) => ark.appendChild(tekstEl("p", null, afsnit)));
+  }
 
   // Maskinlæsbar profil fra wizard-tags (binder forløb sammen og gør dem søgbare)
   if (tilstand === "laerer" && f.tags && Object.keys(f.tags).length) {
@@ -176,7 +213,8 @@ export function renderDokument(f, tilstand = "laerer") {
 
   // Faser. #51: id på overskriften giver et deep-link-anker (elev.html#fase-1)
   // — scroll-margin-top under den sticky header sættes i CSS (.ark h2).
-  (f.faser || []).forEach((fase, i) => {
+  // almind-dev#112: forløb helt uden elevindhold viser kun tom-tilstanden ovenfor.
+  (elevHarIndhold ? (f.faser || []) : []).forEach((fase, i) => {
     // "Fase 1" alene hvis fasen ikke har fået sin egen titel endnu —
     // ingen tomt ": " efter tallet. Numerisk (Valdemar, 2026-07-16) — matcher
     // nu sequence.html, som allerede viste "Fase 1 af N" i stedet for bogstaver.

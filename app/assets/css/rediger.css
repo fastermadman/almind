@@ -172,10 +172,55 @@
 .materiale-elev-label input { width: auto; }
 @media (max-width: 700px) { .materiale-raekke { grid-template-columns: 1fr 1fr; } }
 
-/* #50: elevtekst-folden i fase-kortet */
-.elevtekst-fold { margin-top: 0.9rem; border-top: 1px dashed var(--border); padding-top: 0.7rem; }
-.elevtekst-fold summary { cursor: pointer; font-family: var(--font-ui); font-weight: 600; font-size: 0.88rem; }
-.elevtekst-fold .under { margin: 0.3rem 0 0.5rem; }
+/* almind-dev#112: fladeskifter øverst i kanvassen — genbruger .faner/.fane fra almind.css */
+.editor-sektion + .editor-sektion, #kanvas > .faner { margin-bottom: 1.5rem; }
+#kanvas > .faner { margin-bottom: 1.8rem; }
+
+/* Greb 2: BEGGE-mærke på skelet-felter der optræder i begge faner */
+.begge-felt { position: relative; }
+.begge-maerke {
+  display: inline-block; font-family: var(--font-ui); font-weight: 600;
+  font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+.sektion-hoved { display: flex; align-items: baseline; gap: 0.5rem; }
+.sektion-hoved h2 { margin: 0; }
+
+/* Greb 1: lærerens tekst som dæmpet, læse-kun reference i elevtilstand */
+.laerer-reference {
+  background: var(--surface-alt); border: 1px dashed var(--border); border-radius: 8px;
+  padding: 0.6rem 0.8rem; margin-bottom: 0.9rem; color: var(--muted); font-size: 0.85rem;
+}
+.laerer-reference .reference-label {
+  display: block; font-family: var(--font-ui); font-weight: 600;
+  font-size: 0.68rem; letter-spacing: 0.07em; text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.laerer-reference p, .laerer-reference ol { margin: 0; }
+
+/* Elevmål: enkel trækbar-fri liste, samme feltstil som andre kort-lister */
+.elevmaal-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.elevmaal-blok {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: var(--surface-alt); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.35rem 0.5rem;
+}
+.elevmaal-blok input { flex: 1; border: none; background: transparent; font-family: var(--font-body); font-size: 0.9rem; color: var(--ink); }
+.elevmaal-blok input:focus { outline: none; }
+
+/* Greb 3: statuslinje i sidepanelet — invitation, ikke score */
+.elevmateriale-status {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
+  border-bottom: 1px solid var(--border); padding-bottom: 0.9rem; margin-bottom: 0.9rem;
+}
+.elevmateriale-status.tom { border-bottom-style: dashed; }
+.elevmateriale-se-knap {
+  font-family: var(--font-ui); font-size: 0.78rem; font-weight: 500;
+  border: none; background: transparent; color: var(--accent); cursor: pointer; padding: 0;
+  white-space: nowrap;
+}
+.elevmateriale-se-knap:hover { text-decoration: underline; }
 
 /* ---------- greb-dialogen (native <dialog>) ---------- */
 .greb-dialog {

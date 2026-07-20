@@ -12,6 +12,7 @@ import {
 } from "./data.js";
 import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
+import { harElevIndhold, harElevIndholdFase } from "./dokument.js";
 
 const CALLOUT_TYPER = {
   valg: "Didaktisk valg",
@@ -20,6 +21,8 @@ const CALLOUT_TYPER = {
   dramaturgi: "Dramaturgisk arkitektur",
   gissel: "Materialetyper (Gissel)",
 };
+
+const ELEVBOKS_TYPER = { tip: "Tip", opgave: "Opgave", regel: "Regel" };
 
 // Fritekst-svar fra profilen gemmes som refleksioner (samme som wizardens afslut)
 const REFLEKSION_KILDER = { anslag_tekst: "Anslag", didaktiseres_selv: "Didaktisering" };
@@ -148,6 +151,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   const gisselTyper = await gisselMaterialetyper().catch(() => []);
 
   let feltId = 0; // unikt id-suffiks til felt-label-spans, så aria-labelledby kan pege på dem
+  let tilstand = "laerer"; // almind-dev#112: fladeskifter — spejler preview.html's faner
   let gemT = null;
   const gem = () => {
     clearTimeout(gemT);
@@ -207,12 +211,32 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
   // ---------- kanvas ----------
 
+  // almind-dev#112 Greb 1: fladeskifter der spejler preview.html's faner.
+  // Elevtilstand deler skelettet (grundinfo, fase-rammer) med lærertilstanden,
+  // men viser elevfelterne i stedet for lærerens — se tegnGrundinfo/tegnFase.
+  function tegnFladeskifter() {
+    const faner = el("div", "faner");
+    faner.setAttribute("role", "tablist");
+    faner.setAttribute("aria-label", "Redigér som");
+    [["laerer", "Lærervejledning"], ["elev", "Elevmateriale"]].forEach(([v, navn]) => {
+      const b = el("button", "fane", navn);
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", String(tilstand === v));
+      b.addEventListener("click", () => { tilstand = v; tegnKanvas(); });
+      faner.appendChild(b);
+    });
+    return faner;
+  }
+
   function tegnKanvas() {
     kanvas.innerHTML = "";
+    kanvas.appendChild(tegnFladeskifter());
     kanvas.appendChild(tegnGrundinfo());
     kanvas.appendChild(tegnFaser());
-    kanvas.appendChild(tegnMaterialer());
-    kanvas.appendChild(tegnPladser());
+    if (tilstand === "laerer") kanvas.appendChild(tegnMaterialer());
+    if (tilstand === "laerer") kanvas.appendChild(tegnPladser());
+    opdaterStatuslinje();
   }
 
   function feltMedLabel(label, under, kontrol) {
@@ -280,10 +304,19 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       "en enkelt lektion springer dramaturgi-apparatet over — et forløb får det hele", wrap);
   }
 
+  // almind-dev#112 Greb 2: BEGGE-mærke kun på skelet-felter der optræder i
+  // begge faner (titel, fag, klassetrin, materialer) — resten siger fanevalget allerede.
+  function beggeMaerket(kontrol) {
+    const wrap = el("div", "begge-felt");
+    wrap.appendChild(el("span", "begge-maerke", "BEGGE"));
+    wrap.appendChild(kontrol);
+    return wrap;
+  }
+
   function tegnGrundinfo() {
     const kort = el("section", "blok-kort grundinfo");
-    kort.appendChild(tegnCentrum());
-    kort.appendChild(inputFelt("grund-titel", f.titel, "Forløbets titel", (v) => (f.titel = v)));
+    if (tilstand === "laerer") kort.appendChild(tegnCentrum());
+    kort.appendChild(beggeMaerket(inputFelt("grund-titel", f.titel, "Forløbets titel", (v) => (f.titel = v))));
 
     const raekke = el("div", "grund-raekke");
 
@@ -326,13 +359,22 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     tegnTrinValg();
     raekke.appendChild(trinWrap);
 
-    kort.appendChild(raekke);
-    kort.appendChild(tegnOmfang());
-    const beskrivelse = tekstFelt("tekstfelt", f.beskrivelse,
-      "Kort beskrivelse: hvad gør forløbet, og hvad er det stærkt på?",
-      (v) => (f.beskrivelse = v));
-    beskrivelse.setAttribute("aria-label", "Kort beskrivelse af forløbet");
-    kort.appendChild(beskrivelse);
+    kort.appendChild(beggeMaerket(raekke));
+
+    if (tilstand === "laerer") {
+      kort.appendChild(tegnOmfang());
+      const beskrivelse = tekstFelt("tekstfelt", f.beskrivelse,
+        "Kort beskrivelse: hvad gør forløbet, og hvad er det stærkt på?",
+        (v) => (f.beskrivelse = v));
+      beskrivelse.setAttribute("aria-label", "Kort beskrivelse af forløbet");
+      kort.appendChild(beskrivelse);
+    } else {
+      const elevintro = tekstFelt("tekstfelt", f.elevintro,
+        "Elevintro: åbn forløbet for eleverne, i jeres eget sprog",
+        (v) => (f.elevintro = v));
+      elevintro.setAttribute("aria-label", "Elevintro");
+      kort.appendChild(elevintro);
+    }
     return kort;
   }
 
@@ -344,30 +386,35 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     f.faser.forEach((fase, i) => liste.appendChild(tegnFase(fase, i)));
     sek.appendChild(liste);
 
-    sek.appendChild(tilfoejKnap("+ Ny fase", () => {
-      f.faser.push({ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] });
-      gem(); tegnKanvas();
-    }));
-    sek.appendChild(tilfoejKnap("+ Indsæt greb", () => aabnGrebKatalog(null)));
-
-    new Sortable(liste, {
-      ...DRAG, handle: ".fase-hoved .haandtag",
-      onEnd: (evt) => {
-        const [flyttet] = f.faser.splice(evt.oldIndex, 1);
-        f.faser.splice(evt.newIndex, 0, flyttet);
+    // Struktur (rækkefølge, tilføj/slet fase) redigeres kun i lærertilstand —
+    // elevtilstand deler skelettet og redigerer kun elevfelterne pr. fase.
+    if (tilstand === "laerer") {
+      sek.appendChild(tilfoejKnap("+ Ny fase", () => {
+        f.faser.push({ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] });
         gem(); tegnKanvas();
-      },
-    });
+      }));
+      sek.appendChild(tilfoejKnap("+ Indsæt greb", () => aabnGrebKatalog(null)));
+
+      new Sortable(liste, {
+        ...DRAG, handle: ".fase-hoved .haandtag",
+        onEnd: (evt) => {
+          const [flyttet] = f.faser.splice(evt.oldIndex, 1);
+          f.faser.splice(evt.newIndex, 0, flyttet);
+          gem(); tegnKanvas();
+        },
+      });
+    }
     return sek;
   }
 
   function tegnFase(fase, i) {
     fase.aktiviteter ??= []; fase.callouts ??= [];
+    fase.elevmaal ??= []; fase.elevaktiviteter ??= []; fase.elevbokse ??= [];
     const kort = el("section", "blok-kort fase-kort");
     kort.dataset.i = i;
 
     const hoved = el("header", "fase-hoved");
-    hoved.appendChild(haandtag());
+    if (tilstand === "laerer") hoved.appendChild(haandtag());
     hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
     // #52-opfølgning: varighed er fasens tidsafgrænsning, fritekst (ikke minutter
@@ -381,82 +428,140 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       inputFelt("fase-varighed", fase.varighed, "10 min", (v) => (fase.varighed = v)),
     );
     hoved.appendChild(varighedWrap);
-    hoved.appendChild(sletKnap("Slet fasen", () => {
-      if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
-      f.faser.splice(i, 1);
-      gem(); tegnKanvas();
-    }));
-    kort.appendChild(hoved);
-
-    kort.appendChild(tekstFelt("tekstfelt", fase.beskrivelse,
-      "Hvad sker der i denne fase — og hvorfor?", (v) => (fase.beskrivelse = v)));
-
-    // Aktiviteter: trækbare, også på tværs af faser
-    kort.appendChild(el("span", "gruppe-navn", "Aktiviteter"));
-    const aktListe = el("ol", "aktivitet-liste");
-    fase.aktiviteter.forEach((akt, j) => {
-      const blok = el("li", "blok aktivitet-blok");
-      blok.appendChild(haandtag());
-      const indhold = el("div", "aktivitet-indhold");
-      indhold.appendChild(inputFelt("aktivitet-titel-felt", akt.titel, "Titel (valgfrit)", (v) => (akt.titel = v)));
-      indhold.appendChild(tekstFelt("aktivitet-beskrivelse-felt", akt.beskrivelse, "Beskriv aktiviteten", (v) => (akt.beskrivelse = v)));
-      blok.appendChild(indhold);
-      blok.appendChild(sletKnap("Slet aktiviteten", () => {
-        fase.aktiviteter.splice(j, 1);
+    if (tilstand === "laerer") {
+      hoved.appendChild(sletKnap("Slet fasen", () => {
+        if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
+        f.faser.splice(i, 1);
         gem(); tegnKanvas();
       }));
-      aktListe.appendChild(blok);
-    });
-    kort.appendChild(aktListe);
-    kort.appendChild(tilfoejKnap("+ Aktivitet", () => {
-      fase.aktiviteter.push({ titel: "", beskrivelse: "" });
-      gem(); tegnKanvas();
-    }));
+    }
+    kort.appendChild(hoved);
 
-    new Sortable(aktListe, {
-      ...DRAG, group: "aktiviteter", handle: ".haandtag",
-      onEnd: (evt) => {
-        const fraI = +evt.from.closest(".fase-kort").dataset.i;
-        const tilI = +evt.to.closest(".fase-kort").dataset.i;
-        const [x] = f.faser[fraI].aktiviteter.splice(evt.oldIndex, 1);
-        (f.faser[tilI].aktiviteter ??= []).splice(evt.newIndex, 0, x);
+    if (tilstand === "laerer") {
+      kort.appendChild(tekstFelt("tekstfelt", fase.beskrivelse,
+        "Hvad sker der i denne fase — og hvorfor?", (v) => (fase.beskrivelse = v)));
+
+      // Aktiviteter: trækbare, også på tværs af faser
+      kort.appendChild(el("span", "gruppe-navn", "Aktiviteter"));
+      const aktListe = el("ol", "aktivitet-liste");
+      fase.aktiviteter.forEach((akt, j) => {
+        const blok = el("li", "blok aktivitet-blok");
+        blok.appendChild(haandtag());
+        const indhold = el("div", "aktivitet-indhold");
+        indhold.appendChild(inputFelt("aktivitet-titel-felt", akt.titel, "Titel (valgfrit)", (v) => (akt.titel = v)));
+        indhold.appendChild(tekstFelt("aktivitet-beskrivelse-felt", akt.beskrivelse, "Beskriv aktiviteten", (v) => (akt.beskrivelse = v)));
+        blok.appendChild(indhold);
+        blok.appendChild(sletKnap("Slet aktiviteten", () => {
+          fase.aktiviteter.splice(j, 1);
+          gem(); tegnKanvas();
+        }));
+        aktListe.appendChild(blok);
+      });
+      kort.appendChild(aktListe);
+      kort.appendChild(tilfoejKnap("+ Aktivitet", () => {
+        fase.aktiviteter.push({ titel: "", beskrivelse: "" });
         gem(); tegnKanvas();
-      },
-    });
+      }));
 
-    // Callouts: det didaktiske lag — vises i editoren med dokumentets egne farver
-    kort.appendChild(el("span", "gruppe-navn", "Callouts"));
-    const callListe = el("div", "callout-liste");
-    fase.callouts.forEach((c, j) => callListe.appendChild(tegnCallout(fase, c, j)));
-    kort.appendChild(callListe);
-    kort.appendChild(tilfoejKnap("+ Callout", () => {
-      fase.callouts.push({ type: "valg", titel: "", tekst: "" });
-      gem(); tegnKanvas();
-    }));
-    kort.appendChild(tilfoejKnap("+ Greb", () => aabnGrebKatalog(fase)));
+      new Sortable(aktListe, {
+        ...DRAG, group: "aktiviteter", handle: ".haandtag",
+        onEnd: (evt) => {
+          const fraI = +evt.from.closest(".fase-kort").dataset.i;
+          const tilI = +evt.to.closest(".fase-kort").dataset.i;
+          const [x] = f.faser[fraI].aktiviteter.splice(evt.oldIndex, 1);
+          (f.faser[tilI].aktiviteter ??= []).splice(evt.newIndex, 0, x);
+          gem(); tegnKanvas();
+        },
+      });
 
-    new Sortable(callListe, {
-      ...DRAG, group: "callouts", handle: ".haandtag",
-      onEnd: (evt) => {
-        const fraI = +evt.from.closest(".fase-kort").dataset.i;
-        const tilI = +evt.to.closest(".fase-kort").dataset.i;
-        const [x] = f.faser[fraI].callouts.splice(evt.oldIndex, 1);
-        (f.faser[tilI].callouts ??= []).splice(evt.newIndex, 0, x);
+      // Callouts: det didaktiske lag — vises i editoren med dokumentets egne farver
+      kort.appendChild(el("span", "gruppe-navn", "Callouts"));
+      const callListe = el("div", "callout-liste");
+      fase.callouts.forEach((c, j) => callListe.appendChild(tegnCallout(fase, c, j)));
+      kort.appendChild(callListe);
+      kort.appendChild(tilfoejKnap("+ Callout", () => {
+        fase.callouts.push({ type: "valg", titel: "", tekst: "" });
         gem(); tegnKanvas();
-      },
-    });
+      }));
+      kort.appendChild(tilfoejKnap("+ Greb", () => aabnGrebKatalog(fase)));
 
-    // #50: elevtekst er en sammenfoldet oversættelse af beskrivelsen ovenfor —
-    // ikke en visnings-toggle, forfatteren skal kunne se lærerteksten imens.
-    const elevFold = el("details", "elevtekst-fold");
-    elevFold.appendChild(el("summary", null, "Elevtekst (valgfrit)"));
-    elevFold.appendChild(el("p", "under",
-      "Uden elevtekst ser eleverne fasens beskrivelse ovenfor — skrevet til lærere."));
-    elevFold.appendChild(tekstFelt("tekstfelt", fase.elevtekst,
-      "Omskriv fasen til eleverne, med dit eget register", (v) => (fase.elevtekst = v)));
-    kort.appendChild(elevFold);
+      new Sortable(callListe, {
+        ...DRAG, group: "callouts", handle: ".haandtag",
+        onEnd: (evt) => {
+          const fraI = +evt.from.closest(".fase-kort").dataset.i;
+          const tilI = +evt.to.closest(".fase-kort").dataset.i;
+          const [x] = f.faser[fraI].callouts.splice(evt.oldIndex, 1);
+          (f.faser[tilI].callouts ??= []).splice(evt.newIndex, 0, x);
+          gem(); tegnKanvas();
+        },
+      });
+    } else {
+      kort.appendChild(tegnLaererReference(fase));
+
+      kort.appendChild(el("span", "gruppe-navn", "Elevmål"));
+      const maalListe = el("ul", "elevmaal-liste");
+      fase.elevmaal.forEach((m, j) => {
+        const li = el("li", "blok elevmaal-blok");
+        li.appendChild(inputFelt(null, m, "Efter denne fase kan du ...", (v) => (fase.elevmaal[j] = v)));
+        li.appendChild(sletKnap("Slet målet", () => { fase.elevmaal.splice(j, 1); gem(); tegnKanvas(); }));
+        maalListe.appendChild(li);
+      });
+      kort.appendChild(maalListe);
+      kort.appendChild(tilfoejKnap("+ Mål", () => { fase.elevmaal.push(""); gem(); tegnKanvas(); }));
+
+      kort.appendChild(el("span", "gruppe-navn", "Elevtekst"));
+      kort.appendChild(tekstFelt("tekstfelt", fase.elevtekst,
+        "Omskriv fasen til eleverne, med dit eget register", (v) => (fase.elevtekst = v)));
+
+      kort.appendChild(el("span", "gruppe-navn", "Det skal du (elevaktiviteter)"));
+      const eaListe = el("ol", "aktivitet-liste");
+      fase.elevaktiviteter.forEach((akt, j) => {
+        const blok = el("li", "blok aktivitet-blok");
+        const indhold = el("div", "aktivitet-indhold");
+        indhold.appendChild(inputFelt("aktivitet-titel-felt", akt.titel, "Titel (valgfrit)", (v) => (akt.titel = v)));
+        indhold.appendChild(tekstFelt("aktivitet-beskrivelse-felt", akt.beskrivelse, "Beskriv aktiviteten for eleven", (v) => (akt.beskrivelse = v)));
+        blok.appendChild(indhold);
+        blok.appendChild(sletKnap("Slet aktiviteten", () => {
+          fase.elevaktiviteter.splice(j, 1);
+          gem(); tegnKanvas();
+        }));
+        eaListe.appendChild(blok);
+      });
+      kort.appendChild(eaListe);
+      kort.appendChild(tilfoejKnap("+ Aktivitet", () => {
+        fase.elevaktiviteter.push({ titel: "", beskrivelse: "" });
+        gem(); tegnKanvas();
+      }));
+
+      kort.appendChild(el("span", "gruppe-navn", "Bokse (tip/opgave/regel)"));
+      const boksListe = el("div", "callout-liste");
+      fase.elevbokse.forEach((b, j) => boksListe.appendChild(tegnElevboks(fase, b, j)));
+      kort.appendChild(boksListe);
+      kort.appendChild(tilfoejKnap("+ Boks", () => {
+        fase.elevbokse.push({ type: "tip", titel: "", tekst: "" });
+        gem(); tegnKanvas();
+      }));
+    }
 
     return kort;
+  }
+
+  // Lærerens beskrivelse/aktiviteter vist dæmpet og læse-kun i elevtilstand,
+  // så oversættelsen kan ske side om side (#50-intentionen bevares).
+  function tegnLaererReference(fase) {
+    const ref = el("div", "laerer-reference");
+    ref.appendChild(el("span", "reference-label", "Lærerens tekst (reference)"));
+    if (fase.beskrivelse) ref.appendChild(el("p", null, fase.beskrivelse));
+    if (fase.aktiviteter.length) {
+      const liste = el("ol");
+      fase.aktiviteter.forEach((a) =>
+        liste.appendChild(el("li", null, a.titel ? `${a.titel}: ${a.beskrivelse || ""}` : a.beskrivelse || "")));
+      ref.appendChild(liste);
+    }
+    if (!fase.beskrivelse && !fase.aktiviteter.length) {
+      ref.appendChild(el("p", "under", "Læreren har endnu ikke skrevet noget her."));
+    }
+    return ref;
   }
 
   function tegnCallout(fase, c, j) {
@@ -485,10 +590,39 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     return blok;
   }
 
+  // Elevbokse: samme mekanik som lærerens callouts, egen type-liste (tip/opgave/regel)
+  function tegnElevboks(fase, b, j) {
+    const blok = el("aside", `blok callout-blok callout callout-${b.type || "tip"}`);
+
+    const hoved = el("div", "callout-hoved");
+    const typeSel = document.createElement("select");
+    Object.entries(ELEVBOKS_TYPER).forEach(([v, navn]) =>
+      typeSel.appendChild(new Option(navn, v, false, v === (b.type || "tip"))));
+    typeSel.addEventListener("change", () => {
+      b.type = typeSel.value;
+      blok.className = `blok callout-blok callout callout-${b.type}`;
+      gem();
+    });
+    hoved.appendChild(typeSel);
+    hoved.appendChild(inputFelt("callout-titel-felt", b.titel, ELEVBOKS_TYPER[b.type || "tip"], (v) => (b.titel = v)));
+    hoved.appendChild(sletKnap("Slet boksen", () => {
+      fase.elevbokse.splice(j, 1);
+      gem(); tegnKanvas();
+    }));
+    blok.appendChild(hoved);
+
+    blok.appendChild(tekstFelt(null, b.tekst,
+      "Boksens tekst: tippet, opgaven eller reglen", (v) => (b.tekst = v)));
+    return blok;
+  }
+
   function tegnMaterialer() {
     const sek = el("section", "editor-sektion");
-    sek.appendChild(el("h2", null, "Materialer"));
-    sek.appendChild(el("p", "under", "Links til mitCFU eller andre kilder. De printes med, så materialet følger dokumentet."));
+    const overskrift = el("div", "sektion-hoved");
+    overskrift.appendChild(el("h2", null, "Materialer"));
+    overskrift.appendChild(el("span", "begge-maerke", "BEGGE"));
+    sek.appendChild(overskrift);
+    sek.appendChild(el("p", "under", "Links til mitCFU eller andre kilder. De printes med, så materialet følger dokumentet. \"Vises for elever\" styrer om et materiale når elevfladen."));
 
     const liste = el("div");
     f.materialer.forEach((m, j) => {
@@ -887,8 +1021,34 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     return grp;
   }
 
+  // almind-dev#112 Greb 3: elevmateriale som synlig plads, ikke score —
+  // ingen prikker, ingen procent, samme stiplede-kant-konvention som en åben plads.
+  // Egen node (ikke hele tegnPanel) genskabes ved kanvas-redraw — tegnPanel henter
+  // async destillat-data og skal ikke re-køre for hver fase-strukturændring.
+  let statuslinjeEl = null;
+  function tegnElevStatuslinje() {
+    const antal = f.faser.filter(harElevIndholdFase).length;
+    const total = f.faser.length;
+    const linje = el("div", "elevmateriale-status" + (antal === 0 ? " tom" : ""));
+    const ordFase = total === 1 ? "fase" : "faser";
+    linje.appendChild(el("span", null, `Elevmateriale: ${antal} af ${total} ${ordFase} har elevindhold`));
+    const seKnap = el("button", "elevmateriale-se-knap", "Se som elev");
+    seKnap.type = "button";
+    seKnap.addEventListener("click", () => { gemKladde(f); location.href = "elev.html?kladde=1"; });
+    linje.appendChild(seKnap);
+    return linje;
+  }
+  function opdaterStatuslinje() {
+    if (!statuslinjeEl) return;
+    const ny = tegnElevStatuslinje();
+    statuslinjeEl.replaceWith(ny);
+    statuslinjeEl = ny;
+  }
+
   async function tegnPanel() {
     panel.innerHTML = "";
+    statuslinjeEl = tegnElevStatuslinje();
+    panel.appendChild(statuslinjeEl);
     panel.appendChild(el("h2", null, "Didaktisk profil"));
     panel.appendChild(el("p", "under",
       "Spørgsmålene kommer fra Alminds teoretiske destillater. Svar når det passer dig — de gør forløbet søgbart og nemt at overtage."));

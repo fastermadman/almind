@@ -857,6 +857,14 @@ img, svg { display: block; max-width: 100%; }
 .callout-gissel     { background: var(--typ-gray-bg);   border-color: var(--typ-gray);   color: #374151; }
 .callout-gissel .callout-titel { color: var(--typ-gray); }
 
+/* almind-dev#112: elevbokse — samme farvekobling som lærerens callouts, ingen nye tokens */
+.callout-tip    { background: var(--typ-green-bg); border-color: var(--typ-green); color: var(--typ-green-text); }
+.callout-tip .callout-titel { color: var(--typ-green); }
+.callout-opgave { background: var(--typ-blue-bg);  border-color: var(--typ-blue);  color: var(--typ-blue-text); }
+.callout-opgave .callout-titel { color: var(--typ-blue); }
+.callout-regel  { background: var(--typ-gray-bg);  border-color: var(--typ-gray);  color: #374151; }
+.callout-regel .callout-titel { color: var(--typ-gray); }
+
 .ark .aaben-plads-boks {
   border: 2px dashed var(--typ-green);
   background: var(--typ-green-bg);
@@ -882,6 +890,8 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.92rem;
 }
 .ark.elev .maal-boks strong { color: var(--typ-green); font-family: var(--font-ui); }
+.ark.elev .maal-boks ul { margin-top: 0.4rem; }
+.ark.elev .fase-elev-neutral { color: var(--muted); font-style: italic; }
 
 /* Faner */
 .faner { display: flex; gap: 0.4rem; }

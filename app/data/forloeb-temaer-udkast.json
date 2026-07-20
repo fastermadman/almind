@@ -1,0 +1,2019 @@
+[
+  {
+    "id": "tema2-laesning",
+    "schema_version": 2,
+    "titel": "Læsning med fordobling: Djævelens lærling og fortolkningsfællesskabet",
+    "undertitel": "Fra realplan til billedplan, og videre til tekstkritikeren",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": {
+      "type": "forloeb",
+      "lektioner": 4
+    },
+    "eksemplarisk_centrum": {
+      "konkret": "Kapitel 9 af Kenneth Bøgh Andersens Djævelens lærling: Filip fastspændt i den elektriske stol med flammerne foran sig. En scene hvor realplan og billedplan er foldet så tæt ind i hinanden, at teksten selv presser fortolkningen frem; læreren behøver ikke tvinge billedplanet ud.",
+      "alment": "At fortolkende læsning er en bevægelse fra det bogstavelige til det symbolske: en tænkepraksis der kan demonstreres, overtages og til sidst vendes kritisk mod enhver tekst. Bevægelsen er samtidig et kulturelt modtræk; den fordybede opmærksomhed som digitale medier udhuler, kan genopbygges gennem strukturerede læsepraksisser."
+    },
+    "fravalg": [
+      {
+        "hvad": "Stilladsering af hvad et godt billedplan-svar er",
+        "hvorfor": "Modelleringsarkets billedplan-kolonne er bevidst tom, selv om realplan-kolonnen er delvist udfyldt som eksempel. Mere stilladsering her ville lukke præcis den fortolkningsåbenhed der er metodens pointe: billedplanet er elevens personlige, tekstforankrede fortolkning, ikke en kode med ét svar."
+      },
+      {
+        "hvad": "Hele romanen som fælles læsning",
+        "hvorfor": "Ét kapitel med høj symbolsk tæthed bærer hele modellen (Wagenscheins eksemplariske princip). Flere kapitler ville give mere handling, men ikke mere fordobling. Tiden er bedre brugt på at aktivere billedplanet tre gange i tre forskellige kontekster: modellering, gruppelæsning, tekstkritik."
+      },
+      {
+        "hvad": "Den opsamlende konklusion i plenum",
+        "hvorfor": "Læreren samler aldrig op med det rigtige svar. Korrekthedsfeedback ville bryde den dialogiske kontrakt netop dér, hvor eleverne skal opdage at billedplanet ikke har ét facit. Fortolkningerne står ved siden af hinanden; det er et fortolkningsfællesskab, ikke en opsamlingsseance."
+      }
+    ],
+    "didaktisk_position": {
+      "fagsyn": "Litteraturlæsning er aktiv meningskonstruktion, ikke kodeknækning: faget skal gøre eleverne til reelle samtalepartnere i mødet med tekster. Den kritiske læsning af sagtekster er den æstetiske læsnings forlængelse, ikke dens modsætning.",
+      "laeringssyn": "Elever lærer ved at overtage en demonstreret tænkepraksis, ikke ved at følge en instruktion. Læreren styrer strukturen og overlader indholdet, og begreber sidder kun hvis de fremkaldes igen i nye kontekster; én modellering er aldrig nok."
+    },
+    "fagplan_ref": {
+      "version": "2026-06-udkast2",
+      "indholdsomraader": [
+        "dan-fortolkning-og-fiktion",
+        "dan-laesning-og-laesekultur",
+        "dan-kommunikation-og-sagtekster"
+      ],
+      "maal": []
+    },
+    "samspil": null,
+    "tema": [
+      "læsning",
+      "fordobling",
+      "fantasy",
+      "modellering",
+      "fortolkningsfællesskab",
+      "polyfoni",
+      "tekstkritiker",
+      "Kenneth Bøgh Andersen"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-07-19",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Din klasse skal ikke læse hele romanen; den skal lære én bevægelse: fra det der står, til det det betyder. Læreren modellerer læsning med fordobling på ét kapitel af Djævelens lærling, eleverne overtager fortolkningsfællesskabet i roller, og til sidst vendes blikket kritisk mod en autentisk nyhedsartikel. Modellering er ikke støtte til svage læsere; det er et svar på en kulturel diagnose: forestillingsevnen er under pres, og den kan genopbygges.",
+    "elevintro": "I dette forløb læser I Djævelens lærling med et redskab der hedder læsning med fordobling: I lærer at se hvad en tekst siger direkte, og hvad den siger uden ord. I ser først læreren gøre det, så prøver I selv i grupper, og til sidst bruger I redskabet på en avisartikel.\n\nI arbejder med: nærlæsning, fortolkning og kritisk læsning.\nI producerer: en billedplan-fortolkning og en personlig stillingtagen til en nyhedsartikel.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Ophobning",
+        "Anticipation",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Ingen (åben plads)"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Rytmen ligger fast: fire dage, fra klassesamtale over makkerpar til grupper. Men lektionsfordelingen og holddannelsen er din; rollerne i De Fantastiske 4 fordeles bedst af den der kender klassen."
+      },
+      {
+        "dimension": "differentiering",
+        "besked": "Differentieringen sker via rolle, ikke via sværhedsgrad: oplæser og orddetektiv giver tekstnær adgang uden billedplans-krav, og lydbogen sænker læsetærsklen. Niveaudelte materialer findes ikke; har din klasse brug for dem, er pladsen din."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Metasamtalen tester om begreberne sidder, men en egentlig evalueringsform er bevidst åben. Hvordan evaluerer man fortolkningsåbenhed uden at lukke den? Vær den første der bygger et bud."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Anslag: smag på ord",
+        "beskrivelse": "Forestillingsevnen genaktiveres inden nogen model introduceres. Eleverne smager på fem ord fra kapitlet uden kontekst, læser romanens forside som paratekst og hører anslagsscenen læst højt. Fasen slutter med ét autentisk spørgsmål, som ingen kender svaret på: hvad tænker Filip i stolen? Svaret skrives privat, som tænkeskrivning uden modtager.",
+        "varighed": "Dag 1",
+        "elevmaal": [
+          "aktivere din forestillingsevne før du læser teksten",
+          "formulere en første, personlig forestilling om Filip og hans situation",
+          "bidrage til klassens samtale med dine egne iagttagelser"
+        ],
+        "elevtekst": "Inden vi læser kapitlet, smager vi på ordene fra det. Vi ser forsiden af bogen og gætter. Vi hører begyndelsen læst højt. Der er ingen model endnu, kun sproget, forsiden og teksten.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Smag på ord: fem ord fra kapitlet på tavlen, to minutters stille forestilling"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Læs en forside: hvad ser du, hvad tror du den handler om, hvem er Filip?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Højtlæsning af anslagsscenen, kun de første sider"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Tænkeskrivning: hvad tænker Filip i det øjeblik?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Smag på ord",
+            "beskrivelse": "Fem ord fra kapitlet står på tavlen uden sammenhæng. Skriv eller tænk: hvad forestiller du dig når du ser ordet? Hvad lugter det af? Hvad lyder det som?"
+          },
+          {
+            "titel": "Læs en forside",
+            "beskrivelse": "Se forsiden af bogen. Hvad ser du? Hvad tror du bogen handler om? Hvem tror du Filip er?"
+          },
+          {
+            "titel": "Højtlæsning",
+            "beskrivelse": "Læreren læser starten af kapitlet højt. Lyt efter: hvad tror du Filip tænker i det øjeblik?"
+          },
+          {
+            "titel": "Tænkeskrivning",
+            "beskrivelse": "Skriv tre til fem sætninger som svar på spørgsmålet. Ingen skal læse det, medmindre du selv vil dele det."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Begivenhed, ikke introduktion",
+            "tekst": "Deweys spænding aktiveres og holdes åben. Forside-øvelsens to første spørgsmål er realplan/billedplan-bevægelsen øvet i miniature, inden eleverne ved at det er en model. Anslaget bygger det rum modelleringen skal lykkes i."
+          },
+          {
+            "type": "obs",
+            "titel": "Ingen svar er forkerte, og det er metoden",
+            "tekst": "Læreren der lytter til alle associationer uden at rangordne dem, demonstrerer fortolkningsfællesskabets spilleregler i praksis i stedet for at forklare dem. Evaluerer du her, lukker du det rum fase 2 og 3 skal bruge."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Ingen svar er forkerte",
+            "tekst": "Når du gætter på ordene eller forsiden, er der ikke noget rigtigt svar. Det handler om hvad DU forestiller dig."
+          }
+        ]
+      },
+      {
+        "titel": "Modellering: læreren tænker højt",
+        "beskrivelse": "Forløbets kerne. Ordsprog åbner distinktionen; eleverne ved allerede hvad det vil sige at male fanden på væggen, så realplan/billedplan er et navn på noget de kan. Derefter modellerer læreren bevægelsen på kapitlets første scene: tænker højt, deler tvivl, reviderer, og slutter med et ægte spørgsmål: hvad ser I? Eleverne prøver selv næste scene med modelleringsarkets to kolonner som stillads. Modellering er demonstration af en tænkepraksis, ikke instruktion i en metode.",
+        "varighed": "Dag 2",
+        "elevmaal": [
+          "skelne mellem hvad en tekst siger direkte, og hvad den betyder",
+          "formulere en fortolkning med belæg i teksten",
+          "forstå at fortolkning ikke er et facit, men en bevægelse du selv skal lave"
+        ],
+        "elevtekst": "Læreren viser dig hvordan man læser med fordobling: først på ordsprog du allerede kender, så på romanen. Læreren tænker højt og er ikke altid sikker. Bagefter prøver du selv.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Ordsprogs-indgang: realplan og billedplan på stof eleverne mestrer"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Læreren modellerer scene 1 med tænkning højt"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Eleverne prøver scene 2, individuelt eller i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Deling med tekstforankring: hvad i teksten får dig til at tænke det?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Ordsprog",
+            "beskrivelse": "I ser på ordsprog som at male fanden på væggen. I kender allerede forskellen på hvad der bogstaveligt sker, og hvad det betyder."
+          },
+          {
+            "titel": "Se læreren tænke højt",
+            "beskrivelse": "Læreren læser en scene og tænker højt om hvad den betyder. Lyt efter: hvad er læreren sikker på, og hvad er ikke sikker?"
+          },
+          {
+            "titel": "Prøv selv",
+            "beskrivelse": "Du arbejder med en ny scene, alene eller med en makker. Skriv hvad du tror scenen betyder, og hvad i teksten der får dig til at sige det."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Demonstration, ikke instruktion",
+            "tekst": "Læreren der siger 'jeg er faktisk ikke sikker' viser at billedplanet er en fortolkende bevægelse, ikke kodeknækning med facit. Det er skellet mellem det autoritative ord og det indre overbevisende ord: instruktionen kræver lydighed, modelleringen inviterer til tænkning. Øjeblikket hvor læreren spørger 'hvad ser I?' og sætter sig ned, er forløbets vigtigste."
+          },
+          {
+            "type": "valg",
+            "titel": "Hvorfor ordsprog?",
+            "tekst": "Ordsprog er sproglige minifortællinger med indlejret billedplan; genren tvinger læseren fra bogstavelig til overført betydning. Når eleverne har klaret tre ordsprog, har de øvet bevægelsen tre gange med stof de mestrer. Romanen er samme bevægelse i højere kompleksitet."
+          },
+          {
+            "type": "gissel",
+            "titel": "Tre materialetyper i spil",
+            "tekst": "Modelpræsentationen er didaktisk læremiddel med indlejret didaktik. Modelleringsarket er redskabslæremiddel: det aflaster strukturen, så kræfterne kan bruges på fortolkningen. Romanen er semantisk læringsressource; didaktiseringen er lærerens, og dækningsgraden gælder kun forløbets eget didaktiske lag."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Der er ikke ét rigtigt svar",
+            "tekst": "Din fortolkning er personlig. Men du skal altid kunne pege på noget i teksten, der understøtter den."
+          }
+        ]
+      },
+      {
+        "titel": "De Fantastiske 4: eleverne overtager",
+        "beskrivelse": "Fire roller driver gruppelæsningen af de scener der ikke blev modelleret: oplæseren giver alle adgang til realplanet, orddetektiven går tekstnært, Spørge-Jørgen stiller åbne spørgsmål til billedplanet, referenten samler gruppens fortolkning. Ingen rolle er evaluerende, ingen ejer det rigtige svar; rollerne roterer efter hvert afsnit. Plenumdelingen struktureres med suppleringer og modstand, og der konkluderes ikke.",
+        "varighed": "Dag 3",
+        "elevmaal": [
+          "bidrage til en fælles fortolkning fra en tildelt rolle",
+          "give respons der peger på noget konkret i teksten",
+          "revidere din egen fortolkning med afsæt i en andens observation"
+        ],
+        "elevtekst": "Nu overtager I selv. I får hver en rolle: oplæser, orddetektiv, spørger eller referent. I læser en ny scene sammen og bygger jeres egen fortolkning, uden at læreren styrer det.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Rollekort fordeles; læreren forklarer funktionerne, ikke hvad et godt svar er"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Gruppelæsning med rollerotation efter hvert afsnit"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Deling i plenum: hvem har en lignende observation, hvem ser det anderledes?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback og revision: er der noget i teksten din makker ikke har brugt?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Rollerne fordeles",
+            "beskrivelse": "Oplæseren læser højt. Orddetektiven finder vigtige ord. Spørgeren stiller åbne spørgsmål. Referenten samler gruppens fortolkning."
+          },
+          {
+            "titel": "Gruppearbejde",
+            "beskrivelse": "I læser scenen og arbejder fra jeres rolle. Ingen rolle har det rigtige svar."
+          },
+          {
+            "titel": "Del i klassen",
+            "beskrivelse": "To til tre grupper deler deres fortolkning. Hvem har set noget lignende? Hvem ser det anderledes?"
+          },
+          {
+            "titel": "Respons og revision",
+            "beskrivelse": "Byt fortolkning med en makker. Er der noget i teksten din makker ikke har brugt? Revidér din fortolkning."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Jazz med stillads",
+            "tekst": "Størstedelen af skolens litteratursamtaler er spørgsmål-svar-evaluering, hvor eleverne gætter på lærerens svar. Rollerne her skaber divergente diskurstråde: orddetektiven bidrager med noget andet end Spørge-Jørgen, og ingen evaluerer de andres bidrag. Strukturen muliggør improvisation i stedet for at erstatte den."
+          },
+          {
+            "type": "valg",
+            "titel": "Differentiering via rolle, ikke sværhedsgrad",
+            "tekst": "Alle elever arbejder med samme tekst og samme model, men bidrager med forskellige funktioner. Elever med lavere tekstforståelse kan være oplæser eller orddetektiv uden at skulle løfte til billedplanet alene. Det er inklusion som didaktisk design, ikke som tilpasset materiale."
+          },
+          {
+            "type": "obs",
+            "titel": "Når gruppen kører rundt i realplanet",
+            "tekst": "Intervenér med ét spørgsmål: hvad gør det ved Filip, ikke hvad sker der? Spørgsmålet åbner bevægelsen uden at give svaret. Giver du svaret, er gruppearbejdet blevet instruktion igen."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Ingen rolle er den vigtigste",
+            "tekst": "Din rolle giver dig en bestemt indgang til teksten. Alle indgange er lige gyldige."
+          }
+        ]
+      },
+      {
+        "titel": "Tekstkritikeren: skiftet markeres",
+        "beskrivelse": "En autentisk nyhedsartikel om et ungt menneskes død lægges ved siden af romanen, og skiftet siges højt: nu læser vi efferent, ikke æstetisk. De fire læserpositioner sættes på det eleverne allerede har gjort, og tre spørgsmål bestiges i rækkefølge: hvad siger artiklen, hvad siger den ikke, hvilken person konstruerer den, og hvem bestemmer det? Eleverne tager stilling i eget navn, og metasamtalen tester om begreberne sidder: hvad giver læsning med fordobling dig som læser, ikke som elev?",
+        "varighed": "Dag 4",
+        "elevmaal": [
+          "vide om du læser for at opleve eller for at tjekke fakta, og at det er et valg",
+          "finde ud af hvem der taler i en nyhedsartikel, og hvem der ikke bliver hørt",
+          "tage stilling i eget navn til om en tekst er retfærdig"
+        ],
+        "elevtekst": "Nu skifter vi. I har læst romanen for at opleve og fortolke. Nu møder I en nyhedsartikel, og I læser den for at tjekke fakta og magt: hvem taler, og hvem taler ikke?",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Artiklen læses individuelt; skiftet fra æstetisk til efferent markeres eksplicit"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fire læserpositioner kobles til forløbets faser"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Personlig stillingtagen: er artiklens fremstilling retfærdig?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Metasamtale: hvad tager du med som læser?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Artiklen læses",
+            "beskrivelse": "Du læser artiklen individuelt. Hvad lægger du mærke til, når du sammenligner med romanen?"
+          },
+          {
+            "titel": "Fire spørgsmål",
+            "beskrivelse": "Hvad siger artiklen? Hvad siger den ikke? Hvilken person konstruerer teksten, og hvem bestemmer det?"
+          },
+          {
+            "titel": "Din stillingtagen",
+            "beskrivelse": "Skriv tre til fem sætninger: hvad mener du om personen artiklen viser? Er det en retfærdig fremstilling?"
+          },
+          {
+            "titel": "Metasamtale",
+            "beskrivelse": "Hvad giver denne måde at læse på dig, som læser, ikke som elev i en dansktime?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Kollisionen er designet",
+            "tekst": "Artiklen vælges så den kolliderer med fiktionen: eleverne har investeret i en fiktiv ung mand og møder nu en virkelig. Den æstetiske investering giver den kritiske læsning sin emotionelle tyngde. Find en lokal, aktuel artikel om et ungt menneske; nærhed i tid og sted er det der gør kollisionen virkelig i netop din klasse."
+          },
+          {
+            "type": "almind",
+            "titel": "Skift teksterne ud, behold bevægelsen",
+            "tekst": "Tredje aktivering af billedplanet sker i en ny kontekst, og det er transfer, ikke gentagelse: samme spørgsmål (hvad udelades?) i et nyt tekstunivers. Bevægelsen virker med enhver roman med et stærkt billedplan og enhver nyhedstekst. Og spørgsmålet om hvem der udelades, er samtidig indgangen til kritisk diskursanalyse; det er præcis dér journalistik-forløbet begynder."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Det tredje spørgsmål er det svære",
+            "tekst": "Der er ikke ét rigtigt svar på hvem der bestemmer historien. Hør på hvad de andre i klassen siger, og se om du er enig."
+          }
+        ]
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Djævelens lærling (e-bog)",
+        "type": "E-bog",
+        "faust": "CFUEBOG1100877",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFUEBOG1100877",
+        "note": "Kenneth Bøgh Andersen. Med pædagogisk note af Trine Ferdinand.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": "Romanen er ikke produceret til undervisning. Sceneudvalget til modelleringsarket og koblingen til nyhedsartiklen er didaktiseringen; skifter du roman, vælger du selv fire-fem scener hvor real- og billedplan er foldet tæt."
+      },
+      {
+        "titel": "Djævelens lærling (lydbog)",
+        "type": "Lydbog",
+        "faust": "CFULYD1128318",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFULYD1128318",
+        "note": "Til elever der har gavn af at høre romanen læst højt; sænker læsetærsklen uden at ændre forløbet.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": null
+      },
+      {
+        "titel": "Litteraturguide (Gyldendal)",
+        "type": "Vejledning",
+        "faust": "26886120",
+        "url": "https://mitcfu.dk/pv/26886120_1.pdf",
+        "note": "Forlagets pædagogiske vejledning, 7.-9. klasse. Brug den som idékatalog, ikke som facit.",
+        "materialetype": "undervisningstekster",
+        "didaktisering": null
+      }
+    ],
+    "refleksioner": [
+      {
+        "kilde": "Anslag",
+        "tekst": "Fem ord fra kapitlet på tavlen uden kontekst (flammer, elektrisk stol, ondskab, forførelse, nødvendighed) og to minutters stille forestilling, inden nogen har set teksten."
+      },
+      {
+        "kilde": "Didaktisering",
+        "tekst": "Nyhedsartiklen i fase 4 er forløbets mest lokale valg: en autentisk artikel om et ungt menneske, nær nok i tid og sted til at kollidere med fiktionen. Den kan ikke følge med forløbet; du finder din egen."
+      }
+    ]
+  },
+  {
+    "id": "tema3-skrivning",
+    "schema_version": 2,
+    "titel": "Skrivning i lag: dagbog, undskyldning og brevene der aldrig nåede frem",
+    "undertitel": "Tema 3 · Troldenes tid",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "6. klasse",
+    "omfang": {
+      "type": "forloeb",
+      "lektioner": 3
+    },
+    "eksemplarisk_centrum": {
+      "konkret": "Jonas og Livs søskendekonflikt i Adam O.s Troldenes tid, mødt gennem tre nedslag i romanen: skænderiet og raseriet (kap. 4-5), erkendelsen hos Alfred efter Livs forsvinden (kap. 6) og adskillelsen på tværs af to verdener (kap. 24).",
+      "alment": "At skrivning er en retorisk og emotionel handling med et formål, en modtager og en situation: hvad det koster at fortryde, og hvad det kræver at formulere det over for et andet menneske. Tre skrivesituationer med stigende retorisk kompleksitet og faldende fiktionsbeskyttelse gør den indsigt kropslig; rækkefølgen kan ikke inverteres."
+    },
+    "fravalg": [
+      {
+        "hvad": "Digital dialogskrivning (SMS-formen fra Grib Litteraturen)",
+        "hvorfor": "Brevkorrespondancen skrives som fysiske breve: foldet papir, lagt i hånden. Den digitale form giver tempo og umiddelbarhed, men den analoge giver en taktil dimension og et langsommere tempo, der matcher tekstens verden og brevgenrens særlige melankoli: man skriver uden at vide om svaret når frem. Vil du SMS-formen, er det en oplagt fork; begge er valide."
+      },
+      {
+        "hvad": "Læreradgang til dagbogen",
+        "hvorfor": "Ingen læser dagbogen, heller ikke læreren, og der spørges kun til skriveoplevelsen, aldrig til indholdet. Dagbogen aktiverer noget privat, og fiktionsbeskyttelsen er ikke absolut. Brydes fortroligheden her, mister fase 3's eksponering sin trygge bund; peer feedback på dagbogen er derfor også frivillig."
+      },
+      {
+        "hvad": "Revision som korrektur",
+        "hvorfor": "Revisionsrunderne retter ikke mod korrekthed men mod større præcision i mentaliseringen: er der noget Jonas ikke tør skrive, selv om han ved det er sandt? Revision er det sted tænkning og sprog forhandles; gøres den til oprydning af fejl, forsvinder læringsmålet."
+      }
+    ],
+    "didaktisk_position": {
+      "fagsyn": "Skrivning er ikke formtræning men en måde at handle i eget liv på: en tekst har et formål, en modtager og en situation, og skriveformålet skal være karakterens, ikke skolens. Faget skal give erfaringen af hvad det koster at fortryde; skrivedidaktikken er midlet, myndigheden er målet.",
+      "laeringssyn": "Erfaring bygges i lag: det emotionelle råmateriale skal være der, før den retoriske form kan bære, og formen skal sidde, før dialogen kan improviseres. Læreren veksler bevidst mellem at rammesætte og at trække sig, og fiktionsbeskyttelsen tyndes gradvist ud, i takt med at eleverne har bygget investering og tillid op."
+    },
+    "fagplan_ref": {
+      "version": "2026-06-udkast2",
+      "indholdsomraader": [
+        "dan-skrivning-og-tekstfremstilling",
+        "dan-fortolkning-og-fiktion",
+        "dan-faellesskab-og-identitet"
+      ],
+      "maal": []
+    },
+    "samspil": null,
+    "tema": [
+      "skrivning",
+      "tænkeskrivning",
+      "scenariedidaktik",
+      "in-character",
+      "fiktionsbeskyttelse",
+      "mentalisering",
+      "stedsbaseret læsning",
+      "Troldenes tid"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-07-19",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Tre skrivesituationer med stigende retorisk kompleksitet og faldende fiktionsbeskyttelse: Jonas' rå dagbog lige efter raseriet, det modige undskyldningsbrev til Liv der ikke kan svare, og brevkorrespondancen hvor Liv svarer, og ingen ved om brevene når frem. Stedet veksler bevidst: skov, klasse, skov. Forløbet lærer ikke eleverne at skrive en undskyldning; det giver dem en erfaring med hvad det koster at fortryde, og hvad det kræver at formulere det over for et andet menneske.",
+    "elevintro": "I dette forløb skriver I jer ind i Jonas og Livs verden fra Troldenes tid. I starter med at skrive Jonas' eller Livs dagbog i skoven. Så skriver I det brev Jonas aldrig fik sendt. Til sidst skriver I til hinanden, som Jonas og Liv, breve der måske aldrig når frem.\n\nI arbejder med: dagbog, undskyldningsbrev, brevkorrespondance.\nI producerer: tre skriftlige tekster i karakter.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Anticipation",
+        "Ophobning",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "fuld",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Tid og gruppeform er specificeret: skov dag 1, klasse dag 2, skov dag 3. Men stedet skal være jeres. En park, en skolegård med træer eller et grønt areal bærer det samme; det centrale er sanselig forankring i et rum der ikke er et klasselokale. Uden et sted falder fase 1 fra hinanden, og logistikken kan kun du planlægge."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Peer feedback efter de tre K'er og metafasens tre spørgsmål bærer processen. Men en slutevaluering af det samlede forløb er åben: hvad vil det sige at lykkes med en undskyldning? Bygger du en form der kan svare på det uden at gøre det ægte til det korrekte, så del den."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Dagbogen i skoven",
+        "beskrivelse": "Forløbets anslag er en begivenhed, ikke en introduktion: klassen sidder spredt under træerne, uden borde og stole, og hører raseri-scenen læst højt. Ét autentisk spørgsmål efterlades åbent: hvad tænker Jonas, når han går hjem den dag? Så finder hver elev sit sted og skriver en dagbogsside som Jonas eller Liv. Tænkeskrivning: ingen modtager, ingen retorik, højeste fiktionsbeskyttelse. Peer feedback bagefter er frivillig og følger de tre K'er: kærlig, konkret, konstruktiv.",
+        "varighed": "Dag 1 · skoven",
+        "elevmaal": [
+          "skrive en dagbogsside i karakter som Jonas eller Liv",
+          "bruge skoven som et rum til at mærke hvad din karakter føler",
+          "give din makker én konkret og konstruktiv respons på deres tekst"
+        ],
+        "elevtekst": "I går ud i skoven. Jeres lærer læser en scene fra Troldenes tid højt, en scene hvor Jonas og Liv skændes. I lytter. Ingen bøger, ingen borde.\n\nInden I begynder at skrive, stiller jeres lærer ét spørgsmål, som ikke har noget rigtigt svar: hvad tror I Jonas tænker, når han går hjem den dag? I svarer ikke på det med ord. I svarer med pen og papir.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Højtlæsning af raseri-scenen på stedet"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Dagbogsskrivning som Jonas eller Liv, hver på sit sted"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Frivillig peer feedback i makkerpar efter de tre K'er"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Revision: er der noget karakteren ikke har turdet skrive, selv for sig selv?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Find dit sted",
+            "beskrivelse": "Gå ud og find et sted i skoven der er dit, under et træ, på en sten, i skovbrynet."
+          },
+          {
+            "titel": "Vælg din karakter",
+            "beskrivelse": "Du skriver som enten Jonas eller Liv. Du bestemmer selv."
+          },
+          {
+            "titel": "Skriv dagbogen",
+            "beskrivelse": "Skriv en dagbogsside som din karakter. Det er aftenen efter skænderiet, om vreden, om det du sagde eller ikke sagde, om det der gør ondt, og om at I skal flytte."
+          },
+          {
+            "titel": "Peer feedback",
+            "beskrivelse": "Læs din makkers dagbog. Giv respons med de tre K'er: kærlig (hvad rammer dig?), konkret (peg på ét sted), konstruktiv (ét forslag)."
+          },
+          {
+            "titel": "Revision",
+            "beskrivelse": "Er der noget Jonas eller Liv ikke har skrevet, fordi det er for svært at indrømme? Skriv et nyt lag. Revision er ikke rettelse, det er at gå dybere ind i karakteren."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Stedet er ikke kulisse",
+            "tekst": "Jonas og Liv bor på en skovridergård og er ved at miste deres natur. En elev der sidder under et træ og skriver som Jonas, der sidder under et træ og ved han skal miste sin skov, mærker tekstens verden i kroppen. Spændingen fra det åbne spørgsmål løses ikke; den bæres ind i pennen."
+          },
+          {
+            "type": "obs",
+            "titel": "Privat betyder privat",
+            "tekst": "Dagbogen læses ikke af nogen, heller ikke af dig, og du spørger til skriveoplevelsen, aldrig til indholdet. Skriveoplægget er forankret i karaktererne, men fiktionsbeskyttelsen er ikke absolut: tab, flytning og søskendekonflikt kan være aktuelt og smertefuldt. Elever der ikke vil dele, har gyldige grunde; de kan give respons uden at bidrage med deres egen tekst."
+          },
+          {
+            "type": "valg",
+            "titel": "Karaktervalget er differentiering",
+            "tekst": "Valget mellem Jonas og Liv er i sig selv differentiering: eleven vælger den karakter, de bedst kan mentalisere sig ind i. Elever med skriveudfordringer kan skrive stikord, fragmenter eller tegninger med ord; formkravet er fraværende i tænkeskrivningens fase."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Du bestemmer selv hvad du skriver",
+            "tekst": "Der er ingen rigtige eller forkerte følelser i en dagbog. Du behøver ikke skrive i hele sætninger. Stikord, sætningsfragmenter eller tegninger med ord er også fint."
+          },
+          {
+            "type": "tip",
+            "titel": "Frivillig deling",
+            "tekst": "Du bestemmer selv om du vil dele din dagbog. Hvis du ikke vil, kan du i stedet give respons på en klassekammerats tekst uden at bidrage med din egen."
+          }
+        ]
+      },
+      {
+        "titel": "Undskyldningsbrevet",
+        "beskrivelse": "Forløbets krop, i klasselokalet. Jonas skal skrive et brev til Liv, men Liv er væk; brevet kan ikke afleveres. Undskyldningen er ægte retorisk med klar afsender, modtager og formål, og samtidig umulig at fuldføre i fiktionens verden. Artefaktet Troværdig Undskyldning stilladserer genren med otte retoriske elementer, koblet først til hverdagseksempler og derefter til Jonas. Skrivning, peer feedback og revision veksler i zigzag.",
+        "varighed": "Dag 2 · klassen",
+        "elevmaal": [
+          "kende de otte elementer i en troværdig undskyldning",
+          "skrive et brev fra Jonas til Liv med klar stemme og formål",
+          "give og modtage specifik respons på brevets retoriske kraft"
+        ],
+        "elevtekst": "I er i klasselokalet. Jeres lærer præsenterer et artefakt: troværdig undskyldning, otte elementer der kendetegner en undskyldning der virker. Så skriver I. Jonas skal skrive et brev til Liv. Men Liv er væk. Brevet kan ikke afleveres. Det er det der gør det svært, og det der gør det ægte.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Artefaktet introduceres: hvad er forskellen på en undskyldning der virker og en der ikke gør?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Brevet skrives i Jonas' stemme, med de otte elementer som hjælp"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback: hvilket element rammer dig mest, hvad ville gøre undskyldningen mere ægte?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Revision: er der noget Jonas ikke tør skrive, selv om han ved det er sandt?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Diskussion",
+            "beskrivelse": "Hvad er forskellen på en undskyldning der virker og en der ikke virker? Kort samtale, ingen facit."
+          },
+          {
+            "titel": "Skriv brevet",
+            "beskrivelse": "Du er Jonas. Liv er væk. Du ved ikke om hun kan høre dig. Men du skriver alligevel, fordi du skal have sagt det. Brug de otte elementer som hjælp, men skriv med Jonas' stemme."
+          },
+          {
+            "titel": "Peer feedback",
+            "beskrivelse": "Læs din makkers brev. Hvilket element rammer dig mest? Er der ét element der mangler eller føles utroværdigt? Hvad ville gøre undskyldningen mere ægte?"
+          },
+          {
+            "titel": "Revision",
+            "beskrivelse": "Er der noget Jonas ikke tør skrive, selv om han ved det er sandt? Find det sted i brevet der er mest rigtigt, og skriv det om så det er endnu mere rigtigt."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Stillads, ikke facit",
+            "tekst": "Artefaktet må ikke reducere brevet til en tjekliste: Jonas skal lyde som Jonas, ikke som otte korrekt opsummerede punkter. For elever der har brug for et enklere stillads, kan de otte elementer reduceres til fire-fem; for de stærkeste er opgaven at lade Jonas skrive rundt om det, han ikke kan indrømme direkte."
+          },
+          {
+            "type": "dramaturgi",
+            "titel": "Ophobning: dagbogen aktiveres igen",
+            "tekst": "Dagbogens emotionelle råmateriale og brevets retoriske form ophober sig til noget, eleverne ikke kunne have skrevet med kun det ene lag. Sig det højt inden skrivningen: læs din dagbog igen, hvad mærkede Jonas den aften, tag det med ind i brevet. Fastholdelse er aktiv fremkaldelse, ikke passiv erindring."
+          },
+          {
+            "type": "obs",
+            "titel": "Når brevet rammer for tæt",
+            "tekst": "Skifter teksten fra Jonas' perspektiv til elevens eget, eller går sproget i første person nutid om virkelige situationer, er det et omsorgssignal, ikke et skrivedidaktisk problem. Tag samtalen om hvordan det går, ikke om brevet, og vurdér bagefter om skolens vejleder skal ind over."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "regel",
+            "titel": "De otte elementer i en troværdig undskyldning",
+            "tekst": "Anerkendelse (hvad gjorde han), ansvar (giver ikke skylden videre), forklaring (hvad skete der i ham), fortrydelse (viser han fortryder), konsekvens (forstår hvad det gjorde ved Liv), løfte (noget konkret), reparation (kan han gøre noget), stemme (lyder som Jonas, ikke en tjekliste)."
+          },
+          {
+            "type": "tip",
+            "titel": "Artefaktet er et stillads, ikke et facit",
+            "tekst": "Du behøver ikke gå igennem de otte elementer i rækkefølge. Brug dem som hjælp, men skriv med Jonas' stemme. Han er ikke perfekt, han er ikke færdig med at være vred, men han fortryder."
+          }
+        ]
+      },
+      {
+        "titel": "Brevene der aldrig nåede frem",
+        "beskrivelse": "Tilbage i skoven. Jonas og Liv er adskilt af to verdener, og nu svarer Liv: eleverne parres, én skriver som Jonas, én som Liv, og brevene udveksles fysisk, foldet og lagt i hånden. Ingen ved om brevet når frem i fiktionens verden; man skriver fordi man må. Metafasen i klasselokalet samler forløbet med tre spørgsmål: hvad var sværest at skrive, hvornår var I virkelig Jonas eller Liv, og hvad lærte I om undskyldninger og om at skrive?",
+        "varighed": "Dag 3 · skoven, metafase i klassen",
+        "elevmaal": [
+          "skrive en brevkorrespondance i karakter med en makker",
+          "bruge det du har skrevet i fase 1 og 2 som afsæt for brevene",
+          "sætte ord på hvad du har lært om undskyldninger og om at skrive"
+        ],
+        "elevtekst": "I er i skoven igen. I parres: én skriver som Jonas, én som Liv. I skriver breve til hinanden, i karakter. Brevene lægges i hånden. Modtageren læser og svarer. Frem og tilbage. I ved ikke om brevene når frem. Men I skriver alligevel. Til sidst vender I tilbage til klasselokalet og taler om hele forløbet.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Åbent spørgsmål i skoven: hvad gør man med det, man ikke fik sagt?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Brevkorrespondance i karakter, én-to runder"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Metafase i klassen: tre spørgsmål, think-pair-share"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Valgfri revision af det produkt eleven er mest stolt af"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Åbent spørgsmål",
+            "beskrivelse": "Læreren læser en replik fra bogen højt: hvad tror I Jonas ville have skrevet til Liv, hvis han vidste hun ledte efter ham? Find dit sted i skoven."
+          },
+          {
+            "titel": "Skriv det første brev",
+            "beskrivelse": "I er adskilt. I ved ikke om jeres breve når frem. Men I skriver alligevel. Skriv ét brev til den anden, som Jonas eller som Liv. Det behøver ikke løse noget, men det skal være ægte."
+          },
+          {
+            "titel": "Udveksling",
+            "beskrivelse": "Fold brevet og læg det i din makkers hånd. Læs det du modtager. Skriv svar. Én eller to runder frem og tilbage."
+          },
+          {
+            "titel": "Metarefleksion",
+            "beskrivelse": "Hvad var sværest at skrive, dagbogen, brevet eller brevkorrespondancen? Hvornår følte I at I virkelig var Jonas eller Liv? Hvad lærte I om undskyldninger, og om at skrive?"
+          },
+          {
+            "titel": "Valgfri revision",
+            "beskrivelse": "Du kan revidere ét af dine tre produkter fra forløbet. Hvilket er du mest stolt af? Hvad ville du ændre?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Balance-punktet",
+            "tekst": "Metafasen er ikke evaluering men et hvilested, hvor variationerne samles til ordnet forståelse. Stil divergente spørgsmål og del observationer i stedet for at forhøre: 'jeg lagde mærke til at mange valgte Liv frem for Jonas, hvad tror I det handler om?' åbner. 'Var dagbogen eller brevet sværest?' lukker."
+          },
+          {
+            "type": "valg",
+            "titel": "Isbjerget: det udeladte tæller",
+            "tekst": "Skellet mellem hvad karaktererne tænker og hvad de skriver, er fasens faglige kerne: eleverne ved mere end de skriver, og det udeladte er lige så vigtigt som det sagte. Stærke elever kan gøre det eksplicit i en metakommentar: hvad valgte du at udelade, og hvorfor?"
+          },
+          {
+            "type": "almind",
+            "titel": "Skift fiktionen, behold progressionen",
+            "tekst": "Dagbog, undskyldning, breve virker med enhver fortælling hvor nogen mister nogen. Det afgørende er progressionen i modtagerforhold: ingen modtager, en modtager der ikke kan svare, en modtager der svarer. Og stedets gentagelse: samme sted dag 1 og dag 3, men eleverne er ikke de samme."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Brug det du allerede har skrevet",
+            "tekst": "Din dagbog fra fase 1 og dit brev fra fase 2 er ressourcer. Hvad mærkede Jonas eller Liv den aften? Hvad stod der i undskyldningsbrevet? Tag det med ind i brevene nu."
+          }
+        ]
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Troldenes tid: vejen til Ur",
+        "type": "Bog",
+        "faust": "140451339",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=140451339",
+        "note": "Adam O., 2025. Jonas' lillesøster Liv er forsvundet, og ingen andre end ham kan huske hende. Forløbets fælles fiktion.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": "Romanen er ikke skrevet til undervisning. Kapiteludvælgelsen (kap. 4-5, kap. 6, kap. 24), skriveoplæggene og responsguiderne er didaktiseringen; skifter du roman, skal du finde tre nedslag der bærer samme bevægelse: bruddet, erkendelsen, adskillelsen."
+      }
+    ],
+    "refleksioner": [
+      {
+        "kilde": "Anslag",
+        "tekst": "Højtlæsning af raseri-scenen under træerne, uden borde og stole: klassen sidder spredt i den slags rum, Jonas og Liv er ved at miste."
+      }
+    ]
+  },
+  {
+    "id": "tema4-kortfilm",
+    "schema_version": 2,
+    "titel": "Kortfilm og multimodalitet: din skolegang som kortfilm",
+    "undertitel": "Tema 4 · Fra Fucking tøs til din egen film",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "7.-9. klasse",
+    "omfang": {
+      "type": "forloeb"
+    },
+    "eksemplarisk_centrum": {
+      "konkret": "Kortfilmen Fucking tøs (Kira Richards Hansen, 2012): Alex' hårde skal og tavse forelskelse, mødt først som ren oplevelse, derefter analyseret med Raskins syv parametre, og til sidst vendt om, da de samme parametre bliver designredskaber for elevens egen film om sin skolegang.",
+      "alment": "At analyse og produktion er den samme tænkning med forskellige retninger: den der har analyseret en overraskelse, ved hvad det koster at skabe én. Multimodalitet er ikke et emne men et vilkår for kommunikation, og multimodal myndighed er evnen til både at aflæse og skabe meningsfulde udtryk på tværs af modaliteter."
+    },
+    "fravalg": [
+      {
+        "hvad": "Parameternavnene på forproduktionsarket",
+        "hvorfor": "Arket Din skolegang som kortfilm viser aldrig Raskins tabel. Syv menneskelige spørgsmål ('det ingen vidste om dig', 'tingen der betød noget') bærer parametrene usynligt; koblingen står kun i lærervejledningen. Parametrene må ikke blive en tjekliste eleven krydser af; de skal fungere som spørgsmål der åbner en fortælling, og det frigiver elevens opmærksomhed til selve fortællearbejdet."
+      },
+      {
+        "hvad": "Alle syv parametre i dybden",
+        "hvorfor": "Læreren modellerer kun parameter 3 og 4; resten gives i det øjeblik en gruppe har brug for dem. Syv parametre på én gang er instruktion og præcis den fælde, hvor genrekonventioner præsenteres abstrakt og forbliver formelle. To parametre sat på elevernes egen erfaring er modellering; kvaliteten ligger ikke i at have tjekket alle bokse."
+      },
+      {
+        "hvad": "Redigering af filmene",
+        "hvorfor": "Råoptagelsen er slutproduktet. Den multimodale meningsskabelse sker primært i optagelsessituationen, i forhandlingerne om kamera og billede, ikke i efterproduktionen. Redigering kræver teknik og tid som ikke alle klasser har, og forløbet er didaktisk fuldstændigt uden. Har din klasse tid og lyst, er redigering et naturligt femte trin; det er en fork, ikke en mangel."
+      }
+    ],
+    "didaktisk_position": {
+      "fagsyn": "Multimodalitet er ikke et nyt emne men et nyt vilkår for at kommunikere: eleverne er kompetente brugere af sammensatte tekster, men sjældent analytikere af dem. Faget skal give sproget til at navngive hvad en lyd gør ved et billede, og erfaringen af at instruktørens valg er valg, man selv kan træffe.",
+      "laeringssyn": "Begreber sættes på erfaringer bagfra, aldrig forfra: oplevelsen er først, navnet kommer efter, og redskabet skal være overtaget, ikke modtaget, før det kan vendes generativt. Subjektifikation kan ikke kræves, kun inviteres; derfor bestemmer eleven selv hvad der deles, og lærerens tilbagetrækning under optagelserne er en aktiv beslutning, ikke passivitet."
+    },
+    "fagplan_ref": {
+      "version": "2026-06-udkast2",
+      "indholdsomraader": [
+        "dan-fortolkning-og-fiktion",
+        "dan-skrivning-og-tekstfremstilling",
+        "dan-faellesskab-og-identitet"
+      ],
+      "maal": []
+    },
+    "samspil": null,
+    "tema": [
+      "kortfilm",
+      "multimodalitet",
+      "filmanalyse",
+      "produktion",
+      "autoetnografi",
+      "Raskin",
+      "subjektifikation"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-07-19",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Din klasse ser én kortfilm, lærer at navngive hvad den gør, og vender så redskabet om: de samme syv parametre der forklarede Fucking tøs, designer nu elevens egen film om sin skolegang. Fra sanselig oplevelse over faglig begrebsliggørelse til personlig produktion og tilbage til fælles refleksion. Eleven opdager at analyse og produktion er den samme tænkning med forskellige retninger, og at emnet 'din skolegang' åbner et rum, hvor elevens eget blik har faglig gyldighed.",
+    "elevintro": "I dette forløb ser I kortfilmen Fucking tøs, analyserer den med et professionelt filmsprog, og laver jeres egne kortfilm om jeres skoleliv.\n\nI arbejder med: kortfilmsanalyse, multimodalitet, autoetnografi.\nI producerer: analysenoter, forproduktionsark, storyboard og en råoptagelse.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig"
+      ],
+      "dewey": [
+        "Spænding",
+        "Anticipation",
+        "Ophobning",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "fuld",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Tid pr. fase og gruppestørrelser ligger fast, men lokaler, optageudstyr og lektionsfordelingen over dagene er dine. Grupper på to-tre og telefonkameraer er nok; det afgørende er kun at optagelsen får et rum, hvor forhandlingerne kan foregå uforstyrret."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Peer feedback med de tre K'er og Raskin som ramme bærer processen, og revisionsbevidstheden er selve læringsmålet. Men en form der gør den personlige fortælling retfærdig at bedømme, findes ikke her: hvordan evaluerer man en autoetnografisk film uden at bedømme livet bag den? Tag den plads."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Anslag: filmen som begivenhed",
+        "beskrivelse": "Tre sætninger fra læreren, og så afspilles filmen: uafbrudt, ukommenteret, uden opgave der konkurrerer med oplevelsen. Direkte efter skriver eleverne privat, hvad de mærker. Filmsamtalen åbner læreren med en observation, ikke et spørgsmål: 'jeg lagde mærke til at Alex aldrig siger noget direkte om Frederik.' Først derefter møder eleverne instruktørens egne ord, og fasen lukkes med et emoji-resumé: oplevelsen oversat til en anden modalitet.",
+        "varighed": "Dag 1 · ca. 50 min",
+        "elevmaal": [
+          "fortælle hvad du lagde mærke til i filmen",
+          "formulere din umiddelbare reaktion på filmen",
+          "bidrage til en fælles samtale om hvad filmen gør ved dig"
+        ],
+        "elevtekst": "I ser kortfilmen Fucking tøs fra 2012. I ser den uden afbrydelser, bare oplev den. Filmen handler om Alex, der en nat er med i en drengegruppe på et industriområde. Men hvad hun egentlig føler, det siger hun aldrig direkte.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Visning uden introduktion, ingen pause"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Tænkeskrivning: hvad mærker du lige nu? Kun til dig selv"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Filmsamtale med observation som åbning: hvad vil Alex, og hvad holder hende tilbage?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Instruktørens ord læses højt, bagefter: hvad svarer til det I mærkede?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Emoji-resumé: tre emojis for oplevelsen, én sætning om hver"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Se filmen",
+            "beskrivelse": "Læreren afspiller filmen. Du har ingen opgave undervejs. Bare se og mærk."
+          },
+          {
+            "titel": "Tænkeskrivning",
+            "beskrivelse": "Skriv, inden I taler sammen: hvad mærker du lige nu? Hvad tænker du på? Det er kun til dig selv, stikord er nok."
+          },
+          {
+            "titel": "Samtale i klassen",
+            "beskrivelse": "Der er ikke ét rigtigt svar, alle iagttagelser er udgangspunkter. Prøv at sige hvad i filmen der fik dig til at tænke det du tænker."
+          },
+          {
+            "titel": "Emoji-resumé",
+            "beskrivelse": "Vælg tre emojis der fanger din oplevelse af filmen. Ikke hvad der sker, men hvad du mærker. Skriv én sætning om hver."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Oplevelsen er først, begreberne er bagfra",
+            "tekst": "En opgave der skal løses under visningen, forvandler æstetisk modtagelse til analyse i den forkerte rækkefølge. Og instruktørens intention læses altid efter elevernes oplevelse: omvend sekvensen, og eleverne overtager instruktørens blik i stedet for at danne deres eget."
+          },
+          {
+            "type": "obs",
+            "titel": "Stilheden efter filmen er produktiv",
+            "tekst": "Er klassen stille, så giv den ti sekunder; det er spændingen der holder, ikke et problem der skal løses. Og siger en elev 'Alex er bare dum', er reaktionen et udgangspunkt: hvad i filmen får dig til at sige det?"
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Om filmen",
+            "tekst": "Instruktør Kira Richards Hansen siger selv om filmen: et stemningsbillede og et portræt af hvordan det er at være ung. Åbne billeder der alle indeholder mørke, dragende områder, hvor man ikke kan se hvad der ligger forude."
+          }
+        ]
+      },
+      {
+        "titel": "Begrebsliggørelse: to parametre, ikke syv",
+        "beskrivelse": "Læreren skriver to parametre på tavlen, ikke syv: ensartethed mod overraskelse, billede mod lyd. De sættes på det eleverne allerede har mærket, og læreren modellerer med tvivl og tekstforankring: tænker højt, deler usikkerhed, slutter med 'hvad ser I?'. Makkerpar overtager de resterende parametre, og analysearkets anden kolonne stiller det disciplinerende krav: hvad i filmen får dig til at sige det? Fasen lukkes med den afgørende pointe: parametrene beskriver ikke kun gode kortfilm, de beskriver gode menneskelige fortællinger.",
+        "varighed": "Dag 2 · ca. 50 min",
+        "elevmaal": [
+          "forklare mindst to af Raskins syv parametre og vise dem i filmen",
+          "skrive en analyseobservation der er forankret i en konkret scene",
+          "bruge spørgsmålet hvad i filmen får dig til at sige det som tjek på din analyse"
+        ],
+        "elevtekst": "En kortfilm er ikke bare en kort spillefilm, den er sin egen kunstform. Filmforsker Richard Raskin har beskrevet syv parametre der kendetegner den vellykkede kortfilm. I dag bruger vi dem til at analysere Fucking tøs. Parametrene er ikke regler, de er spørgsmål du kan stille til en kortfilm.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Parameter 3 og 4 modelleres på scener eleverne husker"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Analyseark med tekstforankringskolonne udfyldes i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Resterende parametre fordeles; hvert par deler ét fund"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Vendingen varsles: I kan bruge parametrene til at fortælle om jeres eget liv"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Læreren modellerer",
+            "beskrivelse": "Læreren viser hvordan man bruger parameter 3 og 4 på filmen. Læg mærke til hvordan analysen altid vender tilbage til en konkret scene."
+          },
+          {
+            "titel": "Makkerpar analyserer",
+            "beskrivelse": "I arbejder med ét eller to parametre. For hvert parameter: skriv hvad I ser i filmen, og skriv præcis hvad i filmen der giver jer den observation."
+          },
+          {
+            "titel": "Deling i klassen",
+            "beskrivelse": "I deler ét fund fra jeres analysepar, den iagttagelse I er mest sikre på, eller den I er mest i tvivl om."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Faglige input gives hvor behovet opstår",
+            "tekst": "Parametrene introduceres ikke som pensum der skal overstås, men som svar på et problem eleven allerede er i: parameter 5 gives til den gruppe, der sidder fast på Alex' indre liv, i det øjeblik de sidder fast. Det er forskellen på et redskab der er overtaget, og et der er modtaget."
+          },
+          {
+            "type": "dramaturgi",
+            "titel": "Modellering med tvivl",
+            "tekst": "Læreren der siger 'jeg tror' og 'ikke fordi filmen siger det', viser at filmanalyse er en fortolkende bevægelse, ikke kodeknækning. Uenighed om et parameter holdes åben; det er polyfoniens styrke, ikke et problem der skal afgøres."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "regel",
+            "titel": "Raskins syv parametre, kort fortalt",
+            "tekst": "1: karakterfokus (hvis historie er det?). 2: kausalitet og valg (hvilket afgørende valg træffer hovedpersonen?). 3: ensartethed og overraskelse (hvad overrasker os, og hvorfor accepterer vi det?). 4: billede og lyd (understøtter de hinanden, eller modsiger de hinanden?). 5: karakter og objekt (hvilken ting fortæller noget om personen uden ord?). 6: enkelhed og dybde (hvad forklarer filmen ikke?). 7: økonomi og helhed (hvad er med af en grund?)."
+          },
+          {
+            "type": "tip",
+            "titel": "Husk dette spørgsmål",
+            "tekst": "Til jer selv og til hinanden: hvad i filmen får dig til at sige det? Det holder analysen forankret i scener og øjeblikke, ikke bare i generelle meninger om Alex."
+          }
+        ]
+      },
+      {
+        "titel": "Vendingen: parametrene bliver designredskaber",
+        "beskrivelse": "Én sætning annoncerer vendingen: I har analyseret en andens film, nu designer I jeres egen. Forproduktionsarket Din skolegang som kortfilm stiller syv menneskelige spørgsmål, der bærer Raskins parametre uden at vise dem, og slutter med tre produktionsbeslutninger: det første billede, det første seeren hører, den følelse seeren sidder tilbage med. Eleverne arbejder individuelt og i stilhed; makkerresponsen spørger til tvivlen, ikke til kvaliteten. Storyboardet eksternaliserer valgene, og her navngiver eleven for første gang selv et parameter.",
+        "varighed": "Dag 3 · ca. 55 min",
+        "elevmaal": [
+          "besvare alle syv spørgsmål i forproduktionsarket",
+          "træffe tre konkrete filmiske beslutninger: første billede, første lyd, seerens slutfølelse",
+          "lave et storyboard med mindst tre felter og en note om hvilket parameter hvert felt bruger"
+        ],
+        "elevtekst": "Du har brugt Raskins parametre til at forstå Fucking tøs. Nu bruger du de samme parametre til at designe din egen film, om din tid som elev. Det er den samme bevægelse, bare i modsat retning: fra at forstå en andens valg til at træffe dine egne.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Forproduktionsarket udfyldes individuelt, i stilhed"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Makkerrespons: hvad er du mest i tvivl om?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Storyboard i tre-fem felter ud fra de tre produktionsbeslutninger"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Forproduktionsarket",
+            "beskrivelse": "Arbejd individuelt og i stilhed. Arket stiller syv spørgsmål. De er nemme at svare på med stikord. Du bestemmer selv hvad du deler bagefter."
+          },
+          {
+            "titel": "Makkerrespons",
+            "beskrivelse": "Del arket med én makker. Makkeren spørger: hvad er du mest i tvivl om? Hvad i dit ark vil du gerne se i filmen, og hvad er du bange for ikke at kunne? Ingen vurdering endnu."
+          },
+          {
+            "titel": "Storyboard",
+            "beskrivelse": "Tag de tre beslutninger fra arkets sidste side, første billede, første lyd, seerens slutfølelse, og lav et storyboard med tre til fem felter. Skriv til hvert felt hvad I ser, hvad I hører, og hvilket parameter I bruger."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Konstrueret autoetnografi er et legitimt genrevalg",
+            "tekst": "Eleven bestemmer selv hvad der deles, og kan lave en film der ligner sit liv uden at være det. Det er ikke en nødudgang men en genrekonvention: fiktion er autoetnografiens historiske følgesvend, og fortrolighedsklausulen er betingelsen for at rummet overhovedet kan åbnes. Faget er ikke terapien, men faget kan holde rummet åbent."
+          },
+          {
+            "type": "obs",
+            "titel": "Eleven der 'ikke har noget interessant'",
+            "tekst": "Spørg efter det mest trivielle i stedet: kortfilmen er ikke resuméet af et liv, den er ét øjeblik der åbner for resten. Og eleven der ikke vil tegne storyboard, skriver billedbeskrivelser som tekst; 'kamera nede, skoletaske i midten, lyden af frikvarter ude' er nok."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Autoetnografi, hvad er det?",
+            "tekst": "Du bruger dine egne oplevelser til at undersøge noget større. Du fortæller ikke bare din historie, du undersøger hvad skolegang gør ved et menneske. Dit eget eksempel er indgangen til noget alle kender."
+          },
+          {
+            "type": "tip",
+            "titel": "Konstrueret autoetnografi er helt OK",
+            "tekst": "Du behøver ikke fortælle om noget virkeligt. Du kan lave en film der ligner din skolegang uden at være den præcis. Fiktion er en lovlig vej til sandhed."
+          },
+          {
+            "type": "tip",
+            "titel": "Du kan bruge tekst i stedet for tegninger",
+            "tekst": "Storyboardet behøver ikke tegninger. Skriv billedbeskrivelserne som tekst: kamera nede, skoletaske i midten, lyden af frikvarter ude. Det er nok."
+          }
+        ]
+      },
+      {
+        "titel": "Produktion og peer feedback",
+        "beskrivelse": "Grupper på to-tre optager råfilmen; større grupper fragmenterer de kropslige forhandlinger om kameraet, og netop de forhandlinger er multimodal meningsskabelse. Læreren siger det højt inden start: 'jeg er her, men jeg afbryder ikke', og observerer i stedet. Hver gruppe ser sin egen råoptagelse som midtvejssamtale, ikke premiere, og peer feedback på tværs struktureres af de tre K'er med Raskin som ramme. Fælles refleksion samler: hvad ved I nu om kortfilm, som I ikke vidste da I så Fucking tøs første gang?",
+        "varighed": "Dag 4-5",
+        "elevmaal": [
+          "optage en råoptagelse på baggrund af jeres storyboard",
+          "give feedback til en anden gruppe med de tre K'er og mindst ét Raskin-parameter",
+          "svare på spørgsmålet: hvad ville du gøre anderledes, hvis du startede forfra?"
+        ],
+        "elevtekst": "Nu optager I. I bruger jeres storyboard som guide, men filmen må gerne overraske jer undervejs.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Råoptagelse i grupper af to-tre, læreren observerer uden at afbryde"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Intern visning: hvad stemmer med storyboardet, og er anderledes bedre?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback på tværs: kærlig, konkret (ét parameter), konstruktiv"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles refleksion: hvad ville I gøre anderledes, hvis I startede forfra?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Råoptagelse",
+            "beskrivelse": "Grupper af to til tre. I har jeres storyboard. I bestemmer selv hvem der holder kameraet, hvem der er foran, og hvornår I tager en scene om."
+          },
+          {
+            "titel": "Se jeres råoptagelse",
+            "beskrivelse": "Inden I giver feedback til andre: se jeres egen optagelse én gang. Hvad stemmer med storyboardet, og hvad er anderledes? Er anderledes bedre eller dårligere?"
+          },
+          {
+            "titel": "Peer feedback",
+            "beskrivelse": "To grupper mødes og ser hinandens råoptagelse. Kærlig: hvad virker, ét konkret øjeblik. Konkret: hvilket Raskin-parameter viser filmen? Konstruktiv: ét forslag."
+          },
+          {
+            "titel": "Fælles samtale",
+            "beskrivelse": "Hvad ved I nu om kortfilm, som I ikke vidste, da I så Fucking tøs første gang? Hvad ville I gøre anderledes, hvis I startede forfra?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Tilbagetrækning er en aktiv beslutning",
+            "tekst": "Det fagligt vigtigste sker i forhandlingerne om kameraet: hvem holder det, hvem siger stop, hvem siger igen. Eleverne bruger parametrene uden at sige deres navn, og en lærer der afbryder for at hjælpe, afbryder præcis det der er fagligt produktivt. Notér i stedet, og brug observationerne som spejl bagefter: 'I tog scenen tre gange. Hvad ledte I efter?'"
+          },
+          {
+            "type": "obs",
+            "titel": "Intentionen før den tekniske kvalitet",
+            "tekst": "Er råoptagelsen teknisk ringe, dårligt lys, rystet kamera, så spørg til hvad billedet skulle gøre, ikke hvad det gjorde. Feedback der starter i intentionen, kan bruges til revision; feedback der starter i fejlen, lukker den autoetnografiske fortælling ned."
+          },
+          {
+            "type": "almind",
+            "titel": "Forproduktionsarket er guldet",
+            "tekst": "Tag arket direkte: syv spørgsmål der bærer Raskins parametre usynligt, det fungerer til enhver filmopgave. Emnet 'din skolegang' kan skiftes ud, men behold at emnet er personligt; det er dér subjektifikationen bor. Og skifter du filmen, så find en kortfilm med åben slutning og et lydunivers, der fortæller noget andet end billederne."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "De vigtigste forhandlinger sker her",
+            "tekst": "Når I skiftes til at holde kameraet og siger vent, det ser forkert ud, tag den igen, det er præcis den slags beslutninger der gør en god kortfilm. Det er Raskin i praksis, I bare ikke siger hans navn."
+          }
+        ]
+      }
+    ],
+    "refleksioner": [
+      {
+        "kilde": "Anslag",
+        "tekst": "Tre sætninger, og så filmen, uafbrudt: 'Vi ser en kortfilm. Den hedder Fucking tøs og er fra 2012. Se den, og læg mærke til hvad du mærker.'"
+      },
+      {
+        "kilde": "Didaktisering",
+        "tekst": "Filmen og instruktørinterviewet er semantiske ressourcer; analysearket og forproduktionsarket er didaktiseringen. Instruktørens ord bruges kun som afstemning efter elevernes egen oplevelse, aldrig som facitliste."
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Fucking tøs (Filmcentralen)",
+        "type": "Kortfilm",
+        "faust": null,
+        "url": "https://filmcentralen.dk",
+        "note": "Kira Richards Hansen, 2012, Den Danske Filmskole. Søg titlen på Filmcentralen; kræver UNI-login.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": "Filmen er ikke produceret til undervisning. Analysearket, forproduktionsarket og sceneudvalget til modelleringen er didaktiseringen."
+      },
+      {
+        "titel": "Instruktøren om filmen (DFI)",
+        "type": "Artikel",
+        "faust": null,
+        "url": "https://www.dfi.dk/nyheder/fucking-tos",
+        "note": "Kira Richards Hansens egne ord om filmen; læses højt i fase 1, altid efter elevernes egen oplevelse.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": null
+      },
+      {
+        "titel": "Fucking tøs (Ekko Shortlist)",
+        "type": "Kilde",
+        "faust": null,
+        "url": "https://www.ekkofilm.dk/shortlist/film/fucking-tos/",
+        "note": "Alternativ adgang til filmen.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": null
+      }
+    ]
+  },
+  {
+    "id": "tema5-journalistik",
+    "schema_version": 2,
+    "titel": "Journalistik og framing: fire spørgsmål til enhver nyhedstekst",
+    "undertitel": "Tema 5 · Fra krystalnatten til Khan Younis",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "7.-9. klasse",
+    "omfang": {
+      "type": "forloeb",
+      "lektioner": 4
+    },
+    "eksemplarisk_centrum": {
+      "konkret": "Jyllands-Postens leder efter krystalnatten, 15. november 1938: passiv, nominalisering og fraværende agenter i en tekst, ingen i klassen kan forsvare. Sat over for Reuters' og Ritzaus telegrammer om den samme hændelse i Gaza, 22. juli 2024, hvor de samme greb genkendes i nutiden.",
+      "alment": "At sproget ikke beskriver virkeligheden men konstruerer den: hvem der nævnes, hvem der udelades, og hvad der gøres til selvfølge, er valg med målbare konsekvenser for hvad læseren ved bagefter. Mediernes magt til at konstruere virkelighed er et epokaltypisk nøgleproblem; framing-analyse er en demokratisk minimumskompetence, ikke et akademisk speciale."
+    },
+    "fravalg": [
+      {
+        "hvad": "Et nutidigt, politisk ladet anslag",
+        "hvorfor": "Metoden læres på historisk sikker grund, før den møder det komplekse nutidsmateriale. Krystalnatslederen er etisk entydig: ingen forsvarer den, og derfor kan alle koncentrere sig om sproget. Gaza-materialet er bevidst placeret i fase 3, ikke fase 1; ellers ville konflikten om emnet overtage rummet, mens metoden stadig er skrøbelig."
+      },
+      {
+        "hvad": "Uddrag af Reuters- og Ritzau-telegrammerne",
+        "hvorfor": "Eleverne får de fulde telegrammer. Et uddrag er allerede en framing: læreren der vælger, hvad der er analytisk interessant, fratager eleverne opdagelsen og underminerer genkendelsesmomentet. Telegrammerne er korte nok til at læses ukommenteret på få minutter."
+      },
+      {
+        "hvad": "Lærerens politiske position som konklusion",
+        "hvorfor": "Positionen tilbageholdes, ikke af feighed, men fordi den i det øjeblik ville dominere rummet og fjerne elevernes mulighed for at tænke selv. Spørgsmålet er 'hvad gør de to teksters sproglige valg ved din forståelse af hændelsen?', aldrig 'hvilken tekst er mest retfærdig?'. Jo stærkere ens egen position er, jo mere disciplin kræver fravalget."
+      }
+    ],
+    "didaktisk_position": {
+      "fagsyn": "Sproget konstruerer virkelighed; det beskriver den ikke. Kritisk diskursanalyse er derfor ikke et akademisk speciale men en demokratisk kompetence: faget skal gøre eleverne i stand til at stille spørgsmål til de tekster, der former deres verdensbillede, og til at stå ved deres egne sproglige valg som afsendere.",
+      "laeringssyn": "Begrebet kommer efter erfaringen: eleverne opdager passiv og nominalisering, før nogen siger ordet framing, og redskabet modelleres med tvivl frem for at instrueres som procedure. Inklusionen bæres af metodisk ligestilling: alle elever skal blive klogere på sprogets magt, ikke på hvem der har ret i konflikten."
+    },
+    "fagplan_ref": {
+      "version": "2026-06-udkast2",
+      "indholdsomraader": [
+        "dan-kommunikation-og-sagtekster",
+        "dan-laesning-og-laesekultur",
+        "dan-skrivning-og-tekstfremstilling"
+      ],
+      "maal": []
+    },
+    "samspil": null,
+    "tema": [
+      "journalistik",
+      "framing",
+      "diskursanalyse",
+      "kildekritik",
+      "Entman",
+      "Fairclough",
+      "nyhedssprog"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-07-19",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Din klasse lærer at stille fire spørgsmål til enhver nyhedstekst: hvem gør noget, hvad er problemet, hvem har skylden, og hvad bør ske? Metoden læres på historisk sikker grund i Jyllands-Postens krystalnatsleder fra 1938, genkendes i nutiden når Reuters og Ritzau dækker samme hændelse systematisk forskelligt, vendes mod redskabet selv, og ender med eleven som afsender, der kan begrunde sine egne sproglige valg. Forskellene er empirisk verificerbare; det handler om sprogets magt, ikke om hvem der har ret.",
+    "elevintro": "I dette forløb arbejder I med sprogets magt i journalistikken. Udgangspunktet er en gammel dansk avisartikel fra 1938, og det I lærer der, bruger I på to nyhedstelegrammer fra 2024, der dækkede den samme hændelse på meget forskellig vis.\n\nI arbejder med: nyhedsartikler, sproganalyse, framing-begrebet.\nI producerer: en nyhedsartikel med bevidste sproglige valg.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource"
+      ],
+      "anslag_type": "Varsel",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Ophobning",
+        "Anticipation",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Peer feedback"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "delvis",
+      "evaluering": "delvis"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Gruppeformer og tidsangivelser findes for hver bevægelse, men lektionsfordelingen og dagsplanen er din. Fasernes rækkefølge er derimod ikke til forhandling: metoden skal sidde, før nutidsmaterialet kommer på bordet."
+      },
+      {
+        "dimension": "differentiering",
+        "besked": "Nærlæsning af 1938-lederen stiller høje læsekrav, og teksten kan ikke forenkles uden at miste sit kildemateriale. Fasernes differentieringsgreb hjælper, men stilladseringen af selve nærlæsningen for læsesvage elever er stadig en åben plads."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Peer feedback med Entmans skema som læseguide og den metakognitive begrundelse er formen undervejs. En slutevaluering findes ikke: hvordan bedømmer man diskursbevidsthed uden at bedømme holdninger? Vær den første der bygger et bud."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Anslag: krystalnatslederen",
+        "beskrivelse": "Konteksten sættes uden teksten: natten mellem 9. og 10. november 1938, 91 myrdede, 1.400 brændte synagoger, og fem dage efter bringer Jyllands-Posten en leder. Hvad forventer I, at en dansk avis skriver? Først derefter møder eleverne uddragene og reagerer, før de analyserer. Nærlæsningen samler sig om to konkrete greb, passiv og nominalisering, som eleverne opdager selv: agenten nævnes ikke, volden forbliver uden ansvarlig. Fasen lukker med et spørgsmål der ikke besvares: bruger nyhedsmedier stadig de greb, og hvem bestemmer så, hvad vi ser?",
+        "elevmaal": [
+          "finde passivkonstruktioner i en nyhedsartikel og forklare hvad de gør ved læseren",
+          "finde nominaliseringer og forklare hvad der gemmer sig bag dem",
+          "sætte ord på hvad du lægger mærke til i en tekst"
+        ],
+        "elevtekst": "Du læser en leder fra Jyllands-Posten, skrevet den 15. november 1938, seks dage efter Krystalnatten. Natten mellem 9. og 10. november 1938 blev 91 jøder myrdet, 30.000 arresteret, og 1.400 synagoger brændt. Inden du læser teksten, tænker du 30 sekunder over: hvad forventer du at en dansk avis skriver om det?",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Kontekst uden tekst: scenen sættes, forventninger formuleres"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Første møde med uddragene: reaktion før analyse"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Nærlæsning i makkerpar: hvem gør noget i sætningerne, og hvem nævnes ikke?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Det autentiske afslutningsspørgsmål bæres videre, ubesvaret"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Farvelæs teksten",
+            "beskrivelse": "Læs uddragene individuelt med to farver: gul for det der overrasker dig, rød for det der føles forkert, mærkeligt eller foruroligende. Tal med din makker: hvad markerede I, hvad reagerede I på?"
+          },
+          {
+            "titel": "Find agenten",
+            "beskrivelse": "Synagogerne blev stukket i brand. Hvem stikker ild? Skriv sætningen med aktiv: hvem er subjektet nu? Find tre andre passive sætninger. Hvem forsvinder i hver?"
+          },
+          {
+            "titel": "Find det gemte",
+            "beskrivelse": "Hvad gemmer sig bag regeringsforanstaltninger? Hvad gemmer sig bag hævnaktion? Skriv tre til fem sætninger: hvad gør det ved din forståelse af hvad der sker, at handlinger bliver til substantiver?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Historisk distance som beskyttelse",
+            "tekst": "Ét koncentreret eksempel åbner det generelle fænomen, og 1938-lederen er fremmed nok til at ingen forsvarer den, nær nok til at metoden kan læres. Eleverne behøver ikke 30 artikler; de behøver ét eksempel, der er historisk sikkert nok til at sproget, ikke konflikten, står i centrum."
+          },
+          {
+            "type": "dramaturgi",
+            "titel": "Anslaget er et varsel",
+            "tekst": "Konteksten sættes uden at teksten vises: noget er på spil, men vi ved ikke endnu hvad. Elevernes første møde med uddragene er en reaktion, ikke en kategorisering; grebene skal opdages af eleverne, ikke forklares af læreren."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Hvad er passiv?",
+            "tekst": "En aktiv sætning: politiet arresterede ham. Den samme sætning i passiv: han blev arresteret. I passiv forsvinder den der handler, agenten."
+          },
+          {
+            "type": "tip",
+            "titel": "Hvad er nominalisering?",
+            "tekst": "Nominalisering er når en handling laves om til et substantiv. De myrdede folk bliver til mordene. De brændte synagoger ned bliver til synagogernes nedbrænding. Substantiverne lader handlingerne ske, uden nogen der gør dem."
+          }
+        ]
+      },
+      {
+        "titel": "Begrebsliggørelse: Entman bagfra",
+        "beskrivelse": "Fire spørgsmål på tavlen i elevvenlig form: hvem gør noget, hvad er problemet, hvem har skylden, hvad bør ske? Ingen definition af framing endnu; begrebet kommer efter, at eleverne har set hvad spørgsmålene gør. Læreren modellerer spørgsmål 1-3 på den tekst eleverne kender, tænker højt, deler tvivl, og lader historikerens konklusion stå til diskussion: er den rimelig, og hvad i teksten bærer den? Spørgsmål 4 overlades bevidst til eleverne: hvad antyder teksten bør ske, og er løsningsforslaget tomt?",
+        "elevmaal": [
+          "stille Entmans fire framingspørgsmål til en tekst",
+          "forstå hvad framing-begrebet betyder efter at have brugt det",
+          "analysere spørgsmål 4 selvstændigt med en makker"
+        ],
+        "elevtekst": "Læreren modellerer nu fire spørgsmål på den samme tekst du allerede kender. Du ser læreren tænke højt, også når svaret ikke er sikkert. Derefter overtager du ét af spørgsmålene selv.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "De fire spørgsmål introduceres som en måde at spørge en tekst på, ikke et tjekskema"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Modellering af spørgsmål 1-3 med tænkning højt på krystalnatslederen"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Eleverne prøver spørgsmål 4 i makkerpar: hvad siger teksten ikke, men lader som om er selvfølgeligt?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Deling i plenum: hvem ser det anderledes?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Se læreren modellere",
+            "beskrivelse": "Læreren tænker højt med de fire spørgsmål på teksten fra fase 1. Lyt efter: hvad er læreren sikker på, og hvad er ikke sikkert?"
+          },
+          {
+            "titel": "Spørgsmål 4 med din makker",
+            "beskrivelse": "Hvad antyder teksten bør ske? Er løsningsforslaget eksplicit, eller er det tomt? Hvad siger teksten ikke, men lader som om er selvfølgeligt? Skriv tre til fem sætninger, del med klassen."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Medforsker, ikke facit",
+            "tekst": "Historikerens analyse bruges som en stemme, der har set det samme som eleverne og sat ord på det, aldrig som den endelige dom. Spørgsmålet 'er det en rimelig konklusion?' holder selv den faglige autoritet åben for efterprøvning; det er præcis den holdning, forløbet vil lære eleverne."
+          },
+          {
+            "type": "obs",
+            "titel": "Selv ordene er framede",
+            "tekst": "Metaforikken i uddragene, dyr, gift, blod, er ikke neutrale beskrivelser men argumenter. Markér den undervejs som et lag under de fire spørgsmål, uden at introducere teoriapparatet; navnet kan vente, iagttagelsen kan ikke."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "regel",
+            "titel": "De fire spørgsmål",
+            "tekst": "1: hvem gør noget (er der en agent, eller forsvinder den?). 2: hvad er problemet (hvordan defineres hændelsen?). 3: hvem har skylden (er der en årsagsfortolkning?). 4: hvad bør ske (er der et løsningsforslag, eller er det tomt?)."
+          },
+          {
+            "type": "tip",
+            "titel": "Hvad er framing?",
+            "tekst": "Framing er den måde enhver tekst vælger hvad der er vigtigt, hvem der er agent, hvad problemet er, og hvad løsningen er. Det er ikke nødvendigvis løgn. Det er uundgåeligt. Alle tekster framer. Spørgsmålet er hvordan."
+          }
+        ]
+      },
+      {
+        "titel": "Spørgsmålstrappen: Reuters mod Ritzau",
+        "beskrivelse": "Eleverne får de fulde telegrammer, ikke uddrag, og ét spørgsmål: hvad lægger I mærke til? Genkendelsen kommer af sig selv; passiv og fraværende agenter fra 1938 findes igen i 2024. Grupperne analyserer med Entmans fire spørgsmål, og spørgsmålstrappen løfter derefter fra analyse til stillingtagen i fem trin, hvor trin fem er det myndighedsskabende: hvad kan man gøre med den viden? Fasen kulminerer i biasdetektor-momentet: redskabet, der afslører andres diskurser, er selv en diskurs.",
+        "elevmaal": [
+          "analysere to nyhedstelegrammer fra 2024 med Entmans fire spørgsmål i gruppe",
+          "identificere systematiske sproglige forskelle mellem de to tekster",
+          "tage personlig stilling til hvad analysen betyder for dig som medieforbruger"
+        ],
+        "elevtekst": "Du læser to telegrammer der begge dækker den samme hændelse: IDF's evakueringsordre til Khan Younis, Gaza, den 22. juli 2024. Reuters og Ritzau var begge der. Hvad ser de, og hvad ser de ikke?",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Fulde telegrammer læses side om side i makkerpar"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Gruppeanalyse med de fire spørgsmål: overskrifter, kilder, agenter, ordvalg"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Spørgsmålstrappen bestiges: fra hvad teksten siger til hvad jeg gør"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Biasdetektoren (mediekritisk.dk): en mainstream-artikel og en artikel fra redskabets egne udgivere køres igennem, og scoren sammenlignes"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Første læsning",
+            "beskrivelse": "Læs begge telegrammer ukommenteret. Tal med din makker i tre minutter: hvad lagde I mærke til, hvad overraskede jer?"
+          },
+          {
+            "titel": "Analyse i grupper",
+            "beskrivelse": "Udfyld skemaet med Entmans fire spørgsmål for begge telegrammer. Diskuter: hvad er ens, og hvad er forskelligt?"
+          },
+          {
+            "titel": "Spørgsmålstrappen",
+            "beskrivelse": "I har besvaret trin 1-3. Nu går I højere: hvad gør det ved dig som læser at vide, at de to tekster dækkede samme hændelse, men på den måde? Hvad kan du gøre med den viden som medieforbruger?"
+          },
+          {
+            "titel": "Biasdetektoren",
+            "beskrivelse": "I kører en mainstream-artikel om Gaza igennem et redskab der scorer bias. Derefter en artikel fra redskabets egne udgivere. Hvad sker der med scoren, og hvad siger det om redskabet selv?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "obs",
+            "titel": "Biasdetektoren er selv en diskurs",
+            "tekst": "Det øjeblik eleverne opdager, at analysen også er positioneret, inklusive dem selv som analytikere, er forløbets kulmination, ikke en afsporing. Det kræver ingen forklaring; eleverne ser det selv, og i det øjeblik er det sociale praksisniveau ikke et teoribegreb men en erfaring."
+          },
+          {
+            "type": "obs",
+            "titel": "Når konflikten er personlig",
+            "tekst": "Elever med relationer til konflikten vil reagere personligt på materialet. Designet møder det ved at holde fokus stringent på sproget og metoderne: alle elever er metodisk ligestillede, fordi metoden er universel, og konfliktstillingen ikke er forløbets mål. To elever med modsatte rødder skal begge kunne bruge de fire spørgsmål og begge blive klogere på sprogets magt."
+          },
+          {
+            "type": "valg",
+            "titel": "Forskellene er empiriske, ikke holdninger",
+            "tekst": "Den ene overskrift nævner 16 dræbte; den anden nævner dem ikke. Den ene citerer flere kilder; den anden få. Det er verificerbare forskelle i sproglige valg med verificerbare konsekvenser for, hvad læseren ved bagefter. Hold analysen dér, så bliver den aldrig et spørgsmål om hvem der har ret."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Hvad kigger du efter?",
+            "tekst": "Prøv at finde agenten: hvem er subjektet i sætningen? En person, en organisation, eller ingen? Kig også på: hvem er offeret, hvem er truslen, hvad er navngivet, og hvad er bare et tal?"
+          },
+          {
+            "type": "opgave",
+            "titel": "Kan redskabet selv være partisk?",
+            "tekst": "Skriv: hvad sker der med scoren, når I kører en artikel fra redskabets egne udgivere? Kan et redskab der afslører andres bias, være partisk selv?"
+          }
+        ]
+      },
+      {
+        "titel": "Produktion: de 5 F'er",
+        "beskrivelse": "Diskursbevidstheden vendes om: eleverne skriver en nyhedsartikel om den samme hændelse, som Reuters og Ritzau dækkede, og skal kunne begrunde hvert sprogligt valg. Ingen skabelon; redskaberne fra fase 2 og 3 er stilladset, og de 5 F'er (fakta, fortolkning, forklaring, fordømmelse, forslag) er en huskeliste over dimensioner, der vælges eller fravælges bevidst, ikke en opskrift. Peer feedback bruger Entmans skema som læseguide, og revisionen afsluttes med en metakognitiv begrundelse: mindst tre af de fire spørgsmål besvares eksplicit.",
+        "elevmaal": [
+          "skrive en nyhedsartikel om samme hændelse som Reuters og Ritzau dækkede",
+          "bevidst træffe sproglige valg, og kunne begrunde dem",
+          "give analytisk peer feedback på en makkers artikel med Entmans skema"
+        ],
+        "elevtekst": "Indtil nu har du været analytiker: du har set hvad andres tekster gør. Nu er du afsender. Du har de samme fakta som Reuters og Ritzau, men hvad vælger du at skrive?",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Egen nyhedstekst skrives; hvert sprogligt valg skal kunne begrundes"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "De 5 F'er vælges til eller fra, bevidst og begrundet"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Peer feedback: makkeren læser med Entmans fire spørgsmål som guide"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Revision og metakognitiv begrundelse"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Skriv din artikel",
+            "beskrivelse": "Skriv en nyhedsartikel om hændelsen. Du vælger selv dine sproglige valg. Men du skal bagpå besvare mindst tre af Entmans fire spørgsmål: hvilke valg traf du, og hvorfor?"
+          },
+          {
+            "titel": "Peer feedback",
+            "beskrivelse": "Byt artikel med din makker. Giv feedback med Entmans skema som guide. Feedbacken er beskrivende, ikke evaluerende: i din artikel forsvinder agenten i anden sætning, ikke det er en dårlig artikel."
+          },
+          {
+            "titel": "Revision og begrundelse",
+            "beskrivelse": "Revider din artikel på baggrund af feedbacken. Skriv derefter: hvilke tre sproglige valg er du mest bevidst om i din artikel, og hvorfor traf du dem?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Fastholdelse som produktiv aktivering",
+            "tekst": "Eleven der skal begrunde sine egne diskursive valg, aktiverer framing-begrebet dybere end nogen analyseøvelse: det er erfaringen af at være ansvarlig for de valg, man træffer som afsender. Vil en elev skrive en kommentar i stedet for en nyhedsartikel, så lad genreforskydningen blive til læring: hvilke F'er bruger du så, og hvilke fravalgte du?"
+          },
+          {
+            "type": "almind",
+            "titel": "Skift telegrammerne ud",
+            "tekst": "Reuters mod Ritzau ældes; strukturen gør ikke. Find to telegrammer om samme hændelse fra denne måned, og forløbet er dagsaktuelt igen. Det er den letteste fork i hele forløbet, og krystalnatslederen kan blive stående som det historiske anker."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "regel",
+            "titel": "De 5 F'er, huskeliste til journalisten",
+            "tekst": "Fakta (hvad skete der konkret?). Fortolkning (hvad betyder det, hvem vinder, hvem taber?). Forklaring (hvorfor skete det?). Fordømmelse (er der en vurdering, eksplicit, implicit eller bevidst fravalgt?). Forslag (hvad bør ske, eller hvad efterlades åbent?). Du behøver ikke bruge alle fem, men du skal vide hvilke du bruger, og hvilke du bevidst udelader."
+          },
+          {
+            "type": "tip",
+            "titel": "Hvem er agenten i din første sætning?",
+            "tekst": "Den første sætning i en nyhedsartikel sætter tonen for hele teksten. Hvem handler? Er agenten tydelig? Er det bevidst?"
+          }
+        ]
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Reuters-telegram, 22. juli 2024 (Khan Younis)",
+        "type": "Artikel",
+        "faust": null,
+        "url": "https://www.reuters.com/world/middle-east/israel-orders-evacuation-part-gazas-khan-younis-after-renewed-rocket-fire-2024-07-22/",
+        "note": "Fuldt telegram; sammenlignes ord for ord med Ritzaus dækning af samme hændelse.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": "Avisteksterne er semantiske ressourcer: udvælgelsen, sammenstillingen og de fire spørgsmål er didaktiseringen. Telegrammerne ældes; find selv to nye om samme hændelse, når disse er blevet historie."
+      },
+      {
+        "titel": "Ritzau-telegram via Kristeligt Dagblad, 22. juli 2024",
+        "type": "Artikel",
+        "faust": null,
+        "url": "https://www.kristeligt-dagblad.dk/udland/israel-opfordrer-alle-til-forlade-den-oestlige-del-af-khan-younis",
+        "note": "Samme hændelse, samme dato, systematisk forskellige sproglige valg.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": null
+      },
+      {
+        "titel": "Biasdetektoren (Mediekritisk Netværk)",
+        "type": "Redskab",
+        "faust": null,
+        "url": "https://mediekritisk.dk",
+        "note": "Bruges i fase 3's kulmination: redskabet der afslører andres diskurser, analyseres selv som diskurs.",
+        "materialetype": "redskaber_i_undervisning",
+        "didaktisering": null
+      }
+    ],
+    "refleksioner": [
+      {
+        "kilde": "Anslag",
+        "tekst": "Konteksten sættes uden teksten: krystalnatten fortælles i tal og fakta, og eleverne formulerer deres forventning, før de ser, hvad avisen faktisk skrev."
+      },
+      {
+        "kilde": "Didaktisering",
+        "tekst": "Krystalnatsleder-uddragene følger med forløbet via den historiske analyse, de er hentet fra; nutidstelegrammerne skal derimod vedligeholdes. Uddrag er i sig selv framing: giv altid eleverne de fulde nutidstekster."
+      }
+    ]
+  },
+  {
+    "id": "tema1-mundtlighed",
+    "schema_version": 2,
+    "titel": "Mundtlighed: fra stemthed til etisk samtale",
+    "undertitel": "Tema 1 · Djævelens lærling og Den svære samtale",
+    "forfatter": "Valdemar Silverstein Markussen",
+    "institution": "8.D, Silkeborg",
+    "aar": 2026,
+    "fag": "dansk",
+    "klassetrin": "8. klasse",
+    "omfang": {
+      "type": "forloeb"
+    },
+    "eksemplarisk_centrum": {
+      "konkret": "Djævelens lærlings etiske univers, ondskab, konformitet og moralsk mod, realiseret gennem dilemmaspillet Den svære samtale: redidaktiseret så dilemmaerne trækker på romanens univers, og eleverne ytrer sig i eget navn med et fælles etisk referencepunkt bag sig.",
+      "alment": "Mundtlig myndighed som tre uadskillelige positioner: at ytre sit eget standpunkt (1. person), at lytte aktivt til andres (2. person) og at betragte samtalen som fagligt objekt (3. person). Og den empiriske præcisering: subjektifikation kan inviteres, men ikke garanteres; design kan sænke deltagelsestærsklen, men det sociale felt afgør stadig, om eleven vælger autonomi over konformitet."
+    },
+    "fravalg": [
+      {
+        "hvad": "Fuld fiktionsbeskyttelse i dilemmaspillet",
+        "hvorfor": "Idealet ville lade eleverne tale som romanens karakterer: et fejltrin er karakterens, ikke elevens, og kredsen af elever der tør deltage, udvides. Men det kræver at klassen kan holde karakterperspektivet over tid, og en klasse med begrænset erfaring med fiktionslæsning som analytisk praksis vil ofte ikke kunne. Den erfaringsnære vinkling, eleverne taler som sig selv, giver tilgængelighed mod en pris: den sociale eksponering er reel, og den håndteres i metafasen ved aldrig at vende direkte tilbage. Begge valg er gyldige; de kræver forskellig efterbehandling."
+      },
+      {
+        "hvad": "Eksplicitte lytteroller til eleverne uden for spilrunden",
+        "hvorfor": "Et anbefalet greb, overvejet men ikke afprøvet: lytteroller ville give tilskuerne en faglig position at observere fra og give metafasen et systematisk empirisk grundlag i stedet for det eleverne tilfældigvis husker. Grebet er umiddelbart overførbart; det er den oplagte første fork af dette forløb."
+      },
+      {
+        "hvad": "Direkte evaluering af spillets ytringer",
+        "hvorfor": "Metafasen navngiver strukturen via filosofi og fiktion og vender aldrig direkte tilbage til det, der blev sagt i spillet. Ingen skal stå til regnskab for at have ytret sig i eget navn; gør man det, undergraver man netop det rum, der gjorde ytringen mulig."
+      }
+    ],
+    "didaktisk_position": {
+      "fagsyn": "Mundtlighed er ikke én færdighed men tre uadskillelige positioner: at ytre, at lytte og at betragte samtalen som fagligt objekt. De kan ikke undervises hver for sig, og faget skal give eleverne et etisk sprog for de strukturer, de selv står i, ikke kun træne dem i at tale højt.",
+      "laeringssyn": "Myndighed kræver et rum, der inviteres frem, ikke undervises frem: eleven kan tilbydes betingelserne for at træde frem som etisk subjekt, men ikke pålægges det. Fiktionen skal være levende, før den kan bære ytringen, og refleksionen skal gå via omveje, der ikke eksponerer det allerede sagte."
+    },
+    "fagplan_ref": {
+      "version": "2026-06-udkast2",
+      "indholdsomraader": [
+        "dan-mundtlighed-og-samtale",
+        "dan-fortolkning-og-fiktion",
+        "dan-faellesskab-og-identitet"
+      ],
+      "maal": []
+    },
+    "samspil": null,
+    "tema": [
+      "mundtlighed",
+      "stemthed",
+      "dilemmaspil",
+      "etisk samtale",
+      "redidaktisering",
+      "fiktionsbeskyttelse",
+      "Arendt",
+      "Djævelens lærling"
+    ],
+    "licens": "CC BY-SA 4.0",
+    "opdateret": "2026-07-19",
+    "generation": 0,
+    "fork_af": null,
+    "forks": [],
+    "beskrivelse": "Forløbet bevæger sig fra sanselig stemthed over kropslig erfaring til refleksiv bevidsthed: et anslag uden begreber, et romanunivers bygget lag på lag, et dilemmaspil hvor eleverne ytrer sig i eget navn, og en metafase der navngiver strukturen via filosofi og fiktion, aldrig direkte tilbage til det sagte. Rækkefølgen kan ikke inverteres. Og forløbet bærer et empirisk fund: sproglig bearbejdning kan sænke deltagelsestærsklen målbart, men autonomitærsklen flytter sig ikke af design alene.",
+    "elevintro": "I dette forløb arbejder I med Djævelens lærling og dilemmaspillet Den svære samtale. I starter med at mærke temaet: godhed, ondskab, mod. Så lærer I romanens univers at kende. Midt i forløbet ytrer I jeres egen mening i et dilemmaspil. Til sidst tænker I filosofisk over det, I har oplevet, og skriver en undskyldning i en karakters navn.\n\nI arbejder med: mundtlig argumentation, aktiv lytning og skriftlig perspektivtagning.\nI producerer: argumenter i dilemmaspillet og en troværdig undskyldning in character.",
+    "tags": {
+      "strategi": "Læremiddelstøttet",
+      "stemme": "Idékatalog",
+      "materialetyper": [
+        "Didaktisk læremiddel",
+        "Semantisk læringsressource",
+        "Redskabslæremiddel"
+      ],
+      "anslag_type": "Begivenhed",
+      "virksomhedsformer": [
+        "Æstetisk",
+        "Analytisk",
+        "Håndværksmæssig",
+        "Kommunikativ"
+      ],
+      "dewey": [
+        "Spænding",
+        "Anticipation",
+        "Ophobning",
+        "Kontinuitet",
+        "Fastholdelse"
+      ],
+      "evalueringsform": "Ingen (åben plads)"
+    },
+    "daekningsgrad": {
+      "maal": "fuld",
+      "indhold": "fuld",
+      "metode": "fuld",
+      "organisering": "delvis",
+      "differentiering": "delvis",
+      "evaluering": "tom"
+    },
+    "tomme_pladser": [
+      {
+        "dimension": "organisering",
+        "besked": "Fasernes rækkefølge og formater ligger fast, men lektionsfordelingen over ugerne er din. Quizlet-buen kan strækkes eller komprimeres efter klassens tempo; det afgørende er kun, at romanuniverset er levende, før dilemmaspillet begynder."
+      },
+      {
+        "dimension": "differentiering",
+        "besked": "Principperne er der: højtlæsning og lydbog sænker adgangstærsklen, den sproglige bearbejdning af dilemmakortene sænkede deltagelsestærsklen målbart, og den anonyme seddel giver alle adgang til refleksionslaget. Men konkrete støttematerialer mangler; den plads er din."
+      },
+      {
+        "dimension": "evaluering",
+        "besked": "Hvordan evaluerer man mundtlighed uden at gøre samtalen til performance? Observation og samtale bar forløbet; en systematisk form er åben. Og vær varsom: en form der belønner den velformulerede, strategiske argumentation, ville måle det modsatte af det, forløbet inviterer til."
+      }
+    ],
+    "faser": [
+      {
+        "titel": "Stemthed",
+        "beskrivelse": "Anslaget er en sanselig begivenhed: en fiktion ses ukommenteret, og det etiske felt åbnes æstetisk, inden et eneste begreb introduceres. Fiktionen vælges efter det omvendte fremmedhedsprincip: ikke fremmed nok til at kræve ny orientering, men genkendelig nok til at det etiske rammer. Spændingen løses ikke; den holdes åben og bæres videre. En genreplanche varsler, hvor forløbet skal hen, uden at forklare det.",
+        "varighed": "Uge 1",
+        "elevmaal": [
+          "navngive eksempler på godhed og ondskab fra din hverdag og fra film eller bøger du kender",
+          "forklare hvad fantasy-genren er, og hvad du forventer af den",
+          "lytte til en tekst og sige hvad der ramte dig"
+        ],
+        "elevtekst": "Vi starter ikke med bogen. Vi starter med spørgsmålet romanen handler om: hvad er ondskab, og er det altid tydeligt hvem der er ond? Bagefter ser vi en film og hører begyndelsen af romanen.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Sanseligt møde med fiktionen, uden forklaring"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Stille notat: hvad mærkede du?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Genreplanchen hænges op som fælles referencepunkt"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Kortlægning",
+            "beskrivelse": "Klassen kortlægger sammen: hvem er god, hvem er ond, og er det altid klart? Ingen forkerte svar. Brug eksempler fra film, spil eller dit liv."
+          },
+          {
+            "titel": "Genreplanche",
+            "beskrivelse": "I laver en fælles planche om fantasy-genren på tavlen. Hvad kendetegner genren? Hvad forventer du?"
+          },
+          {
+            "titel": "Film",
+            "beskrivelse": "I ser en film der åbner det etiske felt. Læg mærke til: hvornår krydser personerne en grænse, og hvem siger fra?"
+          },
+          {
+            "titel": "Højlæsning",
+            "beskrivelse": "I lytter til de første kapitler af romanen. Bagefter: hvem er karaktererne? Hvad sker der?"
+          }
+        ],
+        "callouts": [
+          {
+            "type": "dramaturgi",
+            "titel": "Anslagets dobbelte kvalitet",
+            "tekst": "Begivenhed (dramaturgisk) og bro til indholdet (didaktisk) på samme tid: forforståelsen aktiveres, før begreberne kommer. Intensiteten skal holdes åben, ikke løses op; den bæres ind i de næste faser."
+          },
+          {
+            "type": "valg",
+            "titel": "Det omvendte fremmedhedsprincip",
+            "tekst": "Her vælges en fiktion, klassen allerede kender, i stedet for en fremmed: fiktionsbeskyttelsen aktiveres fra den modsatte side, ved at gøre det genkendeligt nok til at det mærkes. For fremmed giver ingen adgang; for nær giver ingen faglig bevægelse. Kend din klasse, og vælg derefter."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Til genreplanchen",
+            "tekst": "Du må godt bruge eksempler fra spil, serier og film, ikke kun bøger. Fantasy er en stor genre der lever mange steder."
+          },
+          {
+            "type": "opgave",
+            "titel": "Efter filmen",
+            "tekst": "Skriv 2-3 sætninger: hvad lagde du mest mærke til? Hvad sad du med bagefter? Du behøver ikke dele det med klassen, det er til dig selv."
+          }
+        ]
+      },
+      {
+        "titel": "Tekståbner",
+        "beskrivelse": "Romanuniverset bygges lag på lag i en håndværksmæssig til analytisk progression: en spilbaseret quiz-bue i seks trin øver først genkendelse (hvem er hvem, hvad sker der) og bevæger sig mod begrebslig kategorisering. Begrundelsen er litteraturdidaktisk: fordoblingskompetencen forudsætter sikker orientering i realplanet. Elever der bruger kognitiv energi på at huske, hvem der er hvem, kan ikke løfte blikket til det symbolske. Højtlæsning og valgfrihed mellem læsning og lydbog sænker adgangstærsklen.",
+        "varighed": "Løbende gennem hele forløbet",
+        "elevmaal": [
+          "genkende og huske de vigtigste karakterer, relationer og begivenheder i romanen",
+          "forklare hvad centrale temaer og symboler i romanen handler om",
+          "bruge romanens univers som referencepunkt når du argumenterer"
+        ],
+        "elevtekst": "Mens du læser romanen derhjemme, spiller vi et quizspil i klassen, gentagne gange over de næste uger. Spørgsmålene bliver sværere og sværere: vi starter med hvem der er hvem, og ender med hvad romanen betyder.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Quiz-buens seks trin, fra genkendelse til kategorisering"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Højtlæsning af nøglescener; eleverne vælger selv læsning eller lydbog"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Universkort over romanens verden"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Læs eller lyt",
+            "beskrivelse": "Du vælger selv om du læser eller bruger lydbogen. Det vigtige er at du er inde i universet."
+          },
+          {
+            "titel": "Quizspil",
+            "beskrivelse": "Vi spiller i klassen i tilfældige hold der skifter mellem runder. Spørgsmålene bygger progressivt fra hvem er hvem til hvad betyder det."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Hvorfor håndværk før analyse?",
+            "tekst": "Eleverne skal kende universet, før de kan bruge det som etisk referencepunkt. Dilemmaspillet virker kun, fordi denne fase har gjort romanens verden levende: realplanet frigiver den kognitive kapacitet, billedplanet kræver."
+          },
+          {
+            "type": "gissel",
+            "titel": "Materialetyper i forløbet",
+            "tekst": "Romanen, filmen og den filosofiske tekst er semantiske ressourcer, didaktiseret af læreren. Dilemmaspillet er didaktisk læremiddel. Quiz-platformen, genreplanchen og undskyldningens retoriske ramme er redskabslæremidler. Dækningsgraden gælder forløbets eget didaktiske lag, ikke ressourcerne."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Lydbog er ligeså godt",
+            "tekst": "Lydbogen er ikke snyd. Det vigtige er at du kender plottet og karaktererne godt nok til at du kan argumentere i næste fase."
+          }
+        ]
+      },
+      {
+        "titel": "Dilemmaspil",
+        "beskrivelse": "Kommunikativ-produktiv virksomhed i 1. og 2. person: eleverne forsvarer standpunkter over for hinanden i dilemmaer, der trækker på romanens univers og deres egen erfaringsverden. Der er ikke et rigtigt svar; der er et rum, hvor elevens etiske intuitioner har faglig gyldighed. Læreren cirkulerer som facilitator, ikke dommer, og afbryder ikke autentiske samtaler. Spillet findes som selvstændigt forløb med egen genealogi og et empirisk fund om deltagelsestærskler.",
+        "varighed": "Midtvejs; to spilrunder med et par ugers mellemrum",
+        "elevmaal": [
+          "ytre dit eget standpunkt om et svært etisk dilemma",
+          "lytte til den andens argument og svare på det, ikke bare vente på din tur",
+          "argumentere med begrundelser, ikke bare mening"
+        ],
+        "elevtekst": "Nu spiller I dilemmaspillet. Du trækker et kort med en situation og skal tage stilling. Ikke som en karakter. Som dig selv. Din makker tager stilling fra sin vinkel. I skal overbevise hinanden, eller i det mindste forstå hinandens synspunkt.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Den svære samtale spilles i den romanforankrede version"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Standpunktskift på signal"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Uformel landing uden eksponering af enkeltytringer"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Træk et kort",
+            "beskrivelse": "Læs situationen. Tag stilling: hvad ville du gøre, og hvorfor?"
+          },
+          {
+            "titel": "Argumentér dialogisk",
+            "beskrivelse": "Reagér på det din makker sagde. Hvad er du uenig i? Hvad forstår du, selvom du er uenig?"
+          },
+          {
+            "titel": "Ny runde",
+            "beskrivelse": "Nyt kort, ny makker. Holdene skifter. Reglerne er de samme."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "almind",
+            "titel": "Spillet har sit eget liv",
+            "tekst": "Dilemmaspillet er udskilt som selvstændigt forløb, Den svære samtale, med tre versioner og et empirisk fund fra første til anden version: sproglig bearbejdning sænkede deltagelsestærsklen, men mønstret i hvem der argumenterer strategisk, holdt. Fork spillet derfra, og læs de to versioners diff; det er platformens tydeligste eksempel på, hvad en fork kan vise."
+          },
+          {
+            "type": "valg",
+            "titel": "Erfaringsnær vinkling er et valg med en pris",
+            "tekst": "Eleverne taler som sig selv, ikke som romanens karakterer. Det giver tilgængelighed, men lader den sociale eksponering stå; derfor vender metafasen aldrig direkte tilbage til spillets ytringer. Vælger du fuld fiktionsbeskyttelse i stedet, får du mere social frihed men skal kunne holde klassen i karakterperspektivet."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "regel",
+            "titel": "Regler for dilemmaspillet",
+            "tekst": "Du taler i eget navn: jeg ville, ikke man burde. Du lytter når din makker taler, ikke bare venter. Du kan skifte mening hvis du bliver overbevist, det er ikke svaghed, det er at lytte rigtigt. Du skal have et argument: jeg ved det ikke er ikke nok."
+          },
+          {
+            "type": "tip",
+            "titel": "Stærke argumenter",
+            "tekst": "Et stærkt argument er ikke bare din mening, det er din mening plus en begrundelse. Jeg ville gøre X fordi Y. Endnu stærkere: jeg forstår godt at du mener Z, men jeg mener stadig X fordi..."
+          }
+        ]
+      },
+      {
+        "titel": "Metafase",
+        "beskrivelse": "3. person via omvej: en filosofisk tekst om ondskabens banalitet og den tavse midte navngiver strukturen via filosofi og fiktion, aldrig direkte tilbage til det, der skete i spillet. Begreberne sættes på noget, eleverne allerede har erfaret: i spillet, i romanen, i klassen. En anonym seddel giver alle adgang til refleksionslaget uanset fagligt niveau og social position, og en troværdig undskyldning skrives in-character som produktiv fastholdelse: det etiske vokabular skal bruges, ikke blot genkendes.",
+        "varighed": "Sidste uge; to lektioner og en skriveøvelse",
+        "elevmaal": [
+          "forklare hvad ondskabens banalitet og tavs midte betyder, med et eksempel",
+          "skrive en troværdig undskyldning i en romankarakters navn",
+          "forholde dig til en andens undskyldning som den skadelidte i fiktionen"
+        ],
+        "elevtekst": "Nu bevæger vi os ud af romanen, men vi tager det vi har lært med. Filosoffen Hannah Arendt har navngivet noget vigtigt om hvordan ondskab fungerer. Til sidst skriver du, som en karakter fra romanen.",
+        "aktiviteter": [
+          {
+            "titel": "",
+            "beskrivelse": "Arendt-tekst i uddrag: ondskabens banalitet, tavs midte, tankestop"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Anonym seddel: hvad så du i spillet, som ingen sagde højt?"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Troværdig undskyldning skrives in-character"
+          },
+          {
+            "titel": "",
+            "beskrivelse": "Fælles kort: hvad gør en uenighed god?"
+          }
+        ],
+        "elevaktiviteter": [
+          {
+            "titel": "Begrebsforankring",
+            "beskrivelse": "Vi introducerer tre begreber: ondskabens banalitet, tavs midte og tankestop. De skrives på tavlen og er der hele lektionen."
+          },
+          {
+            "titel": "Hjørneøvelsen",
+            "beskrivelse": "Læreren læser en situation fra romanen op. Du går fysisk til et hjørne: ja, nej, ikke sikker. Du behøver ikke forklare dig med det samme."
+          },
+          {
+            "titel": "Gruppearbejde",
+            "beskrivelse": "I grupper arbejder I med citater fra romanen og en tekst om Arendt og Danmark i dag. Brug skabelonen læreren giver jer."
+          },
+          {
+            "titel": "Anonym seddel",
+            "beskrivelse": "Skriv anonymt svar på ét spørgsmål du selv vælger. Læreren samler dem og læser nogle op."
+          },
+          {
+            "titel": "Den troværdige undskyldning",
+            "beskrivelse": "Vælg en karakter fra romanen. Skriv en undskyldning i karakterens navn til den der blev skadet."
+          }
+        ],
+        "callouts": [
+          {
+            "type": "valg",
+            "titel": "Hvorfor aldrig direkte tilbage?",
+            "tekst": "3. personsrefleksionen virker kun, fordi den ikke vender tilbage til spillets konkrete ytringer. Ingen skal stå til regnskab for at have ytret sig i eget navn; filosofien og fiktionen er omvejen, der gør refleksionen mulig uden at lukke rummet."
+          },
+          {
+            "type": "dramaturgi",
+            "titel": "Feltlæsning, ikke brandslukning",
+            "tekst": "Det filosofiske lag designes ud fra en længerevarende læsning af klassens sociale mønstre, ikke som reaktion på en konkret episode. Læreren der kan se strukturen i feltet, før den eksploderer, og designe undervisning der spejler den tilbage i mærket form, underviser responsivt i stedet for reaktivt."
+          },
+          {
+            "type": "obs",
+            "titel": "Subjektifikation kan ikke garanteres",
+            "tekst": "Fundet fra spillets to versioner viser det præcist: sproglig bearbejdning sænker deltagelsestærsklen, men autonomitærsklen holdt. Det sociale felt producerer stadig konformitet, nu blot på hverdagsdansk. Forvent ikke at alle når dertil; byg rummet alligevel, og giv eleverne sproget for strukturen. Det kan de bruge næste gang, de står i en situation, der kræver etisk mod."
+          }
+        ],
+        "elevbokse": [
+          {
+            "type": "tip",
+            "titel": "Ikke sikker er et gyldigt svar",
+            "tekst": "Dilemmaerne er svære med vilje. Ikke sikker betyder at du tænker, ikke at du ikke orker. Det er faktisk det modigste svar nogle gange."
+          },
+          {
+            "type": "opgave",
+            "titel": "Troværdig undskyldning",
+            "tekst": "En troværdig undskyldning indeholder tre ting: du tager ansvar og siger hvad du gjorde forkert, du viser at du forstår hvad det gjorde ved den anden, du lover noget konkret og undgår men. Skriv som karakteren, ikke som dig selv."
+          }
+        ]
+      }
+    ],
+    "materialer": [
+      {
+        "titel": "Djævelens lærling (e-bog)",
+        "type": "E-bog",
+        "faust": "CFUEBOG1100877",
+        "url": "https://mitcfu.dk/MaterialeInfo/?faust=CFUEBOG1100877",
+        "note": "Kenneth Bøgh Andersen. Forløbets etiske referencepunkt; findes også som lydbog (CFULYD1128318) til elever med afkodningsvanskeligheder.",
+        "materialetype": "tekster_i_undervisning",
+        "didaktisering": "Romanen er ikke skrevet til undervisning. Quiz-buen, universkortet og dilemmakortenes romanforankring er didaktiseringen; skifter du roman, skal dens etiske univers kunne bære dilemmaer, hvor ingen er rent god eller rent ond."
+      },
+      {
+        "titel": "Den svære samtale (originalside, EMU)",
+        "type": "Kilde",
+        "faust": null,
+        "url": "https://emu.dk/grundskole/demokrati-og-faellesskaber/kontroversielle-emner/den-svaere-samtale",
+        "note": "CC BY-NC-SA 4.0. Originalen; forløbet bruger den redidaktiserede version, se det selvstændige Den svære samtale-forløb med genealogi her på platformen.",
+        "materialetype": "undervisningstekster",
+        "didaktisering": "Originalen har lav dækningsgrad i forhold til netop dette fiktionsunivers og denne type klasse; redidaktiseringen (indholdsmæssig og siden sproglig) er lærerens faglige opgave, ikke en nødudgang."
+      }
+    ],
+    "refleksioner": [
+      {
+        "kilde": "Anslag",
+        "tekst": "Fiktionen ses ukommenteret som sanselig begivenhed: det etiske felt skal mærkes, før et eneste begreb introduceres."
+      },
+      {
+        "kilde": "Didaktisering",
+        "tekst": "Forløbets filosofiske lag (Arendt-teksten) og film-anslaget er semantiske ressourcer, der skal vælges til din klasse: anslagsfiktionen efter det omvendte fremmedhedsprincip, den filosofiske tekst efter din feltlæsning af klassens sociale mønstre."
+      }
+    ]
+  }
+]
