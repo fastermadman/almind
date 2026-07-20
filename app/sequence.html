@@ -15,17 +15,17 @@
 
   <main>
   <div class="detalje-hoved">
-    <div class="kort-tags" id="tags"></div>
-    <h1 id="titel"></h1>
-    <div class="undertitel" id="undertitel"></div>
-    <div class="metadata" id="meta"></div>
-    <p class="metadata" id="demo-note" hidden></p>
     <div class="hero-handlinger">
       <a class="knap fag" id="fork-knap" href="#">Fork dette forløb</a>
       <a class="knap sekundaer" id="preview-knap" href="#">Se som dokument</a>
       <button class="knap sekundaer" id="del-knap" type="button">Del med eleverne</button>
     </div>
     <p class="metadata hero-mikroforklaring">At forke betyder: lav din egen version af forløbet, med automatisk kredit til originalen.</p>
+    <div class="kort-tags" id="tags"></div>
+    <h1 id="titel"></h1>
+    <div class="undertitel" id="undertitel"></div>
+    <div class="metadata" id="meta"></div>
+    <p class="metadata" id="demo-note" hidden></p>
   </div>
 
   <!-- #51: elev.html-link + evt. fase-anker + QR, klient-side (ingen API-kald, ingen tracking) -->
@@ -45,7 +45,9 @@
     </form>
   </dialog>
 
-  <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
+  <div class="to-kolonner ek-raekke">
+    <section id="eksemplarisk-centrum" class="eksemplarisk-centrum" hidden></section>
+  </div>
 
   <div class="to-kolonner">
     <div>

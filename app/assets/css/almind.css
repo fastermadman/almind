@@ -42,6 +42,14 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--border);
   min-height: 96px; /* reserverer højde: sitehoved.js renderer først når JS kører (navigation-plan §1) */
 }
+/* index.html har fuld-bleed hero-sektioner uden for .container (se .omslag),
+   så headeren kan ikke ligge i den samme container som resten af siden uden
+   at knække full-bleed'en. Men en .container der KUN pakker headeren ind
+   giver sticky en containing block der er lige så lav som headeren selv —
+   den stopper med at klæbe efter få pixels scroll. .site-header-full lægger
+   containerens bredde/padding direkte på headeren og lader den sidde som
+   direkte barn af <body> (fuld sidehøjde = korrekt sticky-opførsel). */
+.site-header-full { max-width: 1200px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
 /* Læsefremskridt: vokser over samme linje som border-bottom ovenfor */
 .laesefremskridt {
   position: absolute; left: 0; bottom: 0; height: 2px; width: 0%;
@@ -488,9 +496,13 @@ img, svg { display: block; max-width: 100%; }
 .detalje-hoved .metadata { margin-bottom: 1.4rem; }
 
 /* E.6: eksemplarisk_centrum — obligatorisk Klafki-felt, fik ingen læser-side
-   forbruger før slutaudittet. Rammesættende, derfor over to-kolonner, ikke i et panel. */
+   forbruger før slutaudittet. Rammesættende, derfor over to-kolonner, ikke i et panel.
+   .ek-raekke genbruger .to-kolonners grid (kun venstre kolonne udfyldt) så
+   boksen får præcis samme bredde som panelerne nedenunder, ikke sin egen faste 760px. */
+.ek-raekke { margin-bottom: 0; }
+.ek-raekke:has(#eksemplarisk-centrum[hidden]) { display: none; }
 .eksemplarisk-centrum {
-  max-width: 760px; margin: 0 0 2rem; padding: 1.2rem 1.4rem;
+  margin: 0 0 2rem; padding: 1.2rem 1.4rem;
   border-left: 3px solid var(--fagfarve, var(--accent));
   background: var(--surface); border-radius: 0 var(--r-modal) var(--r-modal) 0;
 }
@@ -637,8 +649,11 @@ img, svg { display: block; max-width: 100%; }
   display: block; font-family: var(--font-ui); text-transform: uppercase;
   letter-spacing: 0.08em; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;
 }
-.forloeb-oversigt ol { list-style: decimal; margin: 0; padding-left: 1.2rem; }
-.forloeb-oversigt li { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.3rem; }
+.forloeb-oversigt ol {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.3rem 1.5rem;
+}
+.forloeb-oversigt li { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
 .forloeb-oversigt a { color: var(--ink); text-decoration: none; }
 .forloeb-oversigt a:hover { text-decoration: underline; }
 
