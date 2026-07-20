@@ -2,7 +2,7 @@
 // renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
 
 const CALLOUT_TITLER = {
@@ -107,6 +107,32 @@ export function renderFaseIndhold(fase, tilstand = "laerer") {
   return frag;
 }
 
+// Forløbsoversigt: fase → titel → varighed, ét overblik før detaljerne.
+// Delt mellem dokument.js's egen render (preview/print) og sequence.html,
+// samme mønster som renderFaseIndhold — ingen ny CSS, genbruger
+// fase-varighed-badge. Vises kun ved 2+ faser (ved 1 fase er overblikket
+// selve siden). Samme skelet i begge tilstande (titel+varighed er delt,
+// jf. elevmateriale-arkitektur-plan.md §2) — kun overskriften varierer.
+export function renderForloebsoversigt(faser, tilstand = "laerer") {
+  if (!faser?.length || faser.length < 2) return null;
+  const wrap = document.createElement("nav");
+  wrap.className = "forloeb-oversigt";
+  wrap.setAttribute("aria-label", "Forløbsoversigt");
+  wrap.appendChild(tekstEl("span", "forloeb-oversigt-titel", "Forløbet i overblik"));
+  const ol = document.createElement("ol");
+  faser.forEach((fase, i) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = `#fase-${i + 1}`;
+    a.textContent = fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`;
+    li.appendChild(a);
+    if (fase.varighed) li.appendChild(tekstEl("span", "fase-varighed-badge", fase.varighed));
+    ol.appendChild(li);
+  });
+  wrap.appendChild(ol);
+  return wrap;
+}
+
 function dgPrikker(status) {
   if (status === "fuld") return `<span class="p-fuld">&#9679;&#9679;&#9679;</span>`;
   if (status === "delvis") return `<span class="p-delvis">&#9679;&#9679;</span><span class="p-tom">&#9675;</span>`;
@@ -142,7 +168,46 @@ function materialeListe(materialer, tilstand) {
   return ul;
 }
 
-export function renderDokument(f, tilstand = "laerer") {
+// #113/§8.1-opfølgning: eksemplarisk_centrum, fravalg, didaktisk_position og
+// fagplan_ref havde ingen print/preview-forbruger — kun sequence.html's E.6-
+// paneler viste dem. renderDokument er derfor async (fagplan-koblingen slår
+// fagfilen op for indholdsområde- og målnavne, samme kilde som sequence.html).
+function ekAfsnit(label, tekst) {
+  const p = document.createElement("p");
+  p.appendChild(tekstEl("span", "ek-label", label));
+  p.appendChild(document.createTextNode(tekst));
+  return p;
+}
+
+// #113/§8.1: fagplan-kobling — indholdsområdenavne + de valgte måls fulde tekst,
+// slået op i fagfilen. Delt mellem dokument.js og sequence.html (samme mønster
+// som renderFaseIndhold/renderForloebsoversigt), så begge flader viser samme
+// kobling. Returnerer null hvis intet er koblet, eller fagfilen ikke kan hentes.
+export async function renderFagplanKobling(f) {
+  if (!f.fagplan_ref?.indholdsomraader?.length) return null;
+  const fagFil = await hentFag(f.fag).catch(() => null);
+  if (!fagFil?.indholdsomraader) return null;
+  const wrap = document.createElement("div");
+  wrap.appendChild(tekstEl("p", "under", `${fagFil.navn} · fagplan ${f.fagplan_ref.version || fagFil.fagplan_version}`));
+  const ul = document.createElement("ul");
+  f.fagplan_ref.indholdsomraader.forEach((id) => {
+    const omr = fagFil.indholdsomraader.find((o) => o.id === id);
+    if (!omr) return;
+    const li = document.createElement("li");
+    li.appendChild(tekstEl("strong", null, omr.navn));
+    const maal = (omr.maal || []).filter((m) => f.fagplan_ref.maal?.includes(m.id));
+    if (maal.length) {
+      const maalUl = document.createElement("ul");
+      maal.forEach((m) => maalUl.appendChild(tekstEl("li", null, m.sigte)));
+      li.appendChild(maalUl);
+    }
+    ul.appendChild(li);
+  });
+  wrap.appendChild(ul);
+  return wrap;
+}
+
+export async function renderDokument(f, tilstand = "laerer") {
   const ark = document.createElement("article");
   ark.className = "ark" + (tilstand === "elev" ? " elev" : "");
   ark.dataset.fag = familieFor(f.fag);
@@ -182,6 +247,24 @@ export function renderDokument(f, tilstand = "laerer") {
   if (tilstand === "elev" && elevHarIndhold && f.elevintro) {
     f.elevintro.split(/\n\n+/).filter((s) => s.trim())
       .forEach((afsnit) => ark.appendChild(tekstEl("p", null, afsnit)));
+  }
+
+  // Eksemplarisk centrum: lærer-tilstand kun — "det konkrete/det almene" er
+  // Klafki-teorivokabular (Design Principle 4), ikke elevrettet. sequence.html
+  // er altid lærersiden (elev.html er en helt separat side), så placeringen
+  // (før faser) matcher stadig — kun tilstandsfilteret var forkert.
+  if (tilstand === "laerer" && (f.eksemplarisk_centrum?.konkret || f.eksemplarisk_centrum?.alment)) {
+    ark.appendChild(tekstEl("h2", null, "Eksemplarisk centrum"));
+    if (f.eksemplarisk_centrum.konkret) ark.appendChild(ekAfsnit("Det konkrete", f.eksemplarisk_centrum.konkret));
+    if (f.eksemplarisk_centrum.alment) ark.appendChild(ekAfsnit("Det almene", f.eksemplarisk_centrum.alment));
+  }
+
+  // Forløbsoversigt: roadmap lige før faserne, i begge tilstande (skelettet
+  // er delt — se elevmateriale-arkitektur-plan.md §2/§8.3).
+  const oversigtVis = tilstand === "elev" ? elevHarIndhold : true;
+  if (oversigtVis) {
+    const oversigt = renderForloebsoversigt(f.faser, tilstand);
+    if (oversigt) ark.appendChild(oversigt);
   }
 
   // Maskinlæsbar profil fra wizard-tags (binder forløb sammen og gør dem søgbare)
@@ -226,6 +309,37 @@ export function renderDokument(f, tilstand = "laerer") {
     if (fase.varighed) ark.appendChild(tekstEl("div", "fase-varighed-badge", fase.varighed));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
+
+  // Kolofon-udvidelser: fravalg, position, fagplan-kobling. Kun lærer-tilstand
+  // (teorivokabular er forfattersprog, Design Principle 4) — placeret her, EFTER
+  // faser, jf. Design Principle 1 ("dækningsgrad, fravalg ... er kolofon, ikke
+  // forside"): på sequence.html bor de i aside-panelerne ved siden af faserne;
+  // i det lineære dokument bliver "ved siden af" til "bagest".
+  if (tilstand === "laerer" && f.fravalg?.length) {
+    ark.appendChild(tekstEl("h2", null, "Bevidste fravalg"));
+    const ul = document.createElement("ul");
+    f.fravalg.forEach((fv) => {
+      const li = document.createElement("li");
+      li.appendChild(tekstEl("strong", null, fv.hvad));
+      li.appendChild(document.createTextNode(" " + fv.hvorfor));
+      ul.appendChild(li);
+    });
+    ark.appendChild(ul);
+  }
+
+  if (tilstand === "laerer" && (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn)) {
+    ark.appendChild(tekstEl("h2", null, "Forfatterens position"));
+    if (f.didaktisk_position.fagsyn) ark.appendChild(ekAfsnit("Fagsyn", f.didaktisk_position.fagsyn));
+    if (f.didaktisk_position.laeringssyn) ark.appendChild(ekAfsnit("Læringssyn", f.didaktisk_position.laeringssyn));
+  }
+
+  if (tilstand === "laerer" && f.fagplan_ref?.indholdsomraader?.length) {
+    const kobling = await renderFagplanKobling(f);
+    if (kobling) {
+      ark.appendChild(tekstEl("h2", null, "Fagplan-kobling"));
+      ark.appendChild(kobling);
+    }
+  }
 
   // Wizard-refleksioner (kladder): lærerens egne svar som valg-callouts
   if (tilstand === "laerer" && f.refleksioner?.length) {

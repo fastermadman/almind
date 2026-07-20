@@ -30,7 +30,7 @@
   document.documentElement.dataset.fag = familieFor(forloeb.fag);
 
   const hoved = document.createElement("main");
-  hoved.appendChild(renderDokument(forloeb, tilstand));
+  hoved.appendChild(await renderDokument(forloeb, tilstand));
   document.body.appendChild(hoved);
 
   // Paged.js chunker ud fra målte linjehøjder: fontene skal være færdige FØR paginering,

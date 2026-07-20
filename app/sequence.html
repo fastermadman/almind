@@ -49,6 +49,7 @@
 
   <div class="to-kolonner">
     <div>
+      <div id="forloeb-oversigt-slot"></div>
       <section id="faser" aria-label="Forløbets faser"></section>
 
       <div class="fork-afslutning">
@@ -89,6 +90,12 @@
         <div id="didaktisk-profil" class="kort-tags" hidden></div>
       </section>
 
+      <section class="panel panel-mb" id="fagplan-panel" hidden>
+        <h2>Fagplan-kobling</h2>
+        <p class="panel-underlinje">Forløbet optræder på disse indholdsområders dækningskort i fagets fagplan.</p>
+        <div id="fagplan-kobling"></div>
+      </section>
+
       <section class="panel" id="materialer-panel" hidden>
         <h2>Materialer</h2>
         <ul class="materiale-liste" id="materialer"></ul>
@@ -120,7 +127,7 @@
   import { dgProfil, pladsFold, omfangTekst, dgPrikker } from "./assets/js/komponenter.js";
   import { medietype, medieElement, renseUrl } from "./assets/js/medie.js";
   import { gemKnap } from "./assets/js/samling.js";
-  import { renderFaseIndhold } from "./assets/js/dokument.js";
+  import { renderFaseIndhold, renderForloebsoversigt, renderFagplanKobling } from "./assets/js/dokument.js";
   import { observe } from "./assets/js/motion.js";
 
   sitehoved(document.querySelector(".site-header"));
@@ -358,6 +365,13 @@
     }
   }
 
+  // #113/§8.1: fagplan-mål-kobling — samme funktion som print/preview.
+  const fagplanKobling = await renderFagplanKobling(f);
+  if (fagplanKobling) {
+    document.getElementById("fagplan-panel").hidden = false;
+    document.getElementById("fagplan-kobling").appendChild(fagplanKobling);
+  }
+
   // Genealogi
   if (k.length > 1) {
     document.getElementById("vtrae").appendChild(vertikaltTrae(k, f.id));
@@ -543,6 +557,11 @@
 
   // Faser — samme fase-indhold (tekst, aktiviteter, callouts) som "se som
   // dokument" via renderFaseIndhold(), kun ramme/chrome er forskellig.
+  // #113/§8.3-opfølgning: samme forløbsoversigt-funktion som print/preview
+  // (dokument.js) — delt, så de to aldrig kan drifte fra hinanden.
+  const oversigt = renderForloebsoversigt(f.faser, "laerer");
+  if (oversigt) document.getElementById("forloeb-oversigt-slot").appendChild(oversigt);
+
   const faserEl = document.getElementById("faser");
   (f.faser || []).forEach((fase, i) => {
     const sek = document.createElement("section");

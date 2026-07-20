@@ -63,9 +63,9 @@
   let tilstand = params.get("tilstand") === "elev" ? "elev" : "laerer";
   const rod = document.getElementById("dokument-rod");
 
-  function tegn() {
+  async function tegn() {
     rod.innerHTML = "";
-    const ark = renderDokument(forloeb, tilstand);
+    const ark = await renderDokument(forloeb, tilstand);
     ark.dataset.fag = egetFag;
     rod.appendChild(ark);
   }

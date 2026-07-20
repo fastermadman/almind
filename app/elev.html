@@ -58,7 +58,7 @@
   } else {
     document.title = `${forloeb.titel} · Elevmateriale · Almind`;
     document.getElementById("side").dataset.fag = familieFor(forloeb.fag);
-    rod.appendChild(renderDokument(forloeb, "elev"));
+    rod.appendChild(await renderDokument(forloeb, "elev"));
     // #51: indholdet bygges async, så browserens native fragment-scroll (som
     // kun kører ved første parsing) rammer ikke — hent selv, når ankeret findes.
     if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
