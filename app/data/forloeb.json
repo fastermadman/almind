@@ -1,7 +1,7 @@
 [
   {
     "id": "dss-v0",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Den Svære Samtale",
     "undertitel": "Dilemmaspil om demokratisk samtale",
     "forfatter": "Demokrati Under Udvikling",
@@ -74,7 +74,8 @@
             "beskrivelse": "Holdning markeres og kan justeres undervejs"
           }
         ],
-        "varighed": "ca. 40 min"
+        "minutter_min": 40,
+        "minutter_max": 40
       },
       {
         "titel": "Opsamling",
@@ -132,7 +133,7 @@
   },
   {
     "id": "dss-v1",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Den Svære Samtale",
     "undertitel": "Redidaktiseret til 8.D",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -289,7 +290,7 @@
   },
   {
     "id": "dss-v2",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Den Svære Samtale",
     "undertitel": "Sprogligt bearbejdet version",
     "forfatter": "Lukas Vestergaard",
@@ -406,7 +407,7 @@
   },
   {
     "id": "tema1-mundtlighed",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Mundtlighed: fra stemthed til etisk samtale",
     "undertitel": "Tema 1 · Djævelens lærling og Den svære samtale",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -520,7 +521,7 @@
       {
         "titel": "Stemthed",
         "beskrivelse": "Anslaget er en sanselig begivenhed: en fiktion ses ukommenteret, og det etiske felt åbnes æstetisk, inden et eneste begreb introduceres. Fiktionen vælges efter det omvendte fremmedhedsprincip: ikke fremmed nok til at kræve ny orientering, men genkendelig nok til at det etiske rammer. Spændingen løses ikke; den holdes åben og bæres videre. En genreplanche varsler, hvor forløbet skal hen, uden at forklare det.",
-        "varighed": "Uge 1",
+        "afvikling": "Uge 1",
         "elevmaal": [
           "navngive eksempler på godhed og ondskab fra din hverdag og fra film eller bøger du kender",
           "forklare hvad fantasy-genren er, og hvad du forventer af den",
@@ -587,7 +588,7 @@
       {
         "titel": "Tekståbner",
         "beskrivelse": "Romanuniverset bygges lag på lag i en håndværksmæssig til analytisk progression: en spilbaseret quiz-bue i seks trin øver først genkendelse (hvem er hvem, hvad sker der) og bevæger sig mod begrebslig kategorisering. Begrundelsen er litteraturdidaktisk: fordoblingskompetencen forudsætter sikker orientering i realplanet. Elever der bruger kognitiv energi på at huske, hvem der er hvem, kan ikke løfte blikket til det symbolske. Højtlæsning og valgfrihed mellem læsning og lydbog sænker adgangstærsklen.",
-        "varighed": "Løbende gennem hele forløbet",
+        "afvikling": "Løbende gennem hele forløbet",
         "elevmaal": [
           "genkende og huske de vigtigste karakterer, relationer og begivenheder i romanen",
           "forklare hvad centrale temaer og symboler i romanen handler om",
@@ -641,7 +642,7 @@
       {
         "titel": "Dilemmaspil",
         "beskrivelse": "Kommunikativ-produktiv virksomhed i 1. og 2. person: eleverne forsvarer standpunkter over for hinanden i dilemmaer, der trækker på romanens univers og deres egen erfaringsverden. Der er ikke et rigtigt svar; der er et rum, hvor elevens etiske intuitioner har faglig gyldighed. Læreren cirkulerer som facilitator, ikke dommer, og afbryder ikke autentiske samtaler. Spillet findes som selvstændigt forløb med egen genealogi og et empirisk fund om deltagelsestærskler.",
-        "varighed": "Midtvejs; to spilrunder med et par ugers mellemrum",
+        "afvikling": "Midtvejs; to spilrunder med et par ugers mellemrum",
         "elevmaal": [
           "ytre dit eget standpunkt om et svært etisk dilemma",
           "lytte til den andens argument og svare på det, ikke bare vente på din tur",
@@ -704,7 +705,9 @@
       {
         "titel": "Metafase",
         "beskrivelse": "3. person via omvej: en filosofisk tekst om ondskabens banalitet og den tavse midte navngiver strukturen via filosofi og fiktion, aldrig direkte tilbage til det, der skete i spillet. Begreberne sættes på noget, eleverne allerede har erfaret: i spillet, i romanen, i klassen. En anonym seddel giver alle adgang til refleksionslaget uanset fagligt niveau og social position, og en troværdig undskyldning skrives in-character som produktiv fastholdelse: det etiske vokabular skal bruges, ikke blot genkendes.",
-        "varighed": "Sidste uge; to lektioner og en skriveøvelse",
+        "minutter_min": 90,
+        "minutter_max": 135,
+        "afvikling": "Sidste uge",
         "elevmaal": [
           "forklare hvad ondskabens banalitet og tavs midte betyder, med et eksempel",
           "skrive en troværdig undskyldning i en romankarakters navn",
@@ -815,7 +818,7 @@
   },
   {
     "id": "tema2-laesning",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Læsning med fordobling: Djævelens lærling og fortolkningsfællesskabet",
     "undertitel": "Fra realplan til billedplan, og videre til tekstkritikeren",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -824,8 +827,7 @@
     "fag": "dansk",
     "klassetrin": "8. klasse",
     "omfang": {
-      "type": "forloeb",
-      "lektioner": 4
+      "type": "forloeb"
     },
     "eksemplarisk_centrum": {
       "konkret": "Kapitel 9 af Kenneth Bøgh Andersens Djævelens lærling: Filip fastspændt i den elektriske stol med flammerne foran sig. En scene hvor realplan og billedplan er foldet så tæt ind i hinanden, at teksten selv presser fortolkningen frem; læreren behøver ikke tvinge billedplanet ud.",
@@ -929,7 +931,9 @@
       {
         "titel": "Anslag: smag på ord",
         "beskrivelse": "Forestillingsevnen genaktiveres inden nogen model introduceres. Eleverne smager på fem ord fra kapitlet uden kontekst, læser romanens forside som paratekst og hører anslagsscenen læst højt. Fasen slutter med ét autentisk spørgsmål, som ingen kender svaret på: hvad tænker Filip i stolen? Svaret skrives privat, som tænkeskrivning uden modtager.",
-        "varighed": "Dag 1",
+        "minutter_min": 45,
+        "minutter_max": 45,
+        "afvikling": "Dag 1",
         "elevmaal": [
           "aktivere din forestillingsevne før du læser teksten",
           "formulere en første, personlig forestilling om Filip og hans situation",
@@ -995,7 +999,9 @@
       {
         "titel": "Modellering: læreren tænker højt",
         "beskrivelse": "Forløbets kerne. Ordsprog åbner distinktionen; eleverne ved allerede hvad det vil sige at male fanden på væggen, så realplan/billedplan er et navn på noget de kan. Derefter modellerer læreren bevægelsen på kapitlets første scene: tænker højt, deler tvivl, reviderer, og slutter med et ægte spørgsmål: hvad ser I? Eleverne prøver selv næste scene med modelleringsarkets to kolonner som stillads. Modellering er demonstration af en tænkepraksis, ikke instruktion i en metode.",
-        "varighed": "Dag 2",
+        "minutter_min": 45,
+        "minutter_max": 45,
+        "afvikling": "Dag 2",
         "elevmaal": [
           "skelne mellem hvad en tekst siger direkte, og hvad den betyder",
           "formulere en fortolkning med belæg i teksten",
@@ -1062,7 +1068,9 @@
       {
         "titel": "De Fantastiske 4: eleverne overtager",
         "beskrivelse": "Fire roller driver gruppelæsningen af de scener der ikke blev modelleret: oplæseren giver alle adgang til realplanet, orddetektiven går tekstnært, Spørge-Jørgen stiller åbne spørgsmål til billedplanet, referenten samler gruppens fortolkning. Ingen rolle er evaluerende, ingen ejer det rigtige svar; rollerne roterer efter hvert afsnit. Plenumdelingen struktureres med suppleringer og modstand, og der konkluderes ikke.",
-        "varighed": "Dag 3",
+        "minutter_min": 45,
+        "minutter_max": 45,
+        "afvikling": "Dag 3",
         "elevmaal": [
           "bidrage til en fælles fortolkning fra en tildelt rolle",
           "give respons der peger på noget konkret i teksten",
@@ -1133,7 +1141,9 @@
       {
         "titel": "Tekstkritikeren: skiftet markeres",
         "beskrivelse": "En autentisk nyhedsartikel om et ungt menneskes død lægges ved siden af romanen, og skiftet siges højt: nu læser vi efferent, ikke æstetisk. De fire læserpositioner sættes på det eleverne allerede har gjort, og tre spørgsmål bestiges i rækkefølge: hvad siger artiklen, hvad siger den ikke, hvilken person konstruerer den, og hvem bestemmer det? Eleverne tager stilling i eget navn, og metasamtalen tester om begreberne sidder: hvad giver læsning med fordobling dig som læser, ikke som elev?",
-        "varighed": "Dag 4",
+        "minutter_min": 45,
+        "minutter_max": 45,
+        "afvikling": "Dag 4",
         "elevmaal": [
           "vide om du læser for at opleve eller for at tjekke fakta, og at det er et valg",
           "finde ud af hvem der taler i en nyhedsartikel, og hvem der ikke bliver hørt",
@@ -1239,7 +1249,7 @@
   },
   {
     "id": "tema3-skrivning",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Skrivning i lag: dagbog, undskyldning og brevene der aldrig nåede frem",
     "undertitel": "Tema 3 · Troldenes tid",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -1348,7 +1358,7 @@
       {
         "titel": "Dagbogen i skoven",
         "beskrivelse": "Forløbets anslag er en begivenhed, ikke en introduktion: klassen sidder spredt under træerne, uden borde og stole, og hører raseri-scenen læst højt. Ét autentisk spørgsmål efterlades åbent: hvad tænker Jonas, når han går hjem den dag? Så finder hver elev sit sted og skriver en dagbogsside som Jonas eller Liv. Tænkeskrivning: ingen modtager, ingen retorik, højeste fiktionsbeskyttelse. Peer feedback bagefter er frivillig og følger de tre K'er: kærlig, konkret, konstruktiv.",
-        "varighed": "Dag 1 · skoven",
+        "afvikling": "Dag 1 · skoven",
         "elevmaal": [
           "skrive en dagbogsside i karakter som Jonas eller Liv",
           "bruge skoven som et rum til at mærke hvad din karakter føler",
@@ -1428,7 +1438,7 @@
       {
         "titel": "Undskyldningsbrevet",
         "beskrivelse": "Forløbets krop, i klasselokalet. Jonas skal skrive et brev til Liv, men Liv er væk; brevet kan ikke afleveres. Undskyldningen er ægte retorisk med klar afsender, modtager og formål, og samtidig umulig at fuldføre i fiktionens verden. Artefaktet Troværdig Undskyldning stilladserer genren med otte retoriske elementer, koblet først til hverdagseksempler og derefter til Jonas. Skrivning, peer feedback og revision veksler i zigzag.",
-        "varighed": "Dag 2 · klassen",
+        "afvikling": "Dag 2 · klassen",
         "elevmaal": [
           "kende de otte elementer i en troværdig undskyldning",
           "skrive et brev fra Jonas til Liv med klar stemme og formål",
@@ -1504,7 +1514,7 @@
       {
         "titel": "Brevene der aldrig nåede frem",
         "beskrivelse": "Tilbage i skoven. Jonas og Liv er adskilt af to verdener, og nu svarer Liv: eleverne parres, én skriver som Jonas, én som Liv, og brevene udveksles fysisk, foldet og lagt i hånden. Ingen ved om brevet når frem i fiktionens verden; man skriver fordi man må. Metafasen i klasselokalet samler forløbet med tre spørgsmål: hvad var sværest at skrive, hvornår var I virkelig Jonas eller Liv, og hvad lærte I om undskyldninger og om at skrive?",
-        "varighed": "Dag 3 · skoven, metafase i klassen",
+        "afvikling": "Dag 3 · skoven, metafase i klassen",
         "elevmaal": [
           "skrive en brevkorrespondance i karakter med en makker",
           "bruge det du har skrevet i fase 1 og 2 som afsæt for brevene",
@@ -1597,7 +1607,7 @@
   },
   {
     "id": "tema4-kortfilm",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Kortfilm og multimodalitet: din skolegang som kortfilm",
     "undertitel": "Tema 4 · Fra Fucking tøs til din egen film",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -1705,7 +1715,9 @@
       {
         "titel": "Anslag: filmen som begivenhed",
         "beskrivelse": "Tre sætninger fra læreren, og så afspilles filmen: uafbrudt, ukommenteret, uden opgave der konkurrerer med oplevelsen. Direkte efter skriver eleverne privat, hvad de mærker. Filmsamtalen åbner læreren med en observation, ikke et spørgsmål: 'jeg lagde mærke til at Alex aldrig siger noget direkte om Frederik.' Først derefter møder eleverne instruktørens egne ord, og fasen lukkes med et emoji-resumé: oplevelsen oversat til en anden modalitet.",
-        "varighed": "Dag 1 · ca. 50 min",
+        "minutter_min": 50,
+        "minutter_max": 50,
+        "afvikling": "Dag 1",
         "elevmaal": [
           "fortælle hvad du lagde mærke til i filmen",
           "formulere din umiddelbare reaktion på filmen",
@@ -1775,7 +1787,9 @@
       {
         "titel": "Begrebsliggørelse: to parametre, ikke syv",
         "beskrivelse": "Læreren skriver to parametre på tavlen, ikke syv: ensartethed mod overraskelse, billede mod lyd. De sættes på det eleverne allerede har mærket, og læreren modellerer med tvivl og tekstforankring: tænker højt, deler usikkerhed, slutter med 'hvad ser I?'. Makkerpar overtager de resterende parametre, og analysearkets anden kolonne stiller det disciplinerende krav: hvad i filmen får dig til at sige det? Fasen lukkes med den afgørende pointe: parametrene beskriver ikke kun gode kortfilm, de beskriver gode menneskelige fortællinger.",
-        "varighed": "Dag 2 · ca. 50 min",
+        "minutter_min": 50,
+        "minutter_max": 50,
+        "afvikling": "Dag 2",
         "elevmaal": [
           "forklare mindst to af Raskins syv parametre og vise dem i filmen",
           "skrive en analyseobservation der er forankret i en konkret scene",
@@ -1842,7 +1856,9 @@
       {
         "titel": "Vendingen: parametrene bliver designredskaber",
         "beskrivelse": "Én sætning annoncerer vendingen: I har analyseret en andens film, nu designer I jeres egen. Forproduktionsarket Din skolegang som kortfilm stiller syv menneskelige spørgsmål, der bærer Raskins parametre uden at vise dem, og slutter med tre produktionsbeslutninger: det første billede, det første seeren hører, den følelse seeren sidder tilbage med. Eleverne arbejder individuelt og i stilhed; makkerresponsen spørger til tvivlen, ikke til kvaliteten. Storyboardet eksternaliserer valgene, og her navngiver eleven for første gang selv et parameter.",
-        "varighed": "Dag 3 · ca. 55 min",
+        "minutter_min": 55,
+        "minutter_max": 55,
+        "afvikling": "Dag 3",
         "elevmaal": [
           "besvare alle syv spørgsmål i forproduktionsarket",
           "træffe tre konkrete filmiske beslutninger: første billede, første lyd, seerens slutfølelse",
@@ -1910,7 +1926,9 @@
       {
         "titel": "Produktion og peer feedback",
         "beskrivelse": "Grupper på to-tre optager råfilmen; større grupper fragmenterer de kropslige forhandlinger om kameraet, og netop de forhandlinger er multimodal meningsskabelse. Læreren siger det højt inden start: 'jeg er her, men jeg afbryder ikke', og observerer i stedet. Hver gruppe ser sin egen råoptagelse som midtvejssamtale, ikke premiere, og peer feedback på tværs struktureres af de tre K'er med Raskin som ramme. Fælles refleksion samler: hvad ved I nu om kortfilm, som I ikke vidste da I så Fucking tøs første gang?",
-        "varighed": "Dag 4-5",
+        "minutter_min": 90,
+        "minutter_max": 110,
+        "afvikling": "Dag 4-5",
         "elevmaal": [
           "optage en råoptagelse på baggrund af jeres storyboard",
           "give feedback til en anden gruppe med de tre K'er og mindst ét Raskin-parameter",
@@ -2021,7 +2039,7 @@
   },
   {
     "id": "tema5-journalistik",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Journalistik og framing: fire spørgsmål til enhver nyhedstekst",
     "undertitel": "Tema 5 · Fra krystalnatten til Khan Younis",
     "forfatter": "Valdemar Silverstein Markussen",
@@ -2443,7 +2461,7 @@
   },
   {
     "id": "broekvaerkstedet",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Brøkværkstedet: fra pizzadeling til talinje",
     "forfatter": "Mette Holm Sørensen",
     "institution": "Risskov Skole, Aarhus",
@@ -2538,7 +2556,7 @@
   },
   {
     "id": "stroem-i-huset",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Strøm i huset: kredsløb, fejlfinding og el-sikkerhed",
     "forfatter": "Anders Vestergaard",
     "institution": "Brændgårdskolen, Herning",
@@ -2633,7 +2651,7 @@
   },
   {
     "id": "aaen-bag-skolen",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Åen bag skolen: feltundersøgelse af vandløbets tilstand",
     "forfatter": "Jonas Krogh Pedersen",
     "institution": "Sejs Skole, Silkeborg",
@@ -2738,7 +2756,7 @@
   },
   {
     "id": "vejret-over-danmark",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Vejret over Danmark: målinger, data og prognoser",
     "forfatter": "Frederik Lindholm",
     "institution": "Balleskolen, Silkeborg",
@@ -2838,7 +2856,7 @@
   },
   {
     "id": "stomp-skolegaarden",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Stomp og polyrytmik: skolegårdens percussion-orkester",
     "forfatter": "Camilla Østergaard",
     "institution": "Vestre Skole, Aarhus",
@@ -2935,7 +2953,7 @@
   },
   {
     "id": "plakaten-der-raaber",
-    "schema_version": 2,
+    "schema_version": 3,
     "titel": "Plakaten der råber: protestkunst og blikfang",
     "forfatter": "Sofie Munk Jeppesen",
     "institution": "Langsøskolen, Silkeborg",

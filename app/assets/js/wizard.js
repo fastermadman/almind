@@ -840,7 +840,7 @@ export async function startWizard({ rod, prefill = {} }) {
 
     gemKladde({
       id: "kladde",
-      schema_version: 2,
+      schema_version: 3,
       titel: g.titel || "Uden titel",
       undertitel: null,
       forfatter: "Dig",

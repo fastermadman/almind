@@ -222,6 +222,19 @@ function normaliserAktiviteter(f) {
       typeof a === "string" ? { titel: "", beskrivelse: a } : a);
   });
   f.schema_version = f.schema_version || 1; // kladder fra før schema_version 2 er version 1, ikke en fejl
+  // #117/#118: varighed blandede varighed+afvikling+lektionstal i én streng —
+  // schema_version 3 splitter i minutter_min/max + afvikling. Gamle kladder
+  // (< 3) har kun varighed; den bliver til afvikling — mekanikken må ikke
+  // gætte minutter, som kun forfatteren kan skønne.
+  if (f.schema_version < 3) {
+    (f.faser || []).forEach((fase) => {
+      if (fase.varighed != null) {
+        fase.afvikling = fase.varighed;
+        delete fase.varighed;
+      }
+    });
+    f.schema_version = 3;
+  }
   return f;
 }
 

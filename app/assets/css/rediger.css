@@ -83,19 +83,24 @@
   border-bottom: 1px dashed transparent;
 }
 .fase-titel:focus { outline: none; border-bottom-color: var(--accent); }
-.fase-varighed-wrap {
+.fase-tid-wrap {
   display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;
 }
-.fase-varighed-label {
+.fase-tid-label {
   font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
   letter-spacing: 0.02em; white-space: nowrap;
 }
-.fase-varighed {
-  width: 5rem; border: 1px solid var(--border); border-radius: 6px;
+.fase-minutter {
+  width: 3.4rem; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.3rem 0.4rem; font-family: var(--font-mono); font-size: 0.78rem;
+  background: var(--surface); color: var(--muted);
+}
+.fase-afvikling {
+  width: 9rem; border: 1px solid var(--border); border-radius: 6px;
   padding: 0.3rem 0.5rem; font-family: var(--font-mono); font-size: 0.78rem;
   background: var(--surface); color: var(--muted);
 }
-.fase-varighed:focus { outline: none; border-color: var(--accent); color: var(--ink); }
+.fase-minutter:focus, .fase-afvikling:focus { outline: none; border-color: var(--accent); color: var(--ink); }
 
 .haandtag { cursor: grab; color: var(--muted); user-select: none; touch-action: none; line-height: 1; }
 .haandtag:active { cursor: grabbing; }

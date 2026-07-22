@@ -11,6 +11,43 @@ export function omfangTekst(omfang) {
   return omfang.lektioner ? `${omfang.lektioner} lektioner` : "Forløb";
 }
 
+// Beslutning fase-lektion-tidsestimat (almind-dev#117): fasens tid (minutter)
+// og dens afvikling/placering i forløbets rytme ("Dag 1", "Uge 1") er to
+// forskellige akser, aldrig lektionstal — se plans/fase-lektion-tidsestimat-beslutning.md.
+export function faseTidTekst(fase) {
+  const dele = [];
+  if (fase.minutter_min != null) {
+    dele.push(fase.minutter_min === fase.minutter_max
+      ? `ca. ${fase.minutter_min} min`
+      : `${fase.minutter_min}–${fase.minutter_max} min`);
+  }
+  if (fase.afvikling) dele.push(fase.afvikling);
+  return dele.join(" · ");
+}
+
+// Forløbstotal: kun beregnet når ALLE faser har minutter (delvis dækning er
+// vildledende, jf. beslutningen). Ellers falder den tilbage til forfatterens
+// eget omfang.lektioner-skøn, ellers viser den intet — aldrig en advarsel.
+export function forloebOmfangTekst(f, lektionslaengde) {
+  const faser = f.faser || [];
+  const fuldDaekning = faser.length > 0 && faser.every((fa) => fa.minutter_min != null);
+  if (fuldDaekning) {
+    const sumMin = faser.reduce((s, fa) => s + fa.minutter_min, 0);
+    const sumMax = faser.reduce((s, fa) => s + fa.minutter_max, 0);
+    if (sumMax < lektionslaengde) {
+      return sumMin === sumMax ? `ca. ${sumMin} min` : `${sumMin}–${sumMax} min`;
+    }
+    const lekMin = Math.floor(sumMin / lektionslaengde);
+    const lekMax = Math.ceil(sumMax / lektionslaengde);
+    const lekTekst = lekMin === lekMax ? `ca. ${lekMin} lektioner` : `ca. ${lekMin}–${lekMax} lektioner`;
+    const timerTekst = (min) => (min / 60).toFixed(1).replace(/\.0$/, "").replace(".", ",");
+    const timer = timerTekst(sumMin) === timerTekst(sumMax) ? `${timerTekst(sumMin)} timer` : `${timerTekst(sumMin)}–${timerTekst(sumMax)} timer`;
+    return `Estimeret omfang: ${lekTekst} (${timer})`;
+  }
+  if (f.omfang?.lektioner) return `${f.omfang.lektioner} lektioner (forfatterens skøn)`;
+  return "";
+}
+
 // Kortet er en <article>, ikke ét stort <a> — fag/klassetrin skal være rigtige,
 // selvstændige links (samme facet-mønster som sequence.html, issue #65-familien),
 // og nestede <a>-i-<a> er ugyldig HTML (browseren lukker den yderste for tidligt,

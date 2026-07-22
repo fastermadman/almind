@@ -4,6 +4,13 @@
 
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
+import { faseTidTekst, forloebOmfangTekst } from "./komponenter.js";
+
+const LEKTIONSLAENGDE_KEY = "almind.lektionslaengde";
+function hentLektionslaengde() {
+  const v = Number(localStorage.getItem(LEKTIONSLAENGDE_KEY));
+  return [45, 60, 90].includes(v) ? v : 45;
+}
 
 const CALLOUT_TITLER = {
   valg: "Didaktisk valg",
@@ -113,7 +120,8 @@ export function renderFaseIndhold(fase, tilstand = "laerer") {
 // fase-varighed-badge. Vises kun ved 2+ faser (ved 1 fase er overblikket
 // selve siden). Samme skelet i begge tilstande (titel+varighed er delt,
 // jf. elevmateriale-arkitektur-plan.md §2) — kun overskriften varierer.
-export function renderForloebsoversigt(faser, tilstand = "laerer") {
+export function renderForloebsoversigt(f, tilstand = "laerer") {
+  const faser = f.faser;
   if (!faser?.length || faser.length < 2) return null;
   const wrap = document.createElement("nav");
   wrap.className = "forloeb-oversigt";
@@ -126,10 +134,38 @@ export function renderForloebsoversigt(faser, tilstand = "laerer") {
     a.href = `#fase-${i + 1}`;
     a.textContent = fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`;
     li.appendChild(a);
-    if (fase.varighed) li.appendChild(tekstEl("span", "fase-varighed-badge", fase.varighed));
+    const tid = faseTidTekst(fase);
+    if (tid) li.appendChild(tekstEl("span", "fase-varighed-badge", tid));
     ol.appendChild(li);
   });
   wrap.appendChild(ol);
+
+  // Forløbstotal + lektionslængde-vælger: kun forløbsniveau, aldrig lektionstal
+  // pr. fase (se beslutning fase-lektion-tidsestimat, punkt 3).
+  const fuldDaekning = faser.every((fa) => fa.minutter_min != null);
+  const totalRaekke = document.createElement("div");
+  totalRaekke.className = "forloeb-omfang-raekke";
+  const totalEl = tekstEl("span", "forloeb-omfang-total");
+  const vaelger = document.createElement("select");
+  vaelger.className = "forloeb-lektionslaengde";
+  vaelger.setAttribute("aria-label", "Lektionslængde");
+  [45, 60, 90].forEach((min) => vaelger.appendChild(new Option(`${min} min/lektion`, min)));
+  function opdaterTotal() {
+    const L = hentLektionslaengde();
+    vaelger.value = String(L);
+    const tekst = forloebOmfangTekst(f, L);
+    totalEl.textContent = tekst;
+    totalRaekke.hidden = !tekst;
+    vaelger.hidden = !fuldDaekning;
+  }
+  vaelger.addEventListener("change", () => {
+    localStorage.setItem(LEKTIONSLAENGDE_KEY, vaelger.value);
+    opdaterTotal();
+  });
+  opdaterTotal();
+  totalRaekke.append(totalEl, vaelger);
+  wrap.appendChild(totalRaekke);
+
   return wrap;
 }
 
@@ -263,7 +299,7 @@ export async function renderDokument(f, tilstand = "laerer") {
   // er delt — se elevmateriale-arkitektur-plan.md §2/§8.3).
   const oversigtVis = tilstand === "elev" ? elevHarIndhold : true;
   if (oversigtVis) {
-    const oversigt = renderForloebsoversigt(f.faser, tilstand);
+    const oversigt = renderForloebsoversigt(f, tilstand);
     if (oversigt) ark.appendChild(oversigt);
   }
 
@@ -306,7 +342,8 @@ export async function renderDokument(f, tilstand = "laerer") {
     ark.appendChild(h2);
     // #52-opfølgning: varighed uden for h2'en med vilje — den fanges ellers med
     // i print's string-set (løbende sidehoved), som kun skal bære faseTITLEN.
-    if (fase.varighed) ark.appendChild(tekstEl("div", "fase-varighed-badge", fase.varighed));
+    const tid = faseTidTekst(fase);
+    if (tid) ark.appendChild(tekstEl("div", "fase-varighed-badge", tid));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
 

@@ -126,7 +126,7 @@
   import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval, DIMENSIONER, DIM_NAVNE } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
-  import { dgProfil, pladsFold, omfangTekst, dgPrikker } from "./assets/js/komponenter.js";
+  import { dgProfil, pladsFold, omfangTekst, dgPrikker, faseTidTekst } from "./assets/js/komponenter.js";
   import { medietype, medieElement, renseUrl } from "./assets/js/medie.js";
   import { gemKnap } from "./assets/js/samling.js";
   import { renderFaseIndhold, renderForloebsoversigt, renderFagplanKobling } from "./assets/js/dokument.js";
@@ -561,7 +561,7 @@
   // dokument" via renderFaseIndhold(), kun ramme/chrome er forskellig.
   // #113/§8.3-opfølgning: samme forløbsoversigt-funktion som print/preview
   // (dokument.js) — delt, så de to aldrig kan drifte fra hinanden.
-  const oversigt = renderForloebsoversigt(f.faser, "laerer");
+  const oversigt = renderForloebsoversigt(f, "laerer");
   if (oversigt) document.getElementById("forloeb-oversigt-slot").appendChild(oversigt);
 
   const faserEl = document.getElementById("faser");
@@ -575,10 +575,11 @@
     nr.className = "fase-nr";
     nr.textContent = `Fase ${i + 1} af ${f.faser.length}`;
     nrRaekke.appendChild(nr);
-    if (fase.varighed) {
+    const tid = faseTidTekst(fase);
+    if (tid) {
       const v = document.createElement("span");
       v.className = "fase-varighed-badge";
-      v.textContent = fase.varighed;
+      v.textContent = tid;
       nrRaekke.appendChild(v);
     }
     if (erfaringerPrFase[i]) {

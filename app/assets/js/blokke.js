@@ -35,7 +35,7 @@ const DRAG = { animation: 150, forceFallback: true, fallbackTolerance: 4 };
 
 export function nytForloeb() {
   return {
-    id: "kladde", schema_version: 2, titel: "", undertitel: null, forfatter: "Dig", institution: "Din skole",
+    id: "kladde", schema_version: 3, titel: "", undertitel: null, forfatter: "Dig", institution: "Din skole",
     aar: new Date().getFullYear(), fag: "dansk", klassetrin: "", licens: "CC BY-SA 4.0",
     omfang: null, eksemplarisk_centrum: null, fravalg: [], didaktisk_position: null,
     fagplan_ref: null, samspil: null,
@@ -417,17 +417,32 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     if (tilstand === "laerer") hoved.appendChild(haandtag());
     hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
-    // #52-opfølgning: varighed er fasens tidsafgrænsning, fritekst (ikke minutter
-    // som tal) — "10 min", "ca. 40 min", "en lektion" er alle gyldige. Vil man
-    // have flere tidsafgrænsede dele, laver man flere faser, ikke felter herinde.
-    // Label udenfor feltet, ikke kun placeholder — den blev klippet af i det
-    // smalle felt, og forsvandt helt så snart brugeren skrev noget.
-    const varighedWrap = el("span", "fase-varighed-wrap");
-    varighedWrap.append(
-      el("span", "fase-varighed-label", "Varighed"),
-      inputFelt("fase-varighed", fase.varighed, "10 min", (v) => (fase.varighed = v)),
+    // Beslutning fase-lektion-tidsestimat (almind-dev#117/#118): varighed
+    // blandede tid og afvikling i én streng — splittet i minutter (tal) og
+    // afvikling (fritekst: "Dag 1", "Uge 1", "Løbende gennem hele forløbet").
+    const tidWrap = el("span", "fase-tid-wrap");
+    const minInput = el("input", "fase-minutter");
+    minInput.type = "number"; minInput.min = "0"; minInput.placeholder = "min";
+    minInput.value = fase.minutter_min ?? "";
+    minInput.addEventListener("input", () => {
+      fase.minutter_min = minInput.value === "" ? undefined : Number(minInput.value);
+      gem();
+    });
+    const maxInput = el("input", "fase-minutter");
+    maxInput.type = "number"; maxInput.min = "0"; maxInput.placeholder = "maks";
+    maxInput.value = fase.minutter_max ?? "";
+    maxInput.addEventListener("input", () => {
+      fase.minutter_max = maxInput.value === "" ? undefined : Number(maxInput.value);
+      gem();
+    });
+    tidWrap.append(
+      el("span", "fase-tid-label", "Min."),
+      minInput,
+      el("span", "fase-tid-label", "–"),
+      maxInput,
+      inputFelt("fase-afvikling", fase.afvikling, "Dag 1 · skoven", (v) => (fase.afvikling = v)),
     );
-    hoved.appendChild(varighedWrap);
+    hoved.appendChild(tidWrap);
     if (tilstand === "laerer") {
       hoved.appendChild(sletKnap("Slet fasen", () => {
         if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
