@@ -499,7 +499,7 @@ img, svg { display: block; max-width: 100%; }
 /* S7: fork-afslutning — lav variant af .tom-tilstand, samme invitationssprog som genealogiens tomme-tilstand */
 .fork-afslutning {
   border: 2px dashed var(--border); border-radius: var(--r-kort);
-  padding: 1.5rem; margin-bottom: 2rem; text-align: center;
+  padding: 1.5rem; margin: 2rem 0; text-align: center;
 }
 .fork-afslutning p { font-family: var(--font-ui); color: var(--muted); margin-bottom: 0.9rem; }
 /* Bricolage, ikke Marauder — forløbets EGEN titel er del af "forløb som
