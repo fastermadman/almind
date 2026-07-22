@@ -3,6 +3,14 @@
    ============================================================ */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+/* Global guardrail (2026-07-22, samme session som .fase-afvikling-fixet):
+   et fast-bredt form-felt der er bredere end sin container skubber siden i
+   horisontal scroll — ramte os to gange samme dag (.fase-afvikling 12.5rem,
+   .fase-minutter-rækken). Denne regel forhindrer HELE klassen af fejl
+   fremover, uanset hvor et nyt fast-bredt felt måtte dukke op — kan aldrig
+   gøre et felt bredere end tilladt, kun smallere, så intet eksisterende
+   felt kan gå i stykker af den. */
+input, select, textarea { max-width: 100%; }
 /* dialog:modal skal centrere sig selv via browserens indbyggede margin:auto,
    men det universelle margin-reset ovenfor overskriver det (author-regler
    vinder altid over UA-stylesheet, uanset specificitet) — ramte ALLE dialoger
