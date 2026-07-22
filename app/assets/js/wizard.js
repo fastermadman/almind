@@ -155,7 +155,7 @@ export async function startWizard({ rod, prefill = {} }) {
       titel: "", fag: "dansk", klassetrin: "", beskrivelse: "",
       konkret: "", alment: "", omfangType: "forloeb", lektioner: "",
     },
-    faser: [],
+    faser: [{ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] }],
     tags: {},
     fritekst: {},
     pladser: {},
@@ -167,7 +167,7 @@ export async function startWizard({ rod, prefill = {} }) {
     },
   };
 
-  DIMENSIONER.forEach((dim) => { state.pladser[dim] = { aaben: false, besked: "" }; });
+  DIMENSIONER.forEach((dim) => { state.pladser[dim] = { status: "fuld", besked: "" }; });
 
   const fagIndex = await hentFagIndex();
 
@@ -622,32 +622,32 @@ export async function startWizard({ rod, prefill = {} }) {
     DIMENSIONER.forEach((dim) => {
       const p = state.pladser[dim];
       const boks = document.createElement("div");
-      boks.className = "dim-vaelger" + (p.aaben ? " aaben" : "");
+      boks.className = "dim-vaelger" + (p.status === "tom" ? " aaben" : "");
+      const seg = [["fuld", "Udfyldt"], ["delvis", "Delvist"], ["tom", "Åben plads"]]
+        .map(([v, navn]) => `<button type="button" data-v="${v}" aria-pressed="${p.status === v}">${navn}</button>`)
+        .join("");
       boks.innerHTML = `
         <div class="dim-hoved">
           <span class="dim-navn">${DIM_NAVNE[dim]}</span>
-          <span class="segment">
-            <button type="button" data-v="fuld" aria-pressed="${!p.aaben}">Udfyldt</button>
-            <button type="button" data-v="aaben" aria-pressed="${p.aaben}">Åben plads</button>
-          </span>
+          <span class="segment">${seg}</span>
         </div>
       `;
       const omraade = document.createElement("div");
       const tegn = () => {
         omraade.innerHTML = "";
-        if (p.aaben) {
+        if (p.status === "tom") {
           const ta = document.createElement("textarea");
           ta.placeholder = "Hvorfor lader du denne plads stå åben? Din begrundelse vises til den næste lærer.";
           ta.value = p.besked;
           ta.addEventListener("input", () => (p.besked = ta.value));
           omraade.appendChild(ta);
         }
-        boks.classList.toggle("aaben", p.aaben);
+        boks.classList.toggle("aaben", p.status === "tom");
         boks.querySelectorAll(".segment button").forEach((b) =>
-          b.setAttribute("aria-pressed", String((b.dataset.v === "aaben") === p.aaben)));
+          b.setAttribute("aria-pressed", String(b.dataset.v === p.status)));
       };
       boks.querySelectorAll(".segment button").forEach((b) =>
-        b.addEventListener("click", () => { p.aaben = b.dataset.v === "aaben"; tegn(); }));
+        b.addEventListener("click", () => { p.status = b.dataset.v; tegn(); }));
       tegn();
       boks.appendChild(omraade);
       rod.appendChild(boks);
@@ -852,11 +852,11 @@ export async function startWizard({ rod, prefill = {} }) {
   async function afslut() {
     const g = state.kerne;
     const tommePladser = DIMENSIONER
-      .filter((d) => state.pladser[d].aaben)
+      .filter((d) => state.pladser[d].status === "tom")
       .map((d) => ({ dimension: d, besked: state.pladser[d].besked || "Bevidst åben plads." }));
 
     const daekningsgrad = {};
-    DIMENSIONER.forEach((d) => { daekningsgrad[d] = state.pladser[d].aaben ? "tom" : "fuld"; });
+    DIMENSIONER.forEach((d) => { daekningsgrad[d] = state.pladser[d].status; });
 
     const refleksioner = Object.entries(state.fritekst)
       .filter(([, v]) => v && v.trim())
