@@ -124,10 +124,26 @@ export function forloebKort(f, alle) {
     badge.textContent = `${pladser} ${pladser === 1 ? "åben plads" : "åbne pladser"}`;
     bund.appendChild(badge);
   }
+  if (f.daekningsgrad) {
+    const dgStatus = daekningsgradSamlet(f);
+    const dgBadge = document.createElement("span");
+    dgBadge.className = "kort-dg";
+    dgBadge.innerHTML = `<span class="dg-prikker" role="img" aria-label="Dækningsgrad: ${STATUS_TEKST[dgStatus]}">${dgPrikker(dgStatus)}</span>`;
+    bund.appendChild(dgBadge);
+  }
 
   a.append(tags, h3, beskrivelse, meta, bund);
   a.appendChild(gemKnap(f.id));
   return a;
+}
+
+// Kortets kompakte dg-badge: ét aggregeret 3-prik-udtryk for hele forløbet
+// (fuld hvis alle 6 dimensioner er fulde, tom hvis alle er tomme, ellers delvis).
+export function daekningsgradSamlet(f) {
+  const statusser = DIMENSIONER.map((dim) => f.daekningsgrad?.[dim] || "tom");
+  if (statusser.every((s) => s === "fuld")) return "fuld";
+  if (statusser.every((s) => s === "tom")) return "tom";
+  return "delvis";
 }
 
 // Prikker: nøjagtig samme visuelle kode som print-dokumentets dg-prik (Typst-systemet).

@@ -55,8 +55,33 @@
   loading.textContent = "Sætter siderne op …";
   document.documentElement.appendChild(loading);
 
+  // Én <main>-landmark for hele det paginerede dokument (almind-dev#110).
+  // Paged.js kloner selv et <main> ind i HVER side som del af sin egen
+  // ancestor-genopbygning ved sideskift (paged.polyfill.js: cloneNode af hele
+  // forfader-kæden op til <body>), uafhængigt af kildemarkuppet (som aldrig
+  // selv indeholder <main>) — og re-paginerer internt mere end én gang efter
+  // preview() er resolvet, så et engangs-fix bliver overskrevet. Derfor en
+  // MutationObserver der nedgraderer overtallige <main> til <div>, og pakker
+  // .pagedjs_pages i én <main>, hver gang Paged.js rører DOM'en.
+  function enforceEtMain() {
+    const mains = Array.from(document.querySelectorAll("main"));
+    if (mains.length <= 1) return;
+    mains.forEach((m) => {
+      const div = document.createElement("div");
+      for (const attr of m.attributes) div.setAttribute(attr.name, attr.value);
+      while (m.firstChild) div.appendChild(m.firstChild);
+      m.replaceWith(div);
+    });
+    const pagedPages = document.querySelector(".pagedjs_pages");
+    if (pagedPages && pagedPages.parentElement?.tagName !== "MAIN") {
+      const main = document.createElement("main");
+      pagedPages.replaceWith(main);
+      main.appendChild(pagedPages);
+    }
+  }
   await window.PagedPolyfill.preview();
   loading.remove();
+  enforceEtMain();
 
   // Værktøjslinjen indsættes EFTER paginering: Paged.js flytter alt body-indhold ind i siderne
   const bar = document.createElement("div");

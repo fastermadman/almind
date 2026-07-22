@@ -405,6 +405,9 @@ img, svg { display: block; max-width: 100%; }
   background: color-mix(in srgb, var(--fagfarve) 6%, transparent);
 }
 
+.kort-dg { display: flex; align-items: center; margin-left: auto; }
+.kort-dg .dg-prikker { font-size: 0.9rem; }
+
 /* ---------- Facetter (browse) — fag/klassetrin/omfang, E.3b ---------- */
 .facetraekke { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.25rem 0 1rem; }
 .facetraekke .mini-felt { display: flex; flex-direction: column; gap: 0.3rem; min-width: 160px; }
