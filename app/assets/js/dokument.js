@@ -4,7 +4,7 @@
 
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
-import { faseTidTekst, forloebOmfangTekst } from "./komponenter.js";
+import { faseTidTekst, faseKontekstTekst, forloebOmfangTekst } from "./komponenter.js";
 
 const LEKTIONSLAENGDE_KEY = "almind.lektionslaengde";
 function hentLektionslaengde() {
@@ -130,12 +130,19 @@ export function renderForloebsoversigt(f, tilstand = "laerer") {
   const ol = document.createElement("ol");
   faser.forEach((fase, i) => {
     const li = document.createElement("li");
+    const tid = faseTidTekst(fase);
+    const kontekst = faseKontekstTekst(fase);
+    if (tid || kontekst) {
+      const meta = document.createElement("div");
+      meta.className = "fase-oversigt-meta";
+      if (tid) meta.appendChild(tekstEl("span", "fase-varighed-badge", tid));
+      if (kontekst) meta.appendChild(tekstEl("span", "fase-kontekst", kontekst));
+      li.appendChild(meta);
+    }
     const a = document.createElement("a");
     a.href = `#fase-${i + 1}`;
     a.textContent = fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`;
     li.appendChild(a);
-    const tid = faseTidTekst(fase);
-    if (tid) li.appendChild(tekstEl("span", "fase-varighed-badge", tid));
     ol.appendChild(li);
   });
   wrap.appendChild(ol);
@@ -345,6 +352,18 @@ export async function renderDokument(f, tilstand = "laerer") {
     const tid = faseTidTekst(fase);
     if (tid) ark.appendChild(tekstEl("div", "fase-varighed-badge", tid));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
+    // almind-dev#128: sted/kontekst hører til EFTER fasens indhold, ikke lige
+    // under overskriften — det er en tilføjelse til det du lige har læst, ikke
+    // det første du skal vide. Egen boks (samme stil som Forløbsprofil), så
+    // den aldrig læses som en del af tidsestimatet.
+    const kontekst = faseKontekstTekst(fase);
+    if (kontekst) {
+      const sted = document.createElement("aside");
+      sted.className = "callout callout-gissel fase-sted";
+      sted.appendChild(tekstEl("span", "callout-titel", "Sted"));
+      sted.appendChild(document.createTextNode(kontekst));
+      ark.appendChild(sted);
+    }
   });
 
   // Kolofon-udvidelser: fravalg, position, fagplan-kobling. Kun lærer-tilstand

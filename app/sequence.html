@@ -126,7 +126,7 @@
   import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval, DIMENSIONER, DIM_NAVNE } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
-  import { dgProfil, pladsFold, omfangTekst, dgPrikker, faseTidTekst } from "./assets/js/komponenter.js";
+  import { dgProfil, pladsFold, omfangTekst, dgPrikker, faseTidTekst, faseKontekstTekst } from "./assets/js/komponenter.js";
   import { medietype, medieElement, renseUrl } from "./assets/js/medie.js";
   import { gemKnap } from "./assets/js/samling.js";
   import { renderFaseIndhold, renderForloebsoversigt, renderFagplanKobling } from "./assets/js/dokument.js";
@@ -581,6 +581,13 @@
       v.className = "fase-varighed-badge";
       v.textContent = tid;
       nrRaekke.appendChild(v);
+    }
+    const kontekst = faseKontekstTekst(fase);
+    if (kontekst) {
+      const k = document.createElement("span");
+      k.className = "fase-kontekst";
+      k.textContent = kontekst;
+      nrRaekke.appendChild(k);
     }
     if (erfaringerPrFase[i]) {
       const antal = erfaringerPrFase[i];

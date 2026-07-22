@@ -650,6 +650,12 @@ img, svg { display: block; max-width: 100%; }
   font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
   border: 1px solid var(--border); border-radius: var(--r-pill); padding: 0.1rem 0.55rem;
 }
+/* almind-dev#128: kontekst (sted/rytme-afvigelse, "i skoven", "løbende gennem
+   hele forløbet") hører ikke sammen med tidsestimatet — bevidst IKKE en pille
+   (mono/border), men prosa, så de to aldrig ligner én sammenhængende værdi. */
+.fase-kontekst {
+  font-family: var(--font-body); font-style: italic; font-size: 0.85rem; color: var(--muted);
+}
 .fase ol, .fase ul { margin: 0.6rem 0 0 1.2rem; padding-left: 1.2rem; }
 .fase li { margin-bottom: 0.25rem; font-size: 0.95rem; }
 
@@ -665,10 +671,13 @@ img, svg { display: block; max-width: 100%; }
 }
 .forloeb-oversigt ol {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.3rem 1.5rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.6rem 1.5rem;
 }
-.forloeb-oversigt li { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
-.forloeb-oversigt a { color: var(--ink); text-decoration: none; }
+/* almind-dev#128-opfølgning: pillerne står over fasenavnet, ikke ved siden af det
+   — undgik at et langt fasenavn skubber pillerne ud i et akavet linjeskift. */
+.forloeb-oversigt li { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; }
+.fase-oversigt-meta { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.forloeb-oversigt a { color: var(--ink); text-decoration: none; font-weight: 600; }
 .forloeb-oversigt a:hover { text-decoration: underline; }
 
 /* Fase-lektion-tidsestimat-beslutningen: forløbstotal + lektionslængde-vælger,

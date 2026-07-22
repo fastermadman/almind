@@ -417,9 +417,11 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     if (tilstand === "laerer") hoved.appendChild(haandtag());
     hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
     hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
-    // Beslutning fase-lektion-tidsestimat (almind-dev#117/#118): varighed
-    // blandede tid og afvikling i én streng — splittet i minutter (tal) og
-    // afvikling (fritekst: "Dag 1", "Uge 1", "Løbende gennem hele forløbet").
+    // Beslutning fase-lektion-tidsestimat (almind-dev#117/#118, delvist omgjort
+    // #128): varighed blandede tid og afvikling i én streng — splittet i
+    // minutter (tal) og kontekst (fritekst: sted/rytme-afvigelse, ALDRIG "Dag
+    // N"/"Uge N" — det er fasens egen placering i rækkefølgen, faserne ER
+    // sekvensen).
     const tidWrap = el("span", "fase-tid-wrap");
     const minInput = el("input", "fase-minutter");
     minInput.type = "number"; minInput.min = "0"; minInput.placeholder = "min";
@@ -440,7 +442,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       minInput,
       el("span", "fase-tid-label", "–"),
       maxInput,
-      inputFelt("fase-afvikling", fase.afvikling, "Dag 1 · skoven", (v) => (fase.afvikling = v)),
+      inputFelt("fase-afvikling", fase.afvikling, "hvis andet end klassen: hvor?", (v) => (fase.afvikling = v)),
     );
     hoved.appendChild(tidWrap);
     if (tilstand === "laerer") {

@@ -11,18 +11,24 @@ export function omfangTekst(omfang) {
   return omfang.lektioner ? `${omfang.lektioner} lektioner` : "Forløb";
 }
 
-// Beslutning fase-lektion-tidsestimat (almind-dev#117): fasens tid (minutter)
-// og dens afvikling/placering i forløbets rytme ("Dag 1", "Uge 1") er to
-// forskellige akser, aldrig lektionstal — se plans/fase-lektion-tidsestimat-beslutning.md.
+// Beslutning fase-lektion-tidsestimat (almind-dev#117), delvist omgjort
+// almind-dev#128: fasens tid (minutter) og dens afvikling/kontekst ("i skoven",
+// "løbende gennem hele forløbet") er stadig to forskellige ting — men "Dag N"/
+// "Uge N" der bare gentager fasens egen placering i rækkefølgen er redundant
+// (faserne ER sekvensen; en dobbeltlektion er bare to faser, ikke én fase
+// mærket "Dag 1"). De to vises derfor ikke længere sammen i én pille — se
+// plans/fase-lektion-tidsestimat-beslutning.md's rettelse 2026-07-22.
 export function faseTidTekst(fase) {
-  const dele = [];
-  if (fase.minutter_min != null) {
-    dele.push(fase.minutter_min === fase.minutter_max
-      ? `ca. ${fase.minutter_min} min`
-      : `${fase.minutter_min}–${fase.minutter_max} min`);
-  }
-  if (fase.afvikling) dele.push(fase.afvikling);
-  return dele.join(" · ");
+  if (fase.minutter_min == null) return "";
+  return fase.minutter_min === fase.minutter_max
+    ? `ca. ${fase.minutter_min} min`
+    : `${fase.minutter_min}–${fase.minutter_max} min`;
+}
+// Kontekst ud over selve tidsforbruget: hvor foregår fasen, eller hvordan
+// afviger dens rytme fra en almindelig lineær fase ("løbende", "midtvejs").
+// Aldrig "Dag N"/"Uge N" alene — det er fasenummeret allerede.
+export function faseKontekstTekst(fase) {
+  return fase.afvikling || "";
 }
 
 // Forløbstotal: kun beregnet når ALLE faser har minutter (delvis dækning er

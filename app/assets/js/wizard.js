@@ -71,7 +71,7 @@ export const PROFIL_GRUPPER = [
       {
         destillat: "hansen-graf-2012-redidaktisering",
         felter: [
-          { id: "strategi", type: "segment", label: "Hvilken planlægningsstrategi inviterer dette forløb læreren til?", under: "styrende, støttende eller åbent?", valg: ["Læremiddelstyret", "Læremiddelstøttet", "Åbent"] },
+          { id: "strategi", type: "segment", label: "Hvilken planlægningsstrategi inviterer dette forløb læreren til?", under: "læremiddelstyrende, læremiddelstøttende eller åbent?", valg: ["Styret", "Støttet", "Åbent"] },
           { id: "stemme", type: "segment", label: "Hvordan taler lærervejledningen til læreren?", under: "instruktion der følges, eller idékatalog der inspirerer?", valg: ["Instruktion", "Idékatalog", "Blandet"] },
         ],
       },
@@ -492,7 +492,7 @@ export async function startWizard({ rod, prefill = {} }) {
         const titel = document.createElement("input");
         titel.type = "text";
         titel.value = fase.titel || "";
-        titel.placeholder = `Fase ${String.fromCharCode(65 + i)}: titel`;
+        titel.placeholder = `Fase ${i + 1}: titel`;
         titel.addEventListener("input", () => (fase.titel = titel.value));
         kort.appendChild(titel);
         const besk = document.createElement("textarea");
