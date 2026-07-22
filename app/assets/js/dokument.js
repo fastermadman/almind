@@ -259,6 +259,7 @@ export async function renderDokument(f, tilstand = "laerer") {
   const kolofon = document.createElement("header");
   kolofon.className = "ark-kolofon";
   const venstre = document.createElement("div");
+  venstre.className = "ark-kolofon-tekst";
   venstre.appendChild(tekstEl("span", "ark-type", tilstand === "elev" ? "Elevmateriale" : "Lærervejledning"));
   venstre.appendChild(tekstEl("h1", "ark-titel", f.titel));
   venstre.appendChild(tekstEl("div", "ark-meta",

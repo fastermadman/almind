@@ -21,6 +21,11 @@ dialog:modal { margin: auto; }
 }
 
 html { scroll-behavior: smooth; }
+/* #127: skjulte position:absolute-elementer (fx .kilde-boble-tooltippen)
+   optager stadig deres beregnede layout-boks selv med visibility:hidden, og
+   kan derved skubbe dokumentets scrollWidth ud over viewport på smalle
+   skærme — ingen flade på sitet bruger horisontal scroll med vilje. */
+html, body { overflow-x: hidden; }
 
 body {
   background: var(--bg);
@@ -902,6 +907,10 @@ img, svg { display: block; max-width: 100%; }
   border-bottom: 3px solid var(--fagfarve);
   padding-bottom: 1.25rem; margin-bottom: 2rem;
 }
+/* #123: flex-børn nægter som standard at krympe under deres min-content-bredde
+   (min-width:auto) — uden dette presser en lang titel kolofonen (og dermed
+   viewport) bredere i stedet for at wrappe. */
+.ark-kolofon-tekst { min-width: 0; }
 .ark-kolofon .ark-type {
   font-family: var(--font-ui); font-weight: 600; font-size: 0.7rem;
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--fagtekst);
@@ -1036,9 +1045,19 @@ img, svg { display: block; max-width: 100%; }
   .site-header { gap: 0.75rem; }
   .soegefelt { max-width: none; }
   .ark { padding: 1.5rem 1.25rem; }
-  .ark-kolofon { flex-direction: column; }
+  /* #123: align-items:flex-start (fra rækkelayoutet) sizer børn til deres
+     indhold i stedet for at strække dem til fuld bredde, når retningen skifter
+     til column — uden stretch nægter titlen at wrappe og skubber ud af kortet. */
+  .ark-kolofon { flex-direction: column; align-items: stretch; }
   .ark-dg { text-align: left; }
   .dg-raekke { grid-template-columns: 105px auto 1fr; }
+  /* Forløbstitler er forfatternes egne, ofte lange sætninger — samme
+     rækkevidde-størrelse som desktop giver få ord pr. linje, hvilket både
+     ser uharmonisk ud og tvinger flere grimme midt-i-ord-brud. Mindre
+     størrelse på mobil giver flere ord pr. linje uden at teksten holder op
+     med at læse som en overskrift. */
+  .ark-titel { font-size: 1.35rem; }
+  .detalje-hoved h1 { font-size: 1.45rem; }
 }
 
 /* ---------- E.3a: fag-forside + dækningskort ---------- */
