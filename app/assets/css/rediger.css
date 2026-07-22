@@ -175,7 +175,17 @@
   font-family: var(--font-ui); color: var(--muted); white-space: nowrap;
 }
 .materiale-elev-label input { width: auto; }
-@media (max-width: 700px) { .materiale-raekke { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px) {
+  .materiale-raekke { grid-template-columns: 1fr 1fr; }
+  /* .fase-hoved manglede flex-wrap, og .fase-afvikling havde en fast
+     12.5rem-bredde — sammen med de to 3.4rem-tal-felter og deres labels
+     tvang det rækken bredere end mobil-viewporten (horisontal scroll,
+     "stedsangivelse bryder ud af boksen"). Lader tid-gruppen falde ned på
+     egen linje og gør stedfeltet fleksibelt i stedet for fast bredt. */
+  .fase-hoved { flex-wrap: wrap; }
+  .fase-tid-wrap { flex-wrap: wrap; flex-basis: 100%; }
+  .fase-afvikling { flex: 1; min-width: 6rem; width: auto; }
+}
 
 /* almind-dev#112: fladeskifter øverst i kanvassen — genbruger .faner/.fane fra almind.css */
 .editor-sektion + .editor-sektion, #kanvas > .faner { margin-bottom: 1.5rem; }

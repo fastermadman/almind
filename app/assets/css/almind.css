@@ -749,11 +749,18 @@ img, svg { display: block; max-width: 100%; }
 .chip[aria-pressed="true"] {
   background: var(--accent); color: var(--bg); border-color: var(--accent);
 }
-.segment { display: inline-flex; flex-wrap: wrap; max-width: 100%; border: 1px solid var(--border); border-radius: var(--r-pill); overflow: hidden; background: var(--surface); }
+/* Segmentet er tegnet som ÉN sammenhængende kapsel (border-radius + overflow:
+   hidden på ydersiden, ikke pr. knap) — når 3 knapper ikke kan være på én
+   linje, brækkede den 3. før ned på sin egen række og ødelagde kapsel-formen.
+   display:flex (ikke inline) + flex:1 på hver knap tvinger dem til altid at
+   dele bredden ligeligt og blive på én linje; teksten ombrydes i stedet
+   internt i knappen hvis den er for smal til at være på én linje. */
+.segment { display: flex; max-width: 100%; border: 1px solid var(--border); border-radius: var(--r-pill); overflow: hidden; background: var(--surface); }
 .segment button {
+  flex: 1 1 0; min-width: 0;
   font-family: var(--font-ui); font-weight: 500; font-size: 0.9rem;
-  padding: 0.42rem 1.05rem; border: none; background: transparent;
-  color: var(--ink); cursor: pointer;
+  padding: 0.42rem 0.6rem; border: none; background: transparent;
+  color: var(--ink); cursor: pointer; text-align: center;
 }
 .segment button + button { border-left: 1px solid var(--border); }
 .segment button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
