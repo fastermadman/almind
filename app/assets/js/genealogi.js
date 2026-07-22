@@ -55,7 +55,7 @@ export function horisontaltTrae(kaede, aktivId) {
     led.appendChild(version);
 
     const navn = el("text", { x, y: y + 34, "text-anchor": "middle", class: "node-navn" });
-    navn.textContent = f.forfatter.split(" ")[0] === "Demokrati" ? "EMU" : f.forfatter.split(" ")[0];
+    navn.textContent = f.forfatter_kort || f.forfatter.split(" ")[0];
     led.appendChild(navn);
 
     const meta = el("text", { x, y: y + 50, "text-anchor": "middle", class: "node-meta" });

@@ -16,6 +16,12 @@
   --surface:     #ffffff;
   --surface-alt: #f9f8f5;
 
+  /* Global fejlstatus — IKKE en fagfarve (var fejlagtigt --fag-aes, som er
+     æstetiske fags farve, intet med fejl at gøre). AA-kontrast mod --bg
+     (5.99:1) og --surface (6.66:1). */
+  --fejl:        #a8322a;
+  --fejl-bg:     #fbeae8;
+
   /* Fagfarver: fem familier (STEM fjernet 2026-07-09 — matematik/fysik/teknik
      hører naturfagligt til i dansk kontekst, foldet ind i Natur & teknik).
      Humaniora splittet i sprogfag/kulturfag 2026-07-18 (kulturfag = hi/kr/sa,
@@ -153,6 +159,23 @@
   font-weight: 400 600;
   font-display: swap;
   src: url('../fonts/jost.woff2') format('woff2');
+}
+/* Drafting Mono (SIL OFL, github.com/indestructible-type/Drafting) —
+   selv-hostet ligesom fontene ovenfor, ingen ekstern fetch. Kun 400/600
+   hentet: de eneste vægte --font-mono faktisk bruges med i CSS'en. */
+@font-face {
+  font-family: 'Drafting Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/drafting-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Drafting Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/drafting-mono-600.woff2') format('woff2');
 }
 
 /* Fagfamilie-kontekst: sætter --fagfarve og --fagtekst for alt nedenunder */

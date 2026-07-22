@@ -254,7 +254,7 @@
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
   margin: -0.5rem 0 1rem;
 }
-.cb-status.fejl { color: var(--fag-aes); }
+.cb-status.fejl { color: var(--fejl); }
 .cb-status a { color: var(--accent); word-break: break-all; }
 
 /* ---------- profil-panelet ---------- */

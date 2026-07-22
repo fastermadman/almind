@@ -22,12 +22,38 @@
 const FAMILIE_NAVN = { sprog: "Sprogfag", kultur: "Kulturfag", natur: "Naturfag", aes: "Praktiske og æstetiske fag", ovr: "Øvrige fag" };
 const FAMILIE_NOEGLE = { sprogfag: "sprog", kulturfag: "kultur", naturfag: "natur", "praktisk-musisk": "aes", oevrige: "ovr" };
 
+// #87: fetch fejlede stiltiende (blank side ved netværksfejl/manglende fil).
+// Fælles hjælper for alle datafetches — viser en læsbar dansk fejlbesked i
+// stedet, og kaster videre så kaldende kode (som allerede awaiter) stopper.
+function visFejl(besked) {
+  const div = document.createElement("div");
+  div.className = "fejlbanner";
+  div.textContent = besked;
+  const header = document.querySelector("header");
+  if (header) header.after(div);
+  else document.body?.prepend(div);
+  return new Error(besked);
+}
+async function hentJSON(url, filnavn) {
+  let svar;
+  try {
+    svar = await fetch(url);
+  } catch {
+    throw visFejl(`Kunne ikke hente ${filnavn} — tjek din internetforbindelse.`);
+  }
+  if (!svar.ok) throw visFejl(`Kunne ikke hente ${filnavn} (fejl ${svar.status}).`);
+  try {
+    return await svar.json();
+  } catch {
+    throw visFejl(`${filnavn} kunne ikke læses (ugyldigt format).`);
+  }
+}
+
 export const FAMILIER = {};
 let _fagIndex = null;
 async function _fetchFagIndex() {
   if (!_fagIndex) {
-    const svar = await fetch("data/fag-index.json");
-    _fagIndex = await svar.json();
+    _fagIndex = await hentJSON("data/fag-index.json", "fag-index.json");
     for (const fag of _fagIndex) {
       const noegle = FAMILIE_NOEGLE[fag.familie] || "ovr";
       if (!FAMILIER[noegle]) FAMILIER[noegle] = { navn: FAMILIE_NAVN[noegle], fag: [] };
@@ -53,8 +79,7 @@ export function fagNavn(id) {
 const _fagCache = {};
 export async function hentFag(fagId) {
   if (!_fagCache[fagId]) {
-    const svar = await fetch(`data/fag/${fagId}.json`);
-    _fagCache[fagId] = await svar.json();
+    _fagCache[fagId] = await hentJSON(`data/fag/${fagId}.json`, `fag/${fagId}.json`);
   }
   return _fagCache[fagId];
 }
@@ -107,8 +132,7 @@ let _forloeb = null;
 export async function hentForloeb() {
   await _familieIndlaesning;
   if (!_forloeb) {
-    const svar = await fetch("data/forloeb.json");
-    _forloeb = await svar.json();
+    _forloeb = await hentJSON("data/forloeb.json", "forloeb.json");
   }
   return _forloeb;
 }
@@ -140,8 +164,7 @@ export async function hentForloebFraKilde(kilde) {
 let _begreber = null;
 export async function hentBegreber() {
   if (!_begreber) {
-    const svar = await fetch("data/begreber.json");
-    _begreber = await svar.json();
+    _begreber = await hentJSON("data/begreber.json", "begreber.json");
   }
   return _begreber;
 }
@@ -248,16 +271,14 @@ export function hentKladde() {
 let _manifest = null;
 export async function hentManifest() {
   if (!_manifest) {
-    const svar = await fetch("destillater/manifest.json");
-    _manifest = await svar.json();
+    _manifest = await hentJSON("destillater/manifest.json", "manifest.json");
   }
   return _manifest;
 }
 const _destillatCache = {};
 export async function hentDestillat(post) {
   if (!_destillatCache[post.id]) {
-    const svar = await fetch("destillater/" + post.fil);
-    _destillatCache[post.id] = await svar.json();
+    _destillatCache[post.id] = await hentJSON("destillater/" + post.fil, post.fil);
   }
   return _destillatCache[post.id];
 }

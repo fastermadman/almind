@@ -9,6 +9,17 @@
    (greb/centrum/del/login), ikke kun én. Én delt undtagelse løser det for dem alle. */
 dialog:modal { margin: auto; }
 
+/* #87: fælles fejlbanner ved fetch-fejl (data.js: hentJSON). */
+.fejlbanner {
+  font-family: var(--font-mono);
+  color: var(--fejl);
+  background: var(--fejl-bg);
+  border: 1px solid var(--fejl);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 4px;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
