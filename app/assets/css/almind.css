@@ -25,7 +25,13 @@ html { scroll-behavior: smooth; }
    optager stadig deres beregnede layout-boks selv med visibility:hidden, og
    kan derved skubbe dokumentets scrollWidth ud over viewport på smalle
    skærme — ingen flade på sitet bruger horisontal scroll med vilje. */
-html, body { overflow-x: hidden; }
+/* overflow-x:hidden (i stedet for clip) ville tvinge overflow-y til "auto"
+   på begge (CSS'ens overflow-x/y-parringsregel: er den ene ikke "visible",
+   bliver den anden det heller ikke) — det skaber en SEPARAT indre
+   scroll-container og ødelægger position:sticky for headeren. clip undgår
+   parringsreglen og skjuler overflowet uden at gøre html til sin egen
+   scroll-boks. */
+html { overflow-x: clip; }
 
 body {
   background: var(--bg);
