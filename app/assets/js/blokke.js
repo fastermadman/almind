@@ -10,7 +10,7 @@ import {
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
   hentBegreber, begrebMatchNoegle,
 } from "./data.js";
-import { PROFIL_GRUPPER, klasseValgFor } from "./wizard.js";
+import { PROFIL_GRUPPER, klasseValgFor, kildeIkon } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 import { harElevIndhold, harElevIndholdFase } from "./dokument.js";
 
@@ -793,6 +793,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const wrap = el("div", "felt");
     const labelSpan = el("span", "felt-label", def.label);
     labelSpan.id = `profil-label-${feltId++}`;
+    if (kildeTekst) labelSpan.appendChild(kildeIkon(kildeTekst));
     wrap.appendChild(labelSpan);
     if (def.under) wrap.appendChild(el("span", "under", def.under));
 
@@ -854,7 +855,6 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     }
     kontrol.setAttribute("aria-labelledby", labelSpan.id);
     wrap.appendChild(kontrol);
-    if (kildeTekst) wrap.appendChild(el("p", "destillat-kilde", kildeTekst));
     return wrap;
   }
 
@@ -1074,18 +1074,14 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       const grp = document.createElement("details");
       grp.open = true;
       grp.appendChild(el("summary", null, t.navn));
-      const grupper = [
-        { did: t.destillat, felter: t.felter },
-        ...(t.destillat2 ? [{ did: t.destillat2, felter: t.felter2 }] : []),
-      ];
-      for (const g of grupper) {
+      for (const kilde of t.sources) {
         let kildeTekst = "";
-        const post = manifest?.destillater.find((d) => d.id === g.did);
+        const post = manifest?.destillater.find((d) => d.id === kilde.destillat);
         if (post) {
           const dest = await hentDestillat(post);
-          kildeTekst = "Kilde: " + (dest.kilde || dest.meta?.kilde || post.titel);
+          kildeTekst = dest.kilde || dest.meta?.kilde || post.titel;
         }
-        g.felter.forEach((def) => grp.appendChild(profilFelt(def, kildeTekst)));
+        kilde.felter.forEach((def) => grp.appendChild(profilFelt(def, kildeTekst)));
       }
       panel.appendChild(grp);
     }

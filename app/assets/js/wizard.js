@@ -11,41 +11,101 @@ import {
   tegnFagOptions,
 } from "./data.js";
 
+// Kildehenvisningen var før en synlig tekstlinje under hvert felt — med op
+// til 26 felter i uddyb-panelet (og profil-panelet, samme data — se note
+// nedenfor) blev det for meget tekst. Nu et (i)-ikon med hover/fokus-tooltip
+// (aria-describedby, så skærmlæsere får kilden uanset hover-tilstand).
+// Modul-niveau (ikke inde i startWizard) fordi blokke.js's profil-panel
+// genbruger den på samme PROFIL_GRUPPER-data.
+// kildeTekst er RAW citation (ikke "Kilde: "-præfikset — det tilføjes her som
+// egen linje). Citationerne er fulde af initialer ("J.J.", "T.I.", "S.T."),
+// så et linjeskift efter hvert punktum ville flække navne — det eneste
+// pålidelige brudpunkt er lige efter årstals-parentesen, "(2012).", som
+// altid afslutter forfatterlisten.
+let _kildeTaeller = 0;
+export function kildeIkon(kildeTekst) {
+  const id = `kilde-boble-${++_kildeTaeller}`;
+  const info = document.createElement("span");
+  info.className = "kilde-info";
+  info.tabIndex = 0;
+  info.setAttribute("aria-describedby", id);
+  info.setAttribute("aria-label", "Kilde");
+  info.textContent = "i";
+  const boble = document.createElement("span");
+  boble.className = "kilde-boble";
+  boble.id = id;
+  boble.setAttribute("role", "tooltip");
+  const label = document.createElement("strong");
+  label.className = "kilde-boble-label";
+  label.textContent = "Kilde";
+  boble.appendChild(label);
+  const [, forfatterAar, resten] = kildeTekst.match(/^(.*?\(\d{4}\)\.?)\s*(.*)$/s) || [, kildeTekst, ""];
+  boble.appendChild(document.createElement("span")).textContent = forfatterAar;
+  if (resten) boble.appendChild(document.createElement("span")).textContent = resten;
+  info.appendChild(boble);
+  // Boblen er center-ankret under ikonet by default (CSS) — men et ikon nær
+  // viewportkanten skubber den ud over kanten. Måler og forskyder kun når
+  // det faktisk overlapper, i stedet for at vælge left/right-ankring fast
+  // (som blot flytter problemet til den anden kant).
+  const klemFast = () => {
+    boble.style.setProperty("--kilde-shift", "0px");
+    const rect = boble.getBoundingClientRect();
+    const margin = 12;
+    let shift = 0;
+    if (rect.right > window.innerWidth - margin) shift = (window.innerWidth - margin) - rect.right;
+    else if (rect.left < margin) shift = margin - rect.left;
+    if (shift) boble.style.setProperty("--kilde-shift", `${shift}px`);
+  };
+  info.addEventListener("mouseenter", klemFast);
+  info.addEventListener("focus", klemFast);
+  return info;
+}
+
 // Enum-batteriet: destillaternes strukturerede spørgsmål. Alt her er VALGFRIT
 // (arkitektur 8.3) — i wizard'en bor det sammenfoldet under trin ② (kun ved
 // omfang "forloeb"), i blok-editoren som profil-panelet. Én kilde, to flader.
 export const PROFIL_GRUPPER = [
   {
     navn: "Didaktisk fundament",
-    destillat: "hansen-graf-2012-redidaktisering",
-    felter: [
-      { id: "strategi", type: "segment", label: "Hvilken planlægningsstrategi inviterer dette forløb læreren til?", under: "styrende, støttende eller åbent?", valg: ["Læremiddelstyret", "Læremiddelstøttet", "Åbent"] },
-      { id: "stemme", type: "segment", label: "Hvordan taler lærervejledningen til læreren?", under: "instruktion der følges, eller idékatalog der inspirerer?", valg: ["Instruktion", "Idékatalog", "Blandet"] },
-    ],
-    destillat2: "gissel-2026-materialetyper",
-    felter2: [
-      { id: "materialetyper", type: "chips", multi: true, label: "Hvilke materialetyper indgår i forløbet?", under: "vælg alle der indgår", valg: ["Didaktisk læremiddel", "Semantisk læringsressource", "Redskabslæremiddel"] },
-      { id: "didaktiseres_selv", type: "tekst", label: "Hvad skal den næste lærer selv didaktisere?", under: "læringsressourcerne er den stærkeste fork-invitation: dem kan enhver erstatte med lokale alternativer (valgfrit)", valgfri: true },
+    sources: [
+      {
+        destillat: "hansen-graf-2012-redidaktisering",
+        felter: [
+          { id: "strategi", type: "segment", label: "Hvilken planlægningsstrategi inviterer dette forløb læreren til?", under: "styrende, støttende eller åbent?", valg: ["Læremiddelstyret", "Læremiddelstøttet", "Åbent"] },
+          { id: "stemme", type: "segment", label: "Hvordan taler lærervejledningen til læreren?", under: "instruktion der følges, eller idékatalog der inspirerer?", valg: ["Instruktion", "Idékatalog", "Blandet"] },
+        ],
+      },
+      {
+        destillat: "gissel-2026-materialetyper",
+        felter: [
+          { id: "materialetyper", type: "chips", multi: true, label: "Hvilke materialetyper indgår i forløbet?", under: "vælg alle der indgår", valg: ["Didaktisk læremiddel", "Semantisk læringsressource", "Redskabslæremiddel"] },
+          { id: "didaktiseres_selv", type: "tekst", label: "Hvad skal den næste lærer selv didaktisere?", under: "læringsressourcerne er den stærkeste fork-invitation: dem kan enhver erstatte med lokale alternativer (valgfrit)", valgfri: true },
+        ],
+      },
     ],
   },
   {
     navn: "Dramaturgi",
-    destillat: "brodersen-2021-didaktisk-dramaturgi",
-    felter: [
-      { id: "anslag_type", type: "select", label: "Hvad er forløbets anslag?", under: "begivenheden der skaber øjeblikkelig opmærksomhed og aktiverer forforståelsen", valg: ["Begivenhed", "Varsel", "Orientering", "Projekt"] },
-      { id: "virksomhedsformer", type: "chips", multi: true, label: "Hvilke virksomhedsformer veksler forløbet imellem?", under: "vekselvirkningen er motoren for erfaringsdannelse", valg: ["Æstetisk", "Analytisk", "Håndværksmæssig", "Kommunikativ"] },
-      { id: "dewey", type: "chips", multi: true, label: "Hvilke erfaringskvaliteter bærer forløbet?", under: "Deweys fem: hvad driver fordybelsen?", valg: ["Kontinuitet", "Ophobning", "Spænding", "Anticipation", "Fastholdelse"] },
-      { id: "anslag_tekst", type: "tekst", label: "Beskriv anslaget med én sætning", under: "den vises på forløbets side (valgfrit)", valgfri: true },
-    ],
+    sources: [{
+      destillat: "brodersen-2021-didaktisk-dramaturgi",
+      felter: [
+        { id: "anslag_type", type: "select", label: "Hvad er forløbets anslag?", under: "begivenheden der skaber øjeblikkelig opmærksomhed og aktiverer forforståelsen", valg: ["Begivenhed", "Varsel", "Orientering", "Projekt"] },
+        { id: "virksomhedsformer", type: "chips", multi: true, label: "Hvilke virksomhedsformer veksler forløbet imellem?", under: "vekselvirkningen er motoren for erfaringsdannelse", valg: ["Æstetisk", "Analytisk", "Håndværksmæssig", "Kommunikativ"] },
+        { id: "dewey", type: "chips", multi: true, label: "Hvilke erfaringskvaliteter bærer forløbet?", under: "Deweys fem: hvad driver fordybelsen?", valg: ["Kontinuitet", "Ophobning", "Spænding", "Anticipation", "Fastholdelse"] },
+        { id: "anslag_tekst", type: "tekst", label: "Beskriv anslaget med én sætning", under: "den vises på forløbets side (valgfrit)", valgfri: true },
+      ],
+    }],
   },
   {
     navn: "Evaluering",
-    destillat: "bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler",
-    felter: [
-      { id: "legitimitet", type: "segment", label: "Legitimitet: er indholdet forankret i gældende læreplaner?", under: "portvagtparameter 1", valg: ["Ja", "Delvist", "Nej"] },
-      { id: "variation", type: "segment", label: "Understøtter aktiviteterne variation?", under: "portvagtparameter 3: mikro-, meso- og makroniveau", valg: ["Ja", "Delvist", "Nej"] },
-      { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads under Dækning", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
-    ],
+    sources: [{
+      destillat: "bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler",
+      felter: [
+        { id: "legitimitet", type: "segment", label: "Legitimitet: er indholdet forankret i gældende læreplaner?", under: "portvagtparameter 1", valg: ["Ja", "Delvist", "Nej"] },
+        { id: "variation", type: "segment", label: "Understøtter aktiviteterne variation?", under: "portvagtparameter 3: mikro-, meso- og makroniveau", valg: ["Ja", "Delvist", "Nej"] },
+        { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads under Dækning", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
+      ],
+    }],
   },
 ];
 
@@ -125,9 +185,8 @@ export async function startWizard({ rod, prefill = {} }) {
 
   const manifest = await hentManifest();
   const kilder = {};
-  const kildeIder = PROFIL_GRUPPER.flatMap((g) => [g.destillat, g.destillat2])
-    .concat(["kap8-indhold-eksemplarisk", "gissel-2026-typologi-laeremidler", "bilag1-centrale-begreber-2026"])
-    .filter(Boolean);
+  const kildeIder = PROFIL_GRUPPER.flatMap((g) => g.sources.map((s) => s.destillat))
+    .concat(["kap8-indhold-eksemplarisk", "gissel-2026-typologi-laeremidler", "bilag1-centrale-begreber-2026"]);
   for (const did of kildeIder) {
     const post = manifest.destillater.find((d) => d.id === did);
     if (post) kilder[did] = post;
@@ -136,7 +195,7 @@ export async function startWizard({ rod, prefill = {} }) {
     const post = kilder[did];
     if (!post) return "";
     const dest = await hentDestillat(post);
-    return "Kilde: " + (dest.kilde || dest.meta?.kilde || post.titel);
+    return dest.kilde || dest.meta?.kilde || post.titel;
   }
 
   async function visTrin() {
@@ -179,18 +238,13 @@ export async function startWizard({ rod, prefill = {} }) {
     const label = document.createElement("span");
     label.className = "felt-label";
     label.textContent = def.label;
+    if (kildeTekst) label.appendChild(kildeIkon(kildeTekst));
     wrap.appendChild(label);
     if (def.under) {
       const u = document.createElement("span");
       u.className = "under";
       u.textContent = def.under;
       wrap.appendChild(u);
-    }
-    if (kildeTekst) {
-      const k = document.createElement("p");
-      k.className = "destillat-kilde";
-      k.textContent = kildeTekst;
-      wrap.appendChild(k);
     }
     return wrap;
   }
@@ -269,7 +323,7 @@ export async function startWizard({ rod, prefill = {} }) {
     ta.value = vaerdi || "";
     if (def.placeholder) ta.placeholder = def.placeholder;
     ta.addEventListener("input", () => onInput(ta.value));
-    wrap.insertBefore(ta, wrap.querySelector(".destillat-kilde"));
+    wrap.appendChild(ta);
     return wrap;
   }
 
@@ -479,24 +533,20 @@ export async function startWizard({ rod, prefill = {} }) {
     uddyb.appendChild(forklaring);
 
     for (const gruppe of PROFIL_GRUPPER) {
-      const grupper = [
-        { did: gruppe.destillat, felter: gruppe.felter },
-        ...(gruppe.destillat2 ? [{ did: gruppe.destillat2, felter: gruppe.felter2 }] : []),
-      ];
       const h = document.createElement("p");
       h.className = "uddyb-gruppe-navn";
       h.textContent = gruppe.navn;
       uddyb.appendChild(h);
-      for (const grp of grupper) {
-        const kildeTekst = await kildeTekstFor(grp.did);
-        grp.felter.forEach((def) => {
+      for (const kilde of gruppe.sources) {
+        const kildeTekst = await kildeTekstFor(kilde.destillat);
+        kilde.felter.forEach((def) => {
           const wrap = feltRamme(def, kildeTekst);
           let kontrol;
           if (def.type === "chips") kontrol = byggeChips(def);
           else if (def.type === "segment") kontrol = byggeSegment(def);
           else if (def.type === "select") kontrol = byggeSelect(def);
           else kontrol = byggeTekst(def);
-          wrap.insertBefore(kontrol, wrap.querySelector(".destillat-kilde"));
+          wrap.appendChild(kontrol);
           uddyb.appendChild(wrap);
         });
       }
@@ -701,12 +751,12 @@ export async function startWizard({ rod, prefill = {} }) {
       });
     };
     tegnMaterialer();
-    matFelt.insertBefore(matListe, matFelt.querySelector(".destillat-kilde"));
+    matFelt.appendChild(matListe);
     const matKnap = tilfoejKnap("+ Materiale", () => {
       state.kobling.materialer.push({ titel: "", url: "", materialetype: null, didaktisering: "" });
       tegnMaterialer();
     });
-    matFelt.insertBefore(matKnap, matFelt.querySelector(".destillat-kilde"));
+    matFelt.appendChild(matKnap);
     rod.appendChild(matFelt);
 
     // Samspil: Bilag 1's tre former
@@ -753,8 +803,8 @@ export async function startWizard({ rod, prefill = {} }) {
       state.kobling.samspilForm = samSel.value;
       tegnSamFag();
     });
-    samFelt.insertBefore(samSel, samFelt.querySelector(".destillat-kilde"));
-    samFelt.insertBefore(samFagZone, samFelt.querySelector(".destillat-kilde"));
+    samFelt.appendChild(samSel);
+    samFelt.appendChild(samFagZone);
     tegnSamFag();
     rod.appendChild(samFelt);
   }

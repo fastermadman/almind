@@ -746,9 +746,45 @@ img, svg { display: block; max-width: 100%; }
 }
 .felt.aendret .arv-markering { color: var(--fagtekst, var(--ink)); }
 
-.destillat-kilde {
-  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
-  margin-top: 0.3rem;
+/* (i)-ikon m. hover/fokus-tooltip — wizard.js's feltRamme() og blokke.js's
+   profilFelt(), samme PROFIL_GRUPPER-data i to flader ("Én kilde, to flader",
+   se wizard.js). Erstatter den tidligere synlige "Kilde: ..."-tekstlinje. */
+.kilde-info {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.05rem; height: 1.05rem;
+  margin-left: 0.4rem;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  color: var(--muted);
+  font-family: var(--font-ui); font-size: 0.66rem; font-weight: 600;
+  font-style: normal;
+  cursor: help;
+  vertical-align: middle;
+}
+.kilde-info:hover, .kilde-info:focus-visible {
+  border-color: var(--accent); color: var(--accent); outline: none;
+}
+.kilde-boble {
+  position: absolute; left: 50%; top: 140%; z-index: 20;
+  display: flex; flex-direction: column; gap: 0.55rem;
+  width: max-content; max-width: min(42ch, 85vw);
+  background: var(--ink); color: var(--bg);
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; line-height: 1.5;
+  padding: 0.7rem 0.9rem; border-radius: 8px;
+  opacity: 0; visibility: hidden;
+  transform: translate(calc(-50% + var(--kilde-shift, 0px)), -4px);
+  transition: opacity 0.12s, transform 0.12s;
+  pointer-events: none;
+}
+.kilde-boble-label {
+  font-family: var(--font-ui); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.03em; text-transform: uppercase; color: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+.kilde-boble > span { display: block; }
+.kilde-info:hover .kilde-boble, .kilde-info:focus-visible .kilde-boble {
+  opacity: 1; visibility: visible;
+  transform: translate(calc(-50% + var(--kilde-shift, 0px)), 0);
 }
 
 .wizard-nav {
