@@ -688,25 +688,31 @@ img, svg { display: block; max-width: 100%; }
   display: block; font-family: var(--font-ui); text-transform: uppercase;
   letter-spacing: 0.08em; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;
 }
-/* almind-dev#132 (opgivet, design-opfølgning 2026-07-24): multi-column
-   (240px) blev for smal til den øgede indholdstæthed pr. fase (dramaturgi +
-   tid + sted + titel) — tekst wrappede akavet, listen blev sværere at skimme,
-   ikke lettere. Én bred søjle med luft og en delelinje pr. fase løser det
-   samme problem (skimbarhed) uden multi-columns kolonne-major-kompleksitet —
-   ved kun én kolonne er der ingen læserækkefølge-tvetydighed at rette. */
-.forloeb-oversigt ol { list-style: none; margin: 0; padding: 0; }
-.forloeb-oversigt li {
-  display: flex; flex-direction: column; row-gap: 0.3rem;
-  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+/* almind-dev#132 (opgivet, design-opfølgning 2026-07-24, to iterationer):
+   hverken smal multi-column (240px, tekst wrappede akavet) eller fuld bredde
+   enkelt-søjle (rad'en spredte sig ud over hele bredden — "tid står helt
+   ovre i den anden side") ramte rigtigt. Kort i en grid løser begge dele:
+   hvert kort er smalt nok til at raden IKKE spreder sig ud over unødig
+   plads, men brede nok til at "Fase N · sted · tid" står samlet uden wrap.
+   Bevidst egen komposition, adskilt fra fase-hoved-boksen (Valdemar:
+   afvigelsen er ikke et problem — de to tjener forskellige formål,
+   skimning vs. enkelt-fase-fokus). */
+.forloeb-oversigt ol {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem 1.25rem;
 }
-.forloeb-oversigt li:first-child { padding-top: 0; }
-.forloeb-oversigt li:last-child { padding-bottom: 0; border-bottom: none; }
-/* Design-opfølgning 2026-07-23/24: samme mono-data/Jost/titel-registeropdeling
-   som fase-hoved-boks (samme rad, kun titlen mangler "Fase N:"-præfikset,
-   da det allerede står ovenfor). */
-.fase-oversigt-rad { display: flex; justify-content: space-between; align-items: start; column-gap: 0.6rem; }
-/* Tid+sted stables højrestillet — samme gruppering som fase-hoved-boks (#128). */
-.fase-oversigt-tid-sted { display: flex; flex-direction: column; align-items: flex-end; row-gap: 0.1rem; text-align: right; }
+.forloeb-oversigt li {
+  display: flex; flex-direction: column; row-gap: 0.35rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-modal);
+  padding: 0.8rem 1rem;
+}
+/* Fase N · sted · tid tæt sammen (mono, alle tre — sted er en kort
+   stedbetegnelse her, ikke lang prosa, jf. #128's oprindelige prosa-hensyn
+   som ikke gælder korte stedord). */
+.fase-oversigt-rad {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; column-gap: 0.6rem;
+}
+.fase-oversigt-sted { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 .forloeb-oversigt a {
   color: var(--ink); text-decoration: none; font-weight: 700; font-family: var(--font-logo); font-size: 1.05rem;
 }

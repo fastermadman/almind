@@ -146,33 +146,29 @@ export function renderForloebsoversigt(f, tilstand = "laerer") {
   wrap.appendChild(tekstEl("span", "forloeb-oversigt-titel", "Forløbet i overblik"));
   const ol = document.createElement("ol");
   faser.forEach((fase, i) => {
-    // Design-opfølgning 2026-07-23: samme registeropdeling som fase-hoved-
-    // boksen — Fase N (mono, venstre) · tid+sted (mono/prosa, stablet højre —
-    // de to er begge logistik) på samme rad, dramaturgi (Jost, kun lærer),
-    // titlen ALENE (uden "Fase N:"-præfiks — det står allerede på raden
-    // ovenfor; fallback til "Fase N" hvis fasen er unavngivet).
+    // Design-opfølgning 2026-07-24: kort, ikke kolonner/liste — egen
+    // komposition, adskilt fra fase-hoved-boksen (bevidst, Valdemar: "ikke et
+    // kæmpe problem at det renderes lidt anderledes"). Rad: Fase N · sted ·
+    // tid, tæt sammen (mono, alle tre — sted er en kort stedbetegnelse her,
+    // ikke lang prosa). Titel (fed) og dramaturgi (Jost) derunder, i den
+    // rækkefølge — titlen ALENE, uden "Fase N:"-præfiks.
     const li = document.createElement("li");
     const rad = document.createElement("div");
     rad.className = "fase-oversigt-rad";
     rad.appendChild(tekstEl("span", "fase-nr", `Fase ${i + 1}`));
-    const tid = faseTidTekst(fase);
     const kontekst = faseKontekstTekst(fase);
-    if (tid || kontekst) {
-      const tidSted = document.createElement("div");
-      tidSted.className = "fase-oversigt-tid-sted";
-      if (tid) tidSted.appendChild(tekstEl("span", "fase-varighed-badge", tid));
-      if (kontekst) tidSted.appendChild(tekstEl("span", "fase-kontekst", kontekst));
-      rad.appendChild(tidSted);
-    }
+    if (kontekst) rad.appendChild(tekstEl("span", "fase-oversigt-sted", kontekst));
+    const tid = faseTidTekst(fase);
+    if (tid) rad.appendChild(tekstEl("span", "fase-varighed-badge", tid));
     li.appendChild(rad);
-    if (tilstand === "laerer") {
-      const dram = faseDramaturgiTekst(fase);
-      if (dram) li.appendChild(tekstEl("div", "fase-dramaturgi-linje", dram));
-    }
     const a = document.createElement("a");
     a.href = `#fase-${i + 1}`;
     a.textContent = fase.titel || `Fase ${i + 1}`;
     li.appendChild(a);
+    if (tilstand === "laerer") {
+      const dram = faseDramaturgiTekst(fase);
+      if (dram) li.appendChild(tekstEl("div", "fase-dramaturgi-linje", dram));
+    }
     ol.appendChild(li);
   });
   wrap.appendChild(ol);
