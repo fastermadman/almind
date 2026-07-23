@@ -688,30 +688,27 @@ img, svg { display: block; max-width: 100%; }
   display: block; font-family: var(--font-ui); text-transform: uppercase;
   letter-spacing: 0.08em; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;
 }
-/* almind-dev#132: CSS Grid (default grid-auto-flow: row) fyldte faserne
-   række-major — 6 faser i 3 kolonner blev [1][2][3]/[4][5][6], som en
-   kolonne-læsende øjenscanning fejllæser som 1,4,2,5,3,6. Multi-column
-   layout flyder kolonne-major (top-til-bund i kolonne 1, så kolonne 2)
-   uden at kende faseantallet på forhånd — samme responsivitet som
-   auto-fit/minmax gav. */
-.forloeb-oversigt ol {
-  list-style: none; margin: 0; padding: 0;
-  column-width: 240px; column-gap: 1.5rem;
-}
-/* almind-dev#128-opfølgning: pillerne står over fasenavnet, ikke ved siden af det
-   — undgik at et langt fasenavn skubber pillerne ud i et akavet linjeskift. */
+/* almind-dev#132 (opgivet, design-opfølgning 2026-07-24): multi-column
+   (240px) blev for smal til den øgede indholdstæthed pr. fase (dramaturgi +
+   tid + sted + titel) — tekst wrappede akavet, listen blev sværere at skimme,
+   ikke lettere. Én bred søjle med luft og en delelinje pr. fase løser det
+   samme problem (skimbarhed) uden multi-columns kolonne-major-kompleksitet —
+   ved kun én kolonne er der ingen læserækkefølge-tvetydighed at rette. */
+.forloeb-oversigt ol { list-style: none; margin: 0; padding: 0; }
 .forloeb-oversigt li {
-  display: flex; flex-direction: column; gap: 0.15rem; margin: 0 0 0.6rem;
-  break-inside: avoid;
+  display: flex; flex-direction: column; row-gap: 0.3rem;
+  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
 }
-/* Design-opfølgning 2026-07-23: samme mono-data/Jost/titel-registeropdeling
+.forloeb-oversigt li:first-child { padding-top: 0; }
+.forloeb-oversigt li:last-child { padding-bottom: 0; border-bottom: none; }
+/* Design-opfølgning 2026-07-23/24: samme mono-data/Jost/titel-registeropdeling
    som fase-hoved-boks (samme rad, kun titlen mangler "Fase N:"-præfikset,
    da det allerede står ovenfor). */
 .fase-oversigt-rad { display: flex; justify-content: space-between; align-items: start; column-gap: 0.6rem; }
 /* Tid+sted stables højrestillet — samme gruppering som fase-hoved-boks (#128). */
 .fase-oversigt-tid-sted { display: flex; flex-direction: column; align-items: flex-end; row-gap: 0.1rem; text-align: right; }
 .forloeb-oversigt a {
-  color: var(--ink); text-decoration: none; font-weight: 600; font-family: var(--font-logo);
+  color: var(--ink); text-decoration: none; font-weight: 700; font-family: var(--font-logo); font-size: 1.05rem;
 }
 .forloeb-oversigt a:hover { text-decoration: underline; }
 
