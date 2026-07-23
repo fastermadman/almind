@@ -2,7 +2,7 @@
 // renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag, treklangKendetegn } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
 import { faseTidTekst, faseKontekstTekst, forloebOmfangTekst, faseDramaturgiTekst, dramaturgiUnion } from "./komponenter.js";
 
@@ -267,6 +267,36 @@ export async function renderFagplanKobling(f) {
   return wrap;
 }
 
+// #59: legitimeringsafsnittet (W4/#58's treklang-gave) — Valdemar-godkendt
+// copy-skabelon 2026-07-23. Placeres ved Fagplan-koblingen: begge handler om
+// at forankre forløbet i fagplan/formål, samme kolofon-udvidelses-nabolag.
+// Tomt treklang-felt (ingen kendetegn, ingen hvordan) = intet output — samme
+// invitations-princip som resten af de didaktiske felter.
+export async function renderTreklang(f) {
+  const valgteIder = f.treklang?.kendetegn || [];
+  const hvordan = (f.treklang?.hvordan || "").trim();
+  if (!valgteIder.length && !hvordan) return null;
+  const alle = await treklangKendetegn().catch(() => []);
+  const valgte = valgteIder.map((id) => alle.find((k) => k.id === id)).filter(Boolean);
+  if (!valgte.length && !hvordan) return null;
+
+  const wrap = document.createElement("div");
+  wrap.className = "treklang-legitimering";
+  wrap.appendChild(tekstEl("h2", null, "Hvorfor dette forløb er vigtigt"));
+  if (valgte.length) {
+    const ben = [...new Set(valgte.map((k) => k.ben))];
+    const p = document.createElement("p");
+    p.appendChild(document.createTextNode(
+      `Forløbet bærer ${valgte.length} af de ti kendetegn på alsidig undervisning: `));
+    p.appendChild(tekstEl("strong", null, valgte.map((k) => k.navn).join(" · ")));
+    p.appendChild(document.createTextNode(
+      `. Dermed bidrager det især til ${ben.join(" · ")}, treklangen der binder fagplanen til folkeskolens formål.`));
+    wrap.appendChild(p);
+  }
+  if (hvordan) wrap.appendChild(tekstEl("p", "treklang-hvordan", hvordan));
+  return wrap;
+}
+
 export async function renderDokument(f, tilstand = "laerer") {
   const ark = document.createElement("article");
   ark.className = "ark" + (tilstand === "elev" ? " elev" : "");
@@ -422,6 +452,11 @@ export async function renderDokument(f, tilstand = "laerer") {
       ark.appendChild(tekstEl("h2", null, "Fagplan-kobling"));
       ark.appendChild(kobling);
     }
+  }
+
+  if (tilstand === "laerer") {
+    const treklang = await renderTreklang(f);
+    if (treklang) ark.appendChild(treklang);
   }
 
   // Wizard-refleksioner (kladder): lærerens egne svar som valg-callouts

@@ -547,6 +547,11 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 0.15rem;
 }
 
+/* #59: legitimeringsafsnittet — hvordan-sætningen er forfatterens egen, adskilt
+   fra den beregnede kendetegn-sætning ovenfor (samme kursiv-citat-konvention
+   som andre forfatter-egne felter). */
+.treklang-hvordan { font-style: italic; color: var(--muted); }
+
 /* E.6: fravalg — adskilt fra tomme_pladser (arkitektur 6.2), derfor egen liste, ikke fold */
 .fravalg-liste { list-style: none; }
 .fravalg-liste li { margin-bottom: 1rem; }
@@ -688,13 +693,22 @@ img, svg { display: block; max-width: 100%; }
   display: block; font-family: var(--font-ui); text-transform: uppercase;
   letter-spacing: 0.08em; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;
 }
+/* almind-dev#132: CSS Grid (default grid-auto-flow: row) fyldte faserne
+   række-major — 6 faser i 3 kolonner blev [1][2][3]/[4][5][6], som en
+   kolonne-læsende øjenscanning fejllæser som 1,4,2,5,3,6. Multi-column
+   layout flyder kolonne-major (top-til-bund i kolonne 1, så kolonne 2)
+   uden at kende faseantallet på forhånd — samme responsivitet som
+   auto-fit/minmax gav. */
 .forloeb-oversigt ol {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.6rem 1.5rem;
+  column-width: 240px; column-gap: 1.5rem;
 }
 /* almind-dev#128-opfølgning: pillerne står over fasenavnet, ikke ved siden af det
    — undgik at et langt fasenavn skubber pillerne ud i et akavet linjeskift. */
-.forloeb-oversigt li { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; }
+.forloeb-oversigt li {
+  display: flex; flex-direction: column; gap: 0.15rem; margin: 0 0 0.6rem;
+  break-inside: avoid;
+}
 .fase-oversigt-meta { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
 .forloeb-oversigt a { color: var(--ink); text-decoration: none; font-weight: 600; }
 .forloeb-oversigt a:hover { text-decoration: underline; }
