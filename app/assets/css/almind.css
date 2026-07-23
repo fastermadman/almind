@@ -976,13 +976,16 @@ img, svg { display: block; max-width: 100%; }
   margin: 1.8rem 0 0.8rem;
   scroll-margin-top: 6.5rem; /* #51: fase-ankre under den sticky header (96px + luft) */
 }
-/* Fase-hoved-boks (design-opfølgning 2026-07-23): meta-linjen (dramaturgi/tid)
-   højrestillet øverst, titlen venstrestillet nedenunder — .ark h2's box
-   (baggrund/padding/radius/scroll-anker) flytter hertil, h2'en beholder kun
-   sin typografi (nulstillet nedenfor). h2 står FØRST i DOM'en (overskrifts-
-   semantik/skærmlæsere læser titlen først) men vises SIDST via order — meta
-   er h2'ens søskende, ikke dens indhold, så print's string-set (som kun
-   læser h2'ens egen tekst, #52) fortsat kun fanger faseTITLEN. */
+/* Fase-hoved-boks (design-opfølgning 2026-07-23): meta-linjen øverst —
+   dramaturgi centreret, tid højrestillet i samme række via en 3-kolonne grid
+   (tom 1fr-kolonne først balancerer tid-kolonnens 1fr, så midterkolonnen
+   centrerer i HELE boksens bredde, uafhængigt af tidstekstens længde) —
+   titlen venstrestillet nedenunder. .ark h2's box (baggrund/padding/radius/
+   scroll-anker) flytter hertil, h2'en beholder kun sin typografi (nulstillet
+   nedenfor). h2 står FØRST i DOM'en (overskrifts-semantik/skærmlæsere læser
+   titlen først) men vises SIDST via order — meta er h2'ens søskende, ikke
+   dens indhold, så print's string-set (som kun læser h2'ens egen tekst, #52)
+   fortsat kun fanger faseTITLEN. */
 .fase-hoved-boks {
   display: flex; flex-direction: column; row-gap: 0.2rem;
   background: var(--typ-blue-bg); border-radius: 4px;
@@ -991,10 +994,18 @@ img, svg { display: block; max-width: 100%; }
 }
 .fase-hoved-boks h2 { background: none; padding: 0; margin: 0; border-radius: 0; scroll-margin-top: 0; order: 2; }
 .fase-hoved-meta {
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end;
-  column-gap: 0.9rem; row-gap: 0.1rem; order: 1;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline;
+  column-gap: 0.9rem; order: 1;
 }
-.fase-hoved-meta .fase-dramaturgi-linje { margin: 0; }
+.fase-hoved-meta .fase-dramaturgi-linje { grid-column: 2; justify-self: center; margin: 0; }
+/* Pillen (border/pill-form) klæder ikke tiden inde i boksen — samme
+   diskrete tal-typografi (mono), bare uden badge-rammen. Kun scopet hertil:
+   .fase-varighed-badge bruges også i forløbsoversigten og sequence.html,
+   hvor pillen ikke er rørt/ikke flagget som et problem. */
+.fase-hoved-meta .fase-varighed-badge {
+  grid-column: 3; justify-self: end;
+  border: none; padding: 0; border-radius: 0;
+}
 .ark h3 {
   font-family: var(--font-ui); font-weight: 600; font-size: 1rem;
   border-bottom: 1px solid var(--border);
