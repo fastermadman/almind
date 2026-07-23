@@ -661,19 +661,14 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Faser ---------- */
 .fase { margin-bottom: 2rem; }
-.fase h2 {
-  font-family: var(--font-display); font-variation-settings: var(--font-display-opsz); font-weight: 600; font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-.fase .fase-nr-raekke { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.2rem; }
-.fase .fase-nr {
-  font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst);
-}
-/* #52-opfølgning: varighed — samme registrer som fase-nr (mono, diskret), egen tag-form */
-.fase-varighed-badge {
-  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
-  border: 1px solid var(--border); border-radius: var(--r-pill); padding: 0.1rem 0.55rem;
-}
+/* Fase-nr og tid er samme mono-data-register uanset kontekst (fase-hoved-boks,
+   forløbsoversigt) — ingen ancestor-afhængighed nødvendig, derfor universelle
+   regler (design-opfølgning 2026-07-23, konsoliderede tre duplikerede steder). */
+.fase-nr { font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst); }
+/* #52-opfølgning: varighed — samme register som fase-nr (mono, diskret).
+   Pillen (border/pill-form) er fjernet globalt (design-opfølgning 2026-07-23)
+   — ren tekst passer bedre til mono-data-rækken den nu altid optræder i. */
+.fase-varighed-badge { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
 /* almind-dev#128: kontekst (sted/rytme-afvigelse, "i skoven", "løbende gennem
    hele forløbet") hører ikke sammen med tidsestimatet — bevidst IKKE en pille
    (mono/border), men prosa, så de to aldrig ligner én sammenhængende værdi. */
@@ -709,8 +704,15 @@ img, svg { display: block; max-width: 100%; }
   display: flex; flex-direction: column; gap: 0.15rem; margin: 0 0 0.6rem;
   break-inside: avoid;
 }
-.fase-oversigt-meta { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
-.forloeb-oversigt a { color: var(--ink); text-decoration: none; font-weight: 600; }
+/* Design-opfølgning 2026-07-23: samme mono-data/Jost/titel-registeropdeling
+   som fase-hoved-boks (samme rad, kun titlen mangler "Fase N:"-præfikset,
+   da det allerede står ovenfor). */
+.fase-oversigt-rad { display: flex; justify-content: space-between; align-items: start; column-gap: 0.6rem; }
+/* Tid+sted stables højrestillet — samme gruppering som fase-hoved-boks (#128). */
+.fase-oversigt-tid-sted { display: flex; flex-direction: column; align-items: flex-end; row-gap: 0.1rem; text-align: right; }
+.forloeb-oversigt a {
+  color: var(--ink); text-decoration: none; font-weight: 600; font-family: var(--font-logo);
+}
 .forloeb-oversigt a:hover { text-decoration: underline; }
 
 /* Fase-lektion-tidsestimat-beslutningen: forløbstotal + lektionslængde-vælger,
@@ -976,49 +978,48 @@ img, svg { display: block; max-width: 100%; }
   margin: 1.8rem 0 0.8rem;
   scroll-margin-top: 6.5rem; /* #51: fase-ankre under den sticky header (96px + luft) */
 }
-/* Fase-hoved-boks (design-opfølgning 2026-07-23): meta-raekken øverst er
-   REN DATA — "Fase N" (venstre) · dramaturgi (centreret) · tid (højre), alle
-   tre i mono (samme register som tal/tags er data, ikke prosa) via en
-   3-kolonne grid (to lige 1fr-kolonner balancerer midterkolonnen, så den
-   centrerer i HELE boksens bredde, uafhængigt af "Fase N"s og tidens længde).
-   Titlen ALENE, centreret, som overskrift nedenunder — det er indholdet, ikke
-   metadata. .ark h2's box (baggrund/padding/radius/scroll-anker) flytter
-   hertil, h2'en beholder kun sin typografi (nulstillet nedenfor). h2 står
-   FØRST i DOM'en (overskrifts-semantik/skærmlæsere læser titlen først) men
-   vises SIDST via order — meta er h2'ens søskende, ikke dens indhold, så
-   print's string-set (#52) nu fanger den bare titel til sidehovedet. */
+/* Fase-hoved-boks (design-opfølgning 2026-07-23): meta-rækken øverst —
+   "Fase N" (venstre, mono) · dramaturgi (centreret, Jost — kategori-labels,
+   ikke rådata) · tid (højre, mono) via en 3-kolonne grid (to lige 1fr-
+   kolonner balancerer midterkolonnen, så den centrerer i HELE boksens
+   bredde, uafhængigt af "Fase N"s og tidens længde). Titlen ALENE, centreret,
+   som overskrift nedenunder — det er indholdet, ikke metadata. .ark h2's box
+   (baggrund/padding/radius/scroll-anker) flytter hertil, h2'en beholder kun
+   sin typografi (nulstillet nedenfor). h2 står FØRST i DOM'en (overskrifts-
+   semantik/skærmlæsere læser titlen først) men vises SIDST via order — meta
+   er h2'ens søskende, ikke dens indhold, så print's string-set (#52) nu
+   fanger den bare titel til sidehovedet. Genbruges af sequence.html via
+   renderFaseHoved() (dokument.js) — én kilde, ingen drift (#22-mønsteret). */
 .fase-hoved-boks {
   display: flex; flex-direction: column; row-gap: 0.2rem;
   background: var(--typ-blue-bg); border-radius: 4px;
   padding: 0.5rem 0.8rem; margin: 1.8rem 0 0.8rem;
   scroll-margin-top: 6.5rem;
 }
+/* Selvstændig typografi (ikke kun box-reset): sequence.html wrapper faser i
+   .panel (generisk lille-kapitæl-labelstil, samme specificitet) — uden
+   eksplicit font her ville titlen arve .panel h2 dér, mens den korrekt fik
+   .ark h2's font i print/preview. Samme titel-stil begge steder nu. */
 .fase-hoved-boks h2 {
   background: none; padding: 0; margin: 0; border-radius: 0; scroll-margin-top: 0;
   order: 2; text-align: center;
+  font-family: var(--font-logo); font-weight: 700; font-size: 1.15rem;
+  color: var(--typ-blue); text-transform: none; letter-spacing: normal;
 }
 .fase-hoved-meta {
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: start;
   column-gap: 0.9rem; order: 1;
 }
-/* .fase .fase-nr (linje ~669) rammer sequence.html's fase-nr-raekke — her er
-   der ingen .fase-ancestor (dokument.js wrapper faser uden den klasse), så
-   mono-fonten skal sættes eksplicit igen. */
-.fase-hoved-meta .fase-nr {
-  grid-column: 1; justify-self: start;
-  font-family: var(--font-mono); font-size: 0.78rem; color: var(--fagtekst);
-}
-.fase-hoved-meta .fase-dramaturgi-linje {
-  grid-column: 2; justify-self: center; margin: 0;
-  font-family: var(--font-mono);
-}
-/* Pillen (border/pill-form) klæder ikke tiden inde i boksen — samme
-   diskrete tal-typografi (mono), bare uden badge-rammen. Kun scopet hertil:
-   .fase-varighed-badge bruges også i forløbsoversigten og sequence.html,
-   hvor pillen ikke er rørt/ikke flagget som et problem. */
-.fase-hoved-meta .fase-varighed-badge {
-  grid-column: 3; justify-self: end;
-  border: none; padding: 0; border-radius: 0;
+.fase-hoved-meta .fase-nr { grid-column: 1; justify-self: start; }
+/* Dramaturgien er kategori-labels (Jost/--font-ui, arvet fra basisreglen),
+   IKKE rådata som tal — kun Fase N og tid er mono her. */
+.fase-hoved-meta .fase-dramaturgi-linje { grid-column: 2; justify-self: center; margin: 0; }
+/* Tid og sted stables i samme højrestillede søjle — begge er fasens
+   logistik (hvor længe, hvor/hvornår), jf. #128 (adskilt registrer: tid
+   mono/data, sted prosa/kursiv — aldrig smeltet til én streng). */
+.fase-hoved-meta .fase-hoved-tid-sted {
+  grid-column: 3; display: flex; flex-direction: column; align-items: flex-end; row-gap: 0.1rem;
+  text-align: right;
 }
 .ark h3 {
   font-family: var(--font-ui); font-weight: 600; font-size: 1rem;

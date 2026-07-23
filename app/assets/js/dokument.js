@@ -146,19 +146,32 @@ export function renderForloebsoversigt(f, tilstand = "laerer") {
   wrap.appendChild(tekstEl("span", "forloeb-oversigt-titel", "Forløbet i overblik"));
   const ol = document.createElement("ol");
   faser.forEach((fase, i) => {
+    // Design-opfølgning 2026-07-23: samme registeropdeling som fase-hoved-
+    // boksen — Fase N (mono, venstre) · tid+sted (mono/prosa, stablet højre —
+    // de to er begge logistik) på samme rad, dramaturgi (Jost, kun lærer),
+    // titlen ALENE (uden "Fase N:"-præfiks — det står allerede på raden
+    // ovenfor; fallback til "Fase N" hvis fasen er unavngivet).
     const li = document.createElement("li");
+    const rad = document.createElement("div");
+    rad.className = "fase-oversigt-rad";
+    rad.appendChild(tekstEl("span", "fase-nr", `Fase ${i + 1}`));
     const tid = faseTidTekst(fase);
     const kontekst = faseKontekstTekst(fase);
     if (tid || kontekst) {
-      const meta = document.createElement("div");
-      meta.className = "fase-oversigt-meta";
-      if (tid) meta.appendChild(tekstEl("span", "fase-varighed-badge", tid));
-      if (kontekst) meta.appendChild(tekstEl("span", "fase-kontekst", kontekst));
-      li.appendChild(meta);
+      const tidSted = document.createElement("div");
+      tidSted.className = "fase-oversigt-tid-sted";
+      if (tid) tidSted.appendChild(tekstEl("span", "fase-varighed-badge", tid));
+      if (kontekst) tidSted.appendChild(tekstEl("span", "fase-kontekst", kontekst));
+      rad.appendChild(tidSted);
+    }
+    li.appendChild(rad);
+    if (tilstand === "laerer") {
+      const dram = faseDramaturgiTekst(fase);
+      if (dram) li.appendChild(tekstEl("div", "fase-dramaturgi-linje", dram));
     }
     const a = document.createElement("a");
     a.href = `#fase-${i + 1}`;
-    a.textContent = fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`;
+    a.textContent = fase.titel || `Fase ${i + 1}`;
     li.appendChild(a);
     ol.appendChild(li);
   });
@@ -191,6 +204,40 @@ export function renderForloebsoversigt(f, tilstand = "laerer") {
   wrap.appendChild(totalRaekke);
 
   return wrap;
+}
+
+// Fase-hoved (design-opfølgning 2026-07-23): meta-rækken (Fase N/dramaturgi/
+// tid+sted) + titlen alene, centreret, nedenunder. Tid og sted hører sammen
+// (begge logistik: hvor længe, hvor/hvornår) og stables derfor i samme
+// højrestillede søjle — sted forbliver prosa/kursiv (#128: nogle kontekst-
+// tekster er hele sætninger, ikke tags), kun tid er mono/data. Delt mellem
+// dokument.js og sequence.html — samme mønster som renderFaseIndhold/
+// renderForloebsoversigt (én kilde, ingen drift, jf. #22-hullet). Boksens id
+// giver deep-link-ankeret (#51); meta/h2 er søskende, ikke indhold-i-indhold
+// — print's string-set (#52) fanger derfor kun titlens egen tekst.
+export function renderFaseHoved(fase, i, tilstand = "laerer") {
+  const hoved = document.createElement("div");
+  hoved.className = "fase-hoved-boks";
+  hoved.id = `fase-${i + 1}`;
+  hoved.appendChild(tekstEl("h2", null, fase.titel || `Fase ${i + 1}`));
+  const meta = document.createElement("div");
+  meta.className = "fase-hoved-meta";
+  meta.appendChild(tekstEl("span", "fase-nr", `Fase ${i + 1}`));
+  if (tilstand === "laerer") {
+    const dram = faseDramaturgiTekst(fase);
+    if (dram) meta.appendChild(tekstEl("span", "fase-dramaturgi-linje", dram));
+  }
+  const tid = faseTidTekst(fase);
+  const kontekst = faseKontekstTekst(fase);
+  if (tid || kontekst) {
+    const tidSted = document.createElement("div");
+    tidSted.className = "fase-hoved-tid-sted";
+    if (tid) tidSted.appendChild(tekstEl("span", "fase-varighed-badge", tid));
+    if (kontekst) tidSted.appendChild(tekstEl("span", "fase-kontekst", kontekst));
+    meta.appendChild(tidSted);
+  }
+  hoved.appendChild(meta);
+  return hoved;
 }
 
 function dgPrikker(status) {
@@ -392,46 +439,11 @@ export async function renderDokument(f, tilstand = "laerer") {
   // — scroll-margin-top under den sticky header sættes i CSS (.fase-hoved-boks).
   // almind-dev#112: forløb helt uden elevindhold viser kun tom-tilstanden ovenfor.
   (elevHarIndhold ? (f.faser || []) : []).forEach((fase, i) => {
-    // Fase-hoved (design-opfølgning 2026-07-23): metadata-række øverst —
-    // "Fase N" (venstre) · dramaturgi (centreret) · tid (højre), alt tre
-    // strukturerede data, mono-typografi — og fasens TITEL alene, centreret,
-    // som overskrift nedenunder (indholdet, ikke metadata). Boksens baggrund/
-    // padding/scroll-anker sidder på wrapperen, ikke på h2'en — meta er h2'ens
-    // SØSKENDE, ikke dens indhold, så print's string-set (som kun læser h2'ens
-    // egen tekst, #52) nu fanger den bare titel (uden "Fase N:"-præfiks) til
-    // det løbende sidehoved.
-    const hoved = document.createElement("div");
-    hoved.className = "fase-hoved-boks";
-    hoved.id = `fase-${i + 1}`;
-    // "Fase 1" alene som overskrift hvis fasen ikke har fået sin egen titel
-    // endnu (samme fallback som før, blot uden præfiks nu "Fase N" bor i meta).
-    hoved.appendChild(tekstEl("h2", null, fase.titel || `Fase ${i + 1}`));
-    const meta = document.createElement("div");
-    meta.className = "fase-hoved-meta";
-    meta.appendChild(tekstEl("span", "fase-nr", `Fase ${i + 1}`));
-    // Fase-dramaturgien (#136) — kompakt linje, kun lærer (teorivokabular,
-    // Design Principle 4).
-    if (tilstand === "laerer") {
-      const dram = faseDramaturgiTekst(fase);
-      if (dram) meta.appendChild(tekstEl("span", "fase-dramaturgi-linje", dram));
-    }
-    const tid = faseTidTekst(fase);
-    if (tid) meta.appendChild(tekstEl("span", "fase-varighed-badge", tid));
-    hoved.appendChild(meta);
-    ark.appendChild(hoved);
+    // #128/design-opfølgning 2026-07-23: sted/kontekst bor nu i fase-hoved-
+    // boksen selv, stablet under tid (renderFaseHoved) — de to er begge
+    // fasens logistik (hvor længe, hvor/hvornår).
+    ark.appendChild(renderFaseHoved(fase, i, tilstand));
     ark.appendChild(renderFaseIndhold(fase, tilstand));
-    // almind-dev#128: sted/kontekst hører til EFTER fasens indhold, ikke lige
-    // under overskriften — det er en tilføjelse til det du lige har læst, ikke
-    // det første du skal vide. Egen boks (samme stil som Forløbsprofil), så
-    // den aldrig læses som en del af tidsestimatet.
-    const kontekst = faseKontekstTekst(fase);
-    if (kontekst) {
-      const sted = document.createElement("aside");
-      sted.className = "callout callout-gissel fase-sted";
-      sted.appendChild(tekstEl("span", "callout-titel", "Sted"));
-      sted.appendChild(document.createTextNode(kontekst));
-      ark.appendChild(sted);
-    }
   });
 
   // Kolofon-udvidelser: fravalg, position, fagplan-kobling. Kun lærer-tilstand
