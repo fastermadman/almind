@@ -392,20 +392,23 @@ export async function renderDokument(f, tilstand = "laerer") {
   // — scroll-margin-top under den sticky header sættes i CSS (.fase-hoved-boks).
   // almind-dev#112: forløb helt uden elevindhold viser kun tom-tilstanden ovenfor.
   (elevHarIndhold ? (f.faser || []) : []).forEach((fase, i) => {
-    // Fase-hoved: titel + dramaturgi + tid samlet i én boks (design-opfølgning
-    // 2026-07-23). Boksens baggrund/padding/scroll-anker sidder på wrapperen,
-    // ikke på h2'en — dramaturgi/tid er h2'ens SØSKENDE, ikke dens indhold,
-    // så print's string-set (som kun læser h2'ens egen tekst, #52) fortsat
-    // kun fanger faseTITLEN til det løbende sidehoved.
+    // Fase-hoved (design-opfølgning 2026-07-23): metadata-række øverst —
+    // "Fase N" (venstre) · dramaturgi (centreret) · tid (højre), alt tre
+    // strukturerede data, mono-typografi — og fasens TITEL alene, centreret,
+    // som overskrift nedenunder (indholdet, ikke metadata). Boksens baggrund/
+    // padding/scroll-anker sidder på wrapperen, ikke på h2'en — meta er h2'ens
+    // SØSKENDE, ikke dens indhold, så print's string-set (som kun læser h2'ens
+    // egen tekst, #52) nu fanger den bare titel (uden "Fase N:"-præfiks) til
+    // det løbende sidehoved.
     const hoved = document.createElement("div");
     hoved.className = "fase-hoved-boks";
     hoved.id = `fase-${i + 1}`;
-    // "Fase 1" alene hvis fasen ikke har fået sin egen titel endnu —
-    // ingen tomt ": " efter tallet. Numerisk (Valdemar, 2026-07-16) — matcher
-    // nu sequence.html, som allerede viste "Fase 1 af N" i stedet for bogstaver.
-    hoved.appendChild(tekstEl("h2", null, fase.titel ? `Fase ${i + 1}: ${fase.titel}` : `Fase ${i + 1}`));
+    // "Fase 1" alene som overskrift hvis fasen ikke har fået sin egen titel
+    // endnu (samme fallback som før, blot uden præfiks nu "Fase N" bor i meta).
+    hoved.appendChild(tekstEl("h2", null, fase.titel || `Fase ${i + 1}`));
     const meta = document.createElement("div");
     meta.className = "fase-hoved-meta";
+    meta.appendChild(tekstEl("span", "fase-nr", `Fase ${i + 1}`));
     // Fase-dramaturgien (#136) — kompakt linje, kun lærer (teorivokabular,
     // Design Principle 4).
     if (tilstand === "laerer") {
@@ -414,7 +417,7 @@ export async function renderDokument(f, tilstand = "laerer") {
     }
     const tid = faseTidTekst(fase);
     if (tid) meta.appendChild(tekstEl("span", "fase-varighed-badge", tid));
-    if (meta.childNodes.length) hoved.appendChild(meta);
+    hoved.appendChild(meta);
     ark.appendChild(hoved);
     ark.appendChild(renderFaseIndhold(fase, tilstand));
     // almind-dev#128: sted/kontekst hører til EFTER fasens indhold, ikke lige
