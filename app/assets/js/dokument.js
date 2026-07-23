@@ -2,7 +2,7 @@
 // renderFaseIndhold() genbruges af sequence.html, så platform-visningen og
 // dokument-visningen viser samme indhold — kun rammen (chrome) omkring er forskellig.
 
-import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag, treklangKendetegn } from "./data.js";
+import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, hentFag, treklangKendetegn } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
 import { faseTidTekst, faseKontekstTekst, forloebOmfangTekst, faseDramaturgiTekst, dramaturgiUnion } from "./komponenter.js";
 
@@ -249,15 +249,16 @@ function materialeListe(materialer, tilstand) {
   const ul = document.createElement("ul");
   materialer.forEach((m) => {
     const li = document.createElement("li");
+    // Design-opfølgning 2026-07-24: faust-nr og Gissel-materialetype droppet
+    // fra visningen — faust er redundant når materialet allerede er et link
+    // (og for mitCFU er det ligefrem en del af URL'en), materialetypen er
+    // forfatterens egen kategorisering, ikke noget en læser har brug for her.
+    // Typen (fx "Bog") er stadig værd at vise — kort label før titlen.
+    if (m.type) li.appendChild(tekstEl("span", "materiale-type", m.type + ": "));
     const a = document.createElement("a");
     a.href = renseUrl(m.url); a.target = "_blank"; a.rel = "noopener noreferrer";
     a.textContent = m.titel;
     li.appendChild(a);
-    const meta = [];
-    if (m.type) meta.push(m.type);
-    if (m.faust) meta.push(`mitCFU faust ${m.faust}`);
-    if (m.materialetype) meta.push(materialetypeNavn(m.materialetype));
-    if (meta.length) li.appendChild(document.createTextNode(` (${meta.join(", ")})`));
     if (m.didaktisering) li.appendChild(tekstEl("div", "under", "Didaktisering: " + m.didaktisering));
     const type = medietype(m.url);
     if (type !== "link") {

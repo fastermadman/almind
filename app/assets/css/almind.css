@@ -1537,6 +1537,10 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 .del-qr { display: flex; justify-content: center; margin-bottom: 1rem; }
 .del-qr svg { width: 200px; height: 200px; }
 
+/* Design-opfølgning 2026-07-24: materialets type som kort label før titlen —
+   faust/materialetype er droppet fra visningen (dokument.js). */
+.materiale-type { font-family: var(--font-ui); font-weight: 600; color: var(--muted); }
+
 /* ---------- #52: medie-rendering (billede/lyd/video/YouTube, click-to-load) ---------- */
 .medie-indlejring { margin-top: 0.6rem; }
 .medie-billede { max-width: 100%; border-radius: 8px; display: block; }
