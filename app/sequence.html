@@ -125,7 +125,7 @@
   import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, kaede, familieFor, datoTekst, hentFagIndex, klassetrinTilInterval, DIMENSIONER, DIM_NAVNE } from "./assets/js/data.js";
   import { vertikaltTrae } from "./assets/js/genealogi.js";
-  import { dgProfil, pladsFold, omfangTekst, dgPrikker, faseTidTekst, faseKontekstTekst } from "./assets/js/komponenter.js";
+  import { dgProfil, pladsFold, omfangTekst, dgPrikker, faseTidTekst, faseKontekstTekst, faseDramaturgiTekst, dramaturgiUnion } from "./assets/js/komponenter.js";
   import { medietype, medieElement, renseUrl } from "./assets/js/medie.js";
   import { gemKnap } from "./assets/js/samling.js";
   import { renderFaseIndhold, renderForloebsoversigt, renderFagplanKobling } from "./assets/js/dokument.js";
@@ -144,13 +144,14 @@
   // ikke førstegangslæserens indgang. Flyttet til S6's "Didaktisk profil" (positionspanelet).
   // {visning, søgeord}: "Anslag: X" er visningsteksten, men søgeordet skal være
   // den rå værdi (Object.values(f.tags) er det browse.html's fritekst matcher mod).
-  const maskintags = f.tags
-    ? [
-        f.tags.strategi ? { visning: f.tags.strategi, soegeord: f.tags.strategi } : null,
-        f.tags.anslag_type ? { visning: "Anslag: " + f.tags.anslag_type, soegeord: f.tags.anslag_type } : null,
-        f.tags.evalueringsform ? { visning: f.tags.evalueringsform, soegeord: f.tags.evalueringsform } : null,
-      ].filter((t) => t && t.visning !== "Ingen (åben plads)")
-    : [];
+  // #136: anslag-chippen fodres af dramaturgiUnion (første anslag-fase, med
+  // legacy-forløbs-tags som fallback) — strategi/evaluering er fortsat f.tags.
+  const anslagType = dramaturgiUnion(f).anslag_type;
+  const maskintags = [
+    f.tags?.strategi ? { visning: f.tags.strategi, soegeord: f.tags.strategi } : null,
+    anslagType ? { visning: "Anslag: " + anslagType, soegeord: anslagType } : null,
+    f.tags?.evalueringsform ? { visning: f.tags.evalueringsform, soegeord: f.tags.evalueringsform } : null,
+  ].filter((t) => t && t.visning !== "Ingen (åben plads)");
   // Fag-tagget linker til fag-forsiden (E.3a) og viser fagets navn, ikke id'et
   const fagPost = (await hentFagIndex()).find((x) => x.id === f.fag);
   // E.5: forældelsesflag — pinnet fagplan-version (koblet ved forfatterens
@@ -587,6 +588,14 @@
       k.className = "fase-kontekst";
       k.textContent = kontekst;
       nrRaekke.appendChild(k);
+    }
+    // #136: fasens dramaturgi som kompakt linje i hovedet
+    const dram = faseDramaturgiTekst(fase);
+    if (dram) {
+      const d = document.createElement("span");
+      d.className = "fase-dramaturgi-linje";
+      d.textContent = dram;
+      nrRaekke.appendChild(d);
     }
     if (erfaringerPrFase[i]) {
       const antal = erfaringerPrFase[i];

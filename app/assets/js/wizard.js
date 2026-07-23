@@ -1,5 +1,7 @@
-// Wizard-motor: det guidede forfatterflow (arkitektur 8.2's 5-trins rygrad).
-// ① Kernen · ② Forløbet · ③ Valg og fravalg · ④ Dækning · ⑤ Kobling (valgfri).
+// Wizard-motor: det guidede forfatterflow (arkitektur 8.2's 5-trins rygrad,
+// omlagt jf. plans/wizard-fase-arkitektur-beslutning.md 2026-07-23).
+// A Kernen · B Forløbet · C Fagplan og materialer · D Valg og fravalg · E Dækning.
+// Trin hedder bogstaver, ikke tal — faserne EJER tallene (de er sekvensen).
 // Princip: maskinlæsbare svar. Chips, segmenter og dropdowns producerer tags
 // og schema_version 2-felter; fritekst er undtagelsen, ikke reglen.
 // Flowet skriver et forløbs-skelet som kladde og ender i blok-editoren
@@ -8,7 +10,7 @@
 import {
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde,
   gisselMaterialetyper, SAMSPIL_FORMER, DIMENSIONER, DIM_NAVNE, familieFor,
-  tegnFagOptions,
+  tegnFagOptions, treklangKendetegn, treklangLinje,
 } from "./data.js";
 
 // Kildehenvisningen var før en synlig tekstlinje under hvert felt — med op
@@ -62,11 +64,15 @@ export function kildeIkon(kildeTekst) {
 }
 
 // Enum-batteriet: destillaternes strukturerede spørgsmål. Alt her er VALGFRIT
-// (arkitektur 8.3) — i wizard'en bor det sammenfoldet under trin ② (kun ved
-// omfang "forloeb"), i blok-editoren som profil-panelet. Én kilde, to flader.
+// (arkitektur 8.3). Beslutning 2026-07-23: det monolitiske uddyb-panel er
+// opløst — hver gruppe har et trin-anker og renderes sammenfoldet i SIT trin
+// (kun ved omfang "forloeb"); i blok-editoren stadig som profil-panel. Én
+// kilde, to flader. Dramaturgi-gruppen er væk: alle dens felter er per-fase
+// nu (FASE_PROFIL nedenfor).
 export const PROFIL_GRUPPER = [
   {
     navn: "Didaktisk fundament",
+    trin: "D",
     sources: [
       {
         destillat: "hansen-graf-2012-redidaktisering",
@@ -85,38 +91,46 @@ export const PROFIL_GRUPPER = [
     ],
   },
   {
-    navn: "Dramaturgi",
-    sources: [{
-      destillat: "brodersen-2021-didaktisk-dramaturgi",
-      felter: [
-        { id: "anslag_type", type: "select", label: "Hvad er forløbets anslag?", under: "begivenheden der skaber øjeblikkelig opmærksomhed og aktiverer forforståelsen", valg: ["Begivenhed", "Varsel", "Orientering", "Projekt"] },
-        { id: "virksomhedsformer", type: "chips", multi: true, label: "Hvilke virksomhedsformer veksler forløbet imellem?", under: "vekselvirkningen er motoren for erfaringsdannelse", valg: ["Æstetisk", "Analytisk", "Håndværksmæssig", "Kommunikativ"] },
-        { id: "dewey", type: "chips", multi: true, label: "Hvilke erfaringskvaliteter bærer forløbet?", under: "Deweys fem: hvad driver fordybelsen?", valg: ["Kontinuitet", "Ophobning", "Spænding", "Anticipation", "Fastholdelse"] },
-        { id: "anslag_tekst", type: "tekst", label: "Beskriv anslaget med én sætning", under: "den vises på forløbets side (valgfrit)", valgfri: true },
-      ],
-    }],
-  },
-  {
     navn: "Evaluering",
+    trin: "E",
     sources: [{
       destillat: "bundsgaard-hansen-2013-kvaliteter-digitale-laeremidler",
       felter: [
         { id: "legitimitet", type: "segment", label: "Legitimitet: er indholdet forankret i gældende læreplaner?", under: "portvagtparameter 1", valg: ["Ja", "Delvist", "Nej"] },
         { id: "variation", type: "segment", label: "Understøtter aktiviteterne variation?", under: "portvagtparameter 3: mikro-, meso- og makroniveau", valg: ["Ja", "Delvist", "Nej"] },
-        { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads under Dækning", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
+        { id: "evalueringsform", type: "select", label: "Hvilken evalueringsform bruger forløbet?", under: "vælg den primære, eller markér evaluering som åben plads ovenfor", valg: ["Ingen (åben plads)", "Exitspørgsmål", "Portfolio", "Peer feedback", "Fremlæggelse", "Test/quiz", "Samtale"] },
       ],
     }],
   },
 ];
 
-// Rygradens fem trin. felter-strengen vælger renderfunktion i startWizard;
-// blok-editoren bruger kun PROFIL_GRUPPER ovenfor.
+// Per-fase dramaturgi (beslutning 2026-07-23, almind-dev#129): Brodersens
+// felter bor på FASEN, ikke forløbet — vekselvirkningen sker mellem faser og
+// kan kun ses der. Værdier gemmes som viste strenge (samme konvention som
+// tags). anslag-felterne er BETINGEDE: vises kun når dramaturgisk_funktion
+// indeholder "Anslag". Konsumeres af blokke.js's fase-kort og wizard-trin B.
+export const FASE_PROFIL = {
+  destillat: "brodersen-2021-didaktisk-dramaturgi",
+  felter: [
+    { id: "dramaturgisk_funktion", type: "chips", multi: true, label: "Fasens dramaturgiske funktion", under: "de fem faser i didaktisk dramaturgi — én fase kan bære flere", valg: ["Anslag", "Mål", "Design", "Krop", "Afslutning"] },
+    { id: "virksomhedsformer", type: "chips", multi: true, label: "Hvilke virksomhedsformer er aktive i fasen?", under: "vekselvirkningen mellem faserne er motoren for erfaringsdannelse", valg: ["Æstetisk", "Analytisk", "Håndværksmæssig", "Kommunikativ"] },
+    { id: "dewey", type: "chips", multi: true, label: "Hvilke erfaringskvaliteter bærer fasen?", under: "Deweys fem: hvad driver fordybelsen her?", valg: ["Kontinuitet", "Ophobning", "Spænding", "Anticipation", "Fastholdelse"] },
+  ],
+  anslag: [
+    { id: "anslag_type", type: "select", label: "Hvad er anslaget?", under: "begivenheden der skaber øjeblikkelig opmærksomhed og aktiverer forforståelsen", valg: ["Begivenhed", "Varsel", "Orientering", "Projekt"] },
+    { id: "anslag_tekst", type: "tekst", label: "Beskriv anslaget med én sætning", under: "den vises på forløbets side (valgfrit)", valgfri: true },
+  ],
+};
+
+// Rygradens fem trin (rækkefølge besluttet 2026-07-23: konkret→refleksiv-
+// gradient, fagplan frem som C — teacher-first). felter-strengen vælger
+// renderfunktion i startWizard; blok-editoren bruger PROFIL_GRUPPER/FASE_PROFIL.
 const TRIN = [
-  { navn: "Kernen", felter: "kerne" },
-  { navn: "Forløbet", felter: "forloeb" },
-  { navn: "Valg og fravalg", felter: "fravalg" },
-  { navn: "Dækning", felter: "pladser" },
-  { navn: "Kobling (valgfri)", felter: "kobling" },
+  { bogstav: "A", navn: "Kernen", felter: "kerne" },
+  { bogstav: "B", navn: "Forløbet", felter: "forloeb" },
+  { bogstav: "C", navn: "Fagplan og materialer (valgfrit)", felter: "kobling" },
+  { bogstav: "D", navn: "Valg og fravalg", felter: "fravalg" },
+  { bogstav: "E", navn: "Dækning", felter: "pladser" },
 ];
 
 // Taksonomi-shape D2 (R1): forfatteren vælger ÉN klasse direkte — fagplanens
@@ -156,15 +170,17 @@ export async function startWizard({ rod, prefill = {} }) {
       konkret: "", alment: "", omfangType: "forloeb", lektioner: "",
     },
     faser: [{ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] }],
+    anslag: { type: "", tekst: "" }, // trin B's åbningsspørgsmål — skrives på FØRSTE fase i afslut()
     tags: {},
     fritekst: {},
     pladser: {},
-    prefillOmraadeNavn: null, // sat efter validering nedenfor, driver chippen i trin ①
+    prefillOmraadeNavn: null, // sat efter validering nedenfor, driver chippen i trin A
     fravalg: [],
     position: { fagsyn: "", laeringssyn: "" },
     kobling: {
       omraader: new Set(), materialer: [], samspilForm: "", samspilFag: new Set(),
     },
+    treklang: { kendetegn: new Set(), hvordan: "" }, // W4/#58: legitimerings-gaven, trin C
   };
 
   DIMENSIONER.forEach((dim) => { state.pladser[dim] = { status: "fuld", besked: "" }; });
@@ -186,7 +202,7 @@ export async function startWizard({ rod, prefill = {} }) {
   const manifest = await hentManifest();
   const kilder = {};
   const kildeIder = PROFIL_GRUPPER.flatMap((g) => g.sources.map((s) => s.destillat))
-    .concat(["kap8-indhold-eksemplarisk", "gissel-2026-typologi-laeremidler", "bilag1-centrale-begreber-2026"]);
+    .concat([FASE_PROFIL.destillat, "kap8-indhold-eksemplarisk", "gissel-2026-typologi-laeremidler", "bilag1-centrale-begreber-2026"]);
   for (const did of kildeIder) {
     const post = manifest.destillater.find((d) => d.id === did);
     if (post) kilder[did] = post;
@@ -217,13 +233,15 @@ export async function startWizard({ rod, prefill = {} }) {
 
     const navn = document.createElement("div");
     navn.className = "wizard-trin-navn";
-    navn.textContent = `Trin ${state.trin + 1} af ${TRIN.length}: ${t.navn}`;
+    // Bogstav, ikke tal — og hverken "Trin" eller "af E": progress-baren
+    // ovenfor bærer både sekvensen og positionen (aria forbliver numerisk).
+    navn.textContent = `${t.bogstav}: ${t.navn}`;
     rod.appendChild(navn);
 
     if (t.felter === "kerne") await visKerne();
     else if (t.felter === "forloeb") await visForloeb();
-    else if (t.felter === "fravalg") visFravalg();
-    else if (t.felter === "pladser") visPladser();
+    else if (t.felter === "fravalg") await visFravalg();
+    else if (t.felter === "pladser") await visPladser();
     else await visKobling();
 
     visNav();
@@ -336,7 +354,7 @@ export async function startWizard({ rod, prefill = {} }) {
     return b;
   }
 
-  // ---------- trin ①: Kernen ----------
+  // ---------- trin A: Kernen ----------
   // Taksonomi-shape D3 (R1): rækkefølgen er stilladsering — fag/klassetrin/
   // titel er lette, faktuelle svar der giver momentum FØR det dybe
   // Klafki-spørgsmål. §2-princippet (kun centrum er obligatorisk) berører
@@ -348,7 +366,7 @@ export async function startWizard({ rod, prefill = {} }) {
     if (state.prefillOmraadeNavn) {
       const chip = document.createElement("p");
       chip.className = "under prefill-chip";
-      chip.textContent = `Bygger ind i: ${state.prefillOmraadeNavn} · kan ændres i trin ⑤`;
+      chip.textContent = `Bygger ind i: ${state.prefillOmraadeNavn} · kan ændres i trin C`;
       rod.appendChild(chip);
     }
 
@@ -466,7 +484,36 @@ export async function startWizard({ rod, prefill = {} }) {
     }, g.beskrivelse, (v) => (g.beskrivelse = v)));
   }
 
-  // ---------- trin ②: Forløbet ----------
+  // ---------- delt uddyb-bygger: én PROFIL_GRUPPER-gruppe som sammenfoldet
+  // details i SIT trin (beslutning 2026-07-23 — panelet er opløst kontekstuelt).
+  // Kun ved omfang "forloeb": en enkelt lektion bærer ikke apparatet (8.2-8.3).
+
+  async function uddybGruppe(trinBogstav) {
+    if (state.kerne.omfangType !== "forloeb") return null;
+    const gruppe = PROFIL_GRUPPER.find((g) => g.trin === trinBogstav);
+    if (!gruppe) return null;
+    const uddyb = document.createElement("details");
+    uddyb.className = "uddyb";
+    const summary = document.createElement("summary");
+    summary.textContent = `${gruppe.navn} (valgfrit)`;
+    uddyb.appendChild(summary);
+    for (const kilde of gruppe.sources) {
+      const kildeTekst = await kildeTekstFor(kilde.destillat);
+      kilde.felter.forEach((def) => {
+        const wrap = feltRamme(def, kildeTekst);
+        let kontrol;
+        if (def.type === "chips") kontrol = byggeChips(def);
+        else if (def.type === "segment") kontrol = byggeSegment(def);
+        else if (def.type === "select") kontrol = byggeSelect(def);
+        else kontrol = byggeTekst(def);
+        wrap.appendChild(kontrol);
+        uddyb.appendChild(wrap);
+      });
+    }
+    return uddyb;
+  }
+
+  // ---------- trin B: Forløbet ----------
 
   async function visForloeb() {
     const erForloeb = state.kerne.omfangType === "forloeb";
@@ -481,6 +528,37 @@ export async function startWizard({ rod, prefill = {} }) {
     elevNote.className = "under";
     elevNote.textContent = "Elevmaterialet skriver du bagefter i editoren — under fanen Elevmateriale.";
     rod.appendChild(elevNote);
+
+    // Anslaget FØR fase-skitsen (beslutning 2026-07-23, #130 hypotese b):
+    // "hvordan åbner forløbet?" må gerne forme skitsen. Svaret gemmes på
+    // FØRSTE fase i afslut() — anslag er en fases funktion, ikke forløbets tag.
+    if (erForloeb) {
+      const brodersenKilde = await kildeTekstFor(FASE_PROFIL.destillat);
+      const [typeDef, tekstDef] = FASE_PROFIL.anslag;
+
+      const typeFelt = feltRamme({
+        label: "Hvordan åbner forløbet?",
+        under: typeDef.under + " · gemmes på første fase, kan flyttes i editoren",
+      }, brodersenKilde);
+      const typeSel = document.createElement("select");
+      const tomt = document.createElement("option");
+      tomt.value = ""; tomt.textContent = "Vælg ...";
+      typeSel.appendChild(tomt);
+      typeDef.valg.forEach((v) => {
+        const o = document.createElement("option");
+        o.value = v; o.textContent = v;
+        if (state.anslag.type === v) o.selected = true;
+        typeSel.appendChild(o);
+      });
+      typeSel.addEventListener("change", () => (state.anslag.type = typeSel.value));
+      typeFelt.appendChild(typeSel);
+      rod.appendChild(typeFelt);
+
+      rod.appendChild(tekstFelt({
+        label: tekstDef.label,
+        under: tekstDef.under,
+      }, state.anslag.tekst, (v) => (state.anslag.tekst = v)));
+    }
 
     const liste = document.createElement("div");
     liste.className = "raekke-liste";
@@ -517,48 +595,13 @@ export async function startWizard({ rod, prefill = {} }) {
       state.faser.push({ titel: "", beskrivelse: "", aktiviteter: [], callouts: [] });
       tegnFaser();
     }));
-
-    // Enum-batteriet: valgfrit og sammenfoldet — og kun ved omfang "forloeb".
-    // En enkelt lektion bærer ikke et dramaturgi-apparat (arkitektur 8.2-8.3).
-    if (!erForloeb) return;
-
-    const uddyb = document.createElement("details");
-    uddyb.className = "uddyb";
-    const summary = document.createElement("summary");
-    summary.textContent = "Uddyb didaktisk profil (valgfrit)";
-    uddyb.appendChild(summary);
-    const forklaring = document.createElement("p");
-    forklaring.className = "under";
-    forklaring.textContent = "Destillaternes spørgsmål om fundament, dramaturgi og evaluering. Intet er påkrævet — svarene gør forløbet søgbart og nemmere at overtage.";
-    uddyb.appendChild(forklaring);
-
-    for (const gruppe of PROFIL_GRUPPER) {
-      const h = document.createElement("p");
-      h.className = "uddyb-gruppe-navn";
-      h.textContent = gruppe.navn;
-      uddyb.appendChild(h);
-      for (const kilde of gruppe.sources) {
-        const kildeTekst = await kildeTekstFor(kilde.destillat);
-        kilde.felter.forEach((def) => {
-          const wrap = feltRamme(def, kildeTekst);
-          let kontrol;
-          if (def.type === "chips") kontrol = byggeChips(def);
-          else if (def.type === "segment") kontrol = byggeSegment(def);
-          else if (def.type === "select") kontrol = byggeSelect(def);
-          else kontrol = byggeTekst(def);
-          wrap.appendChild(kontrol);
-          uddyb.appendChild(wrap);
-        });
-      }
-    }
-    rod.appendChild(uddyb);
   }
 
-  // ---------- trin ③: Valg og fravalg ----------
+  // ---------- trin D: Valg og fravalg ----------
   // Inviteret, ikke tvunget (arkitektur 2 + 6.2): fravalget er en didaktisk
   // handling (Wagenschein), positionen er valgfri men aktivt inviteret.
 
-  function visFravalg() {
+  async function visFravalg() {
     const intro = document.createElement("p");
     intro.className = "intro";
     intro.textContent = "Et fravalg er ikke en mangel — det er mod til fordybelse. Hvad har du bevidst valgt fra, og hvorfor? Den næste lærer kan forke forløbet og træffe det modsatte valg.";
@@ -609,11 +652,16 @@ export async function startWizard({ rod, prefill = {} }) {
       label: "Dit læringssyn (valgfrit)",
       under: "hvordan lærer elever noget, som dette forløb ser det?",
     }, state.position.laeringssyn, (v) => (state.position.laeringssyn = v)));
+
+    // Fundament-gruppen hører hjemme her: den handler, som fagsyn/læringssyn,
+    // om forfatterens stemme og hvad næste lærer overtager.
+    const uddyb = await uddybGruppe("D");
+    if (uddyb) rod.appendChild(uddyb);
   }
 
-  // ---------- trin ④: Dækning ----------
+  // ---------- trin E: Dækning ----------
 
-  function visPladser() {
+  async function visPladser() {
     const intro = document.createElement("p");
     intro.className = "intro";
     intro.textContent = "En åben plads er ikke noget du mangler. Det er noget du giver videre: en invitation til den næste lærer, med din begrundelse.";
@@ -652,17 +700,23 @@ export async function startWizard({ rod, prefill = {} }) {
       boks.appendChild(omraade);
       rod.appendChild(boks);
     });
+
+    // Evaluerings-gruppen bor her (beslutning 2026-07-23): evaluering er én
+    // af dimensionerne ovenfor — spørgsmålene hører til samme gennemgang.
+    const uddyb = await uddybGruppe("E");
+    if (uddyb) rod.appendChild(uddyb);
   }
 
-  // ---------- trin ⑤: Kobling (valgfri) ----------
-  // Frivillig legitimering (arkitektur 3): koblede forløb optræder på fagets
-  // dækningskort — det er invitationen, ikke et krav.
+  // ---------- trin C: Fagplan og materialer (valgfrit) ----------
+  // Frivillig legitimering (arkitektur 3), flyttet frem fra sidstepladsen
+  // (beslutning 2026-07-23): fagplan-forankring er lærerens spørgsmål, ikke
+  // en eftertanke — dækningskort-effekten er konsekvens, ikke motiv.
 
   async function visKobling() {
     const g = state.kerne;
     const intro = document.createElement("p");
     intro.className = "intro";
-    intro.textContent = "Alt her er valgfrit. Kobler du forløbet til fagplanen, optræder det på fagets dækningskort — det er sådan andre lærere finder det.";
+    intro.textContent = "Hvor i fagplanen hører forløbet hjemme? Alt her er valgfrit — koblingen sætter forløbet på fagets dækningskort og gør det nemmere for andre lærere at finde.";
     rod.appendChild(intro);
 
     // Fagplan-reference: fagets egne indholdsområder som chips
@@ -693,6 +747,52 @@ export async function startWizard({ rod, prefill = {} }) {
       });
       felt.appendChild(c);
       rod.appendChild(felt);
+    }
+
+    // W4/#58: treklangen som legitimerings-gave — de 10 kendetegn som chips
+    // (ALDRIG tre ben-afkrydsninger, ALDRIG score), inviteret hvordan-sætning,
+    // live-linje der viser gaven. Vokabular fra destillatet, aldrig hardcodet.
+    const kendetegn = await treklangKendetegn();
+    const bilagKildeTekst = await kildeTekstFor("bilag1-centrale-begreber-2026");
+    if (kendetegn.length) {
+      const felt = feltRamme({
+        label: "Hvorfor er forløbet vigtigt? Vælg de kendetegn på alsidig undervisning, det bærer",
+        under: "Bilag 1's 10 kendetegn kobler forløbet til kundskaber, engagement og myndighed",
+      }, bilagKildeTekst);
+      const c = document.createElement("div");
+      c.className = "chips";
+      c.setAttribute("role", "group");
+      const linje = document.createElement("p");
+      linje.className = "under treklang-linje";
+      const opdaterLinje = () => {
+        const tekst = treklangLinje([...state.treklang.kendetegn], kendetegn);
+        linje.textContent = tekst;
+        linje.hidden = !tekst;
+      };
+      kendetegn.forEach((k) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = k.navn;
+        b.setAttribute("aria-pressed", String(state.treklang.kendetegn.has(k.id)));
+        b.addEventListener("click", () => {
+          state.treklang.kendetegn.has(k.id)
+            ? state.treklang.kendetegn.delete(k.id)
+            : state.treklang.kendetegn.add(k.id);
+          b.setAttribute("aria-pressed", String(state.treklang.kendetegn.has(k.id)));
+          opdaterLinje();
+        });
+        c.appendChild(b);
+      });
+      felt.appendChild(c);
+      opdaterLinje();
+      felt.appendChild(linje);
+      rod.appendChild(felt);
+
+      rod.appendChild(tekstFelt({
+        label: "Hvordan? (valgfrit)",
+        under: "gør legitimeringen til din egen — den indgår i lærervejledningen med dine ord",
+      }, state.treklang.hvordan, (v) => (state.treklang.hvordan = v)));
     }
 
     // Materialer med Gissel-type + didaktiserings-note (arkitektur 6.2).
@@ -860,7 +960,7 @@ export async function startWizard({ rod, prefill = {} }) {
 
     const refleksioner = Object.entries(state.fritekst)
       .filter(([, v]) => v && v.trim())
-      .map(([id, v]) => ({ kilde: id === "anslag_tekst" ? "Anslag" : "Didaktisering", tekst: v.trim() }));
+      .map(([, v]) => ({ kilde: "Didaktisering", tekst: v.trim() }));
 
     const omfang = g.omfangType === "lektion"
       ? { type: "lektion" }
@@ -888,6 +988,23 @@ export async function startWizard({ rod, prefill = {} }) {
       ? { form: state.kobling.samspilForm, fag: [...state.kobling.samspilFag] }
       : null;
 
+    // W4/#58: tomt felt = intet output nogen steder
+    const treklang = (state.treklang.kendetegn.size || state.treklang.hvordan.trim())
+      ? { kendetegn: [...state.treklang.kendetegn], hvordan: state.treklang.hvordan.trim() }
+      : null;
+
+    const faser = state.faser.filter((f) => (f.titel || "").trim() || (f.beskrivelse || "").trim());
+
+    // Trin B's anslag-svar lander på FØRSTE fase (beslutning 2026-07-23,
+    // bevidst simplificering — editoren kan flytte det). Uden faser er der
+    // intet at hænge det på; så droppes det.
+    if (faser.length && (state.anslag.type || state.anslag.tekst.trim())) {
+      const første = faser[0];
+      første.dramaturgisk_funktion = [...new Set([...(første.dramaturgisk_funktion || []), "Anslag"])];
+      if (state.anslag.type) første.anslag_type = state.anslag.type;
+      if (state.anslag.tekst.trim()) første.anslag_tekst = state.anslag.tekst.trim();
+    }
+
     gemKladde({
       id: "kladde",
       schema_version: 3,
@@ -904,6 +1021,7 @@ export async function startWizard({ rod, prefill = {} }) {
       didaktisk_position,
       fagplan_ref,
       samspil,
+      treklang,
       licens: "CC BY-SA 4.0",
       opdateret: new Date().toISOString().slice(0, 10),
       fork_af: null,
@@ -911,7 +1029,7 @@ export async function startWizard({ rod, prefill = {} }) {
       tags: state.tags,
       daekningsgrad,
       tomme_pladser: tommePladser,
-      faser: state.faser.filter((f) => (f.titel || "").trim() || (f.beskrivelse || "").trim()),
+      faser,
       materialer: state.kobling.materialer.filter((m) => (m.titel || "").trim() || (m.url || "").trim()),
       refleksioner,
     });

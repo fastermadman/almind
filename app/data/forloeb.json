@@ -179,15 +179,6 @@
         "Didaktisk læremiddel",
         "Redskabslæremiddel"
       ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Kommunikativ",
-        "Analytisk"
-      ],
-      "dewey": [
-        "Kontinuitet",
-        "Spænding"
-      ],
       "evalueringsform": "Exitspørgsmål"
     },
     "daekningsgrad": {
@@ -229,6 +220,17 @@
             "titel": "Materialetyper i forløbet",
             "tekst": "Dilemmakortene er didaktisk læremiddel med indlejret didaktik. Rollekortene er redskabslæremiddel. Romanen bag er semantisk ressource, didaktiseret i Tema 1."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag",
+          "Mål"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Kontinuitet"
         ]
       },
       {
@@ -259,6 +261,15 @@
             "titel": "Deweys kontinuitet",
             "tekst": "Dilemmaerne trækker på den opbyggede romanviden. Spændingen fra forløbets anslag bæres ind i spillet og holdes åben, ikke løst op."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Spænding"
         ]
       },
       {
@@ -285,6 +296,15 @@
             "titel": "Tag spillet, skift forankringen",
             "tekst": "Spilstrukturen fungerer i enhver klasse. Dilemmakortenes forankring bør du derimod omskrive til din klasses fælles univers. Det tager et kvarter og er hele forskellen."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Fastholdelse"
         ]
       }
     ]
@@ -332,15 +352,6 @@
         "Didaktisk læremiddel",
         "Redskabslæremiddel"
       ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Kommunikativ",
-        "Analytisk"
-      ],
-      "dewey": [
-        "Kontinuitet",
-        "Spænding"
-      ],
       "evalueringsform": "Exitspørgsmål"
     },
     "daekningsgrad": {
@@ -374,6 +385,17 @@
             "titel": "",
             "beskrivelse": "Første positionering"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag",
+          "Mål"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Kontinuitet"
         ]
       },
       {
@@ -388,6 +410,15 @@
             "titel": "",
             "beskrivelse": "Standpunktskift på signal"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Spænding"
         ]
       },
       {
@@ -402,6 +433,15 @@
             "titel": "",
             "beskrivelse": "Fælles opsamling"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Fastholdelse"
         ]
       }
     ]
@@ -479,20 +519,6 @@
         "Didaktisk læremiddel",
         "Semantisk læringsressource",
         "Redskabslæremiddel"
-      ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Håndværksmæssig",
-        "Kommunikativ"
-      ],
-      "dewey": [
-        "Spænding",
-        "Anticipation",
-        "Ophobning",
-        "Kontinuitet",
-        "Fastholdelse"
       ],
       "evalueringsform": "Ingen (åben plads)"
     },
@@ -584,7 +610,18 @@
             "titel": "Efter filmen",
             "tekst": "Skriv 2-3 sætninger: hvad lagde du mest mærke til? Hvad sad du med bagefter? Du behøver ikke dele det med klassen, det er til dig selv."
           }
-        ]
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Spænding"
+        ],
+        "anslag_tekst": "Fiktionen ses ukommenteret som sanselig begivenhed: det etiske felt skal mærkes, før et eneste begreb introduceres."
       },
       {
         "titel": "Tekståbner",
@@ -638,6 +675,17 @@
             "titel": "Lydbog er ligeså godt",
             "tekst": "Lydbogen er ikke snyd. Det vigtige er at du kender plottet og karaktererne godt nok til at du kan argumentere i næste fase."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Analytisk"
+        ],
+        "dewey": [
+          "Ophobning",
+          "Kontinuitet"
         ]
       },
       {
@@ -701,6 +749,16 @@
             "titel": "Stærke argumenter",
             "tekst": "Et stærkt argument er ikke bare din mening, det er din mening plus en begrundelse. Jeg ville gøre X fordi Y. Endnu stærkere: jeg forstår godt at du mener Z, men jeg mener stadig X fordi..."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Spænding",
+          "Anticipation"
         ]
       },
       {
@@ -783,6 +841,16 @@
             "titel": "Troværdig undskyldning",
             "tekst": "En troværdig undskyldning indeholder tre ting: du tager ansvar og siger hvad du gjorde forkert, du viser at du forstår hvad det gjorde ved den anden, du lover noget konkret og undgår men. Skriv som karakteren, ikke som dig selv."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Fastholdelse",
+          "Kontinuitet"
         ]
       }
     ],
@@ -807,10 +875,6 @@
       }
     ],
     "refleksioner": [
-      {
-        "kilde": "Anslag",
-        "tekst": "Fiktionen ses ukommenteret som sanselig begivenhed: det etiske felt skal mærkes, før et eneste begreb introduceres."
-      },
       {
         "kilde": "Didaktisering",
         "tekst": "Forløbets filosofiske lag (Arendt-teksten) og film-anslaget er semantiske ressourcer, der skal vælges til din klasse: anslagsfiktionen efter det omvendte fremmedhedsprincip, den filosofiske tekst efter din feltlæsning af klassens sociale mønstre."
@@ -890,19 +954,6 @@
         "Didaktisk læremiddel",
         "Semantisk læringsressource",
         "Redskabslæremiddel"
-      ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Kommunikativ"
-      ],
-      "dewey": [
-        "Spænding",
-        "Ophobning",
-        "Anticipation",
-        "Kontinuitet",
-        "Fastholdelse"
       ],
       "evalueringsform": "Ingen (åben plads)"
     },
@@ -994,7 +1045,19 @@
             "titel": "Ingen svar er forkerte",
             "tekst": "Når du gætter på ordene eller forsiden, er der ikke noget rigtigt svar. Det handler om hvad DU forestiller dig."
           }
-        ]
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Spænding",
+          "Anticipation"
+        ],
+        "anslag_tekst": "Fem ord fra kapitlet på tavlen uden kontekst (flammer, elektrisk stol, ondskab, forførelse, nødvendighed) og to minutters stille forestilling, inden nogen har set teksten."
       },
       {
         "titel": "Modellering: læreren tænker højt",
@@ -1062,6 +1125,15 @@
             "titel": "Der er ikke ét rigtigt svar",
             "tekst": "Din fortolkning er personlig. Men du skal altid kunne pege på noget i teksten, der understøtter den."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Ophobning"
         ]
       },
       {
@@ -1134,6 +1206,17 @@
             "titel": "Ingen rolle er den vigtigste",
             "tekst": "Din rolle giver dig en bestemt indgang til teksten. Alle indgange er lige gyldige."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ",
+          "Analytisk"
+        ],
+        "dewey": [
+          "Ophobning",
+          "Kontinuitet"
         ]
       },
       {
@@ -1201,6 +1284,15 @@
             "titel": "Det tredje spørgsmål er det svære",
             "tekst": "Der er ikke ét rigtigt svar på hvem der bestemmer historien. Hør på hvad de andre i klassen siger, og se om du er enig."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Fastholdelse"
         ]
       }
     ],
@@ -1234,10 +1326,6 @@
       }
     ],
     "refleksioner": [
-      {
-        "kilde": "Anslag",
-        "tekst": "Fem ord fra kapitlet på tavlen uden kontekst (flammer, elektrisk stol, ondskab, forførelse, nødvendighed) og to minutters stille forestilling, inden nogen har set teksten."
-      },
       {
         "kilde": "Didaktisering",
         "tekst": "Nyhedsartiklen i fase 4 er forløbets mest lokale valg: en autentisk artikel om et ungt menneske, nær nok i tid og sted til at kollidere med fiktionen. Den kan ikke følge med forløbet; du finder din egen."
@@ -1317,19 +1405,6 @@
       "materialetyper": [
         "Didaktisk læremiddel",
         "Semantisk læringsressource"
-      ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Kommunikativ"
-      ],
-      "dewey": [
-        "Spænding",
-        "Anticipation",
-        "Ophobning",
-        "Kontinuitet",
-        "Fastholdelse"
       ],
       "evalueringsform": "Peer feedback"
     },
@@ -1430,7 +1505,18 @@
             "titel": "Frivillig deling",
             "tekst": "Du bestemmer selv om du vil dele din dagbog. Hvis du ikke vil, kan du i stedet give respons på en klassekammerats tekst uden at bidrage med din egen."
           }
-        ]
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Spænding"
+        ],
+        "anslag_tekst": "Højtlæsning af raseri-scenen under træerne, uden borde og stole: klassen sidder spredt i den slags rum, Jonas og Liv er ved at miste."
       },
       {
         "titel": "Undskyldningsbrevet",
@@ -1506,6 +1592,16 @@
             "titel": "Artefaktet er et stillads, ikke et facit",
             "tekst": "Du behøver ikke gå igennem de otte elementer i rækkefølge. Brug dem som hjælp, men skriv med Jonas' stemme. Han er ikke perfekt, han er ikke færdig med at være vred, men han fortryder."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Spænding",
+          "Anticipation"
         ]
       },
       {
@@ -1581,6 +1677,17 @@
             "titel": "Brug det du allerede har skrevet",
             "tekst": "Din dagbog fra fase 1 og dit brev fra fase 2 er ressourcer. Hvad mærkede Jonas eller Liv den aften? Hvad stod der i undskyldningsbrevet? Tag det med ind i brevene nu."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Kommunikativ",
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Fastholdelse",
+          "Kontinuitet"
         ]
       }
     ],
@@ -1595,12 +1702,7 @@
         "didaktisering": "Romanen er ikke skrevet til undervisning. Kapiteludvælgelsen (kap. 4-5, kap. 6, kap. 24), skriveoplæggene og responsguiderne er didaktiseringen; skifter du roman, skal du finde tre nedslag der bærer samme bevægelse: bruddet, erkendelsen, adskillelsen."
       }
     ],
-    "refleksioner": [
-      {
-        "kilde": "Anslag",
-        "tekst": "Højtlæsning af raseri-scenen under træerne, uden borde og stole: klassen sidder spredt i den slags rum, Jonas og Liv er ved at miste."
-      }
-    ]
+    "refleksioner": []
   },
   {
     "id": "tema4-kortfilm",
@@ -1674,19 +1776,6 @@
         "Didaktisk læremiddel",
         "Semantisk læringsressource",
         "Redskabslæremiddel"
-      ],
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Håndværksmæssig"
-      ],
-      "dewey": [
-        "Spænding",
-        "Anticipation",
-        "Ophobning",
-        "Kontinuitet",
-        "Fastholdelse"
       ],
       "evalueringsform": "Peer feedback"
     },
@@ -1778,7 +1867,18 @@
             "titel": "Om filmen",
             "tekst": "Instruktør Kira Richards Hansen siger selv om filmen: et stemningsbillede og et portræt af hvordan det er at være ung. Åbne billeder der alle indeholder mørke, dragende områder, hvor man ikke kan se hvad der ligger forude."
           }
-        ]
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Spænding"
+        ],
+        "anslag_tekst": "Tre sætninger, og så filmen, uafbrudt: 'Vi ser en kortfilm. Den hedder Fucking tøs og er fra 2012. Se den, og læg mærke til hvad du mærker.'"
       },
       {
         "titel": "Begrebsliggørelse: to parametre, ikke syv",
@@ -1846,6 +1946,15 @@
             "titel": "Husk dette spørgsmål",
             "tekst": "Til jer selv og til hinanden: hvad i filmen får dig til at sige det? Det holder analysen forankret i scener og øjeblikke, ikke bare i generelle meninger om Alex."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Mål"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Kontinuitet"
         ]
       },
       {
@@ -1915,6 +2024,15 @@
             "titel": "Du kan bruge tekst i stedet for tegninger",
             "tekst": "Storyboardet behøver ikke tegninger. Skriv billedbeskrivelserne som tekst: kamera nede, skoletaske i midten, lyden af frikvarter ude. Det er nok."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Design"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Anticipation"
         ]
       },
       {
@@ -1987,14 +2105,21 @@
             "titel": "De vigtigste forhandlinger sker her",
             "tekst": "Når I skiftes til at holde kameraet og siger vent, det ser forkert ud, tag den igen, det er præcis den slags beslutninger der gør en god kortfilm. Det er Raskin i praksis, I bare ikke siger hans navn."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop",
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig"
+        ],
+        "dewey": [
+          "Ophobning",
+          "Fastholdelse"
         ]
       }
     ],
     "refleksioner": [
-      {
-        "kilde": "Anslag",
-        "tekst": "Tre sætninger, og så filmen, uafbrudt: 'Vi ser en kortfilm. Den hedder Fucking tøs og er fra 2012. Se den, og læg mærke til hvad du mærker.'"
-      },
       {
         "kilde": "Didaktisering",
         "tekst": "Filmen og instruktørinterviewet er semantiske ressourcer; analysearket og forproduktionsarket er didaktiseringen. Instruktørens ord bruges kun som afstemning efter elevernes egen oplevelse, aldrig som facitliste."
@@ -2103,20 +2228,6 @@
         "Didaktisk læremiddel",
         "Semantisk læringsressource"
       ],
-      "anslag_type": "Varsel",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Håndværksmæssig",
-        "Kommunikativ"
-      ],
-      "dewey": [
-        "Spænding",
-        "Ophobning",
-        "Anticipation",
-        "Kontinuitet",
-        "Fastholdelse"
-      ],
       "evalueringsform": "Peer feedback"
     },
     "daekningsgrad": {
@@ -2206,7 +2317,18 @@
             "titel": "Hvad er nominalisering?",
             "tekst": "Nominalisering er når en handling laves om til et substantiv. De myrdede folk bliver til mordene. De brændte synagoger ned bliver til synagogernes nedbrænding. Substantiverne lader handlingerne ske, uden nogen der gør dem."
           }
-        ]
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Varsel",
+        "virksomhedsformer": [
+          "Æstetisk"
+        ],
+        "dewey": [
+          "Spænding"
+        ],
+        "anslag_tekst": "Konteksten sættes uden teksten: krystalnatten fortælles i tal og fakta, og eleverne formulerer deres forventning, før de ser, hvad avisen faktisk skrev."
       },
       {
         "titel": "Begrebsliggørelse: Entman bagfra",
@@ -2268,6 +2390,15 @@
             "titel": "Hvad er framing?",
             "tekst": "Framing er den måde enhver tekst vælger hvad der er vigtigt, hvem der er agent, hvad problemet er, og hvad løsningen er. Det er ikke nødvendigvis løgn. Det er uundgåeligt. Alle tekster framer. Spørgsmålet er hvordan."
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Mål"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Kontinuitet"
         ]
       },
       {
@@ -2343,6 +2474,16 @@
             "titel": "Kan redskabet selv være partisk?",
             "tekst": "Skriv: hvad sker der med scoren, når I kører en artikel fra redskabets egne udgivere? Kan et redskab der afslører andres bias, være partisk selv?"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
+        ],
+        "dewey": [
+          "Ophobning",
+          "Anticipation"
         ]
       },
       {
@@ -2409,6 +2550,17 @@
             "titel": "Hvem er agenten i din første sætning?",
             "tekst": "Den første sætning i en nyhedsartikel sætter tonen for hele teksten. Hvem handler? Er agenten tydelig? Er det bevidst?"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop",
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Kommunikativ"
+        ],
+        "dewey": [
+          "Fastholdelse"
         ]
       }
     ],
@@ -2442,10 +2594,6 @@
       }
     ],
     "refleksioner": [
-      {
-        "kilde": "Anslag",
-        "tekst": "Konteksten sættes uden teksten: krystalnatten fortælles i tal og fakta, og eleverne formulerer deres forventning, før de ser, hvad avisen faktisk skrev."
-      },
       {
         "kilde": "Didaktisering",
         "tekst": "Krystalnatsleder-uddragene følger med forløbet via den historiske analyse, de er hentet fra; nutidstelegrammerne skal derimod vedligeholdes. Uddrag er i sig selv framing: giv altid eleverne de fulde nutidstekster."
@@ -2481,10 +2629,6 @@
     "beskrivelse": "Konkret-abstrakt progression med fysiske brøkbrikker: fra pizzadeling over brøkstave til placering på talinjen. Hver station har et kontrolspørgsmål eleverne stiller hinanden.",
     "tags": {
       "strategi": "Læremiddelstyret",
-      "virksomhedsformer": [
-        "Håndværksmæssig",
-        "Analytisk"
-      ],
       "evalueringsform": "Ingen (åben plads)"
     },
     "daekningsgrad": {
@@ -2514,6 +2658,9 @@
             "titel": "",
             "beskrivelse": "Makkertjek"
           }
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig"
         ]
       },
       {
@@ -2528,6 +2675,10 @@
             "titel": "",
             "beskrivelse": "Kontrolspørgsmål"
           }
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Analytisk"
         ]
       },
       {
@@ -2542,6 +2693,9 @@
             "titel": "",
             "beskrivelse": "Individuel opgaveserie"
           }
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       }
     ],
@@ -2576,10 +2730,6 @@
     "beskrivelse": "Eleverne bygger husets elsystem i miniature og fejlfinder på hinandens kredsløb. Sikkerhedsdelen er bygget op om rigtige cases fra Sikkerhedsstyrelsen.",
     "tags": {
       "strategi": "Læremiddelstøttet",
-      "virksomhedsformer": [
-        "Håndværksmæssig",
-        "Analytisk"
-      ],
       "evalueringsform": "Fremlæggelse"
     },
     "daekningsgrad": {
@@ -2609,6 +2759,9 @@
             "titel": "",
             "beskrivelse": "Måling med multimeter"
           }
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig"
         ]
       },
       {
@@ -2623,6 +2776,13 @@
             "titel": "",
             "beskrivelse": "Systematisk fejlfinding"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Analytisk"
         ]
       },
       {
@@ -2637,6 +2797,9 @@
             "titel": "",
             "beskrivelse": "Sikkerhedsplakat"
           }
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       }
     ],
@@ -2671,12 +2834,6 @@
     "beskrivelse": "Klassen undersøger det nærmeste vandløb med ketsjer, smådyrsnøgle og simple målinger, og vurderer vandkvaliteten ud fra hvad der faktisk lever i åen.",
     "tags": {
       "strategi": "Læremiddelstøttet",
-      "anslag_type": "Projekt",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Håndværksmæssig",
-        "Analytisk"
-      ],
       "evalueringsform": "Fremlæggelse"
     },
     "daekningsgrad": {
@@ -2706,6 +2863,14 @@
             "titel": "",
             "beskrivelse": "Hypoteser på klassen"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag",
+          "Mål"
+        ],
+        "anslag_type": "Projekt",
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       },
       {
@@ -2724,6 +2889,13 @@
             "titel": "",
             "beskrivelse": "Temperatur og strømmåling"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Æstetisk"
         ]
       },
       {
@@ -2742,6 +2914,12 @@
             "titel": "",
             "beskrivelse": "Brev til kommunen"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       }
     ],
@@ -2776,11 +2954,6 @@
     "beskrivelse": "Klassen driver sin egen vejrstation i tre uger, sammenligner med DMI's data og forsøger til sidst at lave deres egen prognose for i morgen.",
     "tags": {
       "strategi": "Læremiddelstøttet",
-      "anslag_type": "Projekt",
-      "virksomhedsformer": [
-        "Håndværksmæssig",
-        "Analytisk"
-      ],
       "evalueringsform": "Ingen (åben plads)"
     },
     "daekningsgrad": {
@@ -2810,6 +2983,13 @@
             "titel": "",
             "beskrivelse": "Måleplan"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Projekt",
+        "virksomhedsformer": [
+          "Håndværksmæssig"
         ]
       },
       {
@@ -2828,6 +3008,13 @@
             "titel": "",
             "beskrivelse": "Afvigelsessamtaler"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig",
+          "Analytisk"
         ]
       },
       {
@@ -2842,6 +3029,12 @@
             "titel": "",
             "beskrivelse": "Eftertjek"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       }
     ],
@@ -2876,12 +3069,6 @@
     "beskrivelse": "Spande, koste og håndflader: klassen bygger et percussion-orkester af skolegårdens ting og komponerer en fælles polyrytmisk suite.",
     "tags": {
       "strategi": "Åbent",
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Håndværksmæssig",
-        "Kommunikativ"
-      ],
       "evalueringsform": "Fremlæggelse"
     },
     "daekningsgrad": {
@@ -2911,6 +3098,14 @@
             "titel": "",
             "beskrivelse": "Grundrytmer i rundkreds"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Æstetisk",
+          "Håndværksmæssig"
         ]
       },
       {
@@ -2925,6 +3120,12 @@
             "titel": "",
             "beskrivelse": "Dirigentrolle"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig"
         ]
       },
       {
@@ -2939,6 +3140,13 @@
             "titel": "",
             "beskrivelse": "Opførelse i skolegården"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Æstetisk",
+          "Kommunikativ"
         ]
       }
     ],
@@ -2973,12 +3181,6 @@
     "beskrivelse": "Fra historiske protestplakater til elevernes egne: hvad får et budskab til at råbe fra en væg? Komposition, kontrast og typografi som virkemidler.",
     "tags": {
       "strategi": "Læremiddelstøttet",
-      "anslag_type": "Begivenhed",
-      "virksomhedsformer": [
-        "Æstetisk",
-        "Analytisk",
-        "Håndværksmæssig"
-      ],
       "evalueringsform": "Ingen (åben plads)"
     },
     "daekningsgrad": {
@@ -3008,6 +3210,13 @@
             "titel": "",
             "beskrivelse": "Virkemiddeljagt"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Anslag"
+        ],
+        "anslag_type": "Begivenhed",
+        "virksomhedsformer": [
+          "Analytisk"
         ]
       },
       {
@@ -3022,6 +3231,12 @@
             "titel": "",
             "beskrivelse": "Makkerrespons"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Design"
+        ],
+        "virksomhedsformer": [
+          "Æstetisk"
         ]
       },
       {
@@ -3036,6 +3251,13 @@
             "titel": "",
             "beskrivelse": "Fernisering"
           }
+        ],
+        "dramaturgisk_funktion": [
+          "Krop",
+          "Afslutning"
+        ],
+        "virksomhedsformer": [
+          "Håndværksmæssig"
         ]
       }
     ],

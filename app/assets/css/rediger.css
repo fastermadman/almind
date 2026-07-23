@@ -317,3 +317,13 @@
 /* W1: publish-gate-dialogen genbruger greb-dialogens chrome */
 .centrum-dialog .felt { margin-bottom: 1.2rem; }
 .centrum-dialog .tilfoej:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* #134: per-fase dramaturgi — sammenfoldet nederst i fase-kortet */
+.fase-dramaturgi {
+  margin-top: 1rem; padding: 0.8rem 1rem;
+  border: 1px solid var(--border); border-radius: var(--r-modal);
+  background: var(--surface);
+}
+.fase-dramaturgi summary { cursor: pointer; font-family: var(--font-ui); font-weight: 600; font-size: 0.9rem; }
+.fase-dramaturgi[open] summary { margin-bottom: 0.8rem; }
+.fase-dramaturgi .felt { margin-bottom: 1.2rem; }

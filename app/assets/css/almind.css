@@ -1503,3 +1503,10 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
   border: 1.5px solid var(--border); border-radius: var(--r-pill);
   padding: 0.55rem 1rem; font-size: 1rem;
 }
+
+/* #136: per-fase dramaturgi — kompakt linje under fasehovedet (preview/print + sequence) */
+.fase-dramaturgi-linje {
+  font-family: var(--font-ui); font-size: 0.78rem; color: var(--muted);
+  letter-spacing: 0.02em; margin: 0.2rem 0 0.6rem;
+}
+.fase-nr-raekke .fase-dramaturgi-linje { margin: 0; }

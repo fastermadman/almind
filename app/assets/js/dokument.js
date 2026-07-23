@@ -4,7 +4,7 @@
 
 import { DIMENSIONER, DIM_NAVNE, familieFor, datoTekst, materialetypeNavn, hentFag } from "./data.js";
 import { medietype, medieElement, medieFacade, renseUrl } from "./medie.js";
-import { faseTidTekst, faseKontekstTekst, forloebOmfangTekst } from "./komponenter.js";
+import { faseTidTekst, faseKontekstTekst, forloebOmfangTekst, faseDramaturgiTekst, dramaturgiUnion } from "./komponenter.js";
 
 const LEKTIONSLAENGDE_KEY = "almind.lektionslaengde";
 function hentLektionslaengde() {
@@ -94,6 +94,17 @@ export function renderFaseIndhold(fase, tilstand = "laerer") {
       frag.appendChild(boks);
     });
   } else {
+    // Anslaget (#136): fasens åbning vises øverst som dramaturgi-callout —
+    // "vises på forløbets side" (FASE_PROFIL-løftet) opfyldes her, delt
+    // mellem preview/print og sequence.
+    if (fase.anslag_tekst) {
+      const boks = document.createElement("aside");
+      boks.className = "callout callout-dramaturgi";
+      boks.appendChild(tekstEl("span", "callout-titel",
+        "Anslag" + (fase.anslag_type ? `: ${fase.anslag_type}` : "")));
+      boks.appendChild(document.createTextNode(fase.anslag_tekst));
+      frag.appendChild(boks);
+    }
     // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
     (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
       .forEach((afsnit) => frag.appendChild(tekstEl("p", null, afsnit)));
@@ -102,6 +113,12 @@ export function renderFaseIndhold(fase, tilstand = "laerer") {
       const ol = document.createElement("ol");
       fase.aktiviteter.forEach((a) => ol.appendChild(aktivitetLi(a)));
       frag.appendChild(ol);
+    }
+    // Fase-materialer (#135): kun lærer-flader indtil P4 afgør elev-placeringen
+    // (beslutningsnotens fravalg 4) — derfor ingen elev-gren her endnu.
+    if (fase.materialer?.length) {
+      frag.appendChild(tekstEl("h3", null, "Materialer"));
+      frag.appendChild(materialeListe(fase.materialer, tilstand));
     }
     (fase.callouts || []).forEach((c) => {
       const boks = document.createElement("aside");
@@ -311,14 +328,17 @@ export async function renderDokument(f, tilstand = "laerer") {
     if (oversigt) ark.appendChild(oversigt);
   }
 
-  // Maskinlæsbar profil fra wizard-tags (binder forløb sammen og gør dem søgbare)
-  if (tilstand === "laerer" && f.tags && Object.keys(f.tags).length) {
+  // Maskinlæsbar profil: dramaturgi-delene beregnes nu som union af fase-tags
+  // med legacy-forløbs-tags som fallback (#136, dramaturgiUnion) — strategi/
+  // evaluering er fortsat forløbs-tags.
+  if (tilstand === "laerer") {
+    const dram = dramaturgiUnion(f);
     const dele = [];
-    if (f.tags.strategi) dele.push("Planlægningsstrategi: " + f.tags.strategi);
-    if (f.tags.anslag_type) dele.push("Anslag: " + f.tags.anslag_type);
-    if (f.tags.virksomhedsformer?.length) dele.push("Virksomhedsformer: " + f.tags.virksomhedsformer.join(" · "));
-    if (f.tags.dewey?.length) dele.push("Erfaringskvaliteter: " + f.tags.dewey.join(" · "));
-    if (f.tags.evalueringsform && f.tags.evalueringsform !== "Ingen (åben plads)") dele.push("Evaluering: " + f.tags.evalueringsform);
+    if (f.tags?.strategi) dele.push("Planlægningsstrategi: " + f.tags.strategi);
+    if (dram.anslag_type) dele.push("Anslag: " + dram.anslag_type);
+    if (dram.virksomhedsformer.length) dele.push("Virksomhedsformer: " + dram.virksomhedsformer.join(" · "));
+    if (dram.dewey.length) dele.push("Erfaringskvaliteter: " + dram.dewey.join(" · "));
+    if (f.tags?.evalueringsform && f.tags.evalueringsform !== "Ingen (åben plads)") dele.push("Evaluering: " + f.tags.evalueringsform);
     if (dele.length) {
       const profil = document.createElement("aside");
       profil.className = "callout callout-gissel";
@@ -352,6 +372,12 @@ export async function renderDokument(f, tilstand = "laerer") {
     // i print's string-set (løbende sidehoved), som kun skal bære faseTITLEN.
     const tid = faseTidTekst(fase);
     if (tid) ark.appendChild(tekstEl("div", "fase-varighed-badge", tid));
+    // Fase-dramaturgien (#136) — kompakt linje, kun lærer (teorivokabular,
+    // Design Principle 4).
+    if (tilstand === "laerer") {
+      const dram = faseDramaturgiTekst(fase);
+      if (dram) ark.appendChild(tekstEl("div", "fase-dramaturgi-linje", dram));
+    }
     ark.appendChild(renderFaseIndhold(fase, tilstand));
     // almind-dev#128: sted/kontekst hører til EFTER fasens indhold, ikke lige
     // under overskriften — det er en tilføjelse til det du lige har læst, ikke

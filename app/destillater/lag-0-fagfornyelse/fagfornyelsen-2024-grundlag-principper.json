@@ -19,7 +19,7 @@
     "Hvilke aktiviteter kræver fællesskab for at give mening?",
     "Kan forløbet legitimeres direkte til § 1 via treklangen?"
   ],
-  "wizard_trin": "1",
+  "wizard_trin": "C",
   "tool_type": "fundament",
   "tool_navn": "fagfornyelse-principper",
   "trigger": "Alle forløb — Fagfornyelsen er det primære læreplansgrundlag",

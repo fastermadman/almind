@@ -297,6 +297,26 @@ export async function gisselMaterialetyper() {
   return Object.keys(d.seks_kategorier || {}).map((id) => ({ id, navn: materialetypeNavn(id) }));
 }
 
+// W4/#58: de 10 kendetegn på alsidig undervisning (Bilag 1, kap. 5.1) med
+// 3-4-3-mapping til treklangens ben — samme mønster som gisselMaterialetyper:
+// vokabular fra destillat-JSON, aldrig hardcodet. [{id, navn, ben}].
+export async function treklangKendetegn() {
+  const manifest = await hentManifest();
+  const post = manifest.destillater.find((d) => d.id === "bilag1-centrale-begreber-2026");
+  if (!post) return [];
+  const d = await hentDestillat(post);
+  return d.kendetegn_alsidig_undervisning || [];
+}
+
+// W4/#58: live-linjen der viser gaven — kendetegn → ben → formål. Delt mellem
+// wizard-trin C og editorens Kobling-gruppe, så de to aldrig drifter.
+export function treklangLinje(valgteIder, alleKendetegn) {
+  if (!valgteIder.length) return "";
+  const valgte = valgteIder.map((id) => alleKendetegn.find((k) => k.id === id)).filter(Boolean);
+  const ben = [...new Set(valgte.map((k) => k.ben))];
+  return `Lærervejledningen får et legitimeringsafsnit: ${valgte.map((k) => k.navn).join(" · ")} → ${ben.join(" · ")} → folkeskolens formål.`;
+}
+
 // Bilag 1's tre former for fagligt samspil (destillat: bilag1-centrale-begreber-2026,
 // begrebet "Tværfaglighed" — står som prosa dér, derfor struktureret her).
 export const SAMSPIL_FORMER = [

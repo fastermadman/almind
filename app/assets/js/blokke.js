@@ -8,9 +8,9 @@
 import {
   DIMENSIONER, DIM_NAVNE, familieFor, SAMSPIL_FORMER, tegnFagOptions,
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
-  hentBegreber, begrebMatchNoegle,
+  hentBegreber, begrebMatchNoegle, treklangKendetegn, treklangLinje,
 } from "./data.js";
-import { PROFIL_GRUPPER, klasseValgFor, kildeIkon } from "./wizard.js";
+import { PROFIL_GRUPPER, FASE_PROFIL, klasseValgFor, kildeIkon } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 import { harElevIndhold, harElevIndholdFase } from "./dokument.js";
 
@@ -24,8 +24,9 @@ const CALLOUT_TYPER = {
 
 const ELEVBOKS_TYPER = { tip: "Tip", opgave: "Opgave", regel: "Regel" };
 
-// Fritekst-svar fra profilen gemmes som refleksioner (samme som wizardens afslut)
-const REFLEKSION_KILDER = { anslag_tekst: "Anslag", didaktiseres_selv: "Didaktisering" };
+// Fritekst-svar fra profilen gemmes som refleksioner (samme som wizardens
+// afslut). anslag_tekst er udgået her: anslaget bor per-fase nu (FASE_PROFIL).
+const REFLEKSION_KILDER = { didaktiseres_selv: "Didaktisering" };
 
 const iDag = () => new Date().toISOString().slice(0, 10);
 
@@ -38,7 +39,7 @@ export function nytForloeb() {
     id: "kladde", schema_version: 3, titel: "", undertitel: null, forfatter: "Dig", institution: "Din skole",
     aar: new Date().getFullYear(), fag: "dansk", klassetrin: "", licens: "CC BY-SA 4.0",
     omfang: null, eksemplarisk_centrum: null, fravalg: [], didaktisk_position: null,
-    fagplan_ref: null, samspil: null,
+    fagplan_ref: null, samspil: null, treklang: null,
     opdateret: iDag(), fork_af: null, forks: [], beskrivelse: "", tags: {},
     daekningsgrad: Object.fromEntries(DIMENSIONER.map((d) => [d, "fuld"])),
     tomme_pladser: [], faser: [], materialer: [], refleksioner: [],
@@ -149,6 +150,14 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   // — hentes én gang her, så kanvas-tegningen kan forblive synkron.
   const fagIndex = await hentFagIndex();
   const gisselTyper = await gisselMaterialetyper().catch(() => []);
+  // Brodersen-kilden til fase-dramaturgien (#134) — hentes én gang her, så
+  // tegnKanvas kan forblive synkron.
+  const brodersenKilde = await hentManifest().then(async (m) => {
+    const post = m.destillater.find((d) => d.id === FASE_PROFIL.destillat);
+    if (!post) return "";
+    const dest = await hentDestillat(post);
+    return dest.kilde || dest.meta?.kilde || post.titel;
+  }).catch(() => "");
 
   let feltId = 0; // unikt id-suffiks til felt-label-spans, så aria-labelledby kan pege på dem
   let tilstand = "laerer"; // almind-dev#112: fladeskifter — spejler preview.html's faner
@@ -408,7 +417,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   }
 
   function tegnFase(fase, i) {
-    fase.aktiviteter ??= []; fase.callouts ??= [];
+    fase.aktiviteter ??= []; fase.callouts ??= []; fase.materialer ??= [];
     fase.elevmaal ??= []; fase.elevaktiviteter ??= []; fase.elevbokse ??= [];
     const kort = el("section", "blok-kort fase-kort");
     kort.dataset.i = i;
@@ -491,6 +500,20 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
         },
       });
 
+      // Fase-materialer (#135): arket hører til fasen, ikke forløbet — efter
+      // aktiviteterne (materialet bruges I aktiviteten), før callouts.
+      kort.appendChild(el("span", "gruppe-navn", "Materialer i fasen"));
+      const matListe = el("div");
+      fase.materialer.forEach((m, j) => matListe.appendChild(materialeRaekke(m, () => {
+        fase.materialer.splice(j, 1);
+        gem(); tegnKanvas();
+      })));
+      kort.appendChild(matListe);
+      kort.appendChild(tilfoejKnap("+ Materiale", () => {
+        fase.materialer.push(nytMateriale());
+        gem(); tegnKanvas();
+      }));
+
       // Callouts: det didaktiske lag — vises i editoren med dokumentets egne farver
       kort.appendChild(el("span", "gruppe-navn", "Callouts"));
       const callListe = el("div", "callout-liste");
@@ -501,6 +524,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
         gem(); tegnKanvas();
       }));
       kort.appendChild(tilfoejKnap("+ Greb", () => aabnGrebKatalog(fase)));
+      kort.appendChild(tegnFaseDramaturgi(fase));
 
       new Sortable(callListe, {
         ...DRAG, group: "callouts", handle: ".haandtag",
@@ -561,6 +585,79 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     }
 
     return kort;
+  }
+
+  // Per-fase dramaturgi (beslutning 2026-07-23, #134): FASE_PROFIL's chips +
+  // betinget anslag, sammenfoldet nederst i fase-kortet — fasens mest
+  // refleksive lag. Data bor på fase-objektet (ikke f.tags). Anslag-felterne
+  // vises kun når funktionen indeholder "Anslag"; fravælges chippen, bevares
+  // data (ikke-destruktivt — kun visningen er betinget).
+  function tegnFaseDramaturgi(fase) {
+    const uddyb = document.createElement("details");
+    uddyb.className = "fase-dramaturgi";
+    uddyb.open = !!(fase.dramaturgisk_funktion?.length || fase.virksomhedsformer?.length
+      || fase.dewey?.length || fase.anslag_type || fase.anslag_tekst);
+    const summary = el("summary", null, "Fasens dramaturgi");
+    if (brodersenKilde) summary.appendChild(kildeIkon(brodersenKilde));
+    uddyb.appendChild(summary);
+    const zone = el("div");
+    uddyb.appendChild(zone);
+
+    const faseChips = (def) => {
+      const wrap = el("div", "felt");
+      const labelSpan = el("span", "felt-label", def.label);
+      labelSpan.id = `profil-label-${feltId++}`;
+      wrap.appendChild(labelSpan);
+      if (def.under) wrap.appendChild(el("span", "under", def.under));
+      const c = el("div", "chips");
+      c.setAttribute("role", "group");
+      c.setAttribute("aria-labelledby", labelSpan.id);
+      const valgte = new Set(fase[def.id] || []);
+      def.valg.forEach((v) => {
+        const b = el("button", "chip", v);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(valgte.has(v)));
+        b.addEventListener("click", () => {
+          valgte.has(v) ? valgte.delete(v) : valgte.add(v);
+          fase[def.id] = [...valgte];
+          if (!fase[def.id].length) delete fase[def.id];
+          b.setAttribute("aria-pressed", String(valgte.has(v)));
+          gem();
+          // Anslag-chippen styrer de betingede felter — lokal gentegning,
+          // aldrig tegnKanvas (fokus må ikke tabes under skrivning).
+          if (def.id === "dramaturgisk_funktion") tegnZone();
+        });
+        c.appendChild(b);
+      });
+      wrap.appendChild(c);
+      return wrap;
+    };
+
+    function tegnZone() {
+      zone.innerHTML = "";
+      FASE_PROFIL.felter.forEach((def) => zone.appendChild(faseChips(def)));
+      if (!(fase.dramaturgisk_funktion || []).includes("Anslag")) return;
+      const [typeDef, tekstDef] = FASE_PROFIL.anslag;
+      const typeWrap = el("div", "felt");
+      const typeLabel = el("span", "felt-label", typeDef.label);
+      typeLabel.id = `profil-label-${feltId++}`;
+      typeWrap.appendChild(typeLabel);
+      if (typeDef.under) typeWrap.appendChild(el("span", "under", typeDef.under));
+      const sel = document.createElement("select");
+      sel.setAttribute("aria-labelledby", typeLabel.id);
+      sel.appendChild(new Option("Vælg ...", "", false, !fase.anslag_type));
+      typeDef.valg.forEach((v) => sel.appendChild(new Option(v, v, false, fase.anslag_type === v)));
+      sel.addEventListener("change", () => {
+        fase.anslag_type = sel.value || undefined;
+        gem();
+      });
+      typeWrap.appendChild(sel);
+      zone.appendChild(typeWrap);
+      zone.appendChild(feltMedLabel(tekstDef.label, tekstDef.under,
+        tekstFelt(null, fase.anslag_tekst, "", (v) => (fase.anslag_tekst = v.trim() ? v : undefined))));
+    }
+    tegnZone();
+    return uddyb;
   }
 
   // Lærerens beskrivelse/aktiviteter vist dæmpet og læse-kun i elevtilstand,
@@ -633,52 +730,61 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     return blok;
   }
 
+  // Én materiale-række, delt mellem den globale sektion og fase-listerne
+  // (#135): samme objektform overalt — titel/url/Gissel-type/didaktisering/
+  // elev-flag — så #111's upload-mekanisme sidenhen populerer url uanset niveau.
+  function materialeRaekke(m, onSlet) {
+    const raekke = el("div", "materiale-raekke");
+    raekke.appendChild(inputFelt(null, m.titel, "Titel", (v) => (m.titel = v)));
+    raekke.appendChild(inputFelt(null, m.url, "URL", (v) => (m.url = v)));
+    // Gissel-type + didaktisering (schema 6.2) — typerne fra destillatet
+    if (gisselTyper.length) {
+      const typeSel = document.createElement("select");
+      typeSel.appendChild(new Option("Materialetype (Gissel) ...", "", false, !m.materialetype));
+      gisselTyper.forEach((t) =>
+        typeSel.appendChild(new Option(t.navn, t.id, false, m.materialetype === t.id)));
+      typeSel.addEventListener("change", () => { m.materialetype = typeSel.value || null; gem(); });
+      raekke.appendChild(typeSel);
+    }
+    raekke.appendChild(inputFelt(null, m.didaktisering,
+      "Didaktisering: hvad har du gjort ved materialet?", (v) => (m.didaktisering = v)));
+    // #50: elev-flag styrer om materialet vises på elev.html — default fra,
+    // så et link kun deles med elever når forfatteren aktivt vælger det.
+    const elevLabel = el("label", "materiale-elev-label");
+    const elevCheckbox = document.createElement("input");
+    elevCheckbox.type = "checkbox";
+    elevCheckbox.checked = !!m.elev;
+    elevCheckbox.addEventListener("change", () => { m.elev = elevCheckbox.checked; gem(); });
+    elevLabel.appendChild(elevCheckbox);
+    elevLabel.appendChild(document.createTextNode("Vises for elever"));
+    raekke.appendChild(elevLabel);
+    // Legacy-felter (fund C): vises kun når allerede udfyldt — nye materialer får dem ikke tilbudt
+    if (m.type) raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
+    if (m.faust) raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
+    raekke.appendChild(sletKnap("Fjern materialet", onSlet));
+    return raekke;
+  }
+
+  function nytMateriale() {
+    return { titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "", elev: false };
+  }
+
   function tegnMaterialer() {
     const sek = el("section", "editor-sektion");
     const overskrift = el("div", "sektion-hoved");
     overskrift.appendChild(el("h2", null, "Materialer"));
     overskrift.appendChild(el("span", "begge-maerke", "BEGGE"));
     sek.appendChild(overskrift);
-    sek.appendChild(el("p", "under", "Links til mitCFU eller andre kilder. De printes med, så materialet følger dokumentet. \"Vises for elever\" styrer om et materiale når elevfladen."));
+    sek.appendChild(el("p", "under", "Materialer der gælder hele forløbet — materialer til en bestemt fase tilføjer du på fasen. Links printes med, så materialet følger dokumentet. \"Vises for elever\" styrer om et materiale når elevfladen."));
 
     const liste = el("div");
-    f.materialer.forEach((m, j) => {
-      const raekke = el("div", "materiale-raekke");
-      raekke.appendChild(inputFelt(null, m.titel, "Titel", (v) => (m.titel = v)));
-      raekke.appendChild(inputFelt(null, m.url, "URL", (v) => (m.url = v)));
-      // Gissel-type + didaktisering (schema 6.2) — typerne fra destillatet
-      if (gisselTyper.length) {
-        const typeSel = document.createElement("select");
-        typeSel.appendChild(new Option("Materialetype (Gissel) ...", "", false, !m.materialetype));
-        gisselTyper.forEach((t) =>
-          typeSel.appendChild(new Option(t.navn, t.id, false, m.materialetype === t.id)));
-        typeSel.addEventListener("change", () => { m.materialetype = typeSel.value || null; gem(); });
-        raekke.appendChild(typeSel);
-      }
-      raekke.appendChild(inputFelt(null, m.didaktisering,
-        "Didaktisering: hvad har du gjort ved materialet?", (v) => (m.didaktisering = v)));
-      // #50: elev-flag styrer om materialet vises på elev.html — default fra,
-      // så et link kun deles med elever når forfatteren aktivt vælger det.
-      const elevLabel = el("label", "materiale-elev-label");
-      const elevCheckbox = document.createElement("input");
-      elevCheckbox.type = "checkbox";
-      elevCheckbox.checked = !!m.elev;
-      elevCheckbox.addEventListener("change", () => { m.elev = elevCheckbox.checked; gem(); });
-      elevLabel.appendChild(elevCheckbox);
-      elevLabel.appendChild(document.createTextNode("Vises for elever"));
-      raekke.appendChild(elevLabel);
-      // Legacy-felter (fund C): vises kun når allerede udfyldt — nye materialer får dem ikke tilbudt
-      if (m.type) raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
-      if (m.faust) raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
-      raekke.appendChild(sletKnap("Fjern materialet", () => {
-        f.materialer.splice(j, 1);
-        gem(); tegnKanvas();
-      }));
-      liste.appendChild(raekke);
-    });
+    f.materialer.forEach((m, j) => liste.appendChild(materialeRaekke(m, () => {
+      f.materialer.splice(j, 1);
+      gem(); tegnKanvas();
+    })));
     sek.appendChild(liste);
     sek.appendChild(tilfoejKnap("+ Materiale", () => {
-      f.materialer.push({ titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "", elev: false });
+      f.materialer.push(nytMateriale());
       gem(); tegnKanvas();
     }));
     return sek;
@@ -937,6 +1043,50 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
         `fagplan ${fagFil.fagplan_version} — koblingen pinnes til denne version`, c));
     }
 
+    // W4/#58: treklangen som legitimerings-gave — samme felt som wizard-trin C,
+    // delt live-linje-formatter (treklangLinje). Tomt felt = intet i JSON.
+    const kendetegn = await treklangKendetegn().catch(() => []);
+    if (kendetegn.length) {
+      const valgte = new Set(f.treklang?.kendetegn || []);
+      const c = el("div", "chips");
+      c.setAttribute("role", "group");
+      const linje = el("p", "under treklang-linje");
+      const skriv = () => {
+        f.treklang = (valgte.size || (f.treklang?.hvordan || "").trim())
+          ? { kendetegn: [...valgte], hvordan: f.treklang?.hvordan || "" }
+          : null;
+      };
+      const opdaterLinje = () => {
+        const tekst = treklangLinje([...valgte], kendetegn);
+        linje.textContent = tekst;
+        linje.hidden = !tekst;
+      };
+      kendetegn.forEach((k) => {
+        const b = el("button", "chip", k.navn);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(valgte.has(k.id)));
+        b.addEventListener("click", () => {
+          valgte.has(k.id) ? valgte.delete(k.id) : valgte.add(k.id);
+          b.setAttribute("aria-pressed", String(valgte.has(k.id)));
+          skriv(); opdaterLinje(); gem();
+        });
+        c.appendChild(b);
+      });
+      opdaterLinje();
+      const wrap = el("div");
+      wrap.appendChild(c);
+      wrap.appendChild(linje);
+      grp.appendChild(feltMedLabel(
+        "Hvorfor er forløbet vigtigt? Vælg de kendetegn på alsidig undervisning, det bærer",
+        "Bilag 1's 10 kendetegn kobler forløbet til kundskaber, engagement og myndighed", wrap));
+      grp.appendChild(feltMedLabel("Hvordan? (valgfrit)",
+        "gør legitimeringen til din egen — den indgår i lærervejledningen med dine ord",
+        tekstFelt(null, f.treklang?.hvordan, "", (v) => {
+          f.treklang = { kendetegn: [...valgte], hvordan: v };
+          if (!valgte.size && !v.trim()) f.treklang = null;
+        })));
+    }
+
     const samSel = document.createElement("select");
     samSel.appendChild(new Option("Nej — forløbet står alene", "", false, !f.samspil?.form));
     SAMSPIL_FORMER.forEach((form) =>
@@ -1072,6 +1222,12 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
 
     const manifest = await hentManifest().catch(() => null);
 
+    // Rækkefølge besluttet 2026-07-23 (teacher-first, spejler wizardens
+    // C→D→E-gradient): Kobling FØRST — fagplanen er det, en praktik-studerende
+    // leder efter — derefter fravalg/position, fundament, evaluering, begreber.
+    panel.appendChild(await tegnKobling());
+    panel.appendChild(tegnValgOgFravalg());
+
     for (const t of PROFIL_GRUPPER) {
       const grp = document.createElement("details");
       grp.open = true;
@@ -1088,9 +1244,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       panel.appendChild(grp);
     }
 
-    panel.appendChild(tegnValgOgFravalg());
     panel.appendChild(await tegnBegreber());
-    panel.appendChild(await tegnKobling());
   }
 
   // ---------- start ----------

@@ -31,6 +31,43 @@ export function faseKontekstTekst(fase) {
   return fase.afvikling || "";
 }
 
+// Per-fase dramaturgi (beslutning 2026-07-23, almind-dev#136): kompakt linje
+// til fase-hovedet — funktion · virksomhedsformer · Dewey, kun det der er sat.
+export function faseDramaturgiTekst(fase) {
+  return [
+    fase.dramaturgisk_funktion?.length ? fase.dramaturgisk_funktion.join("+") : "",
+    fase.virksomhedsformer?.length ? fase.virksomhedsformer.join(" · ") : "",
+    fase.dewey?.length ? fase.dewey.join(" · ") : "",
+  ].filter(Boolean).join("  |  ");
+}
+
+// Forløbs-aggregat: union af fase-tags når mindst én fase er tagget; ellers
+// legacy-forløbs-tags (fallback — de 14 seeds er endnu ikke migreret, jf.
+// forfatter-skøns-reglen). Beregnes altid, gemmes ALDRIG i JSON. anslag_type/
+// anslag_tekst kommer fra FØRSTE anslag-fase.
+export function dramaturgiUnion(f) {
+  const faser = f.faser || [];
+  const union = (id) => [...new Set(faser.flatMap((fa) => fa[id] || []))];
+  const virksomhedsformer = union("virksomhedsformer");
+  const dewey = union("dewey");
+  const anslagFase = faser.find((fa) => (fa.dramaturgisk_funktion || []).includes("Anslag")
+    || fa.anslag_type || fa.anslag_tekst);
+  const harFaseTags = !!(virksomhedsformer.length || dewey.length || anslagFase);
+  if (harFaseTags) {
+    return {
+      virksomhedsformer, dewey,
+      anslag_type: anslagFase?.anslag_type || null,
+      anslag_tekst: anslagFase?.anslag_tekst || null,
+    };
+  }
+  return {
+    virksomhedsformer: f.tags?.virksomhedsformer || [],
+    dewey: f.tags?.dewey || [],
+    anslag_type: f.tags?.anslag_type || null,
+    anslag_tekst: null, // legacy anslag_tekst bor i refleksioner, ikke tags
+  };
+}
+
 // Forløbstotal: kun beregnet når ALLE faser har minutter (delvis dækning er
 // vildledende, jf. beslutningen). Ellers falder den tilbage til forfatterens
 // eget omfang.lektioner-skøn, ellers viser den intet — aldrig en advarsel.

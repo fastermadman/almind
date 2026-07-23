@@ -15,7 +15,7 @@
     "Bidrager forløbet til sammenhæng og progression i elevens samlede skolegang?",
     "Myndiggør forløbet eleven — eller leverer det primært information?"
   ],
-  "wizard_trin": "1",
+  "wizard_trin": "C",
   "tool_type": "fundament",
   "tool_navn": "fagfornyelse-beslutningsgrundlag",
   "trigger": "Sektion 2 i lærervejledningen — legitimeringsargumentet",
