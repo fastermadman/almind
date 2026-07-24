@@ -1,0 +1,59 @@
+name: Byg katalog.json
+
+# almind-dev#73 (M1): aggregerer app/data/forloeb.json -> app/data/katalog.json
+# med CI-tilfoejede felter (repo/forfatter_codeberg/legacy_id/registreret).
+# Kilden er indtil videre det lokale 14-forloebs-array i dette repo -- rigtige
+# per-ejer Codeberg-repos findes foerst efter M2's split (almind-repo-slutarkitektur.md §5).
+# Push til main trigger ogsaa deploy.yml, saa et aendret katalog.json ender live.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Byg katalog.json
+        run: |
+          python3 - <<'PY'
+          import json, datetime, pathlib
+
+          src = pathlib.Path("app/data/forloeb.json")
+          dst = pathlib.Path("app/data/katalog.json")
+
+          forloeb = json.loads(src.read_text())
+
+          eksisterende = {}
+          if dst.exists():
+              for e in json.loads(dst.read_text()):
+                  eksisterende[e["id"]] = e
+
+          i_dag = datetime.date.today().isoformat()
+
+          katalog = []
+          for f in forloeb:
+              entry = dict(f)
+              entry["repo"] = f"almind/{f['id']}"
+              entry["forfatter_codeberg"] = "almind"
+              entry["legacy_id"] = f["id"]
+              entry["registreret"] = eksisterende.get(f["id"], {}).get("registreret", i_dag)
+              katalog.append(entry)
+
+          dst.write_text(json.dumps(katalog, ensure_ascii=False, indent=2) + "\n")
+          print(f"skrev {len(katalog)} forloeb -> {dst}")
+          PY
+
+      - name: Commit hvis aendret
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add app/data/katalog.json
+          git diff --cached --quiet || git commit -m "katalog: opdater katalog.json (auto, almind-dev#73)"
+          git push

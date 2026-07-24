@@ -132,7 +132,7 @@ let _forloeb = null;
 export async function hentForloeb() {
   await _familieIndlaesning;
   if (!_forloeb) {
-    _forloeb = await hentJSON("data/forloeb.json", "forloeb.json");
+    _forloeb = await hentJSON("data/katalog.json", "katalog.json");
   }
   return _forloeb;
 }

@@ -21,7 +21,8 @@ sequence.html   forløbsdetalje: vertikal genealogi, dækningsgradsprofil, tomme
 upload.html     destillat-drevet wizard, 5 trin, slutter med "hvilke pladser lader du stå åbne?"
 fork.html       samme wizard, forudfyldt fra original med arvet/dit bidrag-markering
 preview.html    den egoistiske grund: forløb renderet som printklart dokument (Typst-fortolkning)
-data/forloeb.json          14 forløb (se "Seed-data" nedenfor)
+data/forloeb.json          14 forløb, kildedata (se "Seed-data" nedenfor)
+data/katalog.json          samme 14 forløb + CI-felter (repo/forfatter_codeberg/legacy_id/registreret) — det klienten rent faktisk henter, se almind-dev#73
 destillater/               5 af de 22 destillater + manifest.json
 assets/css + assets/js     tokens, komponenter, 6 små ES-moduler, ingen frameworks
 ```
@@ -37,6 +38,14 @@ assets/css + assets/js     tokens, komponenter, 6 små ES-moduler, ingen framewo
 ## Designbeslutninger implementeret
 
 Neutral base + fire fagfarver (bordeaux #8a2e3e for æstetik), neutralt logo, ingen femte platformfarve. **Typografi revideret 2026-07-16, se DESIGN.md's Typography-afsnit for den fulde regel:** Marauder (selvhostet, to snit via `opsz`-variabel-akse — Caption kun til logoet, Text til alle narrative overskrifter, afløste Noto Serif sitewide), Bricolage Grotesque ("forløb som egen kategori" + fag-kort-labels — IKKE logoet, trods `--font-logo`-tokennavnet), Jost (UI), Atkinson Hyperlegible Next (al brødtekst), mono-fallback for Drafting Mono. Ingen em-tankestreger i UI. Motion: moderat, fork-træet tegner sig selv, prefers-reduced-motion respekteret overalt. Preview-callouts er tro mod Typst-systemets egne farver.
+
+## Versionering og genealogi
+
+Redigering og forking er to forskellige handlinger, ikke gradbøjninger af samme handling — der findes derfor ingen "bagatelgrænse" for hvornår en ændring tæller som ny version.
+
+- **Redigerer du dit eget forløb** (minutter, tekst, faser), committes det direkte til samme forløb — samme `id`, ingen ny `generation`, kun `opdateret`-datoen ændres. `fork_af`/`generation`/`forks` opdateres kun når nogen aktivt vælger "min egen version af dette" (`forkTilNyVersion`).
+- **Redigerer du et forløb andre allerede har forket**, opdager kæde-visningen (`genealogi.js`) automatisk at deres `fork_af.opdateret` ikke længere matcher din nuværende `opdateret` og markerer deres fork som **"forladet"**: *"Forket fra en tidligere version af '[titel]' — forælderen er redigeret siden."* Det er et flag, ikke en diff.
+- **Der er ingen automatisk tekst-diff mellem versioner.** Hver fork har i stedet et hånd-skrevet `diff`-felt (fritekst) hvor forkeren selv beskriver hvad og hvorfor de ændrede — en pædagogisk fortælling, ikke git-style diffing. Bevidst designvalg, ikke en manglende feature.
 
 ## Kendte begrænsninger
 
