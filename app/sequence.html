@@ -387,11 +387,25 @@
 
   // Materialer. #52: rendering udledes af URL'en — lærerfladen (denne side)
   // indlæser direkte, intet click-to-load nødvendigt (kun elev.html facade'r).
-  if (f.materialer?.length) {
+  // almind-dev#111: samler forløbs- og fase-materialer ét sted (materiale-tab),
+  // i stedet for kun de globale — fase-materialer (#135) blev ellers kun set
+  // inline i den enkelte fase. faseLabel er null for globale materialer.
+  const alleMaterialer = [
+    ...(f.materialer || []).map((m) => ({ m, faseLabel: null })),
+    ...(f.faser || []).flatMap((fase, i) =>
+      (fase.materialer || []).map((m) => ({ m, faseLabel: `Fase ${i + 1}: ${fase.titel || ""}` }))),
+  ];
+  if (alleMaterialer.length) {
     document.getElementById("materialer-panel").hidden = false;
     const ul = document.getElementById("materialer");
-    f.materialer.forEach((m) => {
+    alleMaterialer.forEach(({ m, faseLabel }) => {
       const li = document.createElement("li");
+      if (faseLabel) {
+        const faseSpan = document.createElement("span");
+        faseSpan.className = "mat-fase";
+        faseSpan.textContent = faseLabel;
+        li.appendChild(faseSpan);
+      }
       const matType = document.createElement("span");
       matType.className = "mat-type";
       matType.textContent = m.type;

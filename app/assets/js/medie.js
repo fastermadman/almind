@@ -4,6 +4,7 @@
 const BILLED_EXT = /\.(jpe?g|png|webp|svg|gif)$/i;
 const LYD_EXT = /\.(mp3|ogg|m4a|wav)$/i;
 const VIDEO_EXT = /\.(mp4|webm|mov)$/i;
+const PDF_EXT = /\.pdf$/i;
 const YOUTUBE_RE = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
 const VIMEO_RE = /vimeo\.com\/(\d+)/;
 
@@ -35,6 +36,7 @@ export function medietype(url) {
   if (BILLED_EXT.test(url)) return "billede";
   if (LYD_EXT.test(url)) return "lyd";
   if (VIDEO_EXT.test(url)) return "video";
+  if (PDF_EXT.test(url)) return "pdf";
   if (YOUTUBE_RE.test(url)) return "youtube";
   if (VIMEO_RE.test(url)) return "vimeo";
   return "link";
@@ -58,6 +60,16 @@ export function medieElement(m, type) {
     const video = document.createElement("video");
     video.controls = true; video.src = renseUrl(m.url); video.className = "medie-video";
     return video;
+  }
+  if (type === "pdf") {
+    // almind-dev#111: native <iframe> — browseren har sin egen PDF-fremviser,
+    // ingen tredjeparts-lib nødvendig.
+    const iframe = document.createElement("iframe");
+    iframe.src = renseUrl(m.url);
+    iframe.className = "medie-pdf";
+    iframe.title = m.titel || "PDF-materiale";
+    iframe.loading = "lazy";
+    return iframe;
   }
   if (type === "youtube") {
     const id = m.url.match(YOUTUBE_RE)?.[1];
@@ -90,7 +102,7 @@ export function medieFacade(m, type) {
   const knap = document.createElement("button");
   knap.type = "button";
   knap.className = "medie-facade";
-  const MEDIE_NAVN = { billede: "billede", lyd: "lyd", video: "video", youtube: "video (YouTube)", vimeo: "video (Vimeo)" };
+  const MEDIE_NAVN = { billede: "billede", lyd: "lyd", video: "video", pdf: "PDF", youtube: "video (YouTube)", vimeo: "video (Vimeo)" };
   const ikon = document.createElement("span");
   ikon.className = "medie-facade-ikon";
   ikon.setAttribute("aria-hidden", "true");
