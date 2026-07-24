@@ -549,6 +549,10 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       });
       kort.appendChild(maalListe);
       kort.appendChild(tilfoejKnap("+ Mål", () => { fase.elevmaal.push(""); gem(); tegnKanvas(); }));
+      // almind-dev#113: bind målet til indholdet, ikke løsrevne taksonomi-
+      // verber — Bilag 1-destillatets advarsel mod Bloom-verber uden indhold.
+      kort.appendChild(el("p", "felt-hjaelp",
+        "Bind målet til indholdet: \"forklare hvad X betyder, med et eksempel\" — ikke \"kan analysere\"."));
 
       kort.appendChild(el("span", "gruppe-navn", "Elevtekst"));
       kort.appendChild(tekstFelt("tekstfelt", fase.elevtekst,

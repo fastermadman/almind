@@ -1082,6 +1082,21 @@ img, svg { display: block; max-width: 100%; }
   display: flex; justify-content: space-between;
 }
 
+/* almind-dev#113: elevmål vist i lærer-tilstand — elevmaterialets løfte,
+   dæmpet fra elevens egen grønne maal-boks (samme data, anden ramme).
+   Unscoped som .callout-*, virker i både dokument.js's .ark og sequence.html. */
+.elevmaal-loefte {
+  border-left: 3px solid var(--border); background: var(--surface-alt);
+  border-radius: 0 6px 6px 0; padding: 0.7rem 0.9rem; margin: 0.9rem 0;
+  font-size: 0.92rem;
+}
+.elevmaal-loefte-label {
+  display: block; font-family: var(--font-ui); font-weight: 600;
+  color: var(--muted); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.02em; margin-bottom: 0.3rem;
+}
+.elevmaal-loefte ul { margin: 0; padding-left: 1.1rem; }
+
 /* Elev-tilstand i arket */
 .ark.elev .maal-boks {
   border-left: 3px solid var(--typ-green); background: var(--typ-green-bg);

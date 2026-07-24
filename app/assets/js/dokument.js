@@ -108,6 +108,18 @@ export function renderFaseIndhold(fase, tilstand = "laerer") {
     // Importeret prosa kan rumme flere afsnit — tomme linjer bliver til afsnitsskift
     (fase.beskrivelse || "").split(/\n\n+/).filter((s) => s.trim())
       .forEach((afsnit) => frag.appendChild(tekstEl("p", null, afsnit)));
+    // almind-dev#113: elevmaal vist også i lærer-tilstand — elevmaterialets
+    // løfte, dæmpet og indrammet, adskilt fra elevens egen grønne maal-boks
+    // (§8.2 i elevmateriale-arkitektur-plan.md). Samme data, anden ramme.
+    if (fase.elevmaal?.length) {
+      const loefte = document.createElement("div");
+      loefte.className = "elevmaal-loefte";
+      loefte.appendChild(tekstEl("span", "elevmaal-loefte-label", "Elevmål for fasen"));
+      const ul = document.createElement("ul");
+      fase.elevmaal.forEach((m) => ul.appendChild(tekstEl("li", null, m)));
+      loefte.appendChild(ul);
+      frag.appendChild(loefte);
+    }
     if (fase.aktiviteter?.length) {
       frag.appendChild(tekstEl("h3", null, "Bevægelser"));
       const ol = document.createElement("ol");

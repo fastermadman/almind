@@ -112,6 +112,11 @@
   letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
   margin: 1.1rem 0 0.45rem;
 }
+/* almind-dev#113: kort formulerings-hjælp under felt-tilføj-knapper */
+.felt-hjaelp {
+  font-size: 0.78rem; color: var(--muted); font-style: italic;
+  margin: 0.35rem 0 0;
+}
 
 .blok { display: flex; gap: 0.55rem; align-items: flex-start; }
 
