@@ -61,7 +61,7 @@
 
   import { sitehoved } from "./assets/js/sitehoved.js";
   import { hentForloeb, findForloeb, hentKladde, gemKladde, familieFor, fagNavn } from "./assets/js/data.js";
-  import { startEditor, nytForloeb, forkAf, centrumOK, aabnCentrumDialog } from "./assets/js/blokke.js";
+  import { startEditor, nytForloeb, forkAf, centrumOK, aabnCentrumDialog, aabnSelvtjekDialog } from "./assets/js/blokke.js";
   import { erLoggetInd, loginMedForklaring, hentBruger, delTilAlmind, gemTilEgenGren } from "./assets/js/forgejo.js";
 
   sitehoved(document.querySelector(".site-header"));
@@ -151,6 +151,9 @@
       const fortsat = await aabnCentrumDialog(f, gemKladde);
       if (!fortsat) return;
     }
+    // OER-selvtjek (almind-dev#141): inviterende, ikke blokerende — kun på
+    // "Del til Almind" (en fremmed lander aldrig på et klasse-delt forløb).
+    if (!(await aabnSelvtjekDialog(f))) return;
     gemKladde(f);
     cbKnap.disabled = true;
     visStatus("Deler forløbet: fork/gren → commit → pull request ...");

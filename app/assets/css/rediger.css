@@ -171,7 +171,7 @@
   display: grid; grid-template-columns: 2fr 1fr 1fr 2fr auto auto;
   gap: 0.4rem; margin-bottom: 0.4rem; align-items: center;
 }
-.materiale-raekke input {
+.materiale-raekke input, .materiale-raekke select {
   border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.5rem;
   font-size: 0.82rem; font-family: var(--font-ui); background: var(--surface); color: var(--ink);
 }
@@ -330,6 +330,23 @@
 /* W1: publish-gate-dialogen genbruger greb-dialogens chrome */
 .centrum-dialog .felt { margin-bottom: 1.2rem; }
 .centrum-dialog .tilfoej:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* almind-dev#141: OER-selvtjek — inviterende, ikke blokerende. Genbruger
+   greb-dialogens chrome. Auto-bekræftelser er ren tekst (ingen handling);
+   invitationer får stiplet kant (samme sprog som tomme pladser) og et link
+   ind i formularen. Aldrig et tal, aldrig en score. */
+.selvtjek-dialog .oer-bekraeftet, .selvtjek-dialog .oer-invitationer {
+  list-style: none; padding: 0; margin: 0 0 1rem;
+}
+.selvtjek-dialog .oer-bekraeftet li {
+  font-family: var(--font-ui); font-size: 0.85rem; color: var(--muted); margin-bottom: 0.3rem;
+}
+.selvtjek-dialog .oer-invitationer li {
+  font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink);
+  border: 1.5px dashed var(--border); border-radius: 8px;
+  padding: 0.5rem 0.8rem; margin-bottom: 0.5rem;
+}
+.selvtjek-dialog .oer-knapper { display: flex; gap: 0.6rem; }
 
 /* #134: per-fase dramaturgi — sammenfoldet nederst i fase-kortet */
 .fase-dramaturgi {

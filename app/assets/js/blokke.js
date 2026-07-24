@@ -24,6 +24,24 @@ const CALLOUT_TYPER = {
 
 const ELEVBOKS_TYPER = { tip: "Tip", opgave: "Opgave", regel: "Regel" };
 
+// almind-dev#139-opfølgning: empirisk kerne + tilføjelser efter aftale
+// (session 2026-07-24) — bevidst tværfaglige medie-/værk-genrer, ikke
+// fag-specifikke redskaber (fx "Formelsamling" er allerede et Redskab).
+// Ikke APA7 (se plan-diskussionen). "PDF" er bevidst UDE — det er et format,
+// ikke en genre (medietype() i medie.js indlejrer allerede PDF/billede/video
+// automatisk fra URL'en, uafhængigt af dette felt). "Kortfilm" er erstattet
+// af det bredere "Film"; eksisterende data med værdien "Kortfilm" falder
+// automatisk til "Andet" i editoren (samme mekanisme som al anden legacy-
+// værdi uden for listen) — forfatteren retter selv ved migrering til
+// Codeberg, ingen stille data-ændring her. Fag-specifikke lister er bevidst
+// fravalgt: "Andet" dækker det sjældne/fag-specifikke allerede elegant
+// (fritekstfelt, skriver direkte i m.type) — genåbnes hvis andre fag end
+// dansk får reelt indhold på platformen og samme manglende ord går igen.
+const MATERIALE_TYPER = [
+  "Arbejdsark", "Artikel", "Billede", "Bog", "E-bog", "Film", "Hjemmeside",
+  "Kilde", "Lydbog", "Musik", "Podcast", "Quiz", "Redskab", "Spil", "Tekst", "Vejledning",
+];
+
 // Fritekst-svar fra profilen gemmes som refleksioner (samme som wizardens
 // afslut). anslag_tekst er udgået her: anslaget bor per-fase nu (FASE_PROFIL).
 const REFLEKSION_KILDER = { didaktiseres_selv: "Didaktisering" };
@@ -134,6 +152,95 @@ export function aabnCentrumDialog(f, gemKladdeFn) {
     annuller.textContent = "Annullér";
     annuller.addEventListener("click", () => { dlg.close(); dlg.remove(); resolve(false); });
     dlg.appendChild(annuller);
+
+    dlg.addEventListener("close", () => resolve(false));
+    dlg.addEventListener("close", () => dlg.remove());
+    document.body.appendChild(dlg);
+    dlg.showModal();
+  });
+}
+
+// OER-selvtjek (almind-dev#141, jf. app/plans/oer-selvtjek-arkitektur-plan.md):
+// ren læsning af forløbets genbrugsflade — INTET nyt skemafelt, kun facit på
+// felter der allerede findes. Inviterende, ikke blokerende: kaldes af
+// rediger.html EFTER centrum-gaten, men returnerer aldrig noget der spærrer
+// delingen selv. §1 i planen er facit for hvilke punkter der er med.
+function harProfilTags(tags) {
+  return Object.values(tags || {}).some((v) => (Array.isArray(v) ? v.length : (v || "").toString().trim()));
+}
+
+export function oerSelvtjek(f) {
+  const fund = [];
+  if (!(f.beskrivelse || "").trim()) {
+    fund.push({ punkt: "beskrivelse", tekst: "Tilføj en beskrivelse, så en fremmed lærer ved hvad forløbet er", felt: "beskrivelse" });
+  }
+  if (!(f.klassetrin || "").trim()) {
+    fund.push({ punkt: "maalgruppe", tekst: "Sæt klassetrin, så forløbet kan findes af den rigtige målgruppe", felt: "klassetrin" });
+  }
+  if (!harProfilTags(f.tags)) {
+    fund.push({ punkt: "findbarhed", tekst: "Tilføj et par tags i den didaktiske profil, så forløbet kan findes på mere end sit fag", felt: "tags" });
+  }
+  const ubeskrevet = (f.materialer || []).filter((m) => (m.url || "").trim() && !(m.titel || "").trim());
+  if (ubeskrevet.length) {
+    fund.push({ punkt: "materialer", tekst: `${ubeskrevet.length} materiale${ubeskrevet.length > 1 ? "r" : ""} mangler en titel`, felt: "materialer" });
+  }
+  return fund;
+}
+
+// Vises efter centrum-gaten, før delTilAlmind/gemTilEgenGren. Resolver altid
+// true undtagen ved eksplicit "Ret først" — selvtjekket spærrer aldrig
+// delingen (§2 i planen: inviterende, ikke blokerende).
+export function aabnSelvtjekDialog(f) {
+  const fund = oerSelvtjek(f);
+  return new Promise((resolve) => {
+    const dlg = document.createElement("dialog");
+    dlg.className = "greb-dialog selvtjek-dialog";
+    const h2 = document.createElement("h2");
+    h2.textContent = "Før forløbet deles";
+    dlg.appendChild(h2);
+    const intro = document.createElement("p");
+    intro.className = "under";
+    intro.textContent = "Kan en fremmed lærer bruge det?";
+    dlg.appendChild(intro);
+
+    const bekraeftet = document.createElement("ul");
+    bekraeftet.className = "oer-bekraeftet";
+    ["Licens synlig (CC BY-SA 4.0)", "Du står som ophav", "Opdateringsdato med"].forEach((tekst) => {
+      const li = document.createElement("li");
+      li.textContent = "✓ " + tekst;
+      bekraeftet.appendChild(li);
+    });
+    dlg.appendChild(bekraeftet);
+
+    if (fund.length) {
+      const invitationer = document.createElement("ul");
+      invitationer.className = "oer-invitationer";
+      fund.forEach((punkt) => {
+        const li = document.createElement("li");
+        li.textContent = punkt.tekst;
+        invitationer.appendChild(li);
+      });
+      dlg.appendChild(invitationer);
+    }
+
+    const knapper = document.createElement("div");
+    knapper.className = "oer-knapper";
+    const delAlligevel = document.createElement("button");
+    delAlligevel.type = "button";
+    delAlligevel.className = "tilfoej";
+    delAlligevel.textContent = "Del alligevel";
+    delAlligevel.addEventListener("click", () => { dlg.close(); dlg.remove(); resolve(true); });
+    knapper.appendChild(delAlligevel);
+
+    if (fund.length) {
+      const retFoerst = document.createElement("button");
+      retFoerst.type = "button";
+      retFoerst.className = "tilfoej";
+      retFoerst.textContent = "Ret først";
+      retFoerst.addEventListener("click", () => { dlg.close(); dlg.remove(); resolve(false); });
+      knapper.appendChild(retFoerst);
+    }
+    dlg.appendChild(knapper);
 
     dlg.addEventListener("close", () => resolve(false));
     dlg.addEventListener("close", () => dlg.remove());
@@ -756,6 +863,7 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   function materialeRaekke(m, onSlet) {
     const raekke = el("div", "materiale-raekke");
     raekke.appendChild(inputFelt(null, m.titel, "Titel", (v) => (m.titel = v)));
+    raekke.appendChild(inputFelt(null, m.forfatter, "Forfatter (valgfrit)", (v) => (m.forfatter = v)));
     raekke.appendChild(inputFelt(null, m.url, "URL", (v) => (m.url = v)));
     // Gissel-type + didaktisering (schema 6.2) — typerne fra destillatet
     if (gisselTyper.length) {
@@ -778,15 +886,34 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     elevLabel.appendChild(elevCheckbox);
     elevLabel.appendChild(document.createTextNode("Vises for elever"));
     raekke.appendChild(elevLabel);
-    // Legacy-felter (fund C): vises kun når allerede udfyldt — nye materialer får dem ikke tilbudt
-    if (m.type) raekke.appendChild(inputFelt(null, m.type, "Type (fx E-bog)", (v) => (m.type = v)));
+    // Type: kontrolleret liste (MATERIALE_TYPER) i stedet for fritekst, "Andet"
+    // dækker resten. Skriver stadig blot ind i m.type — samme streng-felt som
+    // før, kun redigeringen er strammet op (almind-dev#139-opfølgning).
+    const kendtType = !!m.type && MATERIALE_TYPER.includes(m.type);
+    const typeSelect = document.createElement("select");
+    typeSelect.appendChild(new Option("Type ...", "", false, !m.type));
+    MATERIALE_TYPER.forEach((t) => typeSelect.appendChild(new Option(t, t, false, m.type === t)));
+    typeSelect.appendChild(new Option("Andet ...", "andet", false, !!m.type && !kendtType));
+    const typeAndet = inputFelt(null, kendtType ? "" : (m.type || ""), "Anden type", (v) => (m.type = v));
+    typeAndet.hidden = kendtType || !m.type;
+    typeSelect.addEventListener("change", () => {
+      if (typeSelect.value === "andet") {
+        m.type = ""; typeAndet.value = ""; typeAndet.hidden = false; typeAndet.focus();
+      } else {
+        m.type = typeSelect.value; typeAndet.hidden = true;
+      }
+      gem();
+    });
+    raekke.appendChild(typeSelect);
+    raekke.appendChild(typeAndet);
+    // Legacy-felt (fund C): vises kun når allerede udfyldt — nye materialer får det ikke tilbudt
     if (m.faust) raekke.appendChild(inputFelt(null, m.faust, "Faust-nr.", (v) => (m.faust = v)));
     raekke.appendChild(sletKnap("Fjern materialet", onSlet));
     return raekke;
   }
 
   function nytMateriale() {
-    return { titel: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "", elev: false };
+    return { titel: "", forfatter: "", type: "", faust: "", url: "", materialetype: null, didaktisering: "", elev: false };
   }
 
   function tegnMaterialer() {

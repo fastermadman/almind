@@ -271,6 +271,8 @@ function materialeListe(materialer, tilstand) {
     a.href = renseUrl(m.url); a.target = "_blank"; a.rel = "noopener noreferrer";
     a.textContent = m.titel;
     li.appendChild(a);
+    // almind-dev#139: forfatter var før fanget i fritekst-note (fx "Adam O., 2025. ...")
+    if (m.forfatter) li.appendChild(tekstEl("span", "materiale-forfatter", " | " + m.forfatter));
     if (m.didaktisering) li.appendChild(tekstEl("div", "under", "Didaktisering: " + m.didaktisering));
     const type = medietype(m.url);
     if (type !== "link") {

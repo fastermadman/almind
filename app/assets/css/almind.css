@@ -1566,6 +1566,8 @@ a.tag:hover { outline: 1px solid var(--fagfarve, var(--border)); }
 /* Design-opfølgning 2026-07-24: materialets type som kort label før titlen —
    faust/materialetype er droppet fra visningen (dokument.js). */
 .materiale-type { font-family: var(--font-ui); font-weight: 600; color: var(--muted); }
+/* almind-dev#139: forfatter efter titlen, samme dæmpede vægt som typen */
+.materiale-forfatter { font-family: var(--font-ui); color: var(--muted); }
 
 /* ---------- #52: medie-rendering (billede/lyd/video/YouTube, click-to-load) ---------- */
 .medie-indlejring { margin-top: 0.6rem; }
