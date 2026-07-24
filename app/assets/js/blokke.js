@@ -164,7 +164,14 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
   let gemT = null;
   const gem = () => {
     clearTimeout(gemT);
-    gemT = setTimeout(() => { f.opdateret = iDag(); gemKladde(f); }, 250);
+    gemT = setTimeout(() => {
+      f.opdateret = iDag();
+      gemKladde(f);
+      // almind-dev#116: statuslinjen skal afspejle indtastning i elevfelter,
+      // ikke kun struktur-ændringer (ny/slettet fase) — opdaterStatuslinje()
+      // er billig (kun statuslinjens egen DOM-node), trygt at kalde her.
+      opdaterStatuslinje();
+    }, 250);
   };
 
   // ---------- småhjælpere ----------
@@ -425,7 +432,8 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const hoved = el("header", "fase-hoved");
     if (tilstand === "laerer") hoved.appendChild(haandtag());
     hoved.appendChild(el("span", "fase-nr", `Fase ${i + 1}`));
-    hoved.appendChild(inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v)));
+    const titelInput = inputFelt("fase-titel", fase.titel, "Fasens titel", (v) => (fase.titel = v));
+    hoved.appendChild(titelInput);
     // Beslutning fase-lektion-tidsestimat (almind-dev#117/#118, delvist omgjort
     // #128): varighed blandede tid og afvikling i én streng — splittet i
     // minutter (tal) og kontekst (fritekst: sted/rytme-afvigelse, ALDRIG "Dag
@@ -454,6 +462,14 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       inputFelt("fase-afvikling", fase.afvikling, "hvis andet end klassen: hvor?", (v) => (fase.afvikling = v)),
     );
     hoved.appendChild(tidWrap);
+    // almind-dev#116: titel/varighed er skelet-felter (delt af begge flader),
+    // men kun redigerbare fra lærer-tilstand — læse-kun i elev-tilstand i
+    // stedet for et BEGGE-mærke, som ville bryde fase-hovedets vandrette layout.
+    if (tilstand === "elev") {
+      titelInput.readOnly = true;
+      minInput.readOnly = true;
+      maxInput.readOnly = true;
+    }
     if (tilstand === "laerer") {
       hoved.appendChild(sletKnap("Slet fasen", () => {
         if (!confirm(`Slet fase ${i + 1}${fase.titel ? `: ${fase.titel}` : ""}?`)) return;
@@ -1241,7 +1257,13 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
     const total = f.faser.length;
     const linje = el("div", "elevmateriale-status" + (antal === 0 ? " tom" : ""));
     const ordFase = total === 1 ? "fase" : "faser";
-    linje.appendChild(el("span", null, `Elevmateriale: ${antal} af ${total} ${ordFase} har elevindhold`));
+    // almind-dev#116: statuslinjen er en invitation MED handling — klik skifter
+    // til Elevmateriale-fanen (samme redraw som fladeskifternes egne knapper).
+    const skiftKnap = el("button", "elevmateriale-status-knap",
+      `Elevmateriale: ${antal} af ${total} ${ordFase} har elevindhold`);
+    skiftKnap.type = "button";
+    skiftKnap.addEventListener("click", () => { tilstand = "elev"; tegnKanvas(); });
+    linje.appendChild(skiftKnap);
     const seKnap = el("button", "elevmateriale-se-knap", "Se som elev");
     seKnap.type = "button";
     seKnap.addEventListener("click", () => { gemKladde(f); location.href = "elev.html?kladde=1"; });
