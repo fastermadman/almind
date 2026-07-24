@@ -699,7 +699,12 @@ img, svg { display: block; max-width: 100%; }
    Bevidst egen komposition, adskilt fra fase-hoved-boksen (Valdemar:
    afvigelsen er ikke et problem — de to tjener forskellige formål,
    skimning vs. enkelt-fase-fokus). */
-.forloeb-oversigt ol {
+/* nav.forloeb-oversigt (ikke .forloeb-oversigt alene): .ark ol,.ark ul har
+   samme specificitet (0,0,1,1) og står senere i filen — uden tag-kvalifikeren
+   vandt DEN kampen om margin/padding, hvilket lagde 1.3rem margin + 1.2rem
+   padding oveni og skabte den ekstra, utilsigtede indrykning før kortene
+   (session-fund 2026-07-24: label og kort delte IKKE samme venstrekant). */
+nav.forloeb-oversigt ol {
   list-style: none; margin: 0; padding: 0;
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem 1.25rem;
 }
@@ -708,12 +713,17 @@ img, svg { display: block; max-width: 100%; }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-modal);
   padding: 0.8rem 1rem;
 }
-/* Fase N · sted · tid tæt sammen (mono, alle tre — sted er en kort
-   stedbetegnelse her, ikke lang prosa, jf. #128's oprindelige prosa-hensyn
-   som ikke gælder korte stedord). */
+/* Fase N (venstre) · sted (centreret) · tid (højre) — samme 3-kolonne
+   grid-mønster som .fase-hoved-meta i selve dokumentet (session-fund
+   2026-07-24: flex+space-between centrerede ikke sted reelt, kun de ydre
+   gaps var lige store, og layoutet flyttede sig hvis sted/tid manglede). */
 .fase-oversigt-rad {
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; column-gap: 0.6rem;
+  display: grid; grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+  align-items: baseline; column-gap: 0.6rem;
 }
+.fase-oversigt-rad .fase-nr { grid-column: 1; justify-self: start; white-space: nowrap; }
+.fase-oversigt-rad .fase-oversigt-sted { grid-column: 2; justify-self: center; }
+.fase-oversigt-rad .fase-varighed-badge { grid-column: 3; justify-self: end; }
 .fase-oversigt-sted { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 .forloeb-oversigt a {
   color: var(--ink); text-decoration: none; font-weight: 700; font-family: var(--font-logo); font-size: 1.05rem;
@@ -954,34 +964,50 @@ img, svg { display: block; max-width: 100%; }
   box-shadow: 0 14px 40px rgba(44, 36, 32, 0.09);
   font-size: 0.95rem;
 }
+/* Forsiden: samme "typografi og luft, ikke et nyt element"-princip som
+   resten af sitet (DESIGN.md) — kolofonen får mere rum til at åbne
+   dokumentet med, ikke nye farver/bokse/ikoner. Fagfarven er den ene
+   signatur (bundkant, som .kort's topkant), båret af typografisk vægt. */
 .ark-kolofon {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;
   border-bottom: 3px solid var(--fagfarve);
-  padding-bottom: 1.25rem; margin-bottom: 2rem;
+  padding: 0.5rem 0 1.75rem; margin-bottom: 2.5rem;
 }
 /* #123: flex-børn nægter som standard at krympe under deres min-content-bredde
    (min-width:auto) — uden dette presser en lang titel kolofonen (og dermed
-   viewport) bredere i stedet for at wrappe. */
-.ark-kolofon-tekst { min-width: 0; }
+   viewport) bredere i stedet for at wrappe. Maks-bredden holder titlen fra
+   at løbe helt ud til kanten, så dækningsgrad-prikkerne (flex-start, top-
+   alignet) står "på linje" med titlens begyndelse i stedet for trukket
+   ned under en lang, wrappet titel (session-fund 2026-07-24). */
+.ark-kolofon-tekst { min-width: 0; max-width: 44ch; }
 .ark-kolofon .ark-type {
-  font-family: var(--font-ui); font-weight: 600; font-size: 0.7rem;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fagtekst);
+  font-family: var(--font-ui); font-weight: 600; font-size: 0.75rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--fagtekst);
 }
 .ark-titel {
   font-family: var(--font-logo); font-weight: 700;
-  font-size: 1.75rem; line-height: 1.15; margin: 0.3rem 0 0.4rem;
+  font-size: 2.3rem; line-height: 1.08; margin: 0.5rem 0 0.6rem;
 }
 .ark-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
-.ark-dg { text-align: right; flex-shrink: 0; }
-.ark-dg .dg-linje { font-size: 0.78rem; font-family: var(--font-ui); color: var(--muted); white-space: nowrap; }
-.ark-dg .prikker { letter-spacing: 2px; font-size: 0.8rem; }
-.ark-dg .p-fuld { color: var(--typ-green); }
-.ark-dg .p-delvis { color: var(--typ-yellow); }
-.ark-dg .p-tom { color: #a8a09a; }
+/* Genbruger .dg-raekke/.dg-navn/.dg-prikker (samme grid-mønster som
+   sequence.html's dgProfil, komponenter.js) — fast label-bredde er det,
+   der får prikkerne til reelt at stå over hinanden; ren tekst-flow +
+   text-align:right (den gamle version) garanterer det ikke, fordi
+   labels har forskellig bredde ("Mål" vs. "Differentiering"). */
+/* Top-alignet med selve titlen, ikke eyebrowen ("LÆRERVEJLEDNING") —
+   flex-start alene fulgte tekstkolonnens top (eyebrowen), hvilket så
+   mærkeligt ud ved siden af den store titel (session-fund 2026-07-24). */
+.ark-dg { flex-shrink: 0; margin-top: 2rem; }
+.ark-dg .dg-raekke { grid-template-columns: 105px auto; justify-content: end; gap: 0.5rem; }
+.ark-dg .dg-navn { font-size: 0.78rem; text-align: right; color: var(--muted); }
+.ark-dg .dg-prikker { font-size: 0.8rem; letter-spacing: 2px; }
 
+/* Sektionsoverskrifter i dokumentet bruger forløbets EGEN fagfarve, ikke en
+   fast blå — en historisk rest fra før --fagfarve fandtes overalt. */
 .ark h2 {
   font-family: var(--font-logo); font-weight: 700; font-size: 1.15rem;
-  background: var(--typ-blue-bg); color: var(--typ-blue);
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 8%, var(--surface));
+  color: var(--fagfarve, var(--ink));
   padding: 0.5rem 0.8rem; border-radius: 4px;
   margin: 1.8rem 0 0.8rem;
   scroll-margin-top: 6.5rem; /* #51: fase-ankre under den sticky header (96px + luft) */
@@ -998,9 +1024,14 @@ img, svg { display: block; max-width: 100%; }
    er h2'ens søskende, ikke dens indhold, så print's string-set (#52) nu
    fanger den bare titel til sidehovedet. Genbruges af sequence.html via
    renderFaseHoved() (dokument.js) — én kilde, ingen drift (#22-mønsteret). */
+/* Samme fagfarve-rettelse som .ark h2 (session-fund 2026-07-24) — denne
+   boks brugte stadig en fast blå, overset i første omgang. Callout-farverne
+   (.callout-*) er UBERØRT — de er bevidst type-kodede (valg/obs/almind/…),
+   ikke fag-kodede, jf. DESIGN.md. */
 .fase-hoved-boks {
   display: flex; flex-direction: column; row-gap: 0.2rem;
-  background: var(--typ-blue-bg); border-radius: 4px;
+  background: color-mix(in srgb, var(--fagfarve, var(--muted)) 8%, var(--surface));
+  border-radius: 4px;
   padding: 0.5rem 0.8rem; margin: 1.8rem 0 0.8rem;
   scroll-margin-top: 6.5rem;
 }
@@ -1012,7 +1043,7 @@ img, svg { display: block; max-width: 100%; }
   background: none; padding: 0; margin: 0; border-radius: 0; scroll-margin-top: 0;
   order: 2; text-align: center;
   font-family: var(--font-logo); font-weight: 700; font-size: 1.15rem;
-  color: var(--typ-blue); text-transform: none; letter-spacing: normal;
+  color: var(--fagfarve, var(--ink)); text-transform: none; letter-spacing: normal;
 }
 .fase-hoved-meta {
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: start;

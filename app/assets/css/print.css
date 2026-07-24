@@ -77,6 +77,12 @@ body { margin: 0; background: #fff; }
 .ark p { orphans: 3; widows: 3; }
 .ark-kolofon { break-inside: avoid; break-after: avoid; }
 
+/* almind-dev#96: forsiden — kolofon + evt. beskrivelse/eksemplarisk centrum
+   + forløbsoversigt — får sin egen side i print. Fase 1 starter på side 2.
+   Ren pagineringsregel, intet nyt indhold: samme .ark, samme renderDokument,
+   preview.html (skærm, ingen sidebrud) er upåvirket. */
+.forloeb-oversigt { break-after: page; }
+
 /* ---------- Skærmvisning af de paginerede sider ---------- */
 @media screen {
   body { background: var(--bg); }

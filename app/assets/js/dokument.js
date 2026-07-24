@@ -307,21 +307,14 @@ export async function renderFagplanKobling(f) {
   if (!fagFil?.indholdsomraader) return null;
   const wrap = document.createElement("div");
   wrap.appendChild(tekstEl("p", "under", `${fagFil.navn} · fagplan ${f.fagplan_ref.version || fagFil.fagplan_version}`));
-  const ul = document.createElement("ul");
+  // Samme mønster som "Forfatterens position" (ekAfsnit: ek-label + prosa) —
+  // indholdsområdets navn er labelen, de valgte måls sigte-tekst er brødteksten.
   f.fagplan_ref.indholdsomraader.forEach((id) => {
     const omr = fagFil.indholdsomraader.find((o) => o.id === id);
     if (!omr) return;
-    const li = document.createElement("li");
-    li.appendChild(tekstEl("strong", null, omr.navn));
     const maal = (omr.maal || []).filter((m) => f.fagplan_ref.maal?.includes(m.id));
-    if (maal.length) {
-      const maalUl = document.createElement("ul");
-      maal.forEach((m) => maalUl.appendChild(tekstEl("li", null, m.sigte)));
-      li.appendChild(maalUl);
-    }
-    ul.appendChild(li);
+    wrap.appendChild(ekAfsnit(omr.navn, maal.map((m) => m.sigte).join(" ")));
   });
-  wrap.appendChild(ul);
   return wrap;
 }
 
@@ -377,18 +370,30 @@ export async function renderDokument(f, tilstand = "laerer") {
     const dg = document.createElement("div");
     dg.className = "ark-dg";
     dg.innerHTML = DIMENSIONER.map((dim) =>
-      `<div class="dg-linje">${DIM_NAVNE[dim]} <span class="prikker">${dgPrikker(f.daekningsgrad?.[dim] || "tom")}</span></div>`
+      `<div class="dg-raekke"><span class="dg-navn">${DIM_NAVNE[dim]}</span><span class="dg-prikker">${dgPrikker(f.daekningsgrad?.[dim] || "tom")}</span></div>`
     ).join("");
     dg.setAttribute("aria-label", "Didaktisk dækningsgradsprofil");
     kolofon.appendChild(dg);
   }
   ark.appendChild(kolofon);
 
+  const elevHarIndhold = tilstand === "elev" ? harElevIndhold(f) : true;
+
+  // Forsiden (almind-dev#96): kolofon + forløbsoversigt, ikke mere — "titel/
+  // metadata + forløbs-overblikket", jf. Valdemars egen præcisering. Beskrivelse
+  // og eksemplarisk centrum er læseflowets begyndelse, ikke forsiden — printet
+  // giver forsiden sin egen side (print.css: break-after på .forloeb-oversigt);
+  // for meget indhold her ville sprænge den over flere sider igen.
+  const oversigtVis = tilstand === "elev" ? elevHarIndhold : true;
+  if (oversigtVis) {
+    const oversigt = renderForloebsoversigt(f, tilstand);
+    if (oversigt) ark.appendChild(oversigt);
+  }
+
   // almind-dev#112: beskrivelse er lærervendt ("Din klasse skal ..."), elevintro
   // er elevens egen åbning — de to felter viser aldrig samtidig.
   if (tilstand === "laerer" && f.beskrivelse) ark.appendChild(tekstEl("p", null, f.beskrivelse));
 
-  const elevHarIndhold = tilstand === "elev" ? harElevIndhold(f) : true;
   if (tilstand === "elev" && !elevHarIndhold) {
     ark.appendChild(tekstEl("aside", "tom-tilstand",
       "Dette forløb har endnu ikke et elevmateriale. Din lærer fortæller jer, hvad der skal ske — eller også er du læreren: skriv elevversionen i editoren."));
@@ -408,12 +413,23 @@ export async function renderDokument(f, tilstand = "laerer") {
     if (f.eksemplarisk_centrum.alment) ark.appendChild(ekAfsnit("Det almene", f.eksemplarisk_centrum.alment));
   }
 
-  // Forløbsoversigt: roadmap lige før faserne, i begge tilstande (skelettet
-  // er delt — se elevmateriale-arkitektur-plan.md §2/§8.3).
-  const oversigtVis = tilstand === "elev" ? elevHarIndhold : true;
-  if (oversigtVis) {
-    const oversigt = renderForloebsoversigt(f, tilstand);
-    if (oversigt) ark.appendChild(oversigt);
+  // Forfatterens position + fagplan-kobling: flyttet op før faserne (session
+  // 2026-07-24, reverserer den tidligere "kolofon, ikke forside"-placering
+  // efter faser) — de hører til den samme åbnende ramme som eksemplarisk
+  // centrum: hvorfor og hvad forløbet er bygget på, læst FØR selve faserne,
+  // ikke som et efterskrift. "Bevidste fravalg" bliver bagest, urørt.
+  if (tilstand === "laerer" && (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn)) {
+    ark.appendChild(tekstEl("h2", null, "Forfatterens position"));
+    if (f.didaktisk_position.fagsyn) ark.appendChild(ekAfsnit("Fagsyn", f.didaktisk_position.fagsyn));
+    if (f.didaktisk_position.laeringssyn) ark.appendChild(ekAfsnit("Læringssyn", f.didaktisk_position.laeringssyn));
+  }
+
+  if (tilstand === "laerer" && f.fagplan_ref?.indholdsomraader?.length) {
+    const kobling = await renderFagplanKobling(f);
+    if (kobling) {
+      ark.appendChild(tekstEl("h2", null, "Fagplan-kobling"));
+      ark.appendChild(kobling);
+    }
   }
 
   // Maskinlæsbar profil: dramaturgi-delene beregnes nu som union af fase-tags
@@ -457,11 +473,9 @@ export async function renderDokument(f, tilstand = "laerer") {
     ark.appendChild(renderFaseIndhold(fase, tilstand));
   });
 
-  // Kolofon-udvidelser: fravalg, position, fagplan-kobling. Kun lærer-tilstand
-  // (teorivokabular er forfattersprog, Design Principle 4) — placeret her, EFTER
-  // faser, jf. Design Principle 1 ("dækningsgrad, fravalg ... er kolofon, ikke
-  // forside"): på sequence.html bor de i aside-panelerne ved siden af faserne;
-  // i det lineære dokument bliver "ved siden af" til "bagest".
+  // Bevidste fravalg: kun lærer-tilstand (teorivokabular er forfattersprog,
+  // Design Principle 4) — forbliver bagest (position + fagplan-kobling er
+  // flyttet op før faserne, se ovenfor).
   if (tilstand === "laerer" && f.fravalg?.length) {
     ark.appendChild(tekstEl("h2", null, "Bevidste fravalg"));
     const ul = document.createElement("ul");
@@ -472,20 +486,6 @@ export async function renderDokument(f, tilstand = "laerer") {
       ul.appendChild(li);
     });
     ark.appendChild(ul);
-  }
-
-  if (tilstand === "laerer" && (f.didaktisk_position?.fagsyn || f.didaktisk_position?.laeringssyn)) {
-    ark.appendChild(tekstEl("h2", null, "Forfatterens position"));
-    if (f.didaktisk_position.fagsyn) ark.appendChild(ekAfsnit("Fagsyn", f.didaktisk_position.fagsyn));
-    if (f.didaktisk_position.laeringssyn) ark.appendChild(ekAfsnit("Læringssyn", f.didaktisk_position.laeringssyn));
-  }
-
-  if (tilstand === "laerer" && f.fagplan_ref?.indholdsomraader?.length) {
-    const kobling = await renderFagplanKobling(f);
-    if (kobling) {
-      ark.appendChild(tekstEl("h2", null, "Fagplan-kobling"));
-      ark.appendChild(kobling);
-    }
   }
 
   if (tilstand === "laerer") {
