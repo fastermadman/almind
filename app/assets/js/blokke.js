@@ -10,7 +10,7 @@ import {
   hentManifest, hentDestillat, hentFagIndex, hentFag, gemKladde, gisselMaterialetyper,
   hentBegreber, begrebMatchNoegle, treklangKendetegn, treklangLinje,
 } from "./data.js";
-import { PROFIL_GRUPPER, FASE_PROFIL, klasseValgFor, kildeIkon } from "./wizard.js";
+import { PROFIL_GRUPPER, FASE_PROFIL, klasseValgFor, kildeIkon, trinforloebForKlassetrin } from "./wizard.js";
 import { GREB_KATALOG } from "./greb-katalog.js";
 import { harElevIndhold, harElevIndholdFase } from "./dokument.js";
 
@@ -1028,6 +1028,41 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
       const omraader = new Set(f.fagplan_ref.indholdsomraader);
       const c = el("div", "chips");
       c.setAttribute("role", "group");
+
+      // almind-dev#114: mål-chips under deres eget indholdsområde, filtreret
+      // til forløbets eget trinforløb — samme mønster som wizard.js's trin C.
+      const maalSet = new Set(f.fagplan_ref.maal);
+      const maalWrap = el("div", "fagplan-maal-omraader");
+      const trinforloebId = trinforloebForKlassetrin(fagFil, f.klassetrin);
+      function tegnMaal() {
+        maalWrap.innerHTML = "";
+        fagFil.indholdsomraader.forEach((omr) => {
+          if (!omraader.has(omr.id)) return;
+          const maal = trinforloebId
+            ? (omr.maal || []).filter((m) => m.trinforloeb === trinforloebId)
+            : [];
+          if (!maal.length) return;
+          const gruppe = el("div", "fagplan-maal-gruppe");
+          gruppe.appendChild(el("span", "under", `Mål — ${omr.navn}`));
+          const mc = el("div", "chips");
+          mc.setAttribute("role", "group");
+          maal.forEach((m) => {
+            const mb = el("button", "chip", m.sigte);
+            mb.type = "button";
+            mb.setAttribute("aria-pressed", String(maalSet.has(m.id)));
+            mb.addEventListener("click", () => {
+              maalSet.has(m.id) ? maalSet.delete(m.id) : maalSet.add(m.id);
+              mb.setAttribute("aria-pressed", String(maalSet.has(m.id)));
+              f.fagplan_ref.maal = [...maalSet];
+              gem();
+            });
+            mc.appendChild(mb);
+          });
+          gruppe.appendChild(mc);
+          maalWrap.appendChild(gruppe);
+        });
+      }
+
       fagFil.indholdsomraader.forEach((omr) => {
         const b = el("button", "chip", omr.navn);
         b.type = "button";
@@ -1039,12 +1074,16 @@ export async function startEditor({ kanvas, panel, f, fokusDimension = null }) {
           f.fagplan_ref.indholdsomraader = [...omraader];
           f.fagplan_ref.version = fagFil.fagplan_version;
           gem();
+          tegnMaal();
         });
         c.appendChild(b);
       });
-      grp.appendChild(feltMedLabel(
+      tegnMaal();
+      const koblingFelt = feltMedLabel(
         `Hvilke indholdsområder i ${fagFil.navn} åbner forløbet?`,
-        `fagplan ${fagFil.fagplan_version} — koblingen pinnes til denne version`, c));
+        `fagplan ${fagFil.fagplan_version} — koblingen pinnes til denne version`, c);
+      koblingFelt.appendChild(maalWrap);
+      grp.appendChild(koblingFelt);
     }
 
     // W4/#58: treklangen som legitimerings-gave — samme felt som wizard-trin C,

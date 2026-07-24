@@ -776,6 +776,9 @@ img, svg { display: block; max-width: 100%; }
 .chip[aria-pressed="true"] {
   background: var(--accent); color: var(--bg); border-color: var(--accent);
 }
+/* almind-dev#114: mål-chips grupperet under deres eget indholdsområde */
+.fagplan-maal-gruppe { margin-top: 0.7rem; }
+.fagplan-maal-gruppe .chip { font-size: 0.82rem; text-align: left; }
 /* Segmentet er tegnet som ÉN sammenhængende kapsel (border-radius + overflow:
    hidden på ydersiden, ikke pr. knap) — når 3 knapper ikke kan være på én
    linje, brækkede den 3. før ned på sin egen række og ødelagde kapsel-formen.

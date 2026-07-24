@@ -158,6 +158,22 @@ export async function klasseValgFor(fagId) {
   }
 }
 
+// almind-dev#114: klasseValgFor's spejlvending — givet ÉT klassetrin ("8. klasse"),
+// find hvilket trinforløb-id det hører til, så mål kan slås op og vises som
+// chips (fagfilerne indekserer mål pr. trinforløb, ikke pr. klassetrin). Samme
+// tal-parsing og Børnehaveklassen-særtilfælde som klasseValgFor (#68).
+export function trinforloebForKlassetrin(fagFil, klassetrin) {
+  const tal = Number((klassetrin || "").match(/(\d+)/)?.[1]);
+  if (Number.isNaN(tal)) return null;
+  const trinforloeb = fagFil?.trinforloeb || [];
+  for (const t of trinforloeb) {
+    if (tal === 0 && /børnehaveklassen/i.test(t.udtryk)) return t.id;
+    const nums = [...t.udtryk.matchAll(/(\d+)\./g)].map((m) => Number(m[1]));
+    if (nums.length && tal >= Math.min(...nums) && tal <= Math.max(...nums)) return t.id;
+  }
+  return null;
+}
+
 // original/startDimension er fjernet (fund C — døde parametre, ingen kalder
 // dem; fork-med-dimension ejes af editor-vejen rediger.html?fork=&dimension=).
 // prefill (arkitektur 2.1 + taksonomi-shape D3): { fag?, omraade? } — aldrig
@@ -178,7 +194,7 @@ export async function startWizard({ rod, prefill = {} }) {
     fravalg: [],
     position: { fagsyn: "", laeringssyn: "" },
     kobling: {
-      omraader: new Set(), materialer: [], samspilForm: "", samspilFag: new Set(),
+      omraader: new Set(), maal: new Set(), materialer: [], samspilForm: "", samspilFag: new Set(),
     },
     treklang: { kendetegn: new Set(), hvordan: "" }, // W4/#58: legitimerings-gaven, trin C
   };
@@ -730,6 +746,49 @@ export async function startWizard({ rod, prefill = {} }) {
       const c = document.createElement("div");
       c.className = "chips";
       c.setAttribute("role", "group");
+
+      // almind-dev#114: mål vises kun under deres eget indholdsområde (Bilag
+      // 1's regel, håndhævet strukturelt) og kun for forløbets eget trinforløb
+      // — aldrig som fri liste. Gentegnes ved hver omraade-toggle.
+      const maalWrap = document.createElement("div");
+      maalWrap.className = "fagplan-maal-omraader";
+      const trinforloebId = trinforloebForKlassetrin(fagFil, g.klassetrin);
+      function tegnMaal() {
+        maalWrap.innerHTML = "";
+        fagFil.indholdsomraader.forEach((omr) => {
+          if (!state.kobling.omraader.has(omr.id)) return;
+          const maal = trinforloebId
+            ? (omr.maal || []).filter((m) => m.trinforloeb === trinforloebId)
+            : [];
+          if (!maal.length) return;
+          const gruppe = document.createElement("div");
+          gruppe.className = "fagplan-maal-gruppe";
+          const label = document.createElement("span");
+          label.className = "under";
+          label.textContent = `Mål — ${omr.navn}`;
+          gruppe.appendChild(label);
+          const mc = document.createElement("div");
+          mc.className = "chips";
+          mc.setAttribute("role", "group");
+          maal.forEach((m) => {
+            const mb = document.createElement("button");
+            mb.type = "button";
+            mb.className = "chip";
+            mb.textContent = m.sigte;
+            mb.setAttribute("aria-pressed", String(state.kobling.maal.has(m.id)));
+            mb.addEventListener("click", () => {
+              state.kobling.maal.has(m.id)
+                ? state.kobling.maal.delete(m.id)
+                : state.kobling.maal.add(m.id);
+              mb.setAttribute("aria-pressed", String(state.kobling.maal.has(m.id)));
+            });
+            mc.appendChild(mb);
+          });
+          gruppe.appendChild(mc);
+          maalWrap.appendChild(gruppe);
+        });
+      }
+
       fagFil.indholdsomraader.forEach((omr) => {
         const b = document.createElement("button");
         b.type = "button";
@@ -742,10 +801,13 @@ export async function startWizard({ rod, prefill = {} }) {
             ? state.kobling.omraader.delete(omr.id)
             : state.kobling.omraader.add(omr.id);
           b.setAttribute("aria-pressed", String(state.kobling.omraader.has(omr.id)));
+          tegnMaal();
         });
         c.appendChild(b);
       });
       felt.appendChild(c);
+      tegnMaal();
+      felt.appendChild(maalWrap);
       rod.appendChild(felt);
     }
 
@@ -980,7 +1042,7 @@ export async function startWizard({ rod, prefill = {} }) {
       fagplan_ref = {
         version: fagFil?.fagplan_version || null,
         indholdsomraader: [...state.kobling.omraader],
-        maal: [],
+        maal: [...state.kobling.maal],
       };
     }
 
